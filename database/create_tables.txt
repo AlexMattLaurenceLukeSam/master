@@ -1,0 +1,113 @@
+USE csci222;
+
+CREATE TABLE `UserType` (
+	`userID` int NOT NULL,
+	`confID` int NOT NULL,
+	`userType` ENUM('author', 'pc', 'chair') NOT NULL DEFAULT 'author',
+	`paidAmount` float NOT NULL DEFAULT 0,
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `UserAccount` (
+	`userID` int NOT NULL AUTO_INCREMENT,
+	`username` varchar(32) NOT NULL,
+	`password` varchar(32) NOT NULL,
+	`infoID` int NOT NULL,
+	PRIMARY KEY(`userID`),
+	FOREIGN KEY(`infoID`) REFERENCES PersonalInfo(`infoID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `PersonalInfo` (
+	`infoID` int NOT NULL AUTO_INCREMENT,
+	`userID` int NOT NULL,
+	`name` varchar(128) NOT NULL,
+	`email` varchar(64),
+	`organisation` varchar(256) NOT NULL,
+	`phone` varchar(32), 
+	PRIMARY KEY(`infoID`),
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `Emails` (
+	`emailID` int NOT NULL AUTO_INCREMENT,
+	`userID` int NOT NULL,
+	`confID` int NOT NULL,
+	`emailType` ENUM(`invitation`),
+	PRIMARY KEY(`emailID`),
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `ExpertiseArea` (
+	`userID` int NOT NULL,
+	`areaExpertise`,
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `Conference` (
+	`confID` int NOT NULL AUTO_INCREMENT,
+	`name` varchar(256) NOT NULL,
+	`topic` varchar(512) NOT NULL,
+	`description` varchar(4096) NOT NULL,
+	`location` varchar(256) NOT NULL,
+	`endDate` datetime,
+	`endDateBool` bool,
+	`paperDeadline` datetime,
+	`paperDeadlineBool` bool,
+	`reviewDeadlineSoft` datetime,
+	`reviewDeadlineSoftBool` bool,
+	`reviewDeadlineHard` datetime,
+	`reviewDeadlineHardBool` bool,
+	`discussDeadline` datetime,
+	`discussDeadlineBool` bool,
+	`reviewersPerPaper` int,
+	PRIMARY KEY(`conf_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `Paper` (
+	`paperID` int NOT NULL AUTO_INCREMENT,
+	`confID` int NOT NULL,
+	`paper` blob NOT NULL,
+	PRIMARY KEY(`paperID`),
+	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `paperAuthors` (
+	`paperID` int NOT NULL,
+	`authorID` int NOT NULL,
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `PaperKeywords` (
+	`paperID` int NOT NULL,
+	`keyword` varchar(64) NOT NULL,
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `Review` (
+	`reportID` int NOT NULL AUTO_INCREMENT,
+	`paperID` int NOT NULL,
+	`authorID` int NOT NULL,
+	`reviewerID` int NOT NULL,
+	`overall` int,
+	`confidence` int,
+	`relevance` int,
+	`originality` int,
+	`significance` int,
+	`presentation` int,
+	`techQuality` int,
+	`evaluation` int,
+	`commentsStrength` varchar(4096),
+	`commentsWeakness` varchar(4096),
+	`commentsSuggestions` varchar(4096),
+	`commentsShortPaper` varchar(4096),
+	`commentsBestAward` varchar(4096),
+	`authorRebuttal` varchar(4096),
+	PRIMARY KEY(`report_id`),
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+	FOREIGN KEY(`authorID`) REFERENCES UserType(`userID`)
+	FOREIGN KEY(`reviewerID`) REFERENCES UserType(`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+
