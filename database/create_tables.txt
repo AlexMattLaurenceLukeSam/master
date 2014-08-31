@@ -58,6 +58,7 @@ CREATE TABLE `Conference` (
 	`topic` varchar(512) NOT NULL,
 	`description` varchar(4096) NOT NULL,
 	`location` varchar(256) NOT NULL,
+	`active` boolean NOT NULL DEFAULT 1,
 	`paperDeadline` datetime,
 	`paperDeadlineBool` bool,
 	`reviewDeadlineSoft` datetime,
