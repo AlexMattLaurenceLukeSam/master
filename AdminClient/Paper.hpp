@@ -8,7 +8,7 @@
 
 Struct Paper {
 
-    Paper() { discussion = std::unique_ptr<Discussion>(new Discussion);}
+    Paper() { *discussion = new Discussion;}
     Paper(const std::string& ititle,
       const std::string& iabstract,
       const std::vector<string>& iauthorNames,
@@ -24,14 +24,15 @@ Struct Paper {
       fname(ifname),
       paper(ipaper), // constructs from cstring
       reviews(ireviews)
-      {discussion = std::unique_ptr<Discussion>(new Discussion);}
-
+      {*discussion = new Discussion;}
+    ~Paper() {delete discussion;}
+    // no assignment operator or copy constructor deemed necessary at this point
     std::string title;
     std::string abstract;
     std::vector<std::string> authorNames;
     std::vector<std::string> keywords;
     std::string fname;
     std::fstream paper;
-    std::unique_ptr<Discussion> discussion;
+    Discussion* discussion;
     std::vector<review> reviews;
 };

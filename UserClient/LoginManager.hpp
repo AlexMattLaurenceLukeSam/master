@@ -9,7 +9,12 @@ Class LoginManager {
                conferences(iconferences),
                activeConference(iactiveConference) // potentially useful for logging back into the conference they were last in
                { }
-
+  ~LoginManager() {
+  for (unsigned i=0; i < conferences.size(); i++) {
+    delete conferences[i];
+  }
+}
+// no other constructors deemed necessary at this point
   Conference* getActiveConference() {return activeConference;}
   std::vector<Conference> getConferences() {return conferences;}
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}

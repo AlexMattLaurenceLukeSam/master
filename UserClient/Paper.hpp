@@ -1,4 +1,3 @@
-//incomplete
 #include "Discussion.hpp"
 
 #include <fstream>
@@ -7,7 +6,6 @@
 Class Paper {
   public:
     Paper() { *discussion = new Discussion;}
-    ~Paper() {delete discussion;}
     Paper(const std::string& ititle,
       const std::string& iabstract,
       const std::vector<string>& iauthorNames,
@@ -23,6 +21,7 @@ Class Paper {
       paper(ipaper) // constructs from cstring
       {*discussion = new Discussion;} // Means you can't initialize with a discussion, but that seems to be a hairy area anyway
       // In those edge cases one could still initialize then set or use copy constructor
+    ~Paper() {delete discussion;}
 /*    Paper(const Paper& ipaper) {
       title = ipaper.title;
       abstract = ipaper.abstract;
@@ -41,6 +40,7 @@ Class Paper {
       paper = ipaper.paper;
     }  */
 
+// assignment operator or copy constructor deemed not needed at this time
 
     std::string getTitle() {return title;}
     std::string getAbstract() {return abstract;}
