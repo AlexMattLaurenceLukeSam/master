@@ -1,15 +1,21 @@
 #include <string>
 
 Class SuperUser {
-  public:
+public:
   SuperUser(const std::string& iuserName,
     const std::string& ipassword) :
     userName(iuserName),
     password(ipassword)
     { }
-  std::string userName;
+
+
+  void view()
+  changeDetails()
   void getPassword(return password;)
   setPassword(const std::string& ipassword) {password = ipassword;}
-  private:
+
+  std::string userName;
+
+private:
   std::string password;
 };

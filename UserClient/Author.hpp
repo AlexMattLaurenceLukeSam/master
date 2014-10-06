@@ -23,6 +23,12 @@ Class Author : public User {
          ownPapers(iownPapers)
          { }
     virtual void view();
+    getPapers()
+    submitPaper()
+    modifyPaper()
+    submitRebuttal()
+
+
     std::vector<std::string> keywords;
 
   protected:

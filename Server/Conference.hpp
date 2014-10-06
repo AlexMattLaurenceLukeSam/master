@@ -1,6 +1,4 @@
-//incomplete
-#include "AdminClient/Date.hpp"
-
+#include "Date.hpp"
 
 #include <string>
 #include <vector>
@@ -43,7 +41,8 @@ Struct Conference {
   postWordLimit(ipostWordLimit)
   { }
 
-  std::vector<std::string> searchForKWords(std::string)
+  checkDeadlines()
+  allocatePapers()
 
   bool isActive;
   std::string title;

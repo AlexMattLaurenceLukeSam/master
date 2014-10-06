@@ -28,6 +28,14 @@ Class Reviewer : public Author {
       reviews(ireviews)
       { }
     void view();
+    getPapersToReview()
+    submitReview()
+    editReview()
+    bidOnPaper()
+    modifyPaper()
+    viewDiscussion()
+    addDiscussion()
+
     std::vector<Paper> getAllocatedPapers() {return allocatedPapers;}
     std::vector<Paper> getPapersToBid() {return papersToBid;}
     std::vector<Review> getReviews() {return reviews;}
@@ -36,6 +44,9 @@ Class Reviewer : public Author {
     void setReviews(const std::vector<Review>& ireviews) {reviews = ireviews;}
 
   private:
+    Paper* getPaperByTitle(std::string) // helper
+    Paper* getPaperByIndex(int) // helper
+
     std::vector<Paper> allocatedPapers;
     std::vector<Paper> papersToBid;
     std::vector<Review> reviews;

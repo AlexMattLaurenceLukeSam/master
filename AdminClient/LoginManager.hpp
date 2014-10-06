@@ -3,4 +3,6 @@ Struct LoginManager {
     loggedIn(iloggedIn)
     { }
   bool loggedIn;
+  bool login(std::string, std::string)
+  logout()
 };

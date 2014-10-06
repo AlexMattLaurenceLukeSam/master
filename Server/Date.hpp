@@ -7,7 +7,7 @@ Struct Date {
     year(iyear)
     { }
 
-  bool compare(Data)
+bool compare(Data)
 
 int day{0};
 int month{0};

@@ -1,11 +1,10 @@
 #include "Date.hpp"
 
-
 #include <string>
 #include <vector>
 
 Struct Conference {
-  Review(bool iisActive,
+  Conference(bool iisActive,
   const std::string& ititle,
   const std::string& iconfID,
   const std::string& itopic,

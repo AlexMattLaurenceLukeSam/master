@@ -17,6 +17,8 @@ Class User {
          userID(iuserID)
          { }
     virtual void view() = 0;
+    modifyDetails()
+    viewConferenceDetails()
     std::string getUserID() {return userID;}
     std::string getPassword() {return password;}
     std::string getName() {return name;}

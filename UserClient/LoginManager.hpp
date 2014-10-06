@@ -1,5 +1,6 @@
 //incomplete
 #include "Conference.hpp"
+
 Class LoginManager {
   public:
   LoginManager(bool iloggedIn,
@@ -15,6 +16,11 @@ Class LoginManager {
   }
 }
 // no other constructors deemed necessary at this point
+  bool login(std::string, std::string)
+  logout()
+  createAccount()
+  listConferences()
+  viewActiveConfDetails()
   Conference* getActiveConference() {return activeConference;}
   std::vector<Conference> getConferences() {return conferences;}
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}
