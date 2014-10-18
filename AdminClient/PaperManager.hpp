@@ -6,11 +6,11 @@ Struct PaperManager {
   PaperManager() {temp = NULL;}
   PaperManager(Paper* itemp) : temp(itemp) { }
   ~PaperManager() {delete temp;}
-  createPaper()
-  removePaper()
-  listPapers()
-  viewPaper()
-  editPaper()
+  void createPaper()
+  void removePaper()
+  void listPapers()
+  void viewPaper()
+  void editPaper()
 
   Paper* temp;
 private:
