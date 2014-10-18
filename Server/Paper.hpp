@@ -1,4 +1,7 @@
 //incomplete
+#ifndef PAPER_H
+#define PAPER_H
+
 #include "Discussion.hpp"
 #include "Review.hpp"
 
@@ -36,3 +39,4 @@ Struct Paper {
     Discussion* discussion;
     std::vector<Review> reviews;
 };
+#endif
