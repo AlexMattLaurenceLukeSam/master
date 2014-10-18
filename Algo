@@ -1,0 +1,152 @@
+Algo:
+
+struct Reviewer
+{
+	int score;
+	int reviewerID;
+};
+
+Class PaperForReview
+{
+	private:
+		int paperID;
+
+
+		Reviewer[numOfReqReviewrs];
+
+		std::vector<int> authors;
+		std::vector<int> involvedOrganisation;
+		std::vector<int> conflictingReviewers;
+	public:
+		PapersForReview(int);
+		~PapersForReview();
+		int getMinScore();
+		void setNewReviewer(int, int);
+		void checkNewReviewer(int, int);
+		void addAuthor(int);
+		void conflictingReviewers();
+};
+
+void PaperForReview::checkNewReviewer(int newScore, int newReviewerID)
+{
+	if(getMinScore() < newscore)
+	{
+		//Set New Reviewer
+		setNewReviewer(newScore, newReviewerID);
+		
+	}
+}
+
+int PaperForReview::getMinScore()
+{
+	int minScore = -1;
+	for(int i=0; i< NumOfReqReviewrs; i++)
+	{
+		if(Reviewer[i].score < minScore)
+			minScore = Reviewer[i].score;
+	}
+	return i
+}
+
+void setNewReviewer(int newScore, int newReviewer)
+{
+
+	minScore = getMinScore();
+	for(int i=0; i< NumOfReqReviewrs; i++)
+	{
+		if(Reviewer[i].score < minScore)
+		{
+			Reviewer[i].score = newScore;
+			Reviewer[i].reviewerID =  newReviewer;
+			i=  NumOfReqReviewrs;
+		}
+	}
+
+}
+
+PaperForReview::~PaperForReview()
+{
+
+}
+
+PaperForReview::PaperForReview(int newPaperID)
+{
+	paperID = newPaperID
+	
+	for(int i=0; i< NumOfReqReviewrs; i++)
+	{
+		Reviewer[i].score = -1;
+	}
+}
+
+
+void PaperForReview::addAuthor(int newAuthor)
+{
+	authors.pushBack(newAuthor);
+}
+
+//TODO
+void  PaperForReview::conflictingReviewers
+{
+	//authors
+		//pushBackAllAuthors
+
+	//usersFromSameOrganisation
+		//ForEachAuthor:   SelectOrganisation
+			//SelectAllUsersFromEachOrganisation
+				//PushBack^
+
+	//pastCoAuthors
+		//ForEachAuthor:   selectAllPapers in temp
+			//Select All authors for each paper in temp
+				//pushBack^
+}
+
+
+
+std::map<PaperForReview*, int> allPapers; //Key is paper ID *** NEEDS TO BE DELETED***
+void readInAllPapers();
+
+//TODO
+
+void readInAllPapers()
+{
+	// select all papers
+	// push new PaperForReview objects into the map
+
+	// select all Authors where paper==paperID
+		//addAuthors to paper
+
+	// select organisation for each author
+		//add involved organisation
+
+}
+
+
+
+
+
+int caclculateScore(int userID, int paperID)
+{
+	int score = 1;
+
+	//for each keyword match
+		// ++ score
+
+	return score;
+
+}
+
+
+//TODO
+//for each paper
+	//IfUserID not in  conflictingReviewers
+		//if(isYES())
+			//calculate score * (isYES()*1000)
+				//checkNewReviewer
+			//elseif(isMAYBE)
+				//calculate score * (isMAYBE()*100)
+				//checkNewReviewer
+			//else
+				//calculate score
+				//checkNewReviewer
