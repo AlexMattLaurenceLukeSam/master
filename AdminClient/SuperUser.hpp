@@ -12,9 +12,9 @@ public:
 
 
   void view()
-  changeDetails()
+  void changeDetails()
   void getPassword(return password;)
-  setPassword(const std::string& ipassword) {password = ipassword;}
+  void setPassword(const std::string& ipassword) {password = ipassword;}
 
   std::string userName;
 
