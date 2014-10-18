@@ -33,5 +33,6 @@ class PCChair : public User {
   PaperSummary* getPaperById(int)
   std::vector<PaperSummary> allPapers;
   Paper currentPaper;
+  Conference* activeConference;
 };
 #endif
