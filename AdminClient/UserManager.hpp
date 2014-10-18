@@ -1,3 +1,5 @@
+#ifndef USER_MANAGER_H
+#define USER_MANAGER_H
 #include "User.hpp"
 
 Struct UserManager {
@@ -12,3 +14,4 @@ Struct UserManager {
   editUser()
 
 };
+#endif
