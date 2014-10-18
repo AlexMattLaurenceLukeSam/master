@@ -30,7 +30,7 @@ Struct Paper {
       {*discussion = new Discussion;}
     ~Paper() {delete discussion;}
     // no assignment operator or copy constructor deemed necessary at this point
-    downloadPaper()
+    void downloadPaper()
 
     std::string title;
     std::string abstract;
