@@ -1,3 +1,5 @@
+#ifndef DISCUSSION_POST_H
+#define DISCUSSION_POST_H
 #include <string>
 
 Struct DiscussionPost {
@@ -12,3 +14,4 @@ Struct DiscussionPost {
   std::string reviewerUName;
   int postID;
 };
+#endif
