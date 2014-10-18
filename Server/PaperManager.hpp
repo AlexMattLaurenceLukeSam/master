@@ -8,17 +8,17 @@ Struct PaperManager {
   ~PaperManager() {delete temp;}
   Paper* temp;
 
-  addPaper()
-  modifyPaper(int)
+  void addPaper()
+  void modifyPaper(int)
   bool deleteDiscPost(int)
-  modifyDiscPost(int)
+  void modifyDiscPost(int)
   bool deleteReview(int)
-  modifyReview(int)
+  void modifyReview(int)
   bool deletePaper(int)
-  sendPaper()
-  sendPaperBatch(int)
-  sendAuthoredPaper(int)
-  sendPapersToReview(int)
+  void sendPaper()
+  void sendPaperBatch(int)
+  void sendAuthoredPaper(int)
+  void sendPapersToReview(int)
 
 private:
   fetchPaper(int)
