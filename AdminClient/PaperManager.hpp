@@ -14,13 +14,13 @@ Struct PaperManager {
 
   Paper* temp;
 private:
-  viewDiscussion()
-  addDiscPost()
-  removeDiscPost()
-  editDiscPost()
-  addReview()
-  listReviews()
-  editReview()
-  removeReview()
+  void viewDiscussion()
+  void addDiscPost()
+  void removeDiscPost()
+  void editDiscPost()
+  void addReview()
+  void listReviews()
+  void editReview()
+  void removeReview()
 };
 #endif
