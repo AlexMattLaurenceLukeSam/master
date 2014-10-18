@@ -26,10 +26,10 @@ Class Author : public User {
          ownPapers(iownPapers)
          { }
     virtual void view();
-    getPapers()
-    submitPaper()
-    modifyPaper()
-    submitRebuttal()
+    void getPapers()
+    void submitPaper()
+    void modifyPaper()
+    void submitRebuttal()
 
 
     std::vector<std::string> keywords;
