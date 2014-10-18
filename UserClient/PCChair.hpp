@@ -13,14 +13,14 @@ Class PCChair : public User {
   std::vector<Paper> getAllPapers() {return allPapers;}
   void setAllPapers(const std::vector<Paper>& iallPapers) {allPapers = iallPapers;}
   void view();
-  removeReviewer()
+  void removeReviewer()
   bool removeReviewerByName(std::string)
-  editConfDetails()
-  setConfDeadlines()
-  setConfKWords()
+  void editConfDetails()
+  void setConfDeadlines()
+  void setConfKWords()
   getAvgScoreForPaper()
-  acceptOrRejectPaper()
-  addReviewerToConf()
+  void acceptOrRejectPaper()
+  void addReviewerToConf()
 
   private:
   Paper* getPaperByTitle(std::string)
