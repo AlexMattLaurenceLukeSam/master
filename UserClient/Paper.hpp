@@ -58,7 +58,7 @@ Class Paper {
     void setKeywords(const std::vector<std::string>& ikeywords) {keywords = ikeywords;}
     void setFname(const std::fstream& ipaper) {paper = ipaper;}
     void setDiscussion(Discussion* idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
-    downloadPaper()
+    void downloadPaper()
 
   private:
     std::string title;
