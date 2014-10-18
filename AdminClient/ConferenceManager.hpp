@@ -7,12 +7,12 @@ Struct ConferenceManager {
   ConferenceManager(Conference* itemp) : temp(itemp) { }
   ~ConferenceManager() {delete temp;}
 
-  createConference()
-  removeConference()
-  listConferences()
-  viewConference()
-  editConference()
-  addKWords()
+  void createConference()
+  void removeConference()
+  void listConferences()
+  void viewConference()
+  void editConference()
+  void addKWords()
 
   Conference* temp;
 
