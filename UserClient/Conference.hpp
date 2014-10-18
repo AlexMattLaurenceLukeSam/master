@@ -2,7 +2,7 @@
 #ifndef CONFERENCE_H
 #define CONFERENCE_H
 
-#include "AdminClient/Date.hpp"
+#include "Date.hpp"
 
 
 #include <string>
