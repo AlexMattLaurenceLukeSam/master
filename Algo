@@ -1,5 +1,7 @@
 Algo:
 
+Algo:
+
 struct Reviewer
 {
 	int score;
@@ -16,7 +18,7 @@ Class PaperForReview
 
 		std::vector<int> authors;
 		std::vector<int> involvedOrganisation;
-		std::vector<int> conflictingReviewers;
+		std::vector<int> conflictingReviewersVec;
 	public:
 		PapersForReview(int);
 		~PapersForReview();
@@ -89,7 +91,8 @@ void PaperForReview::addAuthor(int newAuthor)
 void  PaperForReview::conflictingReviewers
 {
 	//authors
-		//pushBackAllAuthors
+		conflictingReviewers.insert(conflictingReviewers.end(), authors.begin(), authors.end());
+
 
 	//usersFromSameOrganisation
 		//ForEachAuthor:   SelectOrganisation
@@ -111,14 +114,16 @@ void readInAllPapers();
 
 void readInAllPapers()
 {
-	// select all papers
-	// push new PaperForReview objects into the map
+	// for all papers
+		//create new paers object
 
-	// select all Authors where paper==paperID
-		//addAuthors to paper
+		// select all Authors where paper==paperID
+			//addAuthors to paper
 
-	// select organisation for each author
-		//add involved organisation
+		// select organisation for each author
+			//add involved organisation
+
+		// push new PaperForReview objects into the map
 
 }
 
