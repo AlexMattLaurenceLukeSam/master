@@ -44,8 +44,8 @@ Struct Conference {
   postWordLimit(ipostWordLimit)
   { }
 
-  checkDeadlines()
-  allocatePapers()
+  void checkDeadlines()
+  void allocatePapers()
 
   bool isActive;
   std::string title;
