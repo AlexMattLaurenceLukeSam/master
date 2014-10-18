@@ -24,7 +24,7 @@ Class PCChair : public User {
 
   private:
   Paper* getPaperByTitle(std::string)
-  std::vector<std::string> allPapers;
+  std::vector<Paper> allPapers;
 
 };
 #endif
