@@ -1,3 +1,6 @@
+#ifndef PAPER_H
+#define PAPER_H
+
 #include "Discussion.hpp"
 
 #include <fstream>
@@ -66,3 +69,4 @@ Class Paper {
     std::fstream paper;
     Discussion* discussion;
 };
+#endif
