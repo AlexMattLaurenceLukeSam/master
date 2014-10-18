@@ -1,4 +1,7 @@
 //incomplete
+#ifndef LOGIN_MANAGER_H
+#define LOGIN_MANAGER_H
+
 #include "Conference.hpp"
 
 Class LoginManager {
@@ -31,3 +34,4 @@ Class LoginManager {
   std::vector<Conference> conferences;
   Conference* activeConference;
 };
+#endif
