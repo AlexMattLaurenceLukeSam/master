@@ -8,11 +8,11 @@ Struct UserManager {
   UserManager(User* itemp) : temp(itemp) { }
   ~UserManager() { delete temp;}
   User* temp;
-  addUser()
-  modifyUser()
+  void addUser()
+  void modifyUser()
   bool deleteUser(int)
-  sendUser()
-  sendUserBatch()
+  void sendUser()
+  void sendUserBatch()
   bool fetchUser(std::string, std::string)
 
 
