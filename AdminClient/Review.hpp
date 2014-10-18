@@ -1,3 +1,5 @@
+#ifndef REVIEW_H
+#define REVIEW_H
 #include <string>
 
 Struct Review {
@@ -48,3 +50,4 @@ Struct Review {
   std::string commentsBestAward;
 
 };
+#endif
