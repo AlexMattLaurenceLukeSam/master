@@ -18,7 +18,7 @@ Class PCChair : public User {
   void editConfDetails()
   void setConfDeadlines()
   void setConfKWords()
-  getAvgScoreForPaper()
+  int getAvgScoreForPaper()
   void acceptOrRejectPaper()
   void addReviewerToConf()
 
