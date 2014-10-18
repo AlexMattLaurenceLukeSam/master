@@ -1,3 +1,5 @@
+#ifndef CONFERENCE_MANAGER_H
+#define CONFERENCE_MANAGER_H
 #include "Conference.hpp"
 
 Struct ConferenceManager {
@@ -15,3 +17,4 @@ Struct ConferenceManager {
   Conference* temp;
 
 };
+#endif
