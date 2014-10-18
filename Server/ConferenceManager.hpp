@@ -1,3 +1,6 @@
+#ifndef CONFERENCE_MANAGER_H
+#define CONFERENCE_MANAGER_H
+
 #include "Conference.hpp"
 
 Struct ConferenceManager {
@@ -21,4 +24,4 @@ private:
   fetchConference(int)
 
 };
-
+#endif
