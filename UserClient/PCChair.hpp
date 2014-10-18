@@ -1,6 +1,7 @@
 #ifndef P_C_CHAIR_H
 #define P_C_CHAIR_H
 
+#include "Paper.hpp"
 #include "User.hpp"
 
 #include <vector>
