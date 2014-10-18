@@ -6,13 +6,18 @@
 
 #include <vector>
 
+Struct PaperSummary {
+    int paperId;
+    std::string paperName;
+};
+
 class PCChair : public User {
   public:
-  PCChair(const std::vector<Paper>& iallPapers)
+  PCChair(const std::vector<PaperSummmary>& iallPapers)
   : allPapers(iallPapers)
   { }
-  std::vector<Paper> getAllPapers() {return allPapers;}
-  void setAllPapers(const std::vector<Paper>& iallPapers) {allPapers = iallPapers;}
+  std::vector<PaperSummary> getAllPapers() {return allPapers;}
+  void setAllPapers(const std::vector<PaperSummary>& iallPapers) {allPapers = iallPapers;}
   void view();
   void removeReviewer();
   bool removeReviewerByName(std::string);
@@ -24,8 +29,8 @@ class PCChair : public User {
   void addReviewerToConf();
 
   private:
-  Paper* getPaperByTitle(std::string);
-  std::vector<Paper> allPapers;
-
+  PaperSummary* getPaperByTitle(std::string);
+  std::vector<PaperSummary> allPapers;
+  Paper currentPaper;
 };
 #endif
