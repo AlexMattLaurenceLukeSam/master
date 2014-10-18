@@ -31,13 +31,13 @@ Class Reviewer : public Author {
       reviews(ireviews)
       { }
     void view();
-    getPapersToReview()
-    submitReview()
-    editReview()
-    bidOnPaper()
-    modifyPaper()
-    viewDiscussion()
-    addDiscussion()
+    void getPapersToReview()
+    void submitReview()
+    void editReview()
+    void bidOnPaper()
+    void modifyPaper()
+    void viewDiscussion()
+    void addDiscussion()
 
     std::vector<Paper> getAllocatedPapers() {return allocatedPapers;}
     std::vector<Paper> getPapersToBid() {return papersToBid;}
