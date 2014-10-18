@@ -1,4 +1,7 @@
 //incomplete
+#ifndef CONFERENCE_H
+#define CONFERENCE_H
+
 #include "AdminClient/Date.hpp"
 
 
@@ -64,3 +67,4 @@ Struct Conference {
   int postWordLimit;
 
 };
+#endif
