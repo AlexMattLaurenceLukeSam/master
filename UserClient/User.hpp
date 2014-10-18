@@ -1,4 +1,8 @@
+#ifndef USER_H
+#define USER_H
+
 #include <string>
+
 Class User {
   public:
     User(const std::string& iusername,
@@ -44,3 +48,4 @@ std::string phone;
 int userID{0};
 
 };
+#endif
