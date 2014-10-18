@@ -7,11 +7,11 @@ Struct UserManager {
   UserManager(User* itemp) : temp(itemp) { }
   ~UserManager() { delete temp;}
   User* temp;
-  createUser()
-  removeUser()
-  listUsers()
-  viewUser()
-  editUser()
+  void createUser()
+  void removeUser()
+  void listUsers()
+  void viewUser()
+  void editUser()
 
 };
 #endif
