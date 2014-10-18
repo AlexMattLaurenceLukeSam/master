@@ -30,6 +30,7 @@ class PCChair : public User {
 
   private:
   PaperSummary* getPaperByTitle(std::string);
+  PaperSummary* getPaperById(int)
   std::vector<PaperSummary> allPapers;
   Paper currentPaper;
 };
