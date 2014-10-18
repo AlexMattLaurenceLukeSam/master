@@ -9,16 +9,16 @@
 #include <memory>
 #include <vector>
 
-Struct Paper {
+struct Paper {
 
-    Paper() { *discussion = new Discussion;}
+    Paper() { discussion = new Discussion;}
     Paper(const std::string& ititle,
       const std::string& iabstract,
-      const std::vector<string>& iauthorNames,
-      const std::vector<string>& ikeywords,
+      const std::vector<std::string>& iauthorNames,
+      const std::vector<std::string>& ikeywords,
 //      const std::string& ifname,
 //      char* ipaper,
-      const std::vector<review>& ireviews)
+      const std::vector<Review>& ireviews)
       :
       title(ititle),
       abstract(iabstract),
@@ -27,7 +27,7 @@ Struct Paper {
 //      fname(ifname),
 //      paper(ipaper), // constructs from cstring
       reviews(ireviews)
-      {*discussion = new Discussion;}
+      {discussion = new Discussion;}
     ~Paper() {delete discussion;}
     // no assignment operator or copy constructor deemed necessary at this point
     std::string title;

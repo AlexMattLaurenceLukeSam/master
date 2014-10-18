@@ -3,7 +3,7 @@
 
 #include <string>
 
-Struct DiscussionPost {
+struct DiscussionPost {
   DiscussionPost(const std::string& icomment,
                  const std::string& ireviewerUName):
                  comment(icomment),

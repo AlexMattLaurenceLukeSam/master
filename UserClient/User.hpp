@@ -3,16 +3,17 @@
 
 #include <string>
 
-Class User {
+class User {
   public:
-    User(const std::string& iusername,
+    User() { }
+    User(const std::string& iuserName,
          const std::string& iname,
          const std::string& iemail,
          const std::string& iorganisation,
          const std::string& iphone,
          const std::string& ipassword,
          int iuserID):
-         username(iusername),
+         userName(iuserName),
          name(iname),
          email(iemail),
          organisation(iorganisation),
@@ -21,9 +22,9 @@ Class User {
          userID(iuserID)
          { }
     virtual void view() = 0;
-    void modifyDetails()
-    void viewConferenceDetails()
-    std::string getUserID() {return userID;}
+    void modifyDetails();
+    void viewConferenceDetails();
+    int getUserID() {return userID;}
     std::string getPassword() {return password;}
     std::string getName() {return name;}
     std::string getEmail() {return email;}
@@ -36,7 +37,7 @@ Class User {
     void setOrganisation(const std::string& iorganisation) {organisation = iorganisation;}
     void setPhone(const std::string& iphone) {phone = iphone;}
 
-    std::string username;
+    std::string userName;
 
   protected:
 

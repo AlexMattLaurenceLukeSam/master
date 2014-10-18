@@ -1,7 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
 
-Struct Date {
+struct Date {
   Date(int iday,
     int imonth,
     int iyear):
@@ -10,7 +10,11 @@ Struct Date {
     year(iyear)
     { }
 
-  bool compare(Data)
+  Date(const Date& in) {
+  day = in.day;
+  month = in.month;
+  year = in.year;}
+  bool compare(Date);
 
 int day{0};
 int month{0};

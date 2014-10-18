@@ -4,7 +4,7 @@
 
 #include "Conference.hpp"
 
-Class LoginManager {
+class LoginManager {
   public:
   LoginManager(bool iloggedIn,
                const std::vector<Conference>& iconferences,
@@ -19,11 +19,11 @@ Class LoginManager {
   }
 }
 // no other constructors deemed necessary at this point
-  bool login(std::string, std::string)
-  void logout()
-  void createAccount()
-  void listConferences()
-  void viewActiveConfDetails()
+  bool login(std::string, std::string);
+  void logout();
+  void createAccount();
+  void listConferences();
+  void viewActiveConfDetails();
   Conference* getActiveConference() {return activeConference;}
   std::vector<Conference> getConferences() {return conferences;}
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}

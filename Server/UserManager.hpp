@@ -3,20 +3,20 @@
 
 #include <string>
 
-Struct UserManager {
+struct UserManager {
   UserManager() {temp = NULL;}
   UserManager(User* itemp) : temp(itemp) { }
   ~UserManager() { delete temp;}
   User* temp;
-  void addUser()
-  void modifyUser()
-  bool deleteUser(int)
-  void sendUser()
-  void sendUserBatch()
-  bool fetchUser(std::string, std::string)
+  void addUser();
+  void modifyUser();
+  bool deleteUser(int);
+  void sendUser();
+  void sendUserBatch();
+  bool fetchUser(std::string, std::string);
 
 
 private:
-  fetchUser(int)
+ void fetchUser(int);
 };
 #endif

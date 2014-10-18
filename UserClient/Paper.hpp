@@ -6,13 +6,13 @@
 #include <fstream>
 #include <vector>
 
-Class Paper {
+class Paper {
   public:
-    Paper() { *discussion = new Discussion;}
+    Paper() {discussion = new Discussion;}
     Paper(const std::string& ititle,
       const std::string& iabstract,
-      const std::vector<string>& iauthorNames,
-      const std::vector<string>& ikeywords,
+      const std::vector<std::string>& iauthorNames,
+      const std::vector<std::string>& ikeywords,
       const std::string& ifname,
       char* ipaper)
       :
@@ -22,7 +22,7 @@ Class Paper {
       keywords(ikeywords),
       fname(ifname),
       paper(ipaper) // constructs from cstring
-      {*discussion = new Discussion;} // Means you can't initialize with a discussion, but that seems to be a hairy area anyway
+      {discussion = new Discussion;} // Means you can't initialize with a discussion, but that seems to be a hairy area anyway
       // In those edge cases one could still initialize then set or use copy constructor
     ~Paper() {delete discussion;}
 /*    Paper(const Paper& ipaper) {
@@ -50,15 +50,15 @@ Class Paper {
     std::vector<std::string> getAuthorNames() {return authorNames;}
     std::vector<std::string> getKeywords() {return keywords;}
     std::string getFname() {return fname;}
-    std::fstream getPaper() {return paper;}
+    //std::fstream getPaper() {return paper;}
     Discussion* getDiscussion() {return discussion;}
     void setTitle(const std::string& ititle) {title = ititle;}
     void setAbstract(const std::string& iabstract) {abstract = iabstract;}
     void setAuthorNames(const std::vector<std::string>& iauthorNames) {authorNames = iauthorNames;}
     void setKeywords(const std::vector<std::string>& ikeywords) {keywords = ikeywords;}
-    void setFname(const std::fstream& ipaper) {paper = ipaper;}
+    void setFname(const std::string& ifname) {fname = ifname;}
     void setDiscussion(Discussion* idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
-    void downloadPaper()
+    void downloadPaper();
 
   private:
     std::string title;

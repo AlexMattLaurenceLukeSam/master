@@ -5,7 +5,8 @@
 
 #include <list>
 
-Struct Discussion {
+struct Discussion {
+  Discussion() { }
   Discussion(const std::list<DiscussionPost>& idiscussion):
                discussion(idiscussion)
                { }

@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-Struct Conference {
+struct Conference {
   Conference(bool iisActive,
   const std::string& ititle,
   const std::string& iconfID,
@@ -26,7 +26,6 @@ Struct Conference {
   isActive(iisActive),
   title(ititle),
   confID(iconfID),
-  originality(ioriginality),
   topic(itopic),
   description(idescription),
   location(ilocation),
@@ -35,11 +34,11 @@ Struct Conference {
   paperDeadline(ipaperDeadline),
   isBeforeSoftReviewDeadline(iisBeforeSoftReviewDeadline),
   reviewDeadlineSoft(ireviewDeadlineSoft),
-  isBeforeHardReviewDeadline(iisBeforeHardReviewDeadline))
+  isBeforeHardReviewDeadline(iisBeforeHardReviewDeadline),
   reviewDeadlineHard(ireviewDeadlineHard),
   isBeforeDiscussDeadline(iisBeforeDiscussDeadline),
   discussDeadline(idiscussDeadline),
-  reviewersPerPaper(ireviewersPerPaper)
+  reviewersPerPaper(ireviewersPerPaper),
   postWordLimit(ipostWordLimit)
   { }
 

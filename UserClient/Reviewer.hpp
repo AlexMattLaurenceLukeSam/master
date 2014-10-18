@@ -4,21 +4,21 @@
 #include "Author.hpp"
 #include "Review.hpp"
 
-Class Reviewer : public Author {
+class Reviewer : public Author {
   public:
-    Reviewer(const std::string& iusername,
+    Reviewer(const std::string& iuserName,
       const std::string& iname,
       const std::string& iemail,
       const std::string& iorganisation,
       const std::string& iphone,
       int iuserID,
-      const std::vector<string>& ikeywords,
+      const std::vector<std::string>& ikeywords,
       const std::vector<Paper>& iownPapers,
       const std::vector<Paper>& iallocatedPapers,
       const std::vector<Paper>& ipapersToBid,
       const std::vector<Review>& ireviews)
       :
-      username(iusername),
+      userName(iuserName),
       name(iname),
       email(iemail),
       organisation(iorganisation),
@@ -31,13 +31,13 @@ Class Reviewer : public Author {
       reviews(ireviews)
       { }
     void view();
-    void getPapersToReview()
-    void submitReview()
-    void editReview()
-    void bidOnPaper()
-    void modifyPaper()
-    void viewDiscussion()
-    void addDiscussion()
+    void getPapersToReview();
+    void submitReview();
+    void editReview();
+    void bidOnPaper();
+    void modifyPaper();
+    void viewDiscussion();
+    void addDiscussion();
 
     std::vector<Paper> getAllocatedPapers() {return allocatedPapers;}
     std::vector<Paper> getPapersToBid() {return papersToBid;}
@@ -47,8 +47,8 @@ Class Reviewer : public Author {
     void setReviews(const std::vector<Review>& ireviews) {reviews = ireviews;}
 
   private:
-    Paper* getPaperByTitle(std::string) // helper
-    Paper* getPaperByIndex(int) // helper
+    Paper* getPaperByTitle(std::string); // helper
+    Paper* getPaperByIndex(int); // helper
 
     std::vector<Paper> allocatedPapers;
     std::vector<Paper> papersToBid;

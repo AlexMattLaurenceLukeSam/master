@@ -4,16 +4,16 @@
 #include <vector>
 
 
-Struct User {
-  User(const std::string& iusername,
+struct User {
+  User(const std::string& iuserName,
          const std::string& iname,
          const std::string& iemail,
          const std::string& iorganisation,
          const std::string& iphone,
          const std::string& ipassword,
          int iuserID,
-         const std::vector<std::string>& keywords:
-         username(iusername),
+         const std::vector<std::string>& ikeywords):
+         userName(iuserName),
          name(iname),
          email(iemail),
          organisation(iorganisation),

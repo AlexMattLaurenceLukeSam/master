@@ -3,10 +3,10 @@
 
 #include "Paper.hpp"
 
-Struct Review {
-  Review(paper = NULL)
+struct Review {
+  Review() {paper = NULL;}
   Review(Paper* ipaper,
-    int reviewId;
+    int reviewId,
     int ioverall,
     int iconfidence,
     int irelevance,
@@ -20,7 +20,7 @@ Struct Review {
     const std::string& icommentsSuggestions,
     const std::string& icommentsShortPaper,
     const std::string& icommentsBestAward):
-    paper(ipaper)
+    paper(ipaper),
     overall(ioverall),
     confidence(iconfidence),
     relevance(irelevance),
@@ -33,9 +33,9 @@ Struct Review {
     commentsWeakness(icommentsWeakness),
     commentsSuggestions(icommentsSuggestions),
     commentsShortPaper(icommentsShortPaper),
-    commentsBestAward(icommentsBestAward))
+    commentsBestAward(icommentsBestAward)
     { }
-  Paper paper*;
+  Paper* paper;
   int reviewId;
   int overall;
   int confidence;

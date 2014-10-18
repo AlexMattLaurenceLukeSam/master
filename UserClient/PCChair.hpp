@@ -6,25 +6,25 @@
 
 #include <vector>
 
-Class PCChair : public User {
+class PCChair : public User {
   public:
-  PCChair(const std::vector<std::string>& iallPapers)
+  PCChair(const std::vector<Paper>& iallPapers)
   : allPapers(iallPapers)
   { }
   std::vector<Paper> getAllPapers() {return allPapers;}
   void setAllPapers(const std::vector<Paper>& iallPapers) {allPapers = iallPapers;}
   void view();
-  void removeReviewer()
-  bool removeReviewerByName(std::string)
-  void editConfDetails()
-  void setConfDeadlines()
-  void setConfKWords()
-  int getAvgScoreForPaper()
-  void acceptOrRejectPaper()
-  void addReviewerToConf()
+  void removeReviewer();
+  bool removeReviewerByName(std::string);
+  void editConfDetails();
+  void setConfDeadlines();
+  void setConfKWords();
+  int getAvgScoreForPaper();
+  void acceptOrRejectPaper();
+  void addReviewerToConf();
 
   private:
-  Paper* getPaperByTitle(std::string)
+  Paper* getPaperByTitle(std::string);
   std::vector<Paper> allPapers;
 
 };

@@ -2,7 +2,7 @@
 #define SUPER_USER_H
 #include <string>
 
-Class SuperUser {
+class SuperUser {
 public:
   SuperUser(const std::string& iuserName,
     const std::string& ipassword) :
@@ -11,9 +11,9 @@ public:
     { }
 
 
-  void view()
-  void changeDetails()
-  void getPassword(return password;)
+  void view();
+  void changeDetails();
+  std::string getPassword() {return password;}
   void setPassword(const std::string& ipassword) {password = ipassword;}
 
   std::string userName;

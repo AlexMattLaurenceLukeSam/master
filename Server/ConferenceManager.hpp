@@ -3,7 +3,7 @@
 
 #include "Conference.hpp"
 
-Struct ConferenceManager {
+struct ConferenceManager {
   ConferenceManager(std::vector<Conference*> iconferences) : conferences(iconferences) { }
   ~ConferenceManager() {
   for (unsigned i=0; i < conferences.size(); i++) {
@@ -11,17 +11,17 @@ Struct ConferenceManager {
   }
 }
 
-  void addConference()
-  void modifyConference(int)
-  bool deleteConference(int)
-  void sendConference()
-  void sendConferenceBatch()
-  void checkAllDeadlines()
+  void addConference();
+  void modifyConference(int);
+  bool deleteConference(int);
+  void sendConference();
+  void sendConferenceBatch();
+  void checkAllDeadlines();
 
   std::vector<Conference*> conferences;
 
 private:
-  fetchConference(int)
+  void fetchConference(int);
 
 };
 #endif

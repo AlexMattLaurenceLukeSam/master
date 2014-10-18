@@ -2,9 +2,9 @@
 #define REVIEW_H
 #include <string>
 
-Struct Review {
-  Review(const std::string& ireviewerName
-  int reviewId;
+struct Review {
+  Review(const std::string& ireviewerName,
+  int reviewId,
   int ioverall,
   int iconfidence,
   int irelevance,
@@ -31,7 +31,7 @@ Struct Review {
   commentsWeakness(icommentsWeakness),
   commentsSuggestions(icommentsSuggestions),
   commentsShortPaper(icommentsShortPaper),
-  commentsBestAward(icommentsBestAward))
+  commentsBestAward(icommentsBestAward)
   { }
   std::string reviewerName;
   int reviewId;
