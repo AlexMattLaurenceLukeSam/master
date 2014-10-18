@@ -1,3 +1,6 @@
+#ifndef DISCUSSION_H
+#define DISCUSSION_H
+
 #include "DiscussionPost.hpp"
 
 #include <list>
@@ -8,3 +11,4 @@ Struct Discussion {
                { }
   std::list<DiscussionPost> discussion;
 };
+#endif
