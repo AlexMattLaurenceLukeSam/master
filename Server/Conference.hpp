@@ -1,3 +1,6 @@
+#ifndef CONFERENCE_H
+#define CONFERENCE_H
+
 #include "Date.hpp"
 
 #include <string>
@@ -63,3 +66,4 @@ Struct Conference {
   int postWordLimit;
 
 };
+#endif
