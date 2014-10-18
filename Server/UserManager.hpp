@@ -1,3 +1,6 @@
+#ifndef USER_MANAGER_H
+#define USER_MANAGER_H
+
 #include <string>
 
 Struct UserManager {
@@ -16,3 +19,4 @@ Struct UserManager {
 private:
   fetchUser(int)
 };
+#endif
