@@ -1,3 +1,6 @@
+#ifndef AUTHOR_H
+#define AUTHOR_H
+
 #include "Paper.hpp"
 #include "User.hpp"
 
@@ -34,3 +37,4 @@ Class Author : public User {
   protected:
     std::vector<Paper> ownPapers;
 };
+#endif
