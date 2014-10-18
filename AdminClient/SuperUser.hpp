@@ -1,3 +1,5 @@
+#ifndef SUPER_USER_H
+#define SUPER_USER_H
 #include <string>
 
 Class SuperUser {
@@ -19,3 +21,4 @@ public:
 private:
   std::string password;
 };
+#endif
