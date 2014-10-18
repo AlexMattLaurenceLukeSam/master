@@ -1,3 +1,6 @@
+#ifndef REVIEWER_H
+#define REVIEWER_H
+
 #include "Author.hpp"
 #include "Review.hpp"
 
@@ -51,4 +54,4 @@ Class Reviewer : public Author {
     std::vector<Paper> papersToBid;
     std::vector<Review> reviews;
 };
-
+#endif
