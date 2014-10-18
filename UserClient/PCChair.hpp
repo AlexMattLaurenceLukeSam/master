@@ -7,8 +7,8 @@
 #include <vector>
 
 Struct PaperSummary {
-    int paperId;
-    std::string paperName;
+  int paperId;
+  std::string paperName;
 };
 
 class PCChair : public User {
