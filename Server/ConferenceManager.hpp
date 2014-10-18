@@ -11,12 +11,12 @@ Struct ConferenceManager {
   }
 }
 
-  addConference()
-  modifyConference(int)
+  void addConference()
+  void modifyConference(int)
   bool deleteConference(int)
-  sendConference()
-  sendConferenceBatch()
-  checkAllDeadlines()
+  void sendConference()
+  void sendConferenceBatch()
+  void checkAllDeadlines()
 
   std::vector<Conference*> conferences;
 
