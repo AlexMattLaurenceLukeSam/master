@@ -39,8 +39,8 @@ class Reviewer : public Author {
       int iuserID,
       const std::vector<std::string>& ikeywords,
       const std::vector<Paper>& iownPapers,
-      const std::vector<Paper>& iallocatedPapers,
-      const std::vector<Paper>& ipapersToBid,
+      const std::vector<PaperSummary>& iallocatedPapers,
+      const std::vector<PaperSummary>& ipapersToBid,
       const std::vector<Review>& ireviews)
       :
       Author(iuserName,
@@ -76,8 +76,9 @@ class Reviewer : public Author {
     Paper* getPaperByTitle(std::string); // helper
     Paper* getPaperByIndex(int); // helper
 
-    std::vector<Paper> allocatedPapers;
-    std::vector<Paper> papersToBid;
+    std::vector<PaperSummary> allocatedPapers;
+    std::vector<PaperSummary> papersToBid;
+    Paper currentPaper;
     std::vector<Review> reviews;
 };
 #endif
