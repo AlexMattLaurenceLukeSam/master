@@ -10,6 +10,9 @@ struct Discussion {
   Discussion(const std::list<DiscussionPost>& idiscussion):
                discussion(idiscussion)
                { }
+  Discussion(const Discussion& in) {
+    discussion = in.discussion;
+  }
   std::list<DiscussionPost> discussion;
 };
 #endif
