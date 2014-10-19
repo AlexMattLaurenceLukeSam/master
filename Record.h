@@ -1,4 +1,4 @@
-/*
+*
  * File:        MyRecord.h
  * Author:      nabg
  *
@@ -9,45 +9,48 @@
 #define MYRECORD_H
 #include "MyException.h"
 #include <map>
+#include <string>
+#include <vector>
 using namespace std;
 
 class MyRecord {
 public:
-    explicit MyRecord(string& id); // I don't want implicit conversion from std::string to MyRecord!
+    explicit MyRecord(std::string& id); // I don't want implicit conversion from std::std::string to MyRecord!
     // Mutator functions - setting of other fields
     // In this version, hardly any of the implementations will actually throw exceptions
     // later validation functions will be added
-    void setName(string& aname) throw (MyException);
-    void setEmail(string& amail) throw (MyException);
-    void setInfo(string& info) throw (MyException);
-    void setImage(string& imagestr) throw (MyException);
-    void addRole(string& anotherrole) ;
-    void addKeyValue(string& collectionname, string& key, string& value) throw(MyException);
+    void setName(std::string& aname) throw (MyException);
+    void setEmail(std::string& amail) throw (MyException);
+    void setInfo(std::string& info) throw (MyException);
+    void setImage(std::string& imagestr) throw (MyException);
+    void addRole(std::string& anotherrole) ;
+    void removeRole(std::string& oldrole);
+    void addKeyValue(std::string& collectionname, std::string& key, std::string& value) throw(MyException);
     // Accessor functions
 
-    string getID() const { return this->id; }
-    string getName() const { return this->name; }
-    string getEmail() const { return this->email; }
-    string getInfo() const { return this->info; }
-    string getImage() const { return this->image; }
-    string getAttribute(string& collectionname, string& key) const throw(MyException);
-    const vector<string>& getRoles() const { return this->roles; }
-    const map<string,string>& getPhones() const { return this->phones; }
-    const map<string,string>& getAddresses() const { return this->addresses; }
-    const map<string,string>& getOtherKV() const { return this->other; }
-    
-    bool hasRole(string& queryrole) const;
-    
+    std::string getID() const { return this->id; }
+    std::string getName() const { return this->name; }
+    std::string getEmail() const { return this->email; }
+    std::string getInfo() const { return this->info; }
+    std::string getImage() const { return this->image; }
+    std::string getAttribute(std::string& collectionname, std::string& key) const throw(MyException);
+    const std::vector<std::string>& getRoles() const { return this->roles; }
+    const std::map<std::string,std::string>& getPhones() const { return this->phones; }
+    const std::map<std::string,std::string>& getAddresses() const { return this->addresses; }
+    const std::map<std::string,std::string>& getOtherKV() const { return this->other; }
+
+    bool hasRole(std::string& queryrole) const;
+
 private:
-    string id; // Also known as "nickname", or even "primary key"
-    string name; // full name
-    string email; 
-    string image;
-    string info;
-    vector<string> roles;
-    map<string,string> phones;
-    map<string,string> addresses;
-    map<string,string> other;
+    std::string id; // Also known as "nickname", or even "primary key"
+    std::string name; // full name
+    std::string email;
+    std::string image;
+    std::string info;
+    std::vector<std::string> roles;
+    std::map<std::string,std::string> phones;
+    std::map<std::string,std::string> addresses;
+    std::map<std::string,std::string> other;
      // Finally, note that copy constructor and assignment operator are
     // private (and no implementations will be defined).  I choose to 
     // disallow such operations.
