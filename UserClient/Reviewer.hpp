@@ -38,7 +38,7 @@ class Reviewer : public Author {
       const std::string& iphone,
       int iuserID,
       const std::vector<std::string>& ikeywords,
-      const std::vector<Paper>& iownPapers,
+      const std::vector<PaperSummary>& iownPapers,
       const std::vector<PaperSummary>& iallocatedPapers,
       const std::vector<PaperSummary>& ipapersToBid,
       const std::vector<Review>& ireviews)
