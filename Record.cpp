@@ -49,6 +49,10 @@ private:
 #include <vector>
 #include <algorithm>
 #include "MyRecord.h"
+#include "stringtrimmer.h"
+
+//#include <boost/regex.hpp>
+
 
 MyRecord::MyRecord(string& id) {
     this->id = id;
@@ -59,8 +63,20 @@ void MyRecord::setName(string& aname) throw (MyException) {
 }
 
 void MyRecord::setEmail(string& amail) throw (MyException) {
-    this->email = amail;
+ //   boost::regex validationExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$");
+ //   amail = trim(amail);
+ //   boost::match_results<std::string::const_iterator> results;
+ //   if (boost::regex_match(amail, results, validationExpression))
+ //   {
+        this->email = amail;
+ //   }
+ //   else
+ //   {
+ //       string msg = "Email of wrong format";
+ //       throw MyException(msg);
+ //   }
 }
+
 
 void MyRecord::setInfo(string& info) throw (MyException) {
     this->info = info;
@@ -77,6 +93,13 @@ void MyRecord::addRole(string& anotherrole)  {
     it = find(this->roles.begin(), this->roles.end(), anotherrole);
     if (it != this->roles.end()) return; // Found it, so don't duplicate
     roles.push_back(anotherrole);
+}
+
+void MyRecord::removeRole(std::string& oldrole)
+{
+    this->roles.erase(remove(this->roles.begin(),
+        this->roles.end(), oldrole),
+        this->roles.end());
 }
 
 void MyRecord::addKeyValue(string& collectionname, string& key, string& value) throw (MyException) {
