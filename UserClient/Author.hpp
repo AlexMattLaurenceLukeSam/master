@@ -2,6 +2,7 @@
 #define AUTHOR_H
 
 #include "Paper.hpp"
+#include "PaperSummary.hpp"
 #include "User.hpp"
 
 #include <vector>
@@ -40,7 +41,7 @@ class Author : public User {
          const std::string& iphone,
          int iuserID,
          const std::vector<std::string>& ikeywords,
-         const std::vector<Paper>& iownPapers):
+         const std::vector<PaperSummary>& iownPapers):
          User(iuserName, 
          iname,
          iemail,
@@ -60,6 +61,6 @@ class Author : public User {
     std::vector<std::string> keywords;
 
   protected:
-    std::vector<Paper> ownPapers;
+    std::vector<PaperSummary> ownPapers;
 };
 #endif
