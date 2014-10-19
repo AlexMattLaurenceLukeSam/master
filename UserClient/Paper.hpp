@@ -49,14 +49,14 @@ class Paper {
     std::vector<std::string> getAuthorNames() {return authorNames;}
     std::vector<std::string> getKeywords() {return keywords;}
     std::string getFname() {return fname;}
-    //std::fstream getPaper() {return paper;}
-    Discussion* getDiscussion() {return discussion;}
+    Discussion getDiscussion() {return discussion;}
+    
     void setTitle(const std::string& ititle) {title = ititle;}
     void setAbstract(const std::string& iabstract) {abstract = iabstract;}
     void setAuthorNames(const std::vector<std::string>& iauthorNames) {authorNames = iauthorNames;}
     void setKeywords(const std::vector<std::string>& ikeywords) {keywords = ikeywords;}
     void setFname(const std::string& ifname) {fname = ifname;}
-    void setDiscussion(Discussion* idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
+    void setDiscussion(Discussion idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
     void downloadPaper();
 
   private:
