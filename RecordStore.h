@@ -19,7 +19,7 @@ public:
         // Get - get record with keyerror: Failed connect to github.com:443; Connection refused while accessing
         MyRecord *get(const char*key) throw (const char*);
 
-        vector<MyRecord*> *getInRole(const char* role) throw (const char*);
+        std::vector<MyRecord*> *getInRole(const char* role) throw (const char*);
 
         void close();
 
@@ -32,9 +32,9 @@ public:
 
 private:
         bool invalid;
-        const char* *dbcon;
+        const char* dbname;
         sql::Connection *dbcon;
-        sql::Drive *driver;
+        sql::Driver *driver;
         MyRecordStore(const MyRecordStore& orig);
         MyRecordStore& operator=(const MyRecordStore);
 
