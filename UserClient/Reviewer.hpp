@@ -78,7 +78,6 @@ class Reviewer : public Author {
 
     std::vector<PaperSummary> allocatedPapers;
     std::vector<PaperSummary> papersToBid;
-    Paper currentPaper;
     std::vector<Review> reviews;
 };
 #endif
