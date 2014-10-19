@@ -1,6 +1,8 @@
 #ifndef USER_H
 #define USER_H
 
+#include "Paper.hpp"
+
 #include <string>
 
 class User {
@@ -47,6 +49,7 @@ std::string email;
 std::string organisation;
 std::string phone;
 int userID{0};
+Paper currentPaper;
 
 };
 #endif
