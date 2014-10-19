@@ -53,7 +53,6 @@ private:
 
 //#include <boost/regex.hpp>
 
-
 MyRecord::MyRecord(string& id) {
     this->id = id;
 }
@@ -76,7 +75,6 @@ void MyRecord::setEmail(string& amail) throw (MyException) {
  //       throw MyException(msg);
  //   }
 }
-
 
 void MyRecord::setInfo(string& info) throw (MyException) {
     this->info = info;
@@ -110,14 +108,15 @@ void MyRecord::addKeyValue(string& collectionname, string& key, string& value) t
     // If same collection/key combination specified more than once, later value
     // overwrites earlier value for that key.
 
+// Change to allow of rSTL's insert() not allowing for replacement
     if (collectionname == "Phones") {
-        this->phones.insert(pair<string,string> (key, value));
+        this->phones[key]=value;
     } else
         if (collectionname == "Addresses") {
-        this->addresses.insert(pair<string,string> (key, value));
+        this->addresses[key]=value;
     } else
         if (collectionname == "Other") {
-         this->other.insert(pair<string,string> (key, value));
+         this->other[key]=value;
     } else {
         string errmsg = "There is no collection called " + collectionname;
         throw MyException(errmsg);
@@ -136,6 +135,7 @@ string MyRecord::getAttribute(string& collectionname, string& key) const throw (
         if (collectionname == "Other") {
         return other.find(key)->second;
     }
+
     string errmsg = "There is no collection called " + collectionname;
     throw MyException(errmsg);
 
@@ -149,4 +149,3 @@ bool MyRecord::hasRole(string&  anotherrole) const  {
     it = find(this->roles.begin(), this->roles.end(), anotherrole);
    return(it != this->roles.end()) ;
 }
-                                                     
