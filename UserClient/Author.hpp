@@ -62,6 +62,6 @@ class Author : public User {
 
   protected:
     std::vector<PaperSummary> ownPapers;
-    Paper currentPaper;
+
 };
 #endif
