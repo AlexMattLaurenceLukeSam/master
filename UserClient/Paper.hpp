@@ -3,28 +3,27 @@
 
 #include "Discussion.hpp"
 
-#include <fstream>
 #include <vector>
 
 class Paper {
   public:
-    Paper() {discussion = new Discussion;}
+    Paper() { }
     Paper(const std::string& ititle,
       const std::string& iabstract,
       const std::vector<std::string>& iauthorNames,
       const std::vector<std::string>& ikeywords,
       const std::string& ifname,
-      char* ipaper)
+      const std::string& idiscussion)
       :
       title(ititle),
       abstract(iabstract),
       authorNames(iauthorNames),
       keywords(ikeywords),
       fname(ifname),
-      paper(ipaper) // constructs from cstring
-      {discussion = new Discussion;} // Means you can't initialize with a discussion, but that seems to be a hairy area anyway
+      discussion(idiscussion)
+      { } // Means you can't initialize with a discussion, but that seems to be a hairy area anyway
       // In those edge cases one could still initialize then set or use copy constructor
-    ~Paper() {delete discussion;}
+
 /*    Paper(const Paper& ipaper) {
       title = ipaper.title;
       abstract = ipaper.abstract;
@@ -61,12 +60,11 @@ class Paper {
     void downloadPaper();
 
   private:
-    std::string title;
-    std::string abstract;
+    std::string title{""};
+    std::string abstract{""};
     std::vector<std::string> authorNames;
     std::vector<std::string> keywords;
-    std::string fname;
-    std::fstream paper;
-    Discussion* discussion;
+    std::string fname{""};
+    Discussion discussion;
 };
 #endif
