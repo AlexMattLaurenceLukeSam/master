@@ -2,18 +2,14 @@
 #define P_C_CHAIR_H
 
 #include "Paper.hpp"
+#include "PaperSummary.hpp"
 #include "User.hpp"
 
 #include <vector>
 
-Struct PaperSummary {
-  int paperId;
-  std::string paperName;
-};
-
 class PCChair : public User {
   public:
-  PCChair(const std::vector<PaperSummmary>& iallPapers)
+  PCChair(const std::vector<PaperSummary>& iallPapers)
   : allPapers(iallPapers)
   { }
   std::vector<PaperSummary> getAllPapers() {return allPapers;}
@@ -30,7 +26,7 @@ class PCChair : public User {
 
   private:
   PaperSummary* getPaperByTitle(std::string);
-  PaperSummary* getPaperById(int)
+  PaperSummary* getPaperById(int);
   std::vector<PaperSummary> allPapers;
   Paper currentPaper;
   Conference* activeConference;
