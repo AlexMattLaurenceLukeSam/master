@@ -1,11 +1,20 @@
 #include "MyRecordStore.h"
+
 #include "cppconn/driver.h"
 #include "cppconn/exception.h"
+#include "cppconn/resultset.h"
+#include "cppconn/statement.h"
 #include "cppconn/prepared_statement.h"
 
 #include <cstring>
 #include <stdlib.h>
 #include <iostream>
+
+#include <vector>
+#include <map>
+#include <string>
+
+using namespace sql;
 
 const char* databaseStr = "tcp://127.0.0.1:3306";
 const char* databaseUserName = "nabg";
@@ -92,6 +101,57 @@ std::vector<string> *MyRecordStore::allKeys()
         }
 
         return vprt;
+}
+
+std::vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+        // Laboured
+        // First get a list of the ids with the role, then one by one get the
+        // complete records.
+        const char* getrolepersons = "selects personid from roles where _role=?";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(getrolepersons);
+        pstmt->setString(1, role);
+        rs = pstmt->executeQuery();
+
+        bool haveRecord = rs->next();
+        if (!haveRecord)
+        {
+                delete rs;
+                delete pstmt;
+                return NULL;
+        }
+
+        std::vector<std::string> people;
+
+        // rc = sqlite3_step(stmt);
+
+        while (rs->next()) {
+                std::string apersonid = std::string(rs->getString(1));
+//              const char* apersonid = reinterpret_cast<const char*> (rs->getString(2));
+                people.push_back(apersonid);
+        }
+
+        // Maybe there weren't any
+        if (people.size() == 0)
+                return NULL;
+
+        // Build collection by getting each record
+        std::vector<MyRecord*> *roleholders = new std::vector<MyRecord*>();
+
+        std::vector<std::string>::const_iterator it;
+        for (it = people.begin(); it != people.end(); it++) {
+                std::string aperson = *it;
+                MyRecord* rec = this->get(aperson.c_str());
+                roleholders->push_back(rec);
+        }
+
+        return roleholders;
 }
 
 vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const char*)
@@ -286,39 +346,40 @@ void MyRecordStore::recordToTables(const MyRecord* data)
         delete pstmt;
 
         // Role 
-        if (data->getOtherKV().size() > 0)
-        {
-                pstmt = dbcon->prepareStatement(putother);
-                map<string, string>:const_iterator it;
-                for (it = data->getOtherKV.begin(); it != data->getOtherKV().end(); it ++)
-                {
-                        string akey = it->first;
-                        string avalue = it->second;
-                        pstmt->setString(1, data->getID());
-                        pstmt->setString(2, akey);
-                        pstmt->setString(3, avalue);
-                        pstmt->excuteUpdate();
-                }
-                delete pstmt;
+//      if (data->getOtherKV().size() > 0)
+//      {
+//              pstmt = dbcon->prepareStatement(putother);
+//              std::map<std::string, std::string>::const_iterator it;
+//              for (it = data->getRoles().begin(); it != data->getRoles().end(); it ++)
+//              {
+//                      std::string akey = it->first;
+//                      std::string avalue = it->second;
+//                      pstmt->setString(1, data->getID());
+//                      pstmt->setString(2, akey);
+//                      pstmt->setString(3, avalue);
+//                      pstmt->executeUpdate();
+//              }
+//              delete pstmt;
+//
+//      }
 
-        }
+//      // Other
+//      if (data->getOtherKV().size() > 0)
+//      {
+//              pstmt = dbcon->prepareStatement(putother);
+//              std::map<std::string, std::string>::const_iterator it;
+//              for (it = data->getOtherKV.begin(); it != data->getOtherKV().end(); it ++)
+//              {
+//                      std::string akey = it->first;
+//                      std::string avalue = it->second;
+//                      pstmt->setString(1, data->getID());
+//                      pstmt->setString(2, akey);
+//                      pstmt->setString(3, avalue);
+//                      pstmt->executeUpdate();
+//              }
+//              delete pstmt;
+//
+//      }
 
-        // Other
-        if (data->getOtherKV().size() > 0)
-        {
-                pstmt = dbcon->prepareStatement(putother);
-                map<string, string>:const_iterator it;
-                for (it = data->getOtherKV.begin(); it != data->getOtherKV().end(); it ++)
-                {
-                        string akey = it->first;
-                        string avalue = it->second;
-                        pstmt->setString(1, data->getID());
-                        pstmt->setString(2, akey);
-                        pstmt->setString(3, avalue);
-                        pstmt->excuteUpdate();
-                }
-                delete pstmt;
-
-        }
 }
 
