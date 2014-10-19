@@ -23,7 +23,7 @@ public:
 
         void close();
 
-        std::vector,string> *allKeys();
+        std::vector<std::string> *allKeys();
 
         bool isOK()
         {
@@ -32,6 +32,7 @@ public:
 
 private:
         bool invalid;
+        const char* *dbcon;
         sql::Connection *dbcon;
         sql::Drive *driver;
         MyRecordStore(const MyRecordStore& orig);
