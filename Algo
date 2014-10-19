@@ -1,19 +1,19 @@
 Algo:
 
 
-struct Reviewer
+struct ReviewerBid
 {
 	int score;
 	int reviewerID;
 };
 
-Class PaperForReview
+class PaperForReview
 {
 	private:
 		int paperID;
 
 
-		Reviewer[numOfReqReviewrs];
+		ReviewerBid[numOfReqReviewrs] reviewerBids;
 
 		std::vector<int> authors;
 		std::vector<int> involvedOrganisation;
@@ -41,24 +41,24 @@ void PaperForReview::checkNewReviewer(int newScore, int newReviewerID)
 int PaperForReview::getMinScore()
 {
 	int minScore = -1;
-	for(int i=0; i< NumOfReqReviewrs; i++)
+	for(int i=0; i<NumOfReqReviewers; i++)
 	{
-		if(Reviewer[i].score < minScore)
-			minScore = Reviewer[i].score;
+		if(reviewerBids[i].score < minScore)
+			minScore = reviewerBids[i].score;
 	}
-	return i
+	return minScore;
 }
 
 void setNewReviewer(int newScore, int newReviewer)
 {
 
 	minScore = getMinScore();
-	for(int i=0; i< NumOfReqReviewrs; i++)
+	for(int i=0; i< NumOfReqReviewers; i++)
 	{
-		if(Reviewer[i].score < minScore)
+		if(reviewerBids[i].score < minScore)
 		{
-			Reviewer[i].score = newScore;
-			Reviewer[i].reviewerID =  newReviewer;
+			reviewerBids[i].score = newScore;
+			reviewerBids[i].reviewerID =  newReviewer;
 			i=  NumOfReqReviewrs;
 		}
 	}
@@ -76,18 +76,18 @@ PaperForReview::PaperForReview(int newPaperID)
 	
 	for(int i=0; i< NumOfReqReviewrs; i++)
 	{
-		Reviewer[i].score = -1;
+		reviewerBids[i].score = -1;
 	}
 }
 
 
 void PaperForReview::addAuthor(int newAuthor)
 {
-	authors.pushBack(newAuthor);
+	authors.push_back(newAuthor);
 }
 
 //TODO
-void  PaperForReview::conflictingReviewers
+void  PaperForReview::conflictingReviewers()
 {
 	//authors
 		conflictingReviewers.insert(conflictingReviewers.end(), authors.begin(), authors.end());
@@ -130,7 +130,7 @@ void readInAllPapers()
 
 
 
-int caclculateScore(int userID, int paperID)
+int calculateScore(int userID, int paperID)
 {
 	int score = 1;
 
