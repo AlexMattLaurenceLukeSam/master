@@ -13,7 +13,7 @@ class Paper {
       const std::vector<std::string>& iauthorNames,
       const std::vector<std::string>& ikeywords,
       const std::string& ifname,
-      const std::string& idiscussion)
+      const Discussion& idiscussion)
       :
       title(ititle),
       abstract(iabstract),
