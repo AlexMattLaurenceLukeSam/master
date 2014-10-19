@@ -13,7 +13,6 @@ Alex Cremona Oct 2014
 
 */
 
-#include <iostream>
 #include <fstream>
 
 
