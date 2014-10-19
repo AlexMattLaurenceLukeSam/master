@@ -3,11 +3,13 @@
 
 #include <string>
 
+enum Request_t {ConferenceRequest, PaperRequest, UserRequest};
+
 struct ClientHandler {
-  ClientHandler(enum irequest) : request(irequest)
+  ClientHandler(Request_t irequest) : Request_t(irequest)
     { }
 
-enum request;
+Request_t request;
 
 void handleClient();
 bool authenticate(std::string, std::string);
