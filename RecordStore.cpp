@@ -82,11 +82,11 @@ bool MyRecordStore::exists(const char* key) throw (const char*)
         return count = 1;
 }
 
-std::vector<string> *MyRecordStore::allKeys()
+std::vector<std::string> *MyRecordStore::allKeys()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<string> *vptr = new std::vector<string>();
+        std::vector<std::string> *vptr = new std::vector<std::string>();
 
         const char* selectall = "select _id from MyRecord";
         sql::PreparedStatement *pstmt = NULL;
@@ -96,13 +96,12 @@ std::vector<string> *MyRecordStore::allKeys()
 
         rs = pstmt->executeQuery();
         while (rs->next()) {
-                string anid = rs->getString(1);
-                vprt->push_back(anid);
+                std::string anid = rs->getString(1);
+                vptr->push_back(anid);
         }
 
-        return vprt;
+        return vptr;
 }
-
 std::vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const char*)
 {
         if (invalid)
@@ -153,63 +152,55 @@ std::vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const 
 
         return roleholders;
 }
-
-vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const char*)
-{
-        if (invalid)
-                throw (noDB);
-        // Laboured
-        // First get a list of the ids with the role, then one by one get the
-        // complete records.
-        const char* getrolepersons = "selects personid from roles where _role=?";
-        sqlite3_stmt* stmt;
-        int rc;
-        rc = sqlite3_prepare_v2(db,
-                getrolepersons, strlen(getrolepersons),
-                &stmt, &unused);
-        if (rc != SQLITE_OK) {
-                std::cerr << prepareFailed << std::endl;
-                exit(1);
-        }
-
-        rc = sqlite3_bind_text{stmt, 1, role, -1 , SQLITE_STATIC);
-        if (rc ~= SQLITE_OK) {
-                std::cerr << bindFailed << std::endl;
-                exit(1);
-        }
-        vector<string> people;
-
-        // rc = sqlite3_step(stmt);
-
-        while (sqlite3_step(stmt) == SQLITE_ROW) {
-                const char* apersonid = reinterpret_cast<const char*> (sqlite3_column_text(stmt, 0));
-                people.push_back(apersonid);
-        }
-        sqlite3_finalize(stmt);
-
-
-        // Maybe there weren't any
-        if (people.size() == 0)
-                return NULL;
-
-        // Build collection by getting each record
-        vector<MyRecord*> *roleholders = new vector<MyRecord*>();
-
-        vector<string>::const_iterator it;
-        for (it = people.begin(); it != people.end(); it++) {
-                string aperson = *it;
-                MyRecord* rec = this->get(aperson.c_str());
-                roleholders->push_back(rec);
-        }
-
-        return roleholders;
-}
+//
+//      sqlite3_stmt* stmt;
+//      int rc;
+//      rc = sqlite3_prepare_v2(db,
+//              getrolepersons, strlen(getrolepersons),
+//              &stmt, &unused);
+//      if (rc != SQLITE_OK) {
+//              std::cerr << prepareFailed << std::endl;
+//              exit(1);
+//      }
+//
+//      rc = sqlite3_bind_text(stmt, 1, role, -1 , SQLITE_STATIC);
+//      if (rc != SQLITE_OK) {
+//              std::cerr << bindFailed << std::endl;
+//              exit(1);
+//      }
+//      std::vector<std::string> people;
+//
+//      // rc = sqlite3_step(stmt);
+//
+//      while (sqlite3_step(stmt) == SQLITE_ROW) {
+//              const char* apersonid = reinterpret_cast<const char*> (sqlite3_column_text(stmt, 0));
+//              people.push_back(apersonid);
+//      }
+//      sqlite3_finalize(stmt);
+//
+//
+//      // Maybe there weren't any
+//      if (people.size() == 0)
+//              return NULL;
+//
+//      // Build collection by getting each record
+//      std::vector<MyRecord*> *roleholders = new std::vector<MyRecord*>();
+//
+//      std::vector<std::string>::const_iterator it;
+//      for (it = people.begin(); it != people.end(); it++) {
+//              std::string aperson = *it;
+//              MyRecord* rec = this->get(aperson.c_str());
+//              roleholders->push_back(rec);
+//      }
+//      
+//      return roleholders;
+//}     
 
 void MyRecordStore::put(const char* key, const MyRecord *data) throw (const char*)
 {
 
         if (invalid)
-                throw (noDb);
+                throw (noDB);
 
         // Tiresome
         // If it exists - delete it
@@ -231,6 +222,7 @@ bool MyRecordStore::deleteRecord(const char* key) throw (const char*)
         const char* deleteaddress = "delete from Addresses where idPerson=?";
         const char* deleteother = "delete from Other where idPerson=?";
         const char* deleteroles = "delete from Roles where idPerson=?";
+        const char* deletemyrecord = "delete from MyRecord where _id=?";
         const char* unused; // Pointer to unused part of sql string (?)
         sql::PreparedStatement *pstmt = NULL;
         // Phones
@@ -243,7 +235,7 @@ bool MyRecordStore::deleteRecord(const char* key) throw (const char*)
         pstmt = dbcon->prepareStatement(deleteaddress);
         pstmt->setString(1, key);
         pstmt->executeUpdate();
-        delete ptmst;
+        delete pstmt;
 
         //Other
         pstmt = dbcon->prepareStatement(deleteother);
@@ -292,11 +284,11 @@ MyRecord *MyRecordStore::get(const char* key) throw (const char*)
                 return NULL;
         }
 
-        string id = rs->getString(1);
-        string name = rs->getString(2);
-        string email = rs->getString(3);
-        string info = rs->getString(4);
-        string image = rs->getString(5);
+        std::string id = rs->getString(1);
+        std::string name = rs->getString(2);
+        std::string email = rs->getString(3);
+        std::string info = rs->getString(4);
+        std::string image = rs->getString(5);
 
         MyRecord *arec = new MyRecord(id);
         arec->setName(name);
@@ -313,7 +305,7 @@ MyRecord *MyRecordStore::get(const char* key) throw (const char*)
         rs = pstmt->executeQuery();
         while (rs->next())
         {
-                string arole = rs->getString(1);
+                std::string arole = rs->getString(1);
                 arec->addRole(arole);
         }
         delete rs;
@@ -333,7 +325,7 @@ void MyRecordStore::recordToTables(const MyRecord* data)
         const char* putaddress = "insert into Addresses values (?, ?, ?)";
         const char* putother = "insert into Other values (?, ?, ?)";
 
-        sql::PrepareStatement *pstmt = NULL;
+        sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(putmyrecord);
         pstmt->setString(1, data->getID());
         pstmt->setString(2, data->getName());
@@ -380,6 +372,4 @@ void MyRecordStore::recordToTables(const MyRecord* data)
 //              delete pstmt;
 //
 //      }
-
 }
-
