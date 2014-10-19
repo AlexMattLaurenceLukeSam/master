@@ -6,7 +6,7 @@
 
 class Reviewer : public Author {
   public:
-    Reviewer(const std::string& iuserName,
+/*    Reviewer(const std::string& iuserName,
       const std::string& iname,
       const std::string& iemail,
       const std::string& iorganisation,
@@ -29,7 +29,32 @@ class Reviewer : public Author {
       allocatedPapers(iallocatedPapers),
       papersToBid(ipapersToBid),
       reviews(ireviews)
-      { }
+      { } */
+    Reviewer(const std::string& iuserName,
+      const std::string& iname,
+      const std::string& iemail,
+      const std::string& iorganisation,
+      const std::string& iphone,
+      int iuserID,
+      const std::vector<std::string>& ikeywords,
+      const std::vector<Paper>& iownPapers,
+      const std::vector<Paper>& iallocatedPapers,
+      const std::vector<Paper>& ipapersToBid,
+      const std::vector<Review>& ireviews)
+      :
+      Author(iuserName,
+      iname,
+      iemail,
+      iorganisation,
+      iphone,
+      iuserID,
+      ikeywords,
+      iownPapers
+      ),
+      allocatedPapers(iallocatedPapers),
+      papersToBid(ipapersToBid),
+      reviews(ireviews)
+      { }      
     void view();
     void getPapersToReview();
     void submitReview();
