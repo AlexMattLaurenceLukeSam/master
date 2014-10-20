@@ -22,12 +22,12 @@ struct User {
          userID(iuserID),
          keywords(ikeywords)
          { }
-  std::string userName;
-  std::string password;
-  std::string name;
-  std::string email;
-  std::string organisation;
-  std::string phone;
+  std::string userName{""};
+  std::string password{""};
+  std::string name{""};
+  std::string email{""};
+  std::string organisation{""};
+  std::string phone{""};
   std::vector<std::string> keywords;
   int userID{0};
 

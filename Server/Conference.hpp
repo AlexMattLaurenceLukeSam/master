@@ -47,11 +47,11 @@ struct Conference {
   void allocatePapers();
 
   bool isActive;
-  std::string title;
-  std::string confID;
-  std::string topic;
-  std::string description;
-  std::string location;
+  std::string title{""};
+  std::string confID{""};
+  std::string topic{""};
+  std::string description{""};
+  std::string location{""};
   std::vector<std::string> keywords;
   bool isBeforePaperDeadline;
   Date paperDeadline;
@@ -61,8 +61,8 @@ struct Conference {
   Date reviewDeadlineHard;
   bool isBeforeDiscussDeadline;
   Date discussDeadline;
-  int reviewersPerPaper;
-  int postWordLimit;
+  int reviewersPerPaper{0};
+  int postWordLimit{0};
 
 };
 #endif

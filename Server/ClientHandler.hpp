@@ -6,7 +6,7 @@
 enum Request_t {ConferenceRequest, PaperRequest, UserRequest};
 
 struct ClientHandler {
-  ClientHandler(Request_t irequest) : Request_t(irequest)
+  ClientHandler(Request_t irequest) : request(irequest)
     { }
 
 Request_t request;

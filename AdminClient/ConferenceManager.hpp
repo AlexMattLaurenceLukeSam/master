@@ -3,9 +3,10 @@
 #include "Conference.hpp"
 
 struct ConferenceManager {
-  ConferenceManager() {temp = NULL;}
+  ConferenceManager() { }
   ConferenceManager(Conference* itemp) : temp(itemp) { }
-  ~ConferenceManager() {delete temp;}
+  ~ConferenceManager() { if(temp != nullptr)
+                     delete temp;}
 
   void createConference();
   void removeConference();
@@ -14,7 +15,7 @@ struct ConferenceManager {
   void editConference();
   void addKWords();
 
-  Conference* temp;
+  Conference* temp{nullptr};
 
 };
 #endif

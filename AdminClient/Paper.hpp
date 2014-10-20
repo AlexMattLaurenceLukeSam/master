@@ -31,12 +31,11 @@ struct Paper {
     // no assignment operator or copy constructor deemed necessary at this point
     void downloadPaper();
 
-    std::string title;
-    std::string abstract;
+    std::string title{""};
+    std::string abstract{""};
     std::vector<std::string> authorNames;
     std::vector<std::string> keywords;
-    std::string fname;
-    std::fstream paper;
+    std::string fname{""};
     Discussion discussion;
     std::vector<Review> reviews;
 };

@@ -3,16 +3,17 @@
 #include "Paper.hpp"
 
 struct PaperManager {
-  PaperManager() {temp = NULL;}
+  PaperManager() { }
   PaperManager(Paper* itemp) : temp(itemp) { }
-  ~PaperManager() {delete temp;}
+  ~PaperManager() { if(temp != nullptr)
+                     delete temp;}
   void createPaper();
   void removePaper();
   void listPapers();
   void viewPaper();
   void editPaper();
 
-  Paper* temp;
+  Paper* temp{nullptr};
 private:
   void viewDiscussion();
   void addDiscPost();

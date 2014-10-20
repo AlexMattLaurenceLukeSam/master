@@ -48,11 +48,11 @@ struct Conference {
   std::vector<std::string> searchForKWords(std::string);
 
   bool isActive;
-  std::string title;
-  std::string confID;
-  std::string topic;
-  std::string description;
-  std::string location;
+  std::string title{""};
+  std::string confID{""};
+  std::string topic{""};
+  std::string description{""};
+  std::string location{""};
   std::vector<std::string> keywords;
   bool isBeforePaperDeadline;
   Date paperDeadline;

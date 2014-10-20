@@ -4,7 +4,7 @@
 #include "Paper.hpp"
 
 struct Review {
-  Review() {paper = NULL;}
+  Review() { }
   Review(Paper* ipaper,
     int reviewId,
     int ioverall,
@@ -35,21 +35,21 @@ struct Review {
     commentsShortPaper(icommentsShortPaper),
     commentsBestAward(icommentsBestAward)
     { }
-  Paper* paper;
-  int reviewId;
-  int overall;
-  int confidence;
-  int relevance;
-  int originality;
-  int significance;
-  int presentation;
-  int techQuality;
-  int evalution;
-  std::string commentsStrength;
-  std::string commentsWeakness;
-  std::string commentsSuggestions;
-  std::string commentsShortPaper;
-  std::string commentsBestAward;
+  Paper* paper{nullptr};
+  int reviewId{0};
+  int overall{0};
+  int confidence{0};
+  int relevance{0};
+  int originality{0};
+  int significance{0};
+  int presentation{0};
+  int techQuality{0};
+  int evalution{0};
+  std::string commentsStrength{""};
+  std::string commentsWeakness{""};
+  std::string commentsSuggestions{""};
+  std::string commentsShortPaper{""};
+  std::string commentsBestAward{""};
 
 };
 #endif

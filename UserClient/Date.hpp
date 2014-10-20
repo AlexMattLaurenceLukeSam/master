@@ -14,7 +14,22 @@ struct Date {
   day = in.day;
   month = in.month;
   year = in.year;}
-  bool compare(Date);
+bool compare(const Date& idate) //returns true if idate is before or on the same day as this
+  {
+    if(idate.year != year) {
+      return idate.year < year;
+    } else {
+      if(idate.month != month) {
+        return idate.month < month;
+        } else {
+        if(idate.day != day) {
+      return idate.day < day;
+          }
+        }
+    }
+    return true;
+  }
+
 
 int day{0};
 int month{0};

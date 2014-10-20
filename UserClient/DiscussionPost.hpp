@@ -9,7 +9,7 @@ struct DiscussionPost {
                  comment(icomment),
                  reviewerUName(ireviewerUName)
                  { }
-  std::string comment;
-  std::string reviewerUName;
+  std::string comment{""};
+  std::string reviewerUName{""};
 };
 #endif

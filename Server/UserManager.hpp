@@ -6,8 +6,9 @@
 struct UserManager {
   UserManager() {temp = NULL;}
   UserManager(User* itemp) : temp(itemp) { }
-  ~UserManager() { delete temp;}
-  User* temp;
+  ~UserManager() { if(temp != nullptr)
+                     delete temp;}
+  User* temp{nullptr};
   void addUser();
   void modifyUser();
   bool deleteUser(int);

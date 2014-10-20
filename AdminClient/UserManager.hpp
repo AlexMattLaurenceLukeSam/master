@@ -3,10 +3,11 @@
 #include "User.hpp"
 
 struct UserManager {
-  UserManager() {temp = NULL;}
+  UserManager() { }
   UserManager(User* itemp) : temp(itemp) { }
-  ~UserManager() { delete temp;}
-  User* temp;
+  ~UserManager() { if(temp != nullptr)
+                     delete temp;}
+  User* temp{nullptr};
   void createUser();
   void removeUser();
   void listUsers();

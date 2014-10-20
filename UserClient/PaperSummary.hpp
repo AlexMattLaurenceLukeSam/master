@@ -4,8 +4,8 @@
 #include <string>
 
 struct PaperSummary {
-  int paperId;
-  std::string paperName;
+  int paperId{0};
+  std::string paperName{""};
 };
 
 #endif

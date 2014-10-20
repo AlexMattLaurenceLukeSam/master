@@ -33,20 +33,22 @@ class Author : public User {
     void submitPaper();
     void modifyPaper();
     void submitRebuttal(); */
-    
+
     Author(const std::string& iuserName,
          const std::string& iname,
          const std::string& iemail,
          const std::string& iorganisation,
          const std::string& iphone,
+         const std::string& ipassword,
          int iuserID,
          const std::vector<std::string>& ikeywords,
          const std::vector<PaperSummary>& iownPapers):
-         User(iuserName, 
+         User(iuserName,
          iname,
          iemail,
          iorganisation,
          iphone,
+         ipassword,
          iuserID
          ),
          keywords(ikeywords),
@@ -56,7 +58,7 @@ class Author : public User {
     void getPapers();
     void submitPaper();
     void modifyPaper();
-    void submitRebuttal(); 
+    void submitRebuttal();
 
     std::vector<std::string> keywords;
 

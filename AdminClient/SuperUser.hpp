@@ -16,9 +16,9 @@ public:
   std::string getPassword() {return password;}
   void setPassword(const std::string& ipassword) {password = ipassword;}
 
-  std::string userName;
+  std::string userName{""};
 
 private:
-  std::string password;
+  std::string password{""};
 };
 #endif

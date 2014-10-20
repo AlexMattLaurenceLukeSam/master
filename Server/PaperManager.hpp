@@ -3,10 +3,11 @@
 #include "Paper.hpp"
 
 struct PaperManager {
-  PaperManager() {temp = NULL;}
+  PaperManager() {}
   PaperManager(Paper* itemp) : temp(itemp) { }
-  ~PaperManager() {delete temp;}
-  Paper* temp;
+  ~PaperManager() { if(temp != nullptr)
+                      delete temp;}
+  Paper* temp{nullptr};
 
   void addPaper();
   void modifyPaper(int);

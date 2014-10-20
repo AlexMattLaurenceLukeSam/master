@@ -43,11 +43,11 @@ class User {
 
   protected:
 
-std::string password;
-std::string name;
-std::string email;
-std::string organisation;
-std::string phone;
+std::string password{""};
+std::string name{""};
+std::string email{""};
+std::string organisation{""};
+std::string phone{""};
 int userID{0};
 Paper currentPaper;
 

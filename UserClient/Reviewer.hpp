@@ -36,6 +36,7 @@ class Reviewer : public Author {
       const std::string& iemail,
       const std::string& iorganisation,
       const std::string& iphone,
+      const std::string& ipassword,
       int iuserID,
       const std::vector<std::string>& ikeywords,
       const std::vector<PaperSummary>& iownPapers,
@@ -48,6 +49,7 @@ class Reviewer : public Author {
       iemail,
       iorganisation,
       iphone,
+      ipassword,
       iuserID,
       ikeywords,
       iownPapers
@@ -55,7 +57,7 @@ class Reviewer : public Author {
       allocatedPapers(iallocatedPapers),
       papersToBid(ipapersToBid),
       reviews(ireviews)
-      { }      
+      { }
     void view();
     void getPapersToReview();
     void submitReview();
@@ -65,11 +67,11 @@ class Reviewer : public Author {
     void viewDiscussion();
     void addDiscussion();
 
-    std::vector<Paper> getAllocatedPapers() {return allocatedPapers;}
-    std::vector<Paper> getPapersToBid() {return papersToBid;}
+    std::vector<PaperSummary> getAllocatedPapers() {return allocatedPapers;}
+    std::vector<PaperSummary> getPapersToBid() {return papersToBid;}
     std::vector<Review> getReviews() {return reviews;}
-    void setAllocatedPapers(const std::vector<Paper>& iallocatedPapers) {allocatedPapers = iallocatedPapers;}
-    void setPapersToBid(const std::vector<Paper>& ipapersToBid) {papersToBid = ipapersToBid;}
+    void setAllocatedPapers(const std::vector<PaperSummary>& iallocatedPapers) {allocatedPapers = iallocatedPapers;}
+    void setPapersToBid(const std::vector<PaperSummary>& ipapersToBid) {papersToBid = ipapersToBid;}
     void setReviews(const std::vector<Review>& ireviews) {reviews = ireviews;}
 
   private:

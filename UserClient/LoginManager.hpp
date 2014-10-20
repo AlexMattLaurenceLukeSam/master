@@ -7,7 +7,7 @@
 class LoginManager {
   public:
   LoginManager(bool iloggedIn,
-               const std::vector<Conference>& iconferences,
+               const std::vector<Conference*>& iconferences,
                Conference* iactiveConference) :
                loggedIn(iloggedIn),
                conferences(iconferences),
@@ -25,13 +25,13 @@ class LoginManager {
   void listConferences();
   void viewActiveConfDetails();
   Conference* getActiveConference() {return activeConference;}
-  std::vector<Conference> getConferences() {return conferences;}
+  std::vector<Conference*> getConferences() {return conferences;}
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}
-  void setConferences(const std::vector<Conference>& iconferences) {conferences =  iconferences;}
+  void setConferences(const std::vector<Conference*>& iconferences) {conferences =  iconferences;}
 
   bool loggedIn;
   private:
-  std::vector<Conference> conferences;
-  Conference* activeConference;
+  std::vector<Conference*> conferences;
+  Conference* activeConference{nullptr};
 };
 #endif
