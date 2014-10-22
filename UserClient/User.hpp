@@ -5,8 +5,10 @@
 
 #include <string>
 
+enum userType {AUTHOR, REVIEWER, PCCHAIR};
+
 class User {
-  public:
+public:
     User() { }
     User(const std::string& iuserName,
          const std::string& iname,
@@ -14,14 +16,16 @@ class User {
          const std::string& iorganisation,
          const std::string& iphone,
          const std::string& ipassword,
-         int iuserID):
+         int iuserID,
+         userType iuType):
          userName(iuserName),
          name(iname),
          email(iemail),
          organisation(iorganisation),
          phone(iphone),
          password(ipassword),
-         userID(iuserID)
+         userID(iuserID),
+         uType(iuType)
          { }
     virtual void view() = 0;
     void modifyDetails();
@@ -38,18 +42,17 @@ class User {
     void setEmail(const std::string& iemail) {email = iemail;}
     void setOrganisation(const std::string& iorganisation) {organisation = iorganisation;}
     void setPhone(const std::string& iphone) {phone = iphone;}
+    userType uType;
 
     std::string userName;
-
-  protected:
-
-std::string password{""};
-std::string name{""};
-std::string email{""};
-std::string organisation{""};
-std::string phone{""};
-int userID{0};
-Paper currentPaper;
+protected:
+    std::string password{""};
+    std::string name{""};
+    std::string email{""};
+    std::string organisation{""};
+    std::string phone{""};
+    int userID{0};
+    Paper currentPaper;
 
 };
 #endif
