@@ -1,0 +1,34 @@
+USE csci222;
+
+CREATE TABLE `myrecord` (
+        `_id` text,
+        `_name` text,
+        `email` text,
+	`info` text,
+	`image` text
+);
+
+CREATE TABLE `roles` (
+	`personid` text,
+	`_role` text
+);
+
+CREATE TABLE `addresses` (
+	`personid` text,
+	`addresstype` text,
+	`address` text
+);
+
+CREATE TABLE `phones` (
+	`personid` text,
+	`phonetype` text,
+	`phonenumber` text
+);
+
+CREATE TABLE `other` (
+	`personid` text,
+	`_key` text,
+	`value` text
+);
+
+INSERT INTO myrecord VALUES ('testperson' ,'Test', 'test@test.com', 'No info', NULL);

@@ -16,10 +16,10 @@
 
 using namespace sql;
 
-const char* databaseStr = "tcp://127.0.0.1:3306";
-const char* databaseUserName = "nabg";
-const char* databaseUserPassword = "NotReallyMyPassword";
-const char* databaseSchema = "nabg";
+const char* databaseStr = "localhost";
+const char* databaseUserName = "matt";
+const char* databaseUserPassword = "nuria1990";
+const char* databaseSchema = "csci222";
 
 const char* noDB = "Sorry, but was unable to open database so operation failed";
 
@@ -64,7 +64,7 @@ bool MyRecordStore::exists(const char* key) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
-        const char* countrecord = "select count(*) from MyRecord where _id=?";
+        const char* countrecord = "select count(*) from myrecord where _id=?";
         sql::PreparedStatement *pstmt = NULL;
         sql::ResultSet * rs = NULL;
 
@@ -218,11 +218,11 @@ bool MyRecordStore::deleteRecord(const char* key) throw (const char*)
         // explicitly delete subordinate records in Phones, Address, others and Roles
         // then delete the myrecord entry
         // recreating the prepared statements for each operation - costly
-        const char* deletephones = "delete from Phones where idPerson=?";
-        const char* deleteaddress = "delete from Addresses where idPerson=?";
-        const char* deleteother = "delete from Other where idPerson=?";
-        const char* deleteroles = "delete from Roles where idPerson=?";
-        const char* deletemyrecord = "delete from MyRecord where _id=?";
+        const char* deletephones = "delete from phones where personid=?";
+        const char* deleteaddress = "delete from addresses where personid=?";
+        const char* deleteother = "delete from other where personid=?";
+        const char* deleteroles = "delete from roles where personid=?";
+        const char* deletemyrecord = "delete from myrecord where _id=?";
         const char* unused; // Pointer to unused part of sql string (?)
         sql::PreparedStatement *pstmt = NULL;
         // Phones
@@ -264,11 +264,11 @@ MyRecord *MyRecordStore::get(const char* key) throw (const char*)
                 throw (noDB);
         // Again laborious
         // Load the MyRecord from its table, then add data from Other tables.
-        const char* getrecord = "select * from MyRecord where _id=?";
-        const char* getroles = "select role from Roles where idperson=?";
-        const char* getphones = "select type, number from Phones where idPerson=?";
-        const char* getaddress = "select type, address from Addresses where idPerson=?";
-        const char* getother = "select key, valyue from Other where idPerson=?";
+        const char* getrecord = "select * from myrecord where _id=?";
+        const char* getroles = "select role from roles where personid=?";
+        const char* getphones = "select type, number from phones where personid=?";
+        const char* getaddress = "select type, address from addresses where personid=?";
+        const char* getother = "select key, valyue from other where personid=?";
 
         sql::PreparedStatement *pstmt = NULL;
         sql::ResultSet *rs = NULL;
@@ -319,11 +319,11 @@ void MyRecordStore::recordToTables(const MyRecord* data)
 
         // Insert the myrecord data first, then deal with Other data tables
 
-        const char* putmyrecord = "insert into MyRecord values( ?, ?, ?, ?, ?)";
-        const char* putrole = "insert into Roles values(?, ?)";
-        const char* putphone = "insert into Phones values (?, ?, ?)";
-        const char* putaddress = "insert into Addresses values (?, ?, ?)";
-        const char* putother = "insert into Other values (?, ?, ?)";
+        const char* putmyrecord = "insert into myrecord values( ?, ?, ?, ?, ?)";
+        const char* putrole = "insert into roles values(?, ?)";
+        const char* putphone = "insert into phones values (?, ?, ?)";
+        const char* putaddress = "insert into addresses values (?, ?, ?)";
+        const char* putother = "insert into other values (?, ?, ?)";
 
         sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(putmyrecord);
