@@ -11,8 +11,6 @@
 typedef MyRecord* RecordPtr;
 std::vector<RecordPtr> g_theRecords;
 
-//std::string getImage(std::string filename);
-
 static void createData();
 
 int main(int arc, char *argv[])
@@ -33,31 +31,15 @@ int main(int arc, char *argv[])
                 astore.put(key, ptr);
                 std::cout << "Wrote record " << key << std::endl;
         }
+        for(it=g_theRecords.begin(); it!=g_theRecords.end(); it++)
+        {
+                RecordPtr ptr = (*it);
+                const char* key = ptr->getID().c_str();
+                astore.deleteRecord(key);
+                std::cout << "Deleted record " << key << std::endl;
+        }
         return EXIT_SUCCESS;
 }
-
-//static std::string getImage(std::string filename)
-//{
-//      // Qt library has its own string class, convert STL string
-//      QString qtfilename(filename.c_str());
-//      QImage animage;
-//      bool readimage = animage.load(qtfilename);
-//      if (!readimage)
-//      {
-//              std::cout << "Image load failed for " << filename << std::endl << "Bye" << std::endl;
-//              exit(1);
-//      }
-//
-//      QImage resized = animage.scaledToWidth(50, Qt::FastTransformation);
-//
-//      QByteArray ba;
-//      QBuffer buf(&ba);
-//      resized.save(&buf, "JPG");
-//      
-//      QByteArray coded = ba.toBase64();
-//      std::string result(coded); // relying on QByteArray operator char*
-//      return result;
-//}
 
 static void createData()
 {
@@ -76,10 +58,8 @@ static void createData()
                 id = "tom";
                 name = "Thomas";
                 file = "./images/om.jpg";
-//              imagestr = getImage(file);
                 next = new MyRecord(id);
                 next->setName(name);
-//              next->setImage(imagestr);
                 aRole = "Boss";
                 next->addRole(aRole);
                 aRole="Manager";
@@ -103,10 +83,8 @@ static void createData()
                 id = "dick";
                 name = "Dick";
                 file = "./images/dick.jpg";
-//              imagestr = getImage(file);
                 next = new MyRecord(id);
                 next->setName(name);
-//              next->setImage(imagestr);
                 aRole="Accountant";
                 next->addRole(aRole);
                 std::string info = "Dick was recruited from starbucks and so knows how to set up \na company so that pays no tax";

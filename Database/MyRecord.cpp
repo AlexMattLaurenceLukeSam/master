@@ -6,52 +6,15 @@
  * 
  * See MyRecord.h for some explanation!
  * 
- * class MyRecord {
-public:
-    explicit MyRecord(string& id); 
-    void setName(string& aname) throw (MyException);
-    void setEmail(string& amail) throw (MyException);
-    void setInfo(string& info) throw (MyException);
-    void setImage(string& imagestr) throw (MyException);
-    void addRole(string& anotherrole) throw (MyException);
-    void addKeyValue(string& collectionname, string& key, string& value) throw(MyException);
-
-    string getID() const { return this->id; }
-    string getName() const { return this->name; }
-    string getEmail() const { return this->email; }
-    string getInfo() const { return this->info; }
-    string getImage() const { return this->image; }
-    string getAttribute(string& collectionname, string& key) const throw(MyException);
-    vector<string> getRoles() const { return this->roles; }
-    map<string,string> getPhones() const { return this->phones; }
-    map<string,string> getAddresses() const { return this->addresses; }
-    map<string,string> getOtherKV() const { return this->other; }
-    
-    bool hasRole(string& queryrole) const;
-    
-private:
-    string id; 
-    string name; 
-    string email; 
-    string image;
-    string info;
-    vector<string> roles;
-    map<string,string> phones;
-    map<string,string> addresses;
-    map<string,string> other;
-
-
-
- * 
- * 
  */
 
 #include <vector>
 #include <algorithm>
 #include "MyRecord.h"
 #include "stringtrimmer.h"
+#include "email_regex.hpp"
 
-//#include <boost/regex.hpp>
+#include <boost/regex.hpp>
 
 MyRecord::MyRecord(string& id) {
     this->id = id;
@@ -60,20 +23,17 @@ MyRecord::MyRecord(string& id) {
 void MyRecord::setName(string& aname) throw (MyException) {
     this->name = aname;
 }
-
+         
 void MyRecord::setEmail(string& amail) throw (MyException) {
- //   boost::regex validationExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$");
- //   amail = trim(amail);
- //   boost::match_results<std::string::const_iterator> results;
- //   if (boost::regex_match(amail, results, validationExpression))
- //   {
-        this->email = amail;
- //   }
- //   else
- //   {
- //       string msg = "Email of wrong format";
- //       throw MyException(msg);
- //   }
+    if (boost::regex_match(amail, validationExpression))
+    {
+      this->email = amail;
+    }
+    else
+    {
+        std::string msg = "Email of wrong format";
+        throw MyException(msg);
+    }
 }
 
 void MyRecord::setInfo(string& info) throw (MyException) {

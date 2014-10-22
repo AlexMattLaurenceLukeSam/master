@@ -152,49 +152,6 @@ std::vector<MyRecord*> *MyRecordStore::getInRole(const char* role) throw (const 
 
         return roleholders;
 }
-//
-//      sqlite3_stmt* stmt;
-//      int rc;
-//      rc = sqlite3_prepare_v2(db,
-//              getrolepersons, strlen(getrolepersons),
-//              &stmt, &unused);
-//      if (rc != SQLITE_OK) {
-//              std::cerr << prepareFailed << std::endl;
-//              exit(1);
-//      }
-//
-//      rc = sqlite3_bind_text(stmt, 1, role, -1 , SQLITE_STATIC);
-//      if (rc != SQLITE_OK) {
-//              std::cerr << bindFailed << std::endl;
-//              exit(1);
-//      }
-//      std::vector<std::string> people;
-//
-//      // rc = sqlite3_step(stmt);
-//
-//      while (sqlite3_step(stmt) == SQLITE_ROW) {
-//              const char* apersonid = reinterpret_cast<const char*> (sqlite3_column_text(stmt, 0));
-//              people.push_back(apersonid);
-//      }
-//      sqlite3_finalize(stmt);
-//
-//
-//      // Maybe there weren't any
-//      if (people.size() == 0)
-//              return NULL;
-//
-//      // Build collection by getting each record
-//      std::vector<MyRecord*> *roleholders = new std::vector<MyRecord*>();
-//
-//      std::vector<std::string>::const_iterator it;
-//      for (it = people.begin(); it != people.end(); it++) {
-//              std::string aperson = *it;
-//              MyRecord* rec = this->get(aperson.c_str());
-//              roleholders->push_back(rec);
-//      }
-//      
-//      return roleholders;
-//}     
 
 void MyRecordStore::put(const char* key, const MyRecord *data) throw (const char*)
 {
