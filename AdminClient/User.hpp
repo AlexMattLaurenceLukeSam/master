@@ -5,6 +5,7 @@
 
 
 struct User {
+  User() { }
   User(const std::string& iuserName,
          const std::string& iname,
          const std::string& iemail,

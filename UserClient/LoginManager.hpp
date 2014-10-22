@@ -3,6 +3,7 @@
 #define LOGIN_MANAGER_H
 
 #include "Conference.hpp"
+#include "User.hpp"
 
 class LoginManager {
   public:
@@ -33,5 +34,6 @@ class LoginManager {
   private:
   std::vector<Conference*> conferences;
   Conference* activeConference{nullptr};
+  User* currentUser{nullptr};
 };
 #endif

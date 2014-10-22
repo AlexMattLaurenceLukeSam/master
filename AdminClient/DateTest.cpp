@@ -1,6 +1,7 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE CompareTest
+//#define BOOST_TEST_DYN_LINK
+//#define BOOST_TEST_MODULE CompareTest
 #include <boost/test/unit_test.hpp>
+//#include "C:\Users\Lucha\Documents\Boost\boost\test\unit_test.hpp"
 #include "Date.hpp"
 
 //BOOST_AUTO_TEST_SUITE(CompareTest)
@@ -27,7 +28,7 @@ BOOST_AUTO_TEST_CASE(YearAheadMonthBehind) {
   BOOST_CHECK(b.compare(a));
 }
 
-BOOST_AUTO_TEST_CASE(YearBehindDayAhead {
+BOOST_AUTO_TEST_CASE(YearBehindDayAhead) {
   Date a;
   a.year = 1;
   Date b(1,0,0);
