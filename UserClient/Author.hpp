@@ -41,6 +41,7 @@ class Author : public User {
          const std::string& iphone,
          const std::string& ipassword,
          int iuserID,
+         UserType_t iuserType,
          const std::vector<std::string>& ikeywords,
          const std::vector<PaperSummary>& iownPapers):
          User(iuserName,
@@ -49,7 +50,8 @@ class Author : public User {
          iorganisation,
          iphone,
          ipassword,
-         iuserID
+         iuserID,
+         iuserType
          ),
          keywords(ikeywords),
          ownPapers(iownPapers)

@@ -7,6 +7,7 @@
 
 class LoginManager {
   public:
+  LoginManager() { }
   LoginManager(bool iloggedIn,
                const std::vector<Conference*>& iconferences,
                Conference* iactiveConference) :
@@ -18,7 +19,9 @@ class LoginManager {
   for (unsigned i=0; i < conferences.size(); i++) {
     delete conferences[i];
   }
+  delete currentUser;
 }
+  User* currentUser{nullptr};
 // no other constructors deemed necessary at this point
   bool login(std::string, std::string);
   void logout();
@@ -34,6 +37,6 @@ class LoginManager {
   private:
   std::vector<Conference*> conferences;
   Conference* activeConference{nullptr};
-  User* currentUser{nullptr};
+
 };
 #endif

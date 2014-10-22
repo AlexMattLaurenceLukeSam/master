@@ -38,6 +38,7 @@ class Reviewer : public Author {
       const std::string& iphone,
       const std::string& ipassword,
       int iuserID,
+      UserType_t iuserType,
       const std::vector<std::string>& ikeywords,
       const std::vector<PaperSummary>& iownPapers,
       const std::vector<PaperSummary>& iallocatedPapers,
@@ -51,6 +52,7 @@ class Reviewer : public Author {
       iphone,
       ipassword,
       iuserID,
+      iuserType,
       ikeywords,
       iownPapers
       ),
