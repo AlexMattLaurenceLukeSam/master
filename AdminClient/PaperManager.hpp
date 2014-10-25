@@ -2,7 +2,8 @@
 #define PAPER_MANAGER_H
 #include "Paper.hpp"
 
-struct PaperManager {
+class PaperManager {
+public:
   PaperManager() { }
   PaperManager(Paper* itemp) : temp(itemp) { }
   ~PaperManager() { if(temp != nullptr)
@@ -12,6 +13,7 @@ struct PaperManager {
   void listPapers();
   void viewPaper();
   void editPaper();
+  void downloadPaper();
 
   Paper* temp{nullptr};
 private:
