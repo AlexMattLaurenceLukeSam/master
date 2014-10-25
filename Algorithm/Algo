@@ -1,5 +1,8 @@
 Algo:
+//PaperForReview Class has a paper and calculates a score for all the potential reviewers. This is then stored in an
+//array (of structs) which has the reviewerID and associated score for that reviewer.
 
+//TODO: getter function for a vector(?) of the reviewers
 
 struct ReviewerBid
 {
@@ -11,22 +14,25 @@ class PaperForReview
 {
 	private:
 		int paperID;
-
-
+		int conferenceID;
 		ReviewerBid[numOfReqReviewrs] reviewerBids;
 
 		std::vector<int> authors;
 		std::vector<int> involvedOrganisation;
 		std::vector<int> conflictingReviewersVec;
-	public:
 		PapersForReview(int);
 		~PapersForReview();
 		int getMinScore();
 		void setNewReviewer(int, int);
 		void checkNewReviewer(int, int);
 		void addAuthor(int);
-		void readInAllPapers();
 		void conflictingReviewers();
+		void algo();
+		void fillVectors();
+		
+	public:
+		//getter
+
 };
 
 void PaperForReview::checkNewReviewer(int newScore, int newReviewerID)
@@ -50,7 +56,7 @@ int PaperForReview::getMinScore()
 	return minScore;
 }
 
-void setNewReviewer(int newScore, int newReviewer)
+void PaperForReview::setNewReviewer(int newScore, int newReviewer)
 {
 
 	minScore = getMinScore();
@@ -71,14 +77,19 @@ PaperForReview::~PaperForReview()
 
 }
 
-PaperForReview::PaperForReview(int newPaperID)
+PaperForReview::PaperForReview(int newPaperID, int confID)
 {
 	paperID = newPaperID
+	conferenceID = confID;
 	
 	for(int i=0; i< NumOfReqReviewrs; i++)
 	{
 		reviewerBids[i].score = -1;
 	}
+	
+	fillVectors(paperID);
+	
+	algo(PaperID, confID);
 }
 
 
@@ -94,39 +105,16 @@ void  PaperForReview::conflictingReviewers()
 		conflictingReviewers.insert(conflictingReviewers.end(), authors.begin(), authors.end());
 
 
-	//usersFromSameOrganisation
+	//(3)usersFromSameOrganisation
 		//ForEachAuthor:   SelectOrganisation
 			//SelectAllUsersFromEachOrganisation
 				//PushBack^
 
 	//pastCoAuthors
-		//ForEachAuthor:   selectAllPapers in temp
+		//(4)ForEachAuthor:   selectAllPapers in temp
 			//Select All authors for each paper in temp
 				//pushBack^
 }
-
-
-
-std::map<PaperForReview*, int> allPapers; //Key is paper ID *** NEEDS TO BE DELETED***
-
-
-//TODO
-
-void readInAllPapers()
-{
-	// for all papers
-		//create new papers object
-
-		// select all Authors where paper==paperID
-			//addAuthors to paper
-
-		// select organisation for each author
-			//add involved organisation
-
-		// push new PaperForReview objects into the map
-
-}
-
 
 
 
@@ -135,23 +123,75 @@ int calculateScore(int userID, int paperID)
 {
 	int score = 1;
 
-	//for each keyword match
-		// ++ score
+	//(5)&(6)for each keyword match
+		 ++score;
 
 	return score;
 
 }
 
+void PaperForReview::algo(int paperID, int conferenceID)
+{
+	std::vector<int> userIDs;
+	
+	//(7) fill userIDs with reviewers from conference
+	
+	 for all in userIDs
+	 {
+	 	int score = 0;
+		If UserID not in  conflictingReviewers
+		{
+			if(isYES())
+			{
+				score = calculateScore(userID, paperID) * (isYES()*1000000);
+				checkNewReviewer(score, userID);
+			}
+			elseif(isMAYBE())
+			{
+				score = calculateScore(userID, paperID) * (isMAYBE()*1000);
+				checkNewReviewer(score, userID);
+			}
+			elseif(!isCONFLICT())
+			{
+				score = calculate score(userID, paperID);
+				checkNewReviewer(score, userID);
+			}
+		}
+	}
+}
 
-//TODO
-//for each paper
-	//IfUserID not in  conflictingReviewers
-		//if(isYES())
-			//calculate score * (isYES()*1000)
-				//checkNewReviewer
-			//elseif(isMAYBE)
-				//calculate score * (isMAYBE()*100)
-				//checkNewReviewer
-			//else
-				//calculate score
-				//checkNewReviewer
+
+void fillVectors(int paperID)
+{
+
+	// (1)select all Authors where paper==paperID
+		//addAuthors to paper
+
+	// (2)select organisation for each author
+		//add involved organisation
+	
+	// CONFLICTING HERE
+}
+
+//(1)select author
+		//Where Paper ID = ?
+		
+//(2)select organisation
+		//where author = ?
+		
+
+//(3) select author
+		//where organisation = ?
+		
+//(4) select paperIDs
+		//where Author =?
+		
+//(5) select keywords
+		//where paperID = ?
+		
+//(6) select keywords
+		//where userID = ?
+		
+//(7) select pcs(reviewrs)
+		//where conferfence = ?
+
