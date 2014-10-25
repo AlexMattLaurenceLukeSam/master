@@ -20,12 +20,12 @@ public:
   void sendConference();
   void sendConferenceBatch();
   void checkAllDeadlines();
-  void checkDeadlines();
   void allocatePapers();
 
 
 
 private:
+  void checkDeadlines();
   void fetchConference(int);
   std::vector<Conference*> conferences;
 };
