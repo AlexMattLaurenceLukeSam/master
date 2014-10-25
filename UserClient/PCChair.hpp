@@ -14,9 +14,12 @@ class PCChair : public User {
   { }
   std::vector<PaperSummary> getAllPapers() {return allPapers;}
   void setAllPapers(const std::vector<PaperSummary>& iallPapers) {allPapers = iallPapers;}
+  Conference* getActiveConference() {return activeConference;}
+  void setActiveConference(Conference* iactiveConference) {activeConference = iactiveConference;}
   void view();
   void removeReviewer();
   bool removeReviewerByName(std::string);
+  void checkConferencesDeadlines();
   void editConfDetails();
   void setConfDeadlines();
   void setConfKWords();
