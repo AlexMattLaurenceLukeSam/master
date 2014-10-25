@@ -9,7 +9,7 @@
 struct Conference {
   Conference(bool iisActive,
   const std::string& ititle,
-  const std::string& iconfID,
+  const int& iconfID,
   const std::string& itopic,
   const std::string& idescription,
   const std::string& ilocation,
@@ -49,7 +49,7 @@ struct Conference {
 
   bool isActive;
   std::string title{""};
-  std::string confID{""};
+  int confID{0};
   std::string topic{""};
   std::string description{""};
   std::string location{""};
