@@ -14,23 +14,25 @@ class PCChair : public User {
   { }
   std::vector<PaperSummary> getAllPapers() {return allPapers;}
   void setAllPapers(const std::vector<PaperSummary>& iallPapers) {allPapers = iallPapers;}
-  Conference* getActiveConference() {return activeConference;}
-  void setActiveConference(Conference* iactiveConference) {activeConference = iactiveConference;}
   void view();
-  void removeReviewer();
+  void removeReviewerFromConf(int);
+  void removeReviewerFromPaper(int, int);
   bool removeReviewerByName(std::string);
-  void checkConferencesDeadlines();
   void editConfDetails();
-  void setConfDeadlines();
-  void setConfKWords();
-  int getAvgScoreForPaper();
-  void acceptOrRejectPaper();
-  void addReviewerToConf();
+  //void setConfDeadlines();
+  //void setConfKWords();covered by above
+  //int getAvgScoreForPaper();dont think we really need this
+  void acceptOrRejectPaper(int);
+  void addReviewerToConf(int);
+  void addReviewerToPaper(int, int);
+  void fetchPapers();
+  void fetchUsers();
 
   private:
   PaperSummary* getPaperByTitle(std::string);
   PaperSummary* getPaperById(int);
   std::vector<PaperSummary> allPapers;
+  std::vector<User> allUsers;
   Conference* activeConference{nullptr};
 };
 #endif
