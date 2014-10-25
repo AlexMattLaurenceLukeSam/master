@@ -14,16 +14,23 @@
          << endl;
 }*/
 
-void Conference::checkDeadlines()
+void ConferenceManager::checkDeadlines(const Conference& in)
 {
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t );
     Date today(now->tm_year + 1900,
                now->tm_mon + 1,
                now->tm_mday);
-    isBeforePaperDeadline = paperDeadline.compare(today);
-    isBeforeSoftReviewDeadline = reviewDeadlineSoft.compare(today);
-    isBeforeHardReviewDeadline = reviewDeadlineHard.compare(today);
-    isBeforeDiscussDeadline = discussDeadline.compare(today);
+    in.isBeforePaperDeadline = in.paperDeadline.compare(today);
+    in.isBeforeSoftReviewDeadline = in.reviewDeadlineSoft.compare(today);
+    in.isBeforeHardReviewDeadline = in.reviewDeadlineHard.compare(today);
+    in.isBeforeDiscussDeadline = in.discussDeadline.compare(today);
 
+}
+
+void ConferenceManager::checkAllDeadlines()
+{
+    for (unsigned i=0; i < conferences.size(); i++) {
+    checkDeadlines(conferences[i]);
+  }
 }
