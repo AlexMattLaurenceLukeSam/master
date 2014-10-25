@@ -38,7 +38,5 @@ struct Paper {
       { }
 
     // no assignment operator or copy constructor deemed necessary at this point
-    void downloadPaper();
-
 };
 #endif
