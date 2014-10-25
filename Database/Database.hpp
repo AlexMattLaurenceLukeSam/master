@@ -27,6 +27,10 @@ public:
 
 	// CONFERENCE
 	Conference *fetchConference(int key) throw (const char*);
+        bool existsConfID(int key) throw (const char*);
+        void putConf(std::string key, const Conference *conf) throw (const char*);
+        std::vector<int> *allUserIDs();
+        std::vector<std::string> *allUserNames();
 
 
 //        // Delete - returns false if there wasn't a record with that key
@@ -55,7 +59,13 @@ private:
         Database& operator=(const Database);
 
 //        void recordToTables(const MyRecord *data);
+
+	// USER
         void createUser(const User *user);
         void updateUser(const User *user);
+
+	// CONF
+        void createConf(const Conference *conf);
+        void updateConf(const Conference *conf);
 
 };
