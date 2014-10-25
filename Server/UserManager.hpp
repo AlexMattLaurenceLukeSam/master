@@ -3,12 +3,15 @@
 
 #include <string>
 
-struct UserManager {
-  UserManager() {temp = NULL;}
-  UserManager(User* itemp) : temp(itemp) { }
-  ~UserManager() { if(temp != nullptr)
-                     delete temp;}
-  User* temp{nullptr};
+class UserManager {
+public:
+  UserManager() { }
+  UserManager(User* icurrentUser) : currentUser(icurrentUser) { }
+  ~UserManager() { if(currentUser != nullptr)
+                     delete currentUser;}
+
+  User* getCurrentUser() {return currentUser;}
+  void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
   void addUser();
   void modifyUser();
   bool deleteUser(int);
@@ -19,5 +22,6 @@ struct UserManager {
 
 private:
  void fetchUser(int);
+ User* currentUser{nullptr};
 };
 #endif
