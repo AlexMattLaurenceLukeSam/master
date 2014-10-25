@@ -2,13 +2,15 @@
 #define PAPER_MANAGER_H
 #include "Paper.hpp"
 
-struct PaperManager {
-  PaperManager() {}
-  PaperManager(Paper* itemp) : temp(itemp) { }
-  ~PaperManager() { if(temp != nullptr)
-                      delete temp;}
-  Paper* temp{nullptr};
+class PaperManager {
+public:
+  PaperManager() { }
+  PaperManager(Paper* icurrentPaper) : currentPaper(icurrentPaper) { }
+  ~PaperManager() { if(currentPaper != nullptr)
+                      delete currentPaper;}
 
+  Paper* getCurrentPaper() {return currentPaper;}
+  void setCurrentPaper(Paper* icurrentPaper) {currentPaper = icurrentPaper;}
   void addPaper();
   void modifyPaper(int);
   bool deleteDiscPost(int);
@@ -23,6 +25,6 @@ struct PaperManager {
 
 private:
 void fetchPaper(int);
-
+Paper* currentPaper{nullptr};
 };
 #endif
