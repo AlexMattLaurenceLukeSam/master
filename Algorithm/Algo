@@ -25,6 +25,7 @@ class PaperForReview
 		void setNewReviewer(int, int);
 		void checkNewReviewer(int, int);
 		void addAuthor(int);
+		void readInAllPapers();
 		void conflictingReviewers();
 };
 
@@ -107,14 +108,14 @@ void  PaperForReview::conflictingReviewers()
 
 
 std::map<PaperForReview*, int> allPapers; //Key is paper ID *** NEEDS TO BE DELETED***
-void readInAllPapers();
+
 
 //TODO
 
 void readInAllPapers()
 {
 	// for all papers
-		//create new paers object
+		//create new papers object
 
 		// select all Authors where paper==paperID
 			//addAuthors to paper
