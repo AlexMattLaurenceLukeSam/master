@@ -3,33 +3,43 @@
 #include "mysql_connection.h"
 #include "mysql_driver.h"
 #include "MyRecord.h"
+#include "../Server/User.hpp"
+#include "../Server/Conference.hpp"
 
-class DataBase {
+class Database {
 public:
         Database();
 
         ~Database();
 
-	// CSCI222
-
-	User *fetchUser(const char*key) throw (const char*);
-
-
-        // Delete - returns false if there wasn't a record with that key
-        bool deleteRecord(const char* key) throw (const char*);
-        // Exists - is there a record with a given key
-        bool exists(const char* key) throw (const char*);
-        // Put - insert/replace a record; returns false if failed
-        // (In this example, key is actually the same as name field in data record)
-        void put(const char* key, const MyRecord *data) throw (const char*);
-        // Get - get record with keyerror: Failed connect to github.com:443; Connection refused while accessing
-        MyRecord *get(const char*key) throw (const char*);
-
-        std::vector<MyRecord*> *getInRole(const char* role) throw (const char*);
-
         void close();
 
-        std::vector<std::string> *allKeys();
+	// USER
+	User *fetchUser(std::string key) throw (const char*);
+        bool existsUserName(std::string key) throw (const char*);
+        void putUser(std::string key, const User *user) throw (const char*);
+        std::vector<int> *allUserIDs();
+        std::vector<std::string> *allUserNames();
+
+	// KEYWORD
+        bool existsKeyword(std::string key) throw (const char*);
+	void addKeyword(std::string key) throw (const char*);
+
+	// CONFERENCE
+	Conference *fetchConference(int key) throw (const char*);
+
+
+//        // Delete - returns false if there wasn't a record with that key
+//        bool deleteRecord(const char* key) throw (const char*);
+//        // Put - insert/replace a record; returns false if failed
+//        // (In this example, key is actually the same as name field in data record)
+//        void put(const char* key, const MyRecord *data) throw (const char*);
+//        // Get - get record with keyerror: Failed connect to github.com:443; Connection refused while accessing
+//        MyRecord *get(const char*key) throw (const char*);
+//
+//        std::vector<MyRecord*> *getInRole(const char* role) throw (const char*);
+//
+//
 
         bool isOK()
         {
@@ -44,6 +54,8 @@ private:
         Database(const Database& orig);
         Database& operator=(const Database);
 
-        void recordToTables(const MyRecord *data);
+//        void recordToTables(const MyRecord *data);
+        void createUser(const User *user);
+        void updateUser(const User *user);
 
 };

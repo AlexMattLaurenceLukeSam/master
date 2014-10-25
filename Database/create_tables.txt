@@ -1,17 +1,19 @@
 USE csci222;
 
+SET foreign_key_checks = 0;
+
 CREATE TABLE `UserType` (
 	`userID` int NOT NULL,
 	`confID` int NOT NULL,
 	`userType` ENUM('author', 'pc', 'chair') NOT NULL DEFAULT 'author',
 	`paidAmount` float NOT NULL DEFAULT 0,
-	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 CREATE TABLE `UserAccount` (
 	`userID` int NOT NULL AUTO_INCREMENT,
-	`username` varchar(32) NOT NULL,
+	`username` varchar(32) NOT NULL UNIQUE,
 	`password` varchar(32) NOT NULL,
 	`infoID` int NOT NULL,
 	PRIMARY KEY(`userID`),
@@ -33,9 +35,9 @@ CREATE TABLE `Emails` (
 	`emailID` int NOT NULL AUTO_INCREMENT,
 	`userID` int NOT NULL,
 	`confID` int NOT NULL,
-	`emailType` ENUM(`accountCreation`, `accountModified`, `paperSubmitted`, `paperAssigned`, `paperReviewed`, `rebuttalNeeded`, `rebuttalSubmitted`, `biddingOpen`, `paperAccepted`, `paperRejected`, `ReviewersNeeded`, `AllPapersReviewed`, `invitationCommitte`, `invitationChair`, `softDeadline`, `hardDeadline`),
+	`emailType` ENUM('accountCreation', 'accountModified', 'paperSubmitted', 'paperAssigned', 'paperReviewed', 'rebuttalNeeded', 'rebuttalSubmitted', 'biddingOpen', 'paperAccepted', 'paperRejected', 'ReviewersNeeded', 'AllPapersReviewed', 'invitationCommitte', 'invitationChair', 'softDeadline', 'hardDeadline'),
 	PRIMARY KEY(`emailID`),
-	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`)
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
@@ -46,10 +48,12 @@ CREATE TABLE `ExpertiseArea` (
 	FOREIGN KEY(`expertiseID`) REFERENCES Keywords(`keywordID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+ALTER TABLE `ExpertiseArea` ADD UNIQUE `unique_index`(`userID`, `expertiseID`);
+
 CREATE TABLE `Keywords` (
 	`keywordID` int NOT NULL AUTO_INCREMENT,
-	`keyword` varchar(64) NOT NULL,
-	PRIMARY KEY(`expertiseID`)
+	`keyword` varchar(64) NOT NULL UNIQUE,
+	PRIMARY KEY(`keywordID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 CREATE TABLE `Conference` (
@@ -68,7 +72,7 @@ CREATE TABLE `Conference` (
 	`discussDeadline` datetime,
 	`discussDeadlineBool` bool,
 	`reviewersPerPaper` int NOT NULL,
-	PRIMARY KEY(`conf_id`)
+	PRIMARY KEY(`confID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 CREATE TABLE `ConferenceKeywords` (
@@ -76,6 +80,7 @@ CREATE TABLE `ConferenceKeywords` (
 	`keywordID` int,
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`keywordID`) REFERENCES Keywords(`keywordID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 CREATE TABLE `Paper` (
 	`paperID` int NOT NULL AUTO_INCREMENT,
@@ -84,7 +89,7 @@ CREATE TABLE `Paper` (
 	`keywordID` int NOT NULL,
 	`paperTitle` varchar(512) NOT NULL,
 	`paperAbstract` varchar(4096) NOT NULL,
-	`paperStatus` ENUM(`accepted`, `rejected`, submitted`, `assigned`, `reviewed`),
+	`paperStatus` ENUM('accepted', 'rejected', 'submitted', 'assigned', 'reviewed'),
 	`paper` blob NOT NULL,
 	PRIMARY KEY(`paperID`),
 	FOREIGN KEY(`leadAuthorID`) REFERENCES UserAccount(`userID`),
@@ -102,7 +107,7 @@ CREATE TABLE `AcceptedPapers` (
 CREATE TABLE `paperAuthors` (
 	`paperID` int NOT NULL,
 	`authorID` int NOT NULL,
-	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
 	FOREIGN KEY(`authorID`) REFERENCES PersonalInfo(`infoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
@@ -139,9 +144,9 @@ CREATE TABLE `Review` (
 	`commentsShortPaper` varchar(4096),
 	`commentsBestAward` varchar(4096),
 	`authorRebuttal` varchar(4096),
-	PRIMARY KEY(`report_id`),
-	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
-	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`)
+	PRIMARY KEY(`reportID`),
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
+	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
@@ -157,3 +162,4 @@ CREATE TABLE `ReviewerDiscussion` (
 	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
+SET foreign_key_checks = 1;

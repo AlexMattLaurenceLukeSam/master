@@ -6,95 +6,109 @@
 #include "MyRecord.h"
 #include "MyRecordStore.h"
 
+#include "Database.hpp"
+#include "../Server/User.hpp"
+
 #include <vector>
 
-typedef MyRecord* RecordPtr;
-std::vector<RecordPtr> g_theRecords;
+typedef User* userPtr;
+std::vector<userPtr> g_theUsers;
 
-static void createData();
+static void createUsers();
 
 int main(int arc, char *argv[])
 {
-        createData();
-        MyRecordStore astore;
-        if (!astore.isOK())
+        createUsers();
+        Database db;
+        if (!db.isOK())
         {
                 std::cout << "Failed to open database file" << std::endl;
                 exit(1);
         }
 
-        vector<RecordPtr>::const_iterator it;
-        for(it=g_theRecords.begin(); it!=g_theRecords.end(); it++)
+        vector<userPtr>::const_iterator it;
+        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
-                RecordPtr ptr = (*it);
-                const char* key = ptr->getID().c_str();
-                astore.put(key, ptr);
+                userPtr ptr = (*it);
+                std::string key = ptr->userName;
+                db.putUser(key, ptr);
                 std::cout << "Wrote record " << key << std::endl;
         }
-        for(it=g_theRecords.begin(); it!=g_theRecords.end(); it++)
+
+	std::vector<std::string> *Names = db.allUserNames();
+	std::vector<std::string>::iterator iter;
+
+        for(iter=Names->begin(); iter!=Names->end(); iter++)
         {
-                RecordPtr ptr = (*it);
-                const char* key = ptr->getID().c_str();
-                astore.deleteRecord(key);
-                std::cout << "Deleted record " << key << std::endl;
+                std::string key = (*iter);
+                userPtr user = db.fetchUser(key);
+                std::cout << user->userName << " " << user->name << " " <<  user->keywords[0] << " " << user->email << " " << key << std::endl;
         }
+//        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
+//        {
+//                userPtr ptr = (*it);
+//                int key = ptr->userID;
+//                db.deleteRecord(key);
+//                std::cout << "Deleted record " << key << std::endl;
+//        }
         return EXIT_SUCCESS;
 }
 
-static void createData()
+static void createUsers()
 {
         // Hard code procedural creation of a few records so that can
         // have some data to show in the Qt based GUI
-        RecordPtr next;
-        std::string id;
+        userPtr next;
+        std::string username;
+        std::string password;
         std::string name;
-        std::string aRole;
-        std::string imagestr;
-        std::string file;
+        std::string email;
+        std::string organisation;
+	std::string phone;
 
         // You will need to adjust filenames etc to match the image files
         // that you provide
         {
-                id = "tom";
+		std::vector<std::string> keywords;
+                username = "tom";
+		password = "fake";
                 name = "Thomas";
-                file = "./images/om.jpg";
-                next = new MyRecord(id);
-                next->setName(name);
-                aRole = "Boss";
-                next->addRole(aRole);
-                aRole="Manager";
-                next->addRole(aRole);
-                std::string email = "boos_tom@ourcompany.com.au";
-                next->setEmail(email);
-                std::string phones = "Phones";
-                std::string mbl = "Mobile";
-                std::string phnnum = "04666666666";
-                next->addKeyValue(phones, mbl, phnnum);
-                std::string others = "Other";
-                std::string key = "Height";
-                std::string value = "1.89m";
-                next->addKeyValue(others, key, value);
-                key = "Golf Handicap";
-                value = "6";
-                next->addKeyValue(others, key, value);
-                g_theRecords.push_back(next);
+                email = "boos_tom@ourcompany.com.au";
+		organisation = "University of Wollongong";
+                phone = "04666666666";
+		keywords.push_back("mathematics");
+		keywords.push_back("science");
+		next = new User(
+			username,
+			name,
+			email,
+			organisation,
+			phone,
+			password,
+			keywords);
+
+                g_theUsers.push_back(next);
         }
         {
-                id = "dick";
+		std::vector<std::string> keywords;
+                username = "dick";
+		password = "wrong";
                 name = "Dick";
-                file = "./images/dick.jpg";
-                next = new MyRecord(id);
-                next->setName(name);
-                aRole="Accountant";
-                next->addRole(aRole);
-                std::string info = "Dick was recruited from starbucks and so knows how to set up \na company so that pays no tax";
-                next->setInfo(info);
-                std::string email = "clever_dick@ourcompany.com.au";
-                next->setEmail(email);
-                std::string phones = "Phones";
-                std::string mbl = "Mobile";
-                std::string phnnum = "04666667666";
-                next->addKeyValue(phones, mbl, phnnum);
-                g_theRecords.push_back(next);
+                email = "clever_dick@ourcompany.com.au";
+                email = "boos_m@ourcompany.com.au";
+		organisation = "University of Wollongong";
+                phone = "04666667666";
+		keywords.push_back("geographyt");
+		keywords.push_back("english");
+		next = new User(
+			username,
+			name,
+			email,
+			organisation,
+			phone,
+			password,
+			keywords);
+
+                g_theUsers.push_back(next);
         }
 }
