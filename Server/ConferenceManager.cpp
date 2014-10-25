@@ -24,8 +24,20 @@ void ConferenceManager::checkDeadlines(Conference* in)
     Date today(now->tm_year + 1900,
                now->tm_mon + 1,
                now->tm_mday);
+    Date yesterday(now->tm_year + 1900,
+               now->tm_mon + 1,
+               now->tm_mday - 1);
     in->isBeforePaperDeadline = in->paperDeadline.compare(today);
+    in->isBeforeAllocationDate = in->allocationDate.compare(yesterday);
+    //for deadlines, you can still submit papers on the day of the paper deadline
+    //for dates, it occurs on the day, so if it is the day of the allocation date or after, allocation is done
+    //this means that it occurs one day earlier, this is why we use yesterday
     in->isBeforeSoftReviewDeadline = in->reviewDeadlineSoft.compare(today);
+    
+    if(!isBeforeAllocationDate) {
+        //run allocation
+    }
+    
     in->isBeforeHardReviewDeadline = in->reviewDeadlineHard.compare(today);
     in->isBeforeDiscussDeadline = in->discussDeadline.compare(today);
 
