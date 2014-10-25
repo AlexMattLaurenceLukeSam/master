@@ -45,8 +45,6 @@ struct Conference {
   postWordLimit(ipostWordLimit)
   { }
 
-  std::vector<std::string> searchForKWords(std::string);
-
   bool isActive;
   std::string title{""};
   std::string confID{""};
