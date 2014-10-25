@@ -43,9 +43,6 @@ struct Conference {
   postWordLimit(ipostWordLimit)
   { }
 
-  void checkDeadlines();
-  void allocatePapers();
-
   bool isActive;
   std::string title{""};
   std::string confID{""};
