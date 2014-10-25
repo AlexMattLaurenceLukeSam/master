@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QApplication> // NOTE: might need to be <QtGui/QApplication>
 
 #include "Author.hpp"
 #include "Conference.hpp"
@@ -12,13 +13,19 @@
 #include "Reviewer.hpp"
 #include "User.hpp"
 
+#include "mainwindow.hpp" //NOTE: used for testing atm
 
+int main(int argc, char *argv[]) {
+    // initialize resources, if needed
+    // Q_INIT_RESOURCE(resfile);
 
-int main()
-{
-std::cout << "hello world" << std::endl;
-int foo = 6;
-auto bar = foo;
-std::cout << bar << "bar" << std::endl;
-return 0;
+    QApplication app(argc, argv);
+
+    MainWindow *foo = new MainWindow();
+    
+    foo->show();
+    
+    // create and show your widgets here
+
+    return app.exec();
 }
