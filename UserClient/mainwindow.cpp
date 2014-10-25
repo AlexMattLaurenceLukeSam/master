@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setUser(0);
+    noUser();
     ui->passwordLogin->setEchoMode(QLineEdit::Password);
 }
 
@@ -17,50 +17,40 @@ MainWindow::~MainWindow()
 
 void MainWindow::login()
 {
-    std::string username = ui->usernameLogin->text().toStdString();
-    std::string password = ui->passwordLogin->text().toStdString();
-
-    if(username == "PCChair" && password == "admin")
-        setUser(3);
-    else if(username == "Reviewer" && password == "user")
-        setUser(2);
-    else if(username == "Author" && password == "user")
-        setUser(1);
-
-    //if(loginMgr.login(ui->usernameLogin->text(), ui->passwordLogin->text()))
-      //  setUser(loginMgr.currentUser->uType);
-
-
+    if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
+        setUser(loginMgr.currentUser->getUserType());
 }
 
 void MainWindow::logout()
 {
-    setUser(0);
-    //loginMgr.logout();
+    noUser();
+    loginMgr.logout();
 }
 
-void MainWindow::setUser(int userType)
+void MainWindow::noUser()
+{
+    ui->tabWidget->clear();
+    ui->tabWidget->addTab(ui->loginTab, "Login");
+}
+
+void MainWindow::setUser(UserType_t userType)
 {
     switch(userType)
     {
-    case 0://no user
-        ui->tabWidget->clear();
-        ui->tabWidget->addTab(ui->loginTab, "Login");
-        break;
-    case 1://author
+    case AUTHOR://author
         ui->tabWidget->clear();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Information");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         //ui->tabWidget->removeTab(0);
         break;
-    case 2://reviewer
+    case REVIEWER://reviewer
         ui->tableWidget->clear();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Information");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         ui->tabWidget->addTab(ui->reviewerTab, "Reviewer");
         ui->tabWidget->removeTab(0);
         break;
-    case 3://pcchair
+    case PCCHAIR://pcchair
         ui->tableWidget->clear();
         ui->tabWidget->addTab(ui->infoTabChair, "Information");
         ui->tabWidget->addTab(ui->usersTab, "User Management");
@@ -98,8 +88,8 @@ void MainWindow::on_passwordLogin_returnPressed()
 
 void MainWindow::on_createAccount_clicked()
 {
-    //if(loginMgr.createAccount(ui->usernameLogin->text(), ui->passwordLogin->text()))
-    //    setUser(loginMgr.currentUser->uType);
+    if(loginMgr.createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
+        setUser(loginMgr.currentUser->getUserType());
 }
 
 void MainWindow::on_apply_clicked()
@@ -169,7 +159,6 @@ void MainWindow::on_selectPaperAuthor_activated(int index)
 {
 
 }
-
 
 void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
 {
