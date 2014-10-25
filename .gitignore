@@ -1,0 +1,13 @@
+# Files to be ignored by git
+# Lines that start with '#' are comments.
+# Please add anything you wish to nut push to git
+# to add to repository use command: "git add -f .gitignore"
+*.[oa]
+*~
+*.exe
+a.out
+*nbproject/
+Makefile
+*build/
+*dist/
+.*
