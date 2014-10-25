@@ -437,88 +437,91 @@ void Database::addKeyword(std::string key) throw (const char*)
         delete pstmt;
 }
 
-//Conference *Database::fetchConference(int key) throw (const char*)
-//{
-//        if (invalid)
-//                throw (noDB);
-//
-//	// Add information on user from database to User object
-//	const char* getConference = "SELECT * FROM Conference WHERE confID=?
-//	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords where confID=?)";
-//
-//        // =======================================
-//        // user account
-//	sql::PreparedStatement *pstmt = NULL;
-//	sql::ResultSet *rs = NULL;
-//	
-//	pstmt = dbcon->prepareStatement(getUser);
-//	pstmt->setInt(1, key);
-//
-//	rs = pstmt->executeQuery();
-//	bool haveRecord = rs->next();
-//	if (!haveRecord)
-//	{
-//		delete rs;
-//		delete pstmt;
-//		return NULL;
-//	}
-//
-//        int userID = rs->getInt(1);
-//        std::string username = rs->getString(2);
-//        std::string password = rs->getString(3);
-//
-//        delete rs;
-//        delete pstmt;
-//
-//        // =======================================
-//        // Personal Info
-//	pstmt = dbcon->prepareStatement(getPersonalInfo);
-//	pstmt->setInt(1, userID);
-//	rs = pstmt->executeQuery();
-//	haveRecord = rs->next();
-//	if (!haveRecord)
-//	{
-//		delete rs;
-//		delete pstmt;
-//		return NULL;
-//	}
-//
-//        std::string name = rs->getString(3);
-//	std::string email = rs->getString(4);
-//	std::string organisation = rs->getString(5);
-//	std::string phone = rs->getString(6);
-//
-//        delete rs;
-//        delete pstmt;
-//
-//        // =======================================
-//        // Expertise Area
-//        std::vector<std::string> vptr;
-//	
-//	pstmt = dbcon->prepareStatement(getExpertise);
-//	pstmt->setInt(1, userID);
-//	rs = pstmt->executeQuery();
-//
-//        while (rs->next()) {
-//                std::string expertise = rs->getString(2);
-//                vptr.push_back(expertise);
-//        }
-//
-//        User *user = new User(
-//		username,
-//		name,
-//		email,
-//		organisation,
-//		phone,
-//		password,
-//		userID,
-//		vptr);
-//
-//        delete rs;
-//        delete pstmt;
-//	
-//	return user;
-//}
+Conference *Database::fetchConference(int key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	// Add information on user from database to User object
+	const char* getConference = "SELECT * FROM Conference WHERE confID=?
+	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords where confID=?)";
+
+        // =======================================
+        // user account
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getConference);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return NULL;
+	}
+
+        int confID = rs->getInt(1);
+        std::string title = rs->getString(2);
+        std::string topic = rs->getString(3);
+        std::string description = rs->getString(3);
+        bool active = rs->getBoolean(3);
+        Timestamp paperDeadline  = rs->getTimestamp(3);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Personal Info
+	pstmt = dbcon->prepareStatement(getPersonalInfo);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+	haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return NULL;
+	}
+
+        std::string name = rs->getString(3);
+	std::string email = rs->getString(4);
+	std::string organisation = rs->getString(5);
+	std::string phone = rs->getString(6);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Expertise Area
+        std::vector<std::string> vptr;
+	
+	pstmt = dbcon->prepareStatement(getExpertise);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                std::string expertise = rs->getString(2);
+                vptr.push_back(expertise);
+        }
+
+        User *user = new User(
+		username,
+		name,
+		email,
+		organisation,
+		phone,
+		password,
+		userID,
+		vptr);
+
+        delete rs;
+        delete pstmt;
+	
+	return user;
+}
 
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
