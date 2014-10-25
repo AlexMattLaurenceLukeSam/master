@@ -20,6 +20,8 @@ public:
   void sendConference();
   void sendConferenceBatch();
   void checkAllDeadlines();
+  void checkDeadlines();
+  void allocatePapers();
 
 
 
