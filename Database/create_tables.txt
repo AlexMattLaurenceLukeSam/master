@@ -58,13 +58,15 @@ CREATE TABLE `Keywords` (
 
 CREATE TABLE `Conference` (
 	`confID` int NOT NULL AUTO_INCREMENT,
-	`name` varchar(256) NOT NULL,
+	`name` varchar(256) NOT NULL UNIQUE,
 	`topic` varchar(512) NOT NULL,
 	`description` varchar(4096) NOT NULL,
 	`location` varchar(256) NOT NULL,
 	`active` boolean NOT NULL DEFAULT 1,
-	`paperDeadline` datetime,
+	`paperDeadline` date,
 	`paperDeadlineBool` bool,
+	`allocationDate` date,
+	`allocationDateBool` bool,
 	`reviewDeadlineSoft` datetime,
 	`reviewDeadlineSoftBool` bool,
 	`reviewDeadlineHard` datetime,
@@ -72,6 +74,7 @@ CREATE TABLE `Conference` (
 	`discussDeadline` datetime,
 	`discussDeadlineBool` bool,
 	`reviewersPerPaper` int NOT NULL,
+	`postWordLimit` int NOT NULL,
 	PRIMARY KEY(`confID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
@@ -81,6 +84,8 @@ CREATE TABLE `ConferenceKeywords` (
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`keywordID`) REFERENCES Keywords(`keywordID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `ConferenceKeywords` ADD UNIQUE `unique_index`(`confID`, `keywordID`);
 
 CREATE TABLE `Paper` (
 	`paperID` int NOT NULL AUTO_INCREMENT,
