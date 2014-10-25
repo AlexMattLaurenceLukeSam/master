@@ -31,6 +31,7 @@ class Reviewer : public Author {
       papersToBid(ipapersToBid),
       reviews(ireviews)
       { } */
+    Reviewer() {}
     Reviewer(const std::string& iuserName,
       const std::string& iname,
       const std::string& iemail,
@@ -65,8 +66,8 @@ class Reviewer : public Author {
     void submitReview();
     void editReview();
     void bidOnPaper();
-    void modifyPaper();
-    void viewDiscussion();
+//    void modifyPaper();
+    void getDiscussion();
     void addDiscussion();
 
     std::vector<PaperSummary> getAllocatedPapers() {return allocatedPapers;}
