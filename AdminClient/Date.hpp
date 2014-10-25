@@ -1,6 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
-struct Date {
+class Date {
+public:  
   Date() { }
   Date(int iday,
     int imonth,
@@ -14,6 +15,11 @@ struct Date {
   day = in.day;
   month = in.month;
   year = in.year;}
+  
+  int getDay(int iday) {day = iday;}
+  int getMonth(int imonth) {month = imonth;}
+  int getYear(int iyear) {year = iyear;}
+  
   bool compare(const Date& idate) //returns true if idate is before or on the same day as this
   {
     if(idate.year != year) {
@@ -29,7 +35,7 @@ struct Date {
     }
     return true;
   }
-
+private:
 int day{0};
 int month{0};
 int year{0};
