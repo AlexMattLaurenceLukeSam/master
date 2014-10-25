@@ -4,7 +4,7 @@
 #include <string>
 
 struct PaperSummary {
-  PaperSummary(int ipaperId, const std::String& ipaperName) :
+  PaperSummary(int ipaperId, const std::string& ipaperName) :
               paperId(ipaperId), paperName(ipaperName)
               { }
   int paperId{0};

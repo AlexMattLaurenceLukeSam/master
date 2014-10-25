@@ -42,9 +42,9 @@ class LoginManager {
 
   private:
   User* currentUser{nullptr};
+  bool loggedIn;
   std::vector<Conference*> conferences;
   Conference* activeConference{nullptr};
-  bool loggedIn;
 
 };
 #endif

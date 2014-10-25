@@ -1,6 +1,7 @@
 #include "LoginManager.hpp"
 
-bool LoginManager::login(std::string username, std::string password)
+//NOTE: temporarily commented out parameters to silence compiler warning until implemented
+bool LoginManager::login(std::string /*username*/, std::string /*password*/)
 {
 //    UserType_t uType;//from packet
 
@@ -33,7 +34,7 @@ bool LoginManager::login(std::string username, std::string password)
     //the response received is used to construct the currentUser pointer member of loginmanager
 
 
-
+    return false; // NOTE: placeholder
 }
 
 void LoginManager::logout()
@@ -42,8 +43,11 @@ void LoginManager::logout()
     //acts as a destructor basically
 }
 
-bool LoginManager::createAccount(std::string username, std::string password)
+//NOTE: temporarily commented out parameters to silence compiler warning until implemented
+bool LoginManager::createAccount(std::string /*username*/, std::string /*password*/)
 {
     //this functions identically to login except that a new record is created in the database with the supplkied details
     //rather than verifying that one exists with matching details
+    
+    return false; // NOTE: placeholder
 }
