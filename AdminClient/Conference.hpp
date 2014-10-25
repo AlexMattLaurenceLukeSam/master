@@ -15,6 +15,8 @@ struct Conference {
   const std::vector<std::string>& ikeywords,
   bool iisBeforePaperDeadline,
   const Date& ipaperDeadline,
+  bool iisBeforeAllocationDate,
+  const Date& iallocationDate,
   bool iisBeforeSoftReviewDeadline,
   const Date& ireviewDeadlineSoft,
   bool iisBeforeHardReviewDeadline,
@@ -32,6 +34,8 @@ struct Conference {
   keywords(ikeywords),
   isBeforePaperDeadline(iisBeforePaperDeadline),
   paperDeadline(ipaperDeadline),
+  isBeforeAllocationDate(iisBeforeAllocationDate),
+  allocationDate(iallocationDate),
   isBeforeSoftReviewDeadline(iisBeforeSoftReviewDeadline),
   reviewDeadlineSoft(ireviewDeadlineSoft),
   isBeforeHardReviewDeadline(iisBeforeHardReviewDeadline),
@@ -51,6 +55,8 @@ struct Conference {
   std::vector<std::string> keywords;
   bool isBeforePaperDeadline;
   Date paperDeadline;
+  bool isBeforeAllocationDate;
+  Date allocationDate;
   bool isBeforeSoftReviewDeadline;
   Date reviewDeadlineSoft;
   bool isBeforeHardReviewDeadline;
