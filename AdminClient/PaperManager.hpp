@@ -5,9 +5,12 @@
 class PaperManager {
 public:
   PaperManager() { }
-  PaperManager(Paper* itemp) : temp(itemp) { }
-  ~PaperManager() { if(temp != nullptr)
-                     delete temp;}
+  PaperManager(Paper* icurrentPaper) : currentPaper(icurrentPaper) { }
+  ~PaperManager() { if(currentPaper != nullptr)
+                     delete currentPaper;}
+  Paper* getCurrentPaper() {return currentPaper;}
+  void setCurrentPaper(Paper* icurrentPaper) {currentPaper = icurrentPaper;}
+
   void createPaper();
   void removePaper();
   void listPapers();
@@ -15,7 +18,6 @@ public:
   void editPaper();
   void downloadPaper();
 
-  Paper* temp{nullptr};
 private:
   void viewDiscussion();
   void addDiscPost();
@@ -25,5 +27,8 @@ private:
   void listReviews();
   void editReview();
   void removeReview();
+
+  Paper* currentPaper{nullptr};
+
 };
 #endif
