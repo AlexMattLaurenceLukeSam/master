@@ -30,7 +30,7 @@ class LoginManager {
 
   bool login(std::string, std::string);
   void logout();
-  void createAccount();
+  bool createAccount(std::string, std::string);
   void listConferences();
   void viewActiveConfDetails();
   Conference* getActiveConference() {return activeConference;}
