@@ -1,3 +1,50 @@
+/*
+ *    acts as the client for the server
+ */
+
+#ifndef CLIENTHANDLER_H
+#define	CLIENTHANDLER_H
+
+#include <QThread>
+#include <QTcpSocket>
+#include <QByteArray>
+
+class ClientHandler : public QThread {
+    Q_OBJECT
+
+public:
+    ClientHandler(int socketDescriptor, QObject *parent);
+
+    void run();
+
+private: 
+
+    // handler functions here
+    void handleUserCheckRequest();
+
+    void handleOneRequest();
+    bool getRequest();
+    bool waitForBytes(int numbytes);
+
+    void dispatchRequest();
+    void prepareToRespond();
+    void sendResponse(); 
+
+    int socketDescriptor;
+    QTcpSocket *tcpSocket;
+    bool running;
+    QByteArray requestData;
+    QByteArray responseData; 
+
+    QDataStream *requestReader;
+    QDataStream *responseWriter; 
+
+};
+
+#endif	/* CLIENTHANDLER_H */
+
+
+/* old stuff
 #ifndef CLIENT_HANDLER_H
 #define CLIENT_HANDLER_H
 
@@ -19,3 +66,4 @@ private:
 
 };
 #endif
+*/
