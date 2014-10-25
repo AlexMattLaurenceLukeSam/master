@@ -117,7 +117,7 @@ User *Database::fetchUser(std::string key) throw (const char*)
 
         // =======================================
         // Expertise Area
-        std::vector<std::string> vptr;
+        std::vector<std::string> vec;
 	
 	pstmt = dbcon->prepareStatement(getExpertise);
 	pstmt->setInt(1, userID);
@@ -126,7 +126,7 @@ User *Database::fetchUser(std::string key) throw (const char*)
 
         while (rs->next()) {
                 std::string expertise = rs->getString(1);
-                vptr.push_back(expertise);
+                vec.push_back(expertise);
         }
 
         User *user = new User(
@@ -137,7 +137,7 @@ User *Database::fetchUser(std::string key) throw (const char*)
 		phone,
 		password,
 		userID,
-		vptr);
+		vec);
 
         delete rs;
         delete pstmt;
@@ -270,8 +270,6 @@ void Database::updateUser(const User* user)
 {
         if (invalid)
                 throw (noDB);
-
-        // Insert the myrecord data first, then deal with Other data tables
 
 	const char* getUserID = "SELECT userID FROM UserAccount where username = ?";
 	const char* updateUser = "UPDATE UserAccount SET username=?, password=? WHERE userID=?";
@@ -447,7 +445,7 @@ Conference *Database::fetchConference(int key) throw (const char*)
 	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords where confID=?)";
 
         // =======================================
-        // user account
+        // Conference 
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
 	
@@ -466,61 +464,311 @@ Conference *Database::fetchConference(int key) throw (const char*)
         int confID = rs->getInt(1);
         std::string title = rs->getString(2);
         std::string topic = rs->getString(3);
-        std::string description = rs->getString(3);
-        bool active = rs->getBoolean(3);
-        Timestamp paperDeadline  = rs->getTimestamp(3);
-
-        delete rs;
-        delete pstmt;
-
-        // =======================================
-        // Personal Info
-	pstmt = dbcon->prepareStatement(getPersonalInfo);
-	pstmt->setInt(1, userID);
-	rs = pstmt->executeQuery();
-	haveRecord = rs->next();
-	if (!haveRecord)
-	{
-		delete rs;
-		delete pstmt;
-		return NULL;
-	}
-
-        std::string name = rs->getString(3);
-	std::string email = rs->getString(4);
-	std::string organisation = rs->getString(5);
-	std::string phone = rs->getString(6);
+        std::string description = rs->getString(4);
+        std::string location = rs->getString(5);
+        bool isActive = rs->getBoolean(6);
+        Date paperDeadline  = rs->getDate(7);
+        bool isBeforePaperDeadline = rs->getBoolean(8);
+        Date allocationDate  = rs->getDate(9);
+        bool isBeforeAllocationDate = rs->getBoolean(10);
+        Date reviewDeadlineSoft  = rs->getDate(11);
+        bool isBeforeSoftReviewDeadline = rs->getBoolean(12);
+        Date reviewDeadlineHard  = rs->getDate(13);
+        bool isBeforeHardReviewDeadline = rs->getBoolean(14);
+        Date discussDeadline  = rs->getDate(15);
+        bool isBeforeDiscussDeadline = rs->getBoolean(16);
+	int reviewersPerPaper = rs->getInt(17);
+	int postWordLimit = rs->getInt(18);
 
         delete rs;
         delete pstmt;
 
         // =======================================
         // Expertise Area
-        std::vector<std::string> vptr;
+        std::vector<std::string> vec;
 	
-	pstmt = dbcon->prepareStatement(getExpertise);
-	pstmt->setInt(1, userID);
+	pstmt = dbcon->prepareStatement(getConfKeywords);
+	pstmt->setInt(1, key);
 	rs = pstmt->executeQuery();
 
         while (rs->next()) {
-                std::string expertise = rs->getString(2);
-                vptr.push_back(expertise);
+                std::string keyword = rs->getString(2);
+                vec.push_back(keyword);
         }
-
-        User *user = new User(
-		username,
-		name,
-		email,
-		organisation,
-		phone,
-		password,
-		userID,
-		vptr);
 
         delete rs;
         delete pstmt;
+
+        Conference *conf = new Conference(
+		isActive,
+		title,
+		confID,
+		topic,
+		description,
+		location,
+		vec,
+		isBeforePaperDeadline,
+		paperDeadline,
+		isBeforeAllocationDate,
+		allocationDate,
+		isBeforeSoftReviewDeadline,
+		reviewDeadlineSoft,
+		isBeforeHardReviewDeadline,
+		reviewDeadlineHard,
+		isBeforeDiscussDeadline,
+		discussDeadline,
+		reviewersPerPaper,
+		postWordLimit
+		);
 	
-	return user;
+	return Conference;
+}
+
+bool Database::existsConfName(std::string key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* countConf = "SELECT COUNT(*) FROM Conference WHERE name=?";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(countConf);
+
+        int count = 0;
+        pstmt->setString(1, key);
+        rs = pstmt->executeQuery();
+
+        if (rs->next()) {
+                count = rs->getInt(1);
+        }
+        delete rs;
+        delete pstmt;
+
+        return count == 1;
+}
+
+void Database::putConf(std::string key, const Conference *conf) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+        if (this->existsConfName(key))
+	{
+                this->updateConf(conf);
+        }
+	else
+	{
+        	this->createConf(conf;
+	}
+}
+
+void Database::createConf(const Conference* conf)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* insertConference = "INSERT INTO Conference(confID, name, topic, description, location, active, paperDeadline, paperDeadlineBool, allocationDate, allocationDateBool, reviewDeadlineSoft, reviewDeadlineSoftBool, reviewDeadlineHard, reviewDeadlineHardBool, discussDeadline, discussDeadlineBool, reviewersPerPaper, postWordlimit) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?)";
+
+	const char* getconfID = "SELECT LAST_INSERT_ID()";
+	const char* insertConfKeyword = "INSERT IGNORE INTO ConferenceKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
+
+        // =======================================
+        // Personal Info
+        sql::PreparedStatement *pstmt = NULL;
+        pstmt = dbcon->prepareStatement(insertConference);
+
+        pstmt->setString(1, conf->title);
+        pstmt->setString(2, conf->topic);
+        pstmt->setString(3, conf->description);
+        pstmt->setString(4, conf->location);
+        pstmt->setBoolean(5, conf->isActive);
+        pstmt->setDate(6, conf->paperDeadline);
+        pstmt->setBoolean(7, conf->isBeforePaperDeadline);
+        pstmt->setDate(8, conf->allocationDate);
+        pstmt->setBoolean(9, conf->isBeforeAllocationDate);
+        pstmt->setDate(10, conf->reviewDeadlineSoft);
+        pstmt->setBoolean(11, conf->isBeforeSoftReviewDeadline);
+        pstmt->setDate(12, conf->reviewDeadlineHard);
+        pstmt->setBoolean(13, conf->isBeforeHardReviewDeadline);
+        pstmt->setDate(14, conf->discussDeadline);
+        pstmt->setBoolean(15, conf->isBeforeDiscussDeadline);
+	pstmt->setInt(16, conf->reviersPerPaper);
+	pstmt->setInt(17, conf->postWordLimit);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+
+        // =======================================
+        // Store confID
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getconfID);
+
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+
+        int confID = rs->getInt(1);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Expertise
+      	if (conf->keywords.size() > 0)
+      	{
+      		pstmt = dbcon->prepareStatement(insertConfKeyword);
+		std::vector<std::string>::const_iterator it;
+      		for (it = conf->keywords.begin(); it != conf->keywords.end(); it ++)
+		{
+			std::string word = *it;	
+
+        		if (!this->existsKeyword(word))
+			{
+				this->addKeyword(word);
+			}
+			
+			pstmt->setInt(1, confID);
+			pstmt->setString(2, word);
+
+      		        pstmt->executeUpdate();
+		}
+      		delete pstmt;
+
+      	}
+}
+
+void Database::updateConf(const Conference* conf)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getConfID = "SELECT confID FROM Conference where name = ?";
+
+	const char* updateConference = "UPDATE Conference SET confID=?, name=?, topic=?, description=?, location=?, active=?, paperDeadline=?, paperDeadlineBool=?, allocationDate=?, allocationDateBool=?, reviewDeadlineSoft=?, reviewDeadlineSoftBool=?, reviewDeadlineHard=?, reviewDeadlineHardBool=?, discussDeadline=?, discussDeadlineBool=?, reviewersPerPaper=?, postWordlimit=? WHERE confID=?";
+
+        const char* deleteKeywords = "DELETE FROM ConferenceKeywords WHERE confID=?";
+	const char* insertKeywords = "INSERT IGNORE INTO ConferenceKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
+
+        // =======================================
+        // Store confID
+        sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getConfID);
+        pstmt->setString(1, conf->name);
+
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+
+        int confID = rs->getInt(1);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Conference
+        pstmt = dbcon->prepareStatement(updateConference);
+
+        pstmt->setString(1, conf->title);
+        pstmt->setString(2, conf->topic);
+        pstmt->setString(3, conf->description);
+        pstmt->setString(4, conf->location);
+        pstmt->setBoolean(5, conf->isActive);
+        pstmt->setDate(6, conf->paperDeadline);
+        pstmt->setBoolean(7, conf->isBeforePaperDeadline);
+        pstmt->setDate(8, conf->allocationDate);
+        pstmt->setBoolean(9, conf->isBeforeAllocationDate);
+        pstmt->setDate(10, conf->reviewDeadlineSoft);
+        pstmt->setBoolean(11, conf->isBeforeSoftReviewDeadline);
+        pstmt->setDate(12, conf->reviewDeadlineHard);
+        pstmt->setBoolean(13, conf->isBeforeHardReviewDeadline);
+        pstmt->setDate(14, conf->discussDeadline);
+        pstmt->setBoolean(15, conf->isBeforeDiscussDeadline);
+	pstmt->setInt(16, conf->reviersPerPaper);
+	pstmt->setInt(17, conf->postWordLimit);
+	pstmt->setInt(18, confID);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+
+        // =======================================
+        // Keywords Delete
+        pstmt = dbcon->prepareStatement(deleteKeywords);
+        pstmt->setInt(1, confID);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+
+        // =======================================
+        // Keywords Insert
+      	if (conf->keywords.size() > 0)
+      	{
+      		pstmt = dbcon->prepareStatement(insertKeywords);
+		std::vector<std::string>::const_iterator it;
+      		for (it = conf->keywords.begin(); it != conf->keywords.end(); it ++)
+		{
+			std::string word = *it;	
+        		if (!this->existsKeyword(word))
+			{
+				this->addKeyword(word);
+			}
+			pstmt->setInt(1, confID);
+			pstmt->setString(2, word);
+
+      		        pstmt->executeUpdate();
+		}
+      		delete pstmt;
+
+      	}
+}
+
+std::vector<int> *Database::allConfIDs()
+{
+        if (invalid)
+                throw (noDB);
+        std::vector<int> *vptr = new std::vector<int>();
+
+        const char* selectall = "select confID from Conference";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(selectall);
+
+        rs = pstmt->executeQuery();
+        while (rs->next()) {
+                int anid = rs->getInt(1);
+                vptr->push_back(anid);
+        }
+
+        return vptr;
+}
+
+std::vector<std::string> *Database::allConfNames()
+{
+        if (invalid)
+                throw (noDB);
+        std::vector<std::string> *vptr = new std::vector<std::string>();
+
+        const char* selectall = "select name from Conference";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(selectall);
+
+        rs = pstmt->executeQuery();
+        while (rs->next()) {
+                std::string aname = rs->getString(1);
+                vptr->push_back(aname);
+        }
+
+        return vptr;
 }
 
 //
