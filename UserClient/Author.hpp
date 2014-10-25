@@ -57,7 +57,8 @@ class Author : public User {
          ownPapers(iownPapers)
          { }
     virtual void view();
-    void getPapers();
+    void getAllPapers();
+    void getPaper();
     void submitPaper();
     void modifyPaper();
     void submitRebuttal();
@@ -66,6 +67,5 @@ class Author : public User {
 
   protected:
     std::vector<PaperSummary> ownPapers;
-
 };
 #endif
