@@ -1,7 +1,7 @@
 #include <ctime>
 #include <iostream>
 
-#include "Conference.hpp"
+#include "ConferenceManager.hpp"
 #include "Date.hpp"
 
 /*int main() {
