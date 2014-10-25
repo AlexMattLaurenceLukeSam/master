@@ -1,5 +1,7 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
+
+#include "User.hpp" // for UserType_t enum
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,7 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::login()
 {
     if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.currentUser->getUserType());
+        setUser(loginMgr.getCurrentUser()->getUserType());
 }
 
 void MainWindow::logout()
@@ -89,7 +91,7 @@ void MainWindow::on_passwordLogin_returnPressed()
 void MainWindow::on_createAccount_clicked()
 {
     if(loginMgr.createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.currentUser->getUserType());
+        setUser(loginMgr.getCurrentUser()->getUserType());
 }
 
 void MainWindow::on_apply_clicked()
@@ -155,13 +157,13 @@ void MainWindow::on_rmvAuthKey_clicked()
     delete ui->authKeyList->currentItem();
 }
 
-void MainWindow::on_selectPaperAuthor_activated(int index)
+void MainWindow::on_selectPaperAuthor_activated(int /*index*/) //NOTE
 {
 
 }
 
-void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
-{
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/)
+{ // NOTE: unused parameter 'arg1'
     ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
     if(ui->selectPaperAuthor->findText("*NEW*") == -1)
         ui->selectPaperAuthor->addItem("*NEW*");

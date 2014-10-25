@@ -4,6 +4,7 @@
 #include "Paper.hpp"
 #include "PaperSummary.hpp"
 #include "User.hpp"
+#include "Conference.hpp" // for activeConference memeber variable
 
 #include <vector>
 
@@ -22,11 +23,12 @@ class PCChair : public User {
   //void setConfDeadlines();
   //void setConfKWords();covered by above
   //int getAvgScoreForPaper();dont think we really need this
-  void acceptOrRejectPaper(int);
+  void acceptOrRejectPaper(bool); // NOTE: changed parameter from int to bool to match function description
   void addReviewerToConf(int);
   void addReviewerToPaper(int, int);
   void fetchPapers();
   void fetchUsers();
+  void checkConferencesDeadlines(); // NOTE: was not declared but function existed, putting here for now
 
   private:
   PaperSummary* getPaperByTitle(std::string);

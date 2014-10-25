@@ -5,30 +5,32 @@
 
 #include <string>
 
-enum UserType_t {Author, Reviewer, PCChair};
+enum UserType_t {AUTHOR, REVIEWER, PCCHAIR};
 
 class User {
   public:
     User() { }
     User(const std::string& iuserName,
+         const std::string& ipassword,
          const std::string& iname,
          const std::string& iemail,
          const std::string& iorganisation,
          const std::string& iphone,
-         const std::string& ipassword,
          int iuserID,
          UserType_t iuserType):
          userName(iuserName),
+         password(ipassword),
          name(iname),
          email(iemail),
          organisation(iorganisation),
          phone(iphone),
-         password(ipassword),
          userID(iuserID),
          userType(iuserType)
          { }
+    virtual ~User() {}
+    
     virtual void view() = 0;
-    void modifyDetails();
+    virtual void modifyDetails();
     void viewConferenceDetails();
     int getUserID() {return userID;}
     std::string getPassword() {return password;}

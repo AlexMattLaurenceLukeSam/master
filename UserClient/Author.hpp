@@ -32,7 +32,7 @@ class Author : public User {
     void getPapers();
     void submitPaper();
     void modifyPaper();
-    void submitRebuttal(); */
+    void submitRebuttal();*/
 
     Author(const std::string& iuserName,
          const std::string& iname,
@@ -62,6 +62,7 @@ class Author : public User {
     void submitPaper();
     void modifyPaper();
     void submitRebuttal();
+    void modifyDetails();
 
     std::vector<std::string> keywords;
 

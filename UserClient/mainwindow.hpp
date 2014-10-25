@@ -54,9 +54,13 @@ private slots:
     void on_selectPaperAuthor_currentTextChanged(const QString &arg1);
 
 private:
-    void setUser(int userType);
+    void setUser(UserType_t userType);
     void login();
     void logout();
+    
+    // NOTE: the following functions were not declare
+    //       placing in private for now
+    void noUser();
 
     Ui::MainWindow *ui;
     LoginManager loginMgr;
