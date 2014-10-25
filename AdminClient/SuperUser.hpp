@@ -13,6 +13,7 @@ public:
 
   void view();
   void changeDetails();
+  void checkAllDeadlines();
   std::string getPassword() {return password;}
   void setPassword(const std::string& ipassword) {password = ipassword;}
 
