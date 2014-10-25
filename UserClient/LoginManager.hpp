@@ -21,8 +21,13 @@ class LoginManager {
   }
   delete currentUser;
 }
-  User* currentUser{nullptr};
+
 // no other constructors deemed necessary at this point
+  User* getCurrentUser() {return currentUser;}
+  bool getLoggedIn() {return loggedIn;}
+  void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
+  void setLoggedIn(bool iloggedIn) {loggedIn = iloggedIn;}  
+
   bool login(std::string, std::string);
   void logout();
   void createAccount();
@@ -32,11 +37,14 @@ class LoginManager {
   std::vector<Conference*> getConferences() {return conferences;}
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}
   void setConferences(const std::vector<Conference*>& iconferences) {conferences =  iconferences;}
+  std::vector<std::string> searchForKWords(std::string);
 
-  bool loggedIn;
+
   private:
+  User* currentUser{nullptr};
   std::vector<Conference*> conferences;
   Conference* activeConference{nullptr};
+  bool loggedIn;
 
 };
 #endif
