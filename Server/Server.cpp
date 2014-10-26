@@ -18,7 +18,9 @@ int main()
   cm = new ConferenceManager(std::vector<Conference*>(), db, nullptr);
   
 
-
+  delete cm;
+  delete pm;
+  delete db;
 
   return 0;
 }
