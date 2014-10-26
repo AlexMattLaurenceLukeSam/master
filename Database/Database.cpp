@@ -104,7 +104,7 @@ User Database::fetchUser(std::string key) throw (const char*)
 	{
 		delete rs;
 		delete pstmt;
-		return NULL;
+		return User();
 	}
 
         std::string name = rs->getString(3);
