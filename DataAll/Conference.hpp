@@ -194,14 +194,14 @@ inline QDataStream& operator>>(QDataStream& in, Conference* conf)
     
     in >> conf->isActive;
     in >> tempQstring;
-    conf->title = tempQstring.toStlString();
+    conf->title = tempQstring.toStdString();
     in >> conf->confID;
-    tempQstring = QString::fromStdString(conf->topic);
     in >> tempQstring;
-    tempQstring = QString::fromStdString(conf->description);
+    conf->topic = tempQstring.toStdString();
     in >> tempQstring;
-    tempQstring = QString::fromStdString(conf->location);
+    conf->description = tempQstring.toStdString();
     in >> tempQstring;
+    conf->location = tempQstring.toStdString();
     
     in >>  tempQvector;
     for (unsigned int i = 0; i < tempQvector.size(); ++i)
@@ -229,15 +229,15 @@ inline QDataStream& operator>>(QDataStream& in, Conference& conf)
     QVector<QString> tempQvector;
     
     in >> conf.isActive;
-    tempQstring = QString::fromStdString(conf.title);
     in >> tempQstring;
+    conf.title = tempQstring.toStdString();
     in >> conf.confID;
-    tempQstring = QString::fromStdString(conf.topic);
     in >> tempQstring;
-    tempQstring = QString::fromStdString(conf.description);
+    conf.topic = tempQstring.toStdString();
     in >> tempQstring;
-    tempQstring = QString::fromStdString(conf.location);
+    conf.description = tempQstring.toStdString();
     in >> tempQstring;
+    conf.location = tempQstring.toStdString();
     
     in >>  tempQvector;
     for (unsigned int i = 0; i < tempQvector.size(); ++i)
@@ -256,6 +256,7 @@ inline QDataStream& operator>>(QDataStream& in, Conference& conf)
     in >>  conf.discussDeadline;
     in >>  conf.reviewersPerPaper;
     in >>  conf.postWordLimit;
+    return in;
 }
 
 #endif
