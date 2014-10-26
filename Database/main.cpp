@@ -74,8 +74,9 @@ db.putConf(title, conferencetemp);
 
 PersonalInfo infotemp("a", "b", "c", "d");
 
+const int CONFID = 7;
 Paper papertemp(5,
-7,
+CONFID,
 "fee",
 "fi",
 std::vector<PersonalInfo>(infotemp),
@@ -110,6 +111,24 @@ std::vector theUsers{usertemp, usertemp2}; */
                 std::string key = (*iter);
                 User user = db.fetchUser(key);
                 std::cout << user.userName << " " << user.name << " " <<  user.keywords[0] << " " << user.email << " " << key << std::endl;
+        }
+        
+        std::vector<int> ConfIDs{db.activeConfIDs()};
+        std::vector<int>::iterator confiter;
+        for(confiter=ConfIDs.begin(); confiter!=ConfIDs.end(); confiter++)
+        {
+        	int key = (*iter);
+        	Conference conference = db.fetchConference(key);
+        	std::cout << conference.title << " " << conference.keywords[0] << std::endl;
+        }
+        
+        std::vector<int> PaperIDs{db.getPaperIDsForConf(CONFID)};
+        std::vector<int>::iterator paperiter;
+        for(paperiter=PaperIDs.begin(); paperiter!=PaperIDs.end(); paperiter++)
+        {
+        	int key = (*iter);
+        	Paper paper = db.fetchPaper(key);
+        	std::cout << paper.paperID << " " << paper.confID << " " << paper.leadAuthorID << " " << paper.keywords[0] << std::endl;
         }
 //        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
 //        {
