@@ -89,14 +89,14 @@ void ClientHandler::dispatchRequest() {
     requestReader->setVersion(QDataStream::Qt_4_0);
     QString cmd;
     (*requestReader) >> cmd;
-    if (cmd == "CHECKUSER")
-        this->handleUserCheckRequest();
+    if (cmd == "CHECKLOGIN")
+        this->handleLoginRequest();
 
     delete requestReader;
     this->requestData.clear();
 }
 
-void ClientHandler::handleUserCheckRequest() {
+void ClientHandler::handleLoginRequest() {
     QString uname;
     QString pword;
     (*requestReader) >> uname;
@@ -104,10 +104,11 @@ void ClientHandler::handleUserCheckRequest() {
 
     prepareToRespond();
     
-    //UserList users;
-    bool response = true; // NOTE: check username here. was: users.CheckUserPassword(uname, pword);
+    // check if user exists and check password
+    theUser->fetchUser(uname.toStdString());
+    if (theUser->) //here
     
-    QString cmd = "CHECKUSER";
+    QString cmd = "CHECKLOGIN";
     (*this->responseWriter) << cmd;
     
     (*this->responseWriter) << response;
