@@ -1041,7 +1041,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 //	return conf;
 }
 
-std::vector<int> Database::getAuthorsForPaper(int key) throw (const char*)
+std::vector<int> Database::getAuthorsForPaper(int paperID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -1055,7 +1055,7 @@ std::vector<int> Database::getAuthorsForPaper(int key) throw (const char*)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getAuthors);
-	pstmt->setInt(1, key);
+	pstmt->setInt(1, paperID);
 
 	rs = pstmt->executeQuery();
 
@@ -1070,7 +1070,7 @@ std::vector<int> Database::getAuthorsForPaper(int key) throw (const char*)
 	return vec;
 }
 
-std::vector<std::string> Database::getOrganisationForAuthor(int key) throw (const char*)
+std::vector<std::string> Database::getOrganisationForAuthor(int infoID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -1084,7 +1084,7 @@ std::vector<std::string> Database::getOrganisationForAuthor(int key) throw (cons
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getOrg);
-	pstmt->setInt(1, key);
+	pstmt->setInt(1, infoID);
 
 	rs = pstmt->executeQuery();
 
@@ -1099,27 +1099,27 @@ std::vector<std::string> Database::getOrganisationForAuthor(int key) throw (cons
 	return vec;
 }
 
-std::vector<int> Database::getAuthorsForOrganisation(std::string org) throw (const char*)
+std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
 
-	const char* getAuthors = "SELECT infoID FROM PersonalInfo WHERE organisation=?";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType='pc' and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?))";
 
         // =======================================
-        // Authors
+        // Reviewers
 	std::vector<int> vec;
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
 	
-	pstmt = dbcon->prepareStatement(getAuthors);
+	pstmt = dbcon->prepareStatement(getReviewers);
 	pstmt->setString(1, org);
 
 	rs = pstmt->executeQuery();
 
         while (rs->next()) {
-		int authorID = rs->getInt(1);
-                vec.push_back(authorID);
+		int reviewerID = rs->getInt(1);
+                vec.push_back(reviewersID);
         }
 
         delete rs;
@@ -1127,6 +1127,152 @@ std::vector<int> Database::getAuthorsForOrganisation(std::string org) throw (con
 	
 	return vec;
 }
+
+std::vector<int> Database::getPapersForAuthor(int authorID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPapers = "SELECT paperID FROM paperAuthors WHERE authorID=?";
+
+        // =======================================
+        // Papers
+	std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPapers);
+	pstmt->setInt(1, authorID);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		int paperID = rs->getInt(1);
+                vec.push_back(paperID);
+        }
+
+        delete rs;
+        delete pstmt;
+	
+	return vec;
+}
+
+std::vector<std::string> Database::getKeywordsForPaper(int paperID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords where paperID=?)";
+
+        // =======================================
+        // Paper Keywords
+        std::vector<std::string> keywords;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperKeywords);
+	pstmt->setInt(1, paperID);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                std::string keyword = rs->getString(1);
+                keywords.push_back(keyword);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	return keywords;
+}
+
+std::vector<std::string> Database::getKeywordsForUser(int userID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getUserKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea where userID=?)";
+
+        // =======================================
+        // Expertise Keywords
+        std::vector<std::string> keywords;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperKeywords);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                std::string keyword = rs->getString(1);
+                keywords.push_back(keyword);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	return keywords;
+}
+
+std::vector<int> Database::getReviewersForConf(int confID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType='pc' and confID=?)";
+
+        // =======================================
+        // Reviewers
+        std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getReviewers);
+	pstmt->setInt(1, key);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                int userID = rs->getInt(1);
+                vec.push_back(userID);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	return vec;
+}
+
+int Database::getReviewerPreference(int userID, int confID, int paperID) throw (const char*)
+{
+	const char* getReviewerPreference = "SELECT preference FROM ReviewerPreference WHERE (userID=? and confID=? and paperID=?)";
+
+        // =======================================
+        // Reviewer Preference
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaper);
+	pstmt->setInt(1, userID);
+	pstmt->setInt(2, confID);
+	pstmt->setInt(3, paperID);
+
+	rs = pstmt->executeQuery();
+
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return -1;
+	}
+
+    	int preference = rs->getInt(1);
+
+        delete rs;
+        delete pstmt;
+	
+	return preference;
+}
+
 
 
 
