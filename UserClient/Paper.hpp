@@ -71,6 +71,18 @@ class Paper {
         }
       }
     }
+    void addToAuthors(const User& in) {
+      authors.push_back(in);
+    }
+    void removeUser(int userToRemove) { //remove by paperID
+      for(unsigned int i = 0; i < authors.size(); ++i)
+      {
+        if(authors[i].getUserID() == userToRemove) {
+          authors.erase(authors.begin() + i);
+          return;
+        }
+      }
+    }
     void addToReviews(const Review& in) {
       reviews.push_back(in);
     }
