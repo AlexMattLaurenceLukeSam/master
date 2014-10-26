@@ -19,14 +19,34 @@ void PaperManager::modifyPDF(int paperID, int confID, const std::string& pdf)
    database->updatePDF(paperID, confID, pdf);
 }
 
-void PaperManager::addReview()
+void PaperManager::addReview(Review rev)
 {
- 
+  db->modifyReview(currentPaper->confID, rev);
 }
 
-void PaperManager::modifyReview(int confID, int reportID)
+void PaperManager::fetchReview(int reviewerID)
 {
- 
+  // send the following to client db->fetchReview(currentPaper->paperID, reviewerID, currentPaper->confID);
+}
+
+void PaperManager::modifyReview(Review rev)
+{
+  db->modifyReview(currentPaper->confID, rev);
+}
+
+void fetchDiscussion()
+{
+  // send the following to client db->fetchDiscussion(currentPaper->paperID, currentPaper->confID);
+}
+
+void fetchRebuttal(int userID)
+{
+  // send the following to client db->fetchRebuttal(currentPaper->paperID, userID, currentPaper->confID);
+}
+
+void createDiscussionPost(DiscussionPost discussionPost)
+{
+  db->createDiscussionPost(discussionPost, currentPaper->paperID, currentPaper->confID);
 }
 
 void PaperManager::sendPaper(int paperID)

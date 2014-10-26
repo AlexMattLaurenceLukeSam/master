@@ -6,7 +6,6 @@ CREATE TABLE `UserType` (
 	`userID` int NOT NULL,
 	`confID` int NOT NULL,
 	`userType` ENUM('author', 'pc', 'chair') NOT NULL DEFAULT 'author',
-	`paidAmount` float NOT NULL DEFAULT 0,
 	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
@@ -117,6 +116,8 @@ CREATE TABLE `AcceptedPapers` (
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `AcceptedPaper` ADD UNIQUE `unique_index`(`paperID`, `confID`);
 
 CREATE TABLE `paperAuthors` (
 	`paperID` int NOT NULL,

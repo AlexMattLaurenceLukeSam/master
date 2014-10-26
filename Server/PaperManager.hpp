@@ -1,7 +1,9 @@
 #ifndef PAPER_MANAGER_H
 #define PAPER_MANAGER_H
 
+#include "../DataAll/DiscussionPost.hpp"
 #include "../DataAll/Paper.hpp"
+#include "../DataAll/Review.hpp"
 #include "../Database/Database.hpp"
 
 class PaperManager {
@@ -25,8 +27,12 @@ public:
   //bool deleteDiscPost(int);
   void modifyDiscPost(int);
   //bool deleteReview(int);
-  void addReview();
-  void modifyReview(int);
+  void addReview(Review);
+  void fetchReview(int);
+  void modifyReview(Review);
+  void fetchDiscussion();
+  void fetchRebuttal(int);
+  void createDiscussionPost(DiscussionPost);
   //bool deletePaper(int);
   void sendPaper(); //just send a paper
   void sendPaperSummaryBatch(int); //all papers for a conf
