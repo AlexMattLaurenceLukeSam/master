@@ -97,6 +97,6 @@ std:vector<Conferences> ConferenceManager::getAllConferences()
 
 void ConferenceManager::fetchConference(int confId)
 {
-    currentConference = db->fetchConference(confId);
+    *currentConference = db->fetchConference(confId);
     
 }
