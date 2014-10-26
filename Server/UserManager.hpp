@@ -26,7 +26,7 @@ public:
   bool deleteUser(int);
   void sendUser();
   void sendUserBatch();
-  bool fetchUser(std::string);
+  void fetchUser(std::string);
 
 
 private:
