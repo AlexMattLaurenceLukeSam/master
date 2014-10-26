@@ -146,6 +146,8 @@ CREATE TABLE `PaperAssigned` (
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `PaperAssigned` ADD UNIQUE `unique_index`(`paperID`, `reviewerID`, `confID`);
 	
 CREATE TABLE `Review` (
 	`reportID` int NOT NULL AUTO_INCREMENT,
