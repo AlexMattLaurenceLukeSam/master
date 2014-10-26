@@ -2,10 +2,12 @@
 #define PAPER_H
 
 #include "Discussion.hpp"
+#include "Review.hpp"
 
 #include <vector>
 
 class User;
+//class Review;
 
 class Paper {
   public:
@@ -51,7 +53,7 @@ class Paper {
     void setAuthors(const std::vector<User>& iauthors) {authors = iauthors;}
     void setKeywords(const std::vector<std::string>& ikeywords) {keywords = ikeywords;}
     void setConfKeyWord(const std::string& iconfKeyword) {confKeyword = iconfKeyword;}
-    void setReviews(const std::Vector<Review>& ireviews) {reviews = ireviews;}
+    void setReviews(const std::vector<Review>& ireviews) {reviews = ireviews;}
     void setDiscussion(Discussion idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
     void setPaperID(int ipaperID) {paperID = ipaperID;}
     void setConfID(int iconfID) {confID = iconfID;}

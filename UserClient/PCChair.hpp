@@ -47,7 +47,7 @@ class PCChair : public User {
   void removeUser(int userToRemove) { //remove by paperID
     for(unsigned int i = 0; i < allUsers.size(); ++i)
     {
-      if(allUsers[i].userID == userToRemove) {
+      if(allUsers[i].getUserID() == userToRemove) {
         allUsers.erase(allUsers.begin() + i);
         return;
       }
