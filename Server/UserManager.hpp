@@ -24,7 +24,7 @@ public:
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addUser() 
   {
-    db->putUser(currentUser->name, currentUser);
+    database->putUser(currentUser->name, currentUser);
   }
   void modifyUser()
   {
@@ -35,7 +35,7 @@ public:
   void sendUser();
   void sendUserBatch(int);
   void fetchUser(std::string);
-  std:vector<User> getAllUsers();
+  std::vector<User> getAllUsers();
 
 
 private:
