@@ -44,8 +44,7 @@ void PaperManager::sendPaperSummariesToReview(int userID, int confID)
 
 void PaperManager::sendAuthoredPaperSummaries(int leadAuthorID, int confID)
 {
- std::vector<int> paperIDsAuthored = database->fetchPapersFromLeadAuthorIDAndConfID(leadAuthorID, confID); 
- //or something like that
+ std::vector<int> paperIDsAuthored = database->getPaperIDsForLeadAuthor(leadAuthorID, confID); 
  std::vector<PaperSummary> papersAuthored;
  for(unsigned int i = 0; i < paperIDsAuthored.size(); ++i)
  {
