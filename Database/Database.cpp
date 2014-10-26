@@ -1102,6 +1102,136 @@ Paper Database::fetchPaper(int key) throw (const char*)
 	return paper;
 }
 
+void Database::createPaper(Paper* paper, std::string pdf)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* insertPaper = "INSERT INTO Paper(paperID, leadAuthorID, confID, keywordID, paperTitle, paperAbstract, paper) VALUES(NULL, ?, ?, (SELECT keywordID FROM Keywords WHERE keyword=?) ?, ?, ?)";
+	const char* getPaperID = "SELECT LAST_INSERT_ID()";
+	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?, ?)";
+
+	const char* insertKeywords = "INSERT IGNORE INTO PaperKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
+	const char* insertDiscuss = "INSERT INTO ReviewerDiscussion(paperID, confID, reviewerID, comment) VALUES(?, ?, ?, ?)";
+
+        // =======================================
+        // Paper
+        sql::PreparedStatement *pstmt = NULL;
+        pstmt = dbcon->prepareStatement(insertPaper);
+        pstmt->setInt(1, paper->leadAuthorID);
+        pstmt->setInt(2, paper->confID);
+        pstmt->setString(3, paper->confKeyword);
+        pstmt->setString(4, paper->title);
+        pstmt->setString(5, paper->abstract);
+        pstmt->setString(6, pdf);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+
+        // =======================================
+        // Store paperID
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperID);
+
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+
+        int paperID = rs->getInt(1);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Paper Authors
+        pstmt = dbcon->prepareStatement(insertAuthors);
+
+	std::vector<std::string>::const_iterator it;
+	for (it = paper->authors.begin(); it != paper->authors.end(); it ++)
+	{
+		PersonalInfo pInfo = *it;	
+
+		pstmt->setInt(1, paperID);
+		pstmt->setInt(2, pInfo->infoID);
+
+	        pstmt->executeUpdate();
+	}
+	delete pstmt;
+
+        // =======================================
+        // Keywords
+      	if (paper->keywords.size() > 0)
+      	{
+      		pstmt = dbcon->prepareStatement(insertKeywords);
+		std::vector<std::string>::const_iterator it;
+      		for (it = paper->keywords.begin(); it != paper->keywords.end(); it ++)
+		{
+			std::string word = *it;	
+
+        		if (!this->existsKeyword(word))
+			{
+				this->addKeyword(word);
+			}
+			
+			pstmt->setInt(1, paperID);
+			pstmt->setString(2, word);
+
+      		        pstmt->executeUpdate();
+		}
+      		delete pstmt;
+
+      	}
+
+//        // =======================================
+//        // Discussion
+//      	if (paper->discussion.discussion.size() > 0)
+//      	{
+//      		pstmt = dbcon->prepareStatement(insertDiscuss);
+//		std::list<DiscussionPost>::const_iterator it;
+//      		for (it = paper->discussion.discussion.begin(); it != paper->discussion.discussion.end(); it ++)
+//		{
+//			DiscussionPost discuss = *it;	
+//
+//        		if (discuss->postID==0)
+//			{
+//				pstmt->setInt(1, paperID);
+//				pstmt->setInt(2, paper->confID);
+//				pstmt->setInt(3, discuss->reviewerID);
+//				pstmt->setString(4, discuss->comment);
+//
+//      		        	pstmt->executeUpdate();
+//			}
+//		}
+//      		delete pstmt;
+//
+//      	}
+//
+//        // =======================================
+//        // Reviews
+//      	if (paper->reviews.size() > 0)
+//      	{
+//      		pstmt = dbcon->prepareStatement(insertReview);
+//		std::vector<Review>::const_iterator it;
+//      		for (it = paper->reviews.begin(); it != paper->reviews.end(); it ++)
+//		{
+//			Review review = *it;	
+//
+//        		if (discuss->postID==0)
+//			{
+//				pstmt->setInt(1, paperID);
+//				pstmt->setInt(2, paper->confID);
+//				pstmt->setInt(3, discuss->reviewerID);
+//				pstmt->setString(4, discuss->comment);
+//
+//      		        	pstmt->executeUpdate();
+//			}
+//		}
+//      		delete pstmt;
+//
+//      	}
+}
+
 std::vector<int> Database::getAuthorsForPaper(int paperID) throw (const char*)
 {
         if (invalid)
