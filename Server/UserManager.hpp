@@ -5,6 +5,7 @@
 #include "User.hpp"
 
 #include <string>
+#include <vector>
 
 class UserManager {
 public:
@@ -27,7 +28,7 @@ public:
   void sendUser();
   void sendUserBatch();
   void fetchUser(std::string);
-   std:vector<User> getAllUsers();
+  std:vector<User> getAllUsers();
 
 
 private:
