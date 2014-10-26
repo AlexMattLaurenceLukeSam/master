@@ -26,7 +26,7 @@ public:
 	// USER
 	User fetchUser(std::string key) throw (const char*);
         bool existsUserName(std::string key) throw (const char*);
-        void putUser(std::string key, User *user) throw (const char*);
+        void putUser(std::string key, User user) throw (const char*);
         std::vector<int> allUserIDs();
         std::vector<std::string> allUserNames();
 
@@ -37,7 +37,7 @@ public:
 	// CONFERENCE
 	Conference fetchConference(int key) throw (const char*);
         bool existsConfName(std::string key) throw (const char*);
-        void putConf(std::string key, Conference *conf) throw (const char*);
+        void putConf(std::string key, Conference conf) throw (const char*);
         std::vector<int> allConfIDs();
         std::vector<std::string> allConfNames();
         std::vector<int> activeConfIDs();
@@ -47,7 +47,7 @@ public:
 	PaperSummary fetchPaperSummary(int key) throw (const char*);
         std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
         Paper fetchPaper(int key) throw (const char*);
-        void createPaper(Paper *paper, std::string pdf);
+        void createPaper(Paper paper, std::string pdf);
 
 	// ALGO
 	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
@@ -91,12 +91,12 @@ private:
 //        void recordToTables(const MyRecord *data);
 
 	// USER
-        void createUser(User *user);
-        void updateUser(User *user);
+        void createUser(User user);
+        void updateUser(User user);
 
 	// CONF
-        void createConf(Conference *conf);
-        void updateConf(Conference *conf);
+        void createConf(Conference conf);
+        void updateConf(Conference conf);
 
 };
 #endif
