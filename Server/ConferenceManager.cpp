@@ -112,3 +112,8 @@ void ConferenceManager::sendConference()
 {
     //send *currentConference to the user
 }
+
+void ConferenceManager::sendConferenceBatch()
+{
+    //send getAllActiveConferences to the client
+}
