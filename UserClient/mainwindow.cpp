@@ -1,7 +1,6 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "../DataAll/Review.hpp"
-//can probably be rid of the above review include
+#include "Review.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -163,33 +162,34 @@ void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {//change to current text or something
-//    switch(index){
-//    case 1:
-//        populate_infoTabAuthor();
-//        break;
-//    case 2:
-//        populate_infoTabChair();
-//        break;
-//    case 3:
-//        populate_authorTab();
-//        break;
-//    case 4:
-//        populate_reviewerTab();
-//        break;
-//    case 5:
-//        populate_papersTab();
-//        break;
-//    case 6:
-//        populate_usersTab();
-//        break;
-//    case 7:
-//        populate_reviewTab();
-//        break;
-//    default:
-//        break;
+    QString text = ui->tabWidget->tabText(index);
+    switch(text){
+    case "Info":
+        populate_infoTabAuthor();
+        break;
+    case "Information":
+        populate_infoTabChair();
+        break;
+    case "Author":
+        populate_authorTab();
+        break;
+    case "Reviewer":
+        populate_reviewerTab();
+        break;
+    case "Paper Management":
+        populate_papersTab();
+        break;
+    case "User Management":
+        populate_usersTab();
+        break;
+    case "Review":
+        populate_reviewTab();
+        break;
+    default:
+        break;
 
 
-//    }
+    }
 }
 
 void MainWindow::populate_infoTabAuthor()
@@ -210,7 +210,7 @@ void MainWindow::populate_infoTabAuthor()
     if(loginMgr.currentAuthor != nullptr)
         for(std::vector<std::string>::iterator it = loginMgr.currentAuthor->keywords.begin(); it != loginMgr.currentAuthor->keywords.end(); ++it)
             ui->authKeyList->addItem(*it);
-    if(loginMgr.currentReviewer != nullptr)
+    else if(loginMgr.currentReviewer != nullptr)
         for(std::vector<std::string>::iterator it = loginMgr.currentReviewer->keywords.begin(); it != loginMgr.currentReviewer->keywords.end(); ++it)
             ui->authKeyList->addItem(*it);
 
@@ -229,8 +229,8 @@ void MainWindow::populate_infoTabAuthor()
 
 void MainWindow::populate_infoTabChair()
 {
-    PCChair* user = loginMgr.currentPCChair;
-    Conference* conf = loginMgr.activeConference;
+    PCChair* user = loginMgr->currentPCChair;
+    Conference* conf = loginMgr->getActiveConference();
 
     ui->username->setText(user->username);
     ui->userid->setText(user->getUserId());
@@ -254,47 +254,116 @@ void MainWindow::populate_infoTabChair()
 
 void MainWindow::populate_authorTab()
 {
-    Author* user = loginMgr.currentAuthor;
+    Author* user;
+    if(loginMgr->currentAuthor != nullptr)
+        user = loginMgr->currentAuthor;
+    else if(loginMgr->currentReviewer != nullptr)
+        user = loginMgr->currentReviewer;
     std::vector<PaperSummary> papers = user->getOwnPapers();
-    std::vector<std::string> keys = user->getCurrentPaper().getKeywords();
-    std::vector<User> authors = user->getCurrentPaper().getAuthors();
+    std::vector<std::string> keys = user->getCurrentPaper().keywords;
+    std::vector<PersonalInfo> authors = user->getCurrentPaper().authors;
 
     for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
         ui->selectPaperAuthor->addItem(it->paperName);
 
-    ui->paperAbstract->setText(user->getCurrentPaper().getAbstract());
+    ui->paperAbstract->setText(user->getCurrentPaper().abstract);
     for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
         ui->paperKeyListAuth->addItem(*it);
 
-    for(std::vector<User>::iterator it = authors.begin(); it != authors.end(); ++it){
+    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
         int rows = ui->authorsTable->rowCount();
         ui->authorsTable->insertRow(rows);
-        QTableWidgetItem* newItem = new QTableWidgetItem(it->getName());
+        QTableWidgetItem* newItem = new QTableWidgetItem(it->name);
         ui->authorsTable->setItem(rows, 0, newItem);
-        newItem = new QTableWidgetItem(it->getName());
+        newItem = new QTableWidgetItem(it->email);
         ui->authorsTable->setItem(rows, 1, newItem);
-        newItem = new QTableWidgetItem(it->getOrganisation());
+        newItem = new QTableWidgetItem(it->organisation);
         ui->authorsTable->setItem(rows, 2, newItem);
-        newItem = new QTableWidgetItem(it->getPhone());
+        newItem = new QTableWidgetItem(it->phone);
         ui->authorsTable->setItem(rows, 3, newItem);
     }
-
-    ui->filenameAuth->setText(user->getCurrentPaper().getFname());
+    for(std::vector<string>::iterator it = loginMgr->getActiveConference()->keywords.begin(); it != loginMgr->getActiveConference()->keywords.end(); ++it){
+        ui->selectMainKey->addItem(*it);
+    }
 }
 
 void MainWindow::populate_papersTab()
 {
+    PCChair* user = loginMgr->currentPCChair;
+    Paper* paper = &user->getCurrentPaper();
+    std::vector<Review>* reviews = &paper->reviews;
+    std::vector<PersonalInfo>* authors = user->getCurrentPaper().authors;
+    std::vector<PersonalInfo> reviewers;
 
+
+    ui->paperNameMng->setText(paper->title);
+    ui->mainKeyMng->setText(paper->confKeyword);
+
+    ui->paperAbstractMng->setText(user->getCurrentPaper().abstract);
+    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
+        ui->paperKeyListMng->addItem(*it);
+
+    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
+        int rows = ui->authorsTableMng->rowCount();
+        ui->authorsTableMng->insertRow(rows);
+        QTableWidgetItem* newItem = new QTableWidgetItem(it->name);
+        ui->authorsTableMng->setItem(rows, 0, newItem);
+        newItem = new QTableWidgetItem(it->email);
+        ui->authorsTableMng->setItem(rows, 1, newItem);
+        newItem = new QTableWidgetItem(it->organisation);
+        ui->authorsTableMng->setItem(rows, 2, newItem);
+        newItem = new QTableWidgetItem(it->phone);
+        ui->authorsTableMng->setItem(rows, 3, newItem);
+    }
 }
 
 void MainWindow::populate_reviewerTab()
 {
+    Reviewer* user = loginMgr->currentReviewer;
+    std::vector<PaperSummary> papers;
+    std::vector<std::string> keys;
+    if(loginMgr->getActiveConference()->isBeforePaperDeadline)
+        papers = user->getPapersToBid();
+    else
+        papers = user->getAllocatedPapers();
+    if(user->getCurrentPaper() == nullptr && !papers.empty()){
+        user->setCurrentPaper(papers.at(0));
+        keys = user->getCurrentPaper().getKeywords();
+    }
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+        ui->selectPaperReviewer->addItem(it->paperName);
 
+    ui->paperAbstractReviewer->setText(user->getCurrentPaper().abstract);
+    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
+        ui->paperKeyListReviewer->addItem(*it);
+    ui->mainKeyReviewer->setText(user->getCurrentPaper().confKeyword);
 }
 
 void MainWindow::populate_reviewTab()
 {
+    Reviewer* user = loginMgr->currentReviewer;
+    std::vector<PaperSummary> papers = user->getAllocatedPapers();
+    std::vector<std::string> keys = user->getCurrentPaper().keywords;
+    std::vector<Review> reviews = user->getReviews();
 
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+        ui->selectPaperReview->addItem(it->paperName);
+
+    ui->paperAbstractReviewer->setText(user->getCurrentPaper().abstract);
+    ui->mainKey->setText(user->getCurrentPaper().confKeyword);
+    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
+        ui->paperKeyListReview->addItem(*it);
+
+    for(std::vector<Reviews>::iterator it = reviews.begin(); it != reviews.end(); ++it){
+        if(it->paperID == user->getCurrentPaper().paperID){
+            ui->commentsBestAward->setText(it->commentsBestAward);
+            ui->commentsShortPaper->setText(it->commentsShortPaper);
+            ui->commentsStrengths->setText(it->commentsStrength);
+            ui->commentsWeaknesses->setText(it->commentsWeakness);
+            ui->commentsSuggestions->setText(it->commentsSuggestions);
+        }
+
+    }
 }
 
 void MainWindow::populate_usersTab()
@@ -342,11 +411,6 @@ void MainWindow::on_downloadChair_clicked()
     downloadPaper();
 }
 
-void MainWindow::on_downloadReview_clicked()
-{
-    downloadPaper();
-}
-
 void MainWindow::on_submitPosts_clicked()
 {
     QString post = ui->postBody->toPlainText();
@@ -388,8 +452,6 @@ void MainWindow::on_submitReview_clicked()
     rev.commentsWeakness = ui->commentsWeaknesses->toPlainText();
     rev.paperID = loginMgr->getCurrentUser()->getCurrentPaper.paperID;
     rev.reviewerID = loginMgr->getCurrentUser()->getUserID();
-    //probably going to move some of the above functionality to elsewhere
-    
 
     //submit review to the server
     //no response from server
@@ -412,4 +474,24 @@ void MainWindow::on_addAsReviewer_2_clicked()
 
     //send paper id and user id to server to add a paper assigned table entry
     //no response from server
+}
+
+void MainWindow::on_papersTable_itemSelectionChanged()
+{
+
+    std::vector<PersonalInfo> authors = loginMgr->currentPCChair->getCurrentPaper().authors;
+
+    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
+        int rows = ui->reviewersTable->rowCount();
+        ui->reviewersTable->insertRow(rows);
+        QTableWidgetItem* newItem = new QTableWidgetItem(it->name);
+        ui->reviewersTable->setItem(rows, 0, newItem);
+        newItem = new QTableWidgetItem(it->email);
+        ui->reviewersTable->setItem(rows, 1, newItem);
+        newItem = new QTableWidgetItem(it->organisation);
+        ui->reviewersTable->setItem(rows, 2, newItem);
+        newItem = new QTableWidgetItem(it->phone);
+        ui->reviewersTable->setItem(rows, 3, newItem);
+    }
+
 }
