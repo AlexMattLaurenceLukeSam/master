@@ -16,3 +16,13 @@ std::vector UserManager::getAllUsers()
   }
   return users;
 }
+
+void UserManager::sendUser()
+{
+ //send *currentUser to the client
+}
+
+void UserManager::sendUserBatch()
+{
+  //std::vector<std::string> userID = db->
+}
