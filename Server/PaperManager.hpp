@@ -21,6 +21,7 @@ public:
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addPaper();
   void modifyPaper(int);
+  void modifyPdf(int, int, const std::string&);
   //bool deleteDiscPost(int);
   void modifyDiscPost(int);
   //bool deleteReview(int);
