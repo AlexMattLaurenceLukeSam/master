@@ -6,6 +6,8 @@
 #include "../Server/User.hpp"
 #include "../DataAll/Conference.hpp"
 #include "../DataAll/Date.hpp"
+#include "../DataAll/PersonalInfo.hpp"
+#include "../Server/PaperSummary.hpp"
 
 class Database {
 public:
@@ -37,7 +39,8 @@ public:
 
 	// PAPER
 	PaperSummary fetchPaperSummary(int key) throw (const char*);
-        std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*)
+        std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
+        Paper fetchPaper(int key) throw (const char*);
 
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
