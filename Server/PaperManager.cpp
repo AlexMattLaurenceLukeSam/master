@@ -9,27 +9,35 @@ void PaperManager::sendPaper(int paperID)
  //send *currentPaper to the client
 }
 
+void PaperManager::addPaper()
+{
+  db->createPaper(*currentPaper);
+}
+
+void PaperManager::modifyPaper()
+{
+  db->updatePaper(*currentPaper);
+}
+
 void PaperManager::sendPaperSummaryBatch(int confID)
 {
   std::vector<int> paperIDsOfConf = db->getPaperIDsForConf(confID);
   //returns all paperSummaries using that confID
-  std::vector<PaperSummaries> papersOfConf;
+  std::vector<PaperSummary> papersOfConf;
   for(unsigned int i = 0; i < paperIDsOfConf.size(); ++i)
   {
-    fetchPaper(paperIDsOfConf[i]); //curentPaper now points to it
-    papersOfConf[i] = PaperSummary(currentPaper->paperID, currentPaper->title);
+    papersOfConf[i] = fetchPaperSummary(paperIDsOfConf[i]);
   }
   //send papersOfConf to the client
 }
 
 void PaperManager::sendPaperSummariesToReview(int userID, int confID)
 {
- std::vector<int> paperIDsToReview = db->fetchPapersFromUserIDAndConfID(userID, confID); //or something like that
- std::vector<PaperSummaries> papersToReview;
+ std::vector<int> paperIDsToReview = db->getPaperIDsForAllocatedReviewer(userID, confID); //or something like that
+ std::vector<PaperSummary> papersToReview;
  for(unsigned int i = 0; i < paperIDsToReview.size(); ++i)
  {
-   fetchPaper(paperIDsToReview[i]); //curentPaper now points to it
-   papersToReview[i] = PaperSummary(currentPaper->paperID, currentPaper->title);
+   papersToReview[i] = fetchPaperSummary(paperIDsToReview[i]);
  }
   //send papersToReview to the client
 }
@@ -38,11 +46,10 @@ void PaperManager::sendAuthoredPaperSummaries(int leadAuthorID, int confID)
 {
  std::vector<int> paperIDsAuthored = db->fetchPapersFromLeadAuthorIDAndConfID(leadAuthorID, confID); 
  //or something like that
- std::vector<PaperSummaries> papersAuthored;
+ std::vector<PaperSummary> papersAuthored;
  for(unsigned int i = 0; i < paperIDsAuthored.size(); ++i)
  {
-   fetchPaper(paperIDsAuthored[i]); //curentPaper now points to it
-   papersAuthored[i] = PaperSummary(currentPaper->paperID, currentPaper->title);
+   papersAuthored[i] = fetchPaperSummary(paperIDsAuthored[i]);
  }
   //send papersAuthored to the client
 }
