@@ -10,6 +10,6 @@ struct DiscussionPost {
                  reviewerID(ireviewerID)
                  { }
   std::string comment{""};
-  int reviewerID{""};
+  int reviewerID{0};
 };
 #endif
