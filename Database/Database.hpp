@@ -44,8 +44,14 @@ public:
         Paper fetchPaper(int key) throw (const char*);
 
 	// ALGO
-	std::vector<int> getAuthorsForPaper(int key) throw (const char*);
-	std::vector<std::string> getOrganisationForAuthor(int key) throw (const char*);
+	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
+	std::vector<std::string> getOrganisationForAuthor(int infoID) throw (const char*);
+	std::vector<int> getReviewersForOrganisation(std::string org) throw (const char*);
+	std::vector<int> getPapersForAuthor(int authorID) throw (const char*);
+	std::vector<std::string> getKeywordsForPaper(int paperID) throw (const char*);
+	std::vector<std::string> getKeywordsForUser(int userID) throw (const char*);
+	std::vector<int> getReviewersForConf(int confID) throw (const char*);
+	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
 	
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
