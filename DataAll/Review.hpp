@@ -36,6 +36,42 @@ struct Review {
     commentsShortPaper(icommentsShortPaper),
     commentsBestAward(icommentsBestAward)
     { }
+
+  Review(int ireportID,
+    int ipaperID,
+    int ireviewerID,
+    int ioverall,
+    int iconfidence,
+    int irelevance,
+    int ioriginality,
+    int isignificance,
+    int ipresentation,
+    int itechQuality,
+    int ievalution,
+    const std::string& icommentsStrength,
+    const std::string& icommentsWeakness,
+    const std::string& icommentsSuggestions,
+    const std::string& icommentsShortPaper,
+    const std::string& icommentsBestAward):
+    reportID(ireportID),
+    paperID(ipaperID),
+    reviewerID(ireviewerID),
+    overall(ioverall),
+    confidence(iconfidence),
+    relevance(irelevance),
+    originality(ioriginality),
+    significance(isignificance),
+    presentation(ipresentation),
+    techQuality(itechQuality),
+    evalution(ievalution),
+    commentsStrength(icommentsStrength),
+    commentsWeakness(icommentsWeakness),
+    commentsSuggestions(icommentsSuggestions),
+    commentsShortPaper(icommentsShortPaper),
+    commentsBestAward(icommentsBestAward)
+    { }
+
+  int reportID{0};
   int paperID{0};
   int reviewerID{0};
   int overall{0};
