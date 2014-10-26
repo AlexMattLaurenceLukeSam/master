@@ -21,6 +21,8 @@ public:
 
   std::vector<Conference*> getConferences() {return conferences;}
   void setConferences(const std::vector<Conference*>& iconferences) {conferences = iconferences;}
+  Conference* getCurrentConference() {return currentConference;}
+  void setCurrentConference(Conference* icurrentConference) {currentConference = icurrentConference;}
   Database* getDatabase() {return database;}
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addConference();
