@@ -10,14 +10,14 @@ class Paper {
     Paper() { }
     Paper(const std::string& ititle,
       const std::string& iabstract,
-      const std::vector<std::string>& iauthorNames,
+      const std::vector<User>& iauthors,
       const std::vector<std::string>& ikeywords,
       const std::string& ifname,
       const Discussion& idiscussion)
       :
       title(ititle),
       abstract(iabstract),
-      authorNames(iauthorNames),
+      authors(iauthors),
       keywords(ikeywords),
       fname(ifname),
       discussion(idiscussion)
