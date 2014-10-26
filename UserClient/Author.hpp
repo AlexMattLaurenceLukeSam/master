@@ -73,7 +73,7 @@ class Author : public User {
     void removeOwnPaper(int paperToRemove) { //remove by paperID
       for(unsigned int i = 0; i < ownPapers.size(); ++i)
       {
-        if(ownPapers.paperID == paperToRemove) {
+        if(ownPapers[i].paperID == paperToRemove) {
           ownPapers.erase(ownPapers.begin() + i);
           return;
         }
