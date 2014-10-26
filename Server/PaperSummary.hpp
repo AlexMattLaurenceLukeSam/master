@@ -5,7 +5,7 @@ struct PaperSummary {
 PaperSummary(int ipaperId, const std::string& ipaperName) :
 paperId(ipaperId), paperName(ipaperName)
 { }
-int paperId{0};
+int paperID{0};
 std::string paperName{""};
 };
 #endif
