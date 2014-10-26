@@ -2,6 +2,7 @@
 #define USER_MANAGER_H
 
 #include "../Database/Database.hpp"
+#include "User.hpp"
 
 #include <string>
 
