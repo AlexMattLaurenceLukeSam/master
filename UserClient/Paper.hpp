@@ -62,7 +62,7 @@ class Paper {
     void addToKeywords(const std::string& in) {
       keywords.push_back(in);
     }
-    void removeOwnPaper(const std::string& keywordToRemove) { //remove by paperID
+    void removeKeyword(const std::string& keywordToRemove) { //remove by paperID
       for(unsigned int i = 0; i < keywords.size(); ++i)
       {
         if(keywords[i] == keywordToRemove) {
@@ -74,7 +74,7 @@ class Paper {
     void addToAuthors(const User& in) {
       authors.push_back(in);
     }
-    void removeUser(int userToRemove) { //remove by paperID
+    void removeAuthor(int userToRemove) { //remove by paperID
       for(unsigned int i = 0; i < authors.size(); ++i)
       {
         if(authors[i].getUserID() == userToRemove) {
