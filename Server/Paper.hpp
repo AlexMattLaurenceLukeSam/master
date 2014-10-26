@@ -11,7 +11,8 @@
 struct Paper {
 
     Paper() { }
-    Paper(const std::string& ititle,
+    Paper(const int ipaperID,
+      const std::string& ititle,
       const std::string& iabstract,
       const std::vector<std::string>& iauthors,
       const std::vector<std::string>& ikeywords,
@@ -19,6 +20,7 @@ struct Paper {
       const std::vector<Review>& ireviews,
       const Discussion& idiscussion)
       :
+      paperID(ipaperID)
       title(ititle),
       abstract(iabstract),
       authors(iauthors),
@@ -28,6 +30,7 @@ struct Paper {
       discussion(idiscussion)
       { }
     // no assignment operator or copy constructor deemed necessary at this point
+    int paperID{0};
     std::string title{""};
     std::string abstract{""};
     std::vector<User> authors;
