@@ -171,7 +171,7 @@ bool Database::existsUserName(std::string key) throw (const char*)
         return count == 1;
 }
 
-void Database::putUser(std::string key, User *user) throw (const char*)
+void Database::putUser(std::string key, User user) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -186,7 +186,7 @@ void Database::putUser(std::string key, User *user) throw (const char*)
 	}
 }
 
-void Database::createUser(User* user)
+void Database::createUser(User user)
 {
         if (invalid)
                 throw (noDB);
@@ -267,7 +267,7 @@ void Database::createUser(User* user)
       	}
 }
 
-void Database::updateUser(User* user)
+void Database::updateUser(User user)
 {
         if (invalid)
                 throw (noDB);
@@ -565,7 +565,7 @@ bool Database::existsConfName(std::string key) throw (const char*)
         return count == 1;
 }
 
-void Database::putConf(std::string key, Conference *conf) throw (const char*)
+void Database::putConf(std::string key, Conference conf) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -580,7 +580,7 @@ void Database::putConf(std::string key, Conference *conf) throw (const char*)
 	}
 }
 
-void Database::createConf(Conference* conf)
+void Database::createConf(Conference conf)
 {
         if (invalid)
                 throw (noDB);
@@ -666,7 +666,7 @@ void Database::createConf(Conference* conf)
       	}
 }
 
-void Database::updateConf(Conference* conf)
+void Database::updateConf(Conference conf)
 {
         if (invalid)
                 throw (noDB);
@@ -1102,7 +1102,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 	return paper;
 }
 
-void Database::createPaper(Paper* paper, std::string pdf)
+void Database::createPaper(Paper paper, std::string pdf)
 {
         if (invalid)
                 throw (noDB);
