@@ -75,6 +75,7 @@ class Author : public User {
       {
         if(ownPapers.paperID == paperToRemove) {
           ownPapers.erase(ownPapers.begin() + i);
+          return;
         }
       }
     } 
