@@ -180,4 +180,14 @@ CREATE TABLE `ReviewerDiscussion` (
 	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
+CREATE TABLE `ReviewerPreference`(
+	`userID` int NOT NULL,
+	`confID` int NOT NULL,
+	`paperID` int NOT NULL,
+	`preference` int NOT NULL,
+	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`),
+	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
 SET foreign_key_checks = 1;
