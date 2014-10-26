@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#include "Paper.hpp"
+#include "../DataAll/Paper.hpp"
 
 #include <string>
 

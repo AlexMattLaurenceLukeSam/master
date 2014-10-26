@@ -6,7 +6,7 @@
 #include "../DataAll/Date.hpp"
 #include "../DataAll/Discussion.hpp"
 #include "../DataAll/DiscussionPost.hpp"
-#include "Paper.hpp"
+#include "../DataAll/Paper.hpp"
 #include "PaperManager.hpp"
 #include "Review.hpp"
 #include "User.hpp"

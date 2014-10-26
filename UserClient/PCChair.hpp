@@ -1,7 +1,7 @@
 #ifndef P_C_CHAIR_H
 #define P_C_CHAIR_H
 
-#include "Paper.hpp"
+#include "../DataAll/Paper.hpp"
 #include "../DataAll/PaperSummary.hpp"
 #include "User.hpp"
 #include "../DataAll/Conference.hpp" // for activeConference memeber variable

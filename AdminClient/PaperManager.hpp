@@ -1,6 +1,6 @@
 #ifndef PAPER_MANAGER_H
 #define PAPER_MANAGER_H
-#include "Paper.hpp"
+#include "../DataAll/Paper.hpp"
 
 class PaperManager {
 public:
