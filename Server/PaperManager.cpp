@@ -9,9 +9,9 @@ void PaperManager::sendPaper(int paperID)
  //send *currentPaper to the client
 }
 
-void PaperManager::addPaper()
+void PaperManager::addPaper(const std::string& pdf)
 {
-  database->createPaper(*currentPaper);
+  database->createPaper(*currentPaper, pdf);
 }
 
 void PaperManager::modifyPaper(int paperID)
