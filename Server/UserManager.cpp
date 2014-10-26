@@ -2,17 +2,17 @@
 
 void UserManager::fetchUser(std::string userName)
 {
-  *currentUser = db->fetchUser(userName);
+  *currentUser = database->fetchUser(userName);
 }
 
 std::vector UserManager::getAllUsers()
 {
-  std::vector<std::string> allUsers = db->allUserNames();
+  std::vector<std::string> allUsers = database->allUserNames();
   
   std::vector<User> users;
   for(int i = 0; i < allUsers.size(); ++i)
   {
-    users.push_back(db->fetchUser(allUsers[i]));
+    users.push_back(database->fetchUser(allUsers[i]));
   }
   return users;
 }
