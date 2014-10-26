@@ -5,7 +5,9 @@
 #include "Conference.hpp"
 #include "User.hpp"
 #include "UserClientStubForServer.hpp"
-#include "mainwindow.hpp"
+//#include "mainwindow.hpp"
+
+class MainWindow;
 
 class LoginManager {
   public:
@@ -13,15 +15,16 @@ class LoginManager {
       
     
     // Connection will mainly be managed by an instance of client stub class
-    ClientStubForServer *stub = new ClientStubForServer(aServer, this);
+    UserClientStubForServer *stub = new UserClientStubForServer(aServer, this);
     this->theServer = stub;
     // but do have some more initialisation to do on the connection
-    aServer->setParent(this);
+    aServer->setParent(this->theServer);
     // Read events generated through TCP connection to be handled by
     // instance of clientstub class
-    connect(aServer, SIGNAL(readyRead()), stub, SLOT(readResponseData()));
+    QObject::connect(aServer, SIGNAL(readyRead()), stub, SLOT(readResponseData()));
     
-    mWindow = new MainWindow();
+//    mWindow = new MainWindow();
+    
 //    widget.setupUi(this);
     
 //    connect(widget.loginButton, SIGNAL(clicked()), this,
@@ -47,7 +50,7 @@ class LoginManager {
   }
   delete currentUser;
 }
-  void showWindow() {mWindow->show();}
+  MainWindow* mWindow;
 
 // no other constructors deemed necessary at this point
   User* getCurrentUser() {return currentUser;}
@@ -75,7 +78,6 @@ class LoginManager {
   std::vector<Conference*> conferences;
   Conference* activeConference{nullptr};
   UserClientStubForServer* theServer;
-  MainWindow* mWindow;
 
 };
 #endif

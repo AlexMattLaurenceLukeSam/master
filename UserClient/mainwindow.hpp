@@ -4,9 +4,13 @@
 #include <QMainWindow>
 #include "LoginManager.hpp"
 
+//enum UserType_t; //{AUTHOR, REVIEWER, PCCHAIR};
+
 namespace Ui {
 class MainWindow;
 }
+
+class LoginManager;
 
 class MainWindow : public QMainWindow
 {
@@ -54,7 +58,7 @@ private slots:
     void on_selectPaperAuthor_currentTextChanged(const QString &arg1);
 
 private:
-    void setUser(UserType_t userType);
+    void setUser(/*UserType_t*/ int userType);
     void login();
     void logout();
     
@@ -63,7 +67,7 @@ private:
     void noUser();
 
     Ui::MainWindow *ui;
-    LoginManager loginMgr;
+    LoginManager* loginMgr;
     QString username;
     QString password;
 };

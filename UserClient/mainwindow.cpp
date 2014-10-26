@@ -19,14 +19,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::login()
 {
-    if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.getCurrentUser()->getUserType());
+//    if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
+//        setUser(loginMgr.getCurrentUser()->getUserType());
 }
 
 void MainWindow::logout()
 {
     noUser();
-    loginMgr.logout();
+    loginMgr->logout();
 }
 
 void MainWindow::noUser()
@@ -35,7 +35,7 @@ void MainWindow::noUser()
     ui->tabWidget->addTab(ui->loginTab, "Login");
 }
 
-void MainWindow::setUser(UserType_t userType)
+void MainWindow::setUser(/*UserType_t*/int userType)
 {
     switch(userType)
     {
@@ -90,8 +90,8 @@ void MainWindow::on_passwordLogin_returnPressed()
 
 void MainWindow::on_createAccount_clicked()
 {
-    if(loginMgr.createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.getCurrentUser()->getUserType());
+    if(loginMgr->createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
+        setUser(loginMgr->getCurrentUser()->getUserType());
 }
 
 void MainWindow::on_apply_clicked()

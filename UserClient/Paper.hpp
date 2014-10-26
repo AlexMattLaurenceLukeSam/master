@@ -5,6 +5,8 @@
 
 #include <vector>
 
+class User;
+
 class Paper {
   public:
     Paper() { }

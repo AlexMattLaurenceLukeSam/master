@@ -1,7 +1,9 @@
 #include <iostream>
-#include <QApplication> // NOTE: might need to be <QtGui/QApplication>
+#include <QApplication>
+#include <qt5/QtWidgets/qwidget.h> // NOTE: might need to be <QtGui/QApplication>
 
-#include "LoginManager.hpp"
+//#include "LoginManager.hpp"
+#include "mainwindow.hpp"
 
 QTcpSocket *establishConnection();
 
@@ -14,13 +16,15 @@ int main(int argc, char *argv[]) {
     QTcpSocket *server = establishConnection();
     LoginManager *mainWindow = new LoginManager(server);
     
-    mainWindow->showWindow();
+    mainWindow->mWindow = new MainWindow;
+    mainWindow->mWindow->show();
 
     return app.exec();
 }
 
 QTcpSocket *establishConnection() {
-    std::string servername = "127.0.0.1";
+    // just connect on localhost
+    std::string servername = "10.64.32.150";//"127.0.0.1";
     std::string pnumstr = "23456";
     /*QRegExp portChk("^\\d{4,5}$");
     QRegExp ipChk("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");

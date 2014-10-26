@@ -5,6 +5,8 @@
 
 #include <string>
 
+//class Paper;
+
 enum UserType_t {AUTHOR, REVIEWER, PCCHAIR};
 
 class User {
@@ -29,7 +31,7 @@ class User {
          { }
     virtual ~User() {}
     
-    virtual void view() = 0;
+//    virtual void view() = 0;
     virtual void modifyDetails();
     void viewConferenceDetails();
     int getUserID() {return userID;}

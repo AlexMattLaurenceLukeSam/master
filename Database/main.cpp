@@ -35,10 +35,10 @@ int main(int arc, char *argv[])
                 std::cout << "Wrote record " << key << std::endl;
         }
 
-	std::vector<std::string> *Names = db.allUserNames();
+	std::vector<std::string> Names = db.allUserNames();
 	std::vector<std::string>::iterator iter;
 
-        for(iter=Names->begin(); iter!=Names->end(); iter++)
+        for(iter=Names.begin(); iter!=Names.end(); iter++)
         {
                 std::string key = (*iter);
                 User user = db.fetchUser(key);

@@ -1,7 +1,7 @@
 #include "LoginManager.hpp"
 
 //NOTE: temporarily commented out parameters to silence compiler warning until implemented
-bool LoginManager::login(std::string /*username*/, std::string /*password*/)
+void LoginManager::loginRequest(QString /*username*/, QString /*password*/)
 {
 //    UserType_t uType;//from packet
 
@@ -12,12 +12,12 @@ bool LoginManager::login(std::string /*username*/, std::string /*password*/)
 //        else if(username == "Author" && password == "user")
 //            uType = PCCHAIR;
         
-        if(uType = PCCHAIR)
-        {
-            currentConference = new Conference(/* initialization constructor based on packet */)
-            //FIND HIS CONFERENCE
-            checkDeadlines(Conference* myConf);
-        }
+//        if(uType = PCCHAIR)
+//        {
+//            currentConference = new Conference(/* initialization constructor based on packet */)
+//            //FIND HIS CONFERENCE
+//            checkDeadlines(Conference* myConf);
+//        }
 
 //    std::vector<std::string> keys;
 //    std::vector<PaperSummary> papers;
@@ -40,7 +40,7 @@ bool LoginManager::login(std::string /*username*/, std::string /*password*/)
     //the response received is used to construct the currentUser pointer member of loginmanager
 
 
-    return false; // NOTE: placeholder
+    //return false; // NOTE: placeholder
 }
 
 void LoginManager::logout()
