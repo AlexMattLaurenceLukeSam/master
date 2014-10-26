@@ -16,24 +16,24 @@ public:
         void close();
 
 	// USER
-	User *fetchUser(std::string key) throw (const char*);
+	User fetchUser(std::string key) throw (const char*);
         bool existsUserName(std::string key) throw (const char*);
-        void putUser(std::string key, const User *user) throw (const char*);
-        std::vector<int> *allUserIDs();
-        std::vector<std::string> *allUserNames();
+        void putUser(std::string key, User *user) throw (const char*);
+        std::vector<int> allUserIDs();
+        std::vector<std::string> allUserNames();
 
 	// KEYWORD
         bool existsKeyword(std::string key) throw (const char*);
 	void addKeyword(std::string key) throw (const char*);
 
 	// CONFERENCE
-	Conference *fetchConference(int key) throw (const char*);
+	Conference fetchConference(int key) throw (const char*);
         bool existsConfName(std::string key) throw (const char*);
         void putConf(std::string key, Conference *conf) throw (const char*);
-        std::vector<int> *allConfIDs();
-        std::vector<std::string> *allConfNames();
-        std::vector<int> *activeConfIDs();
-        std::vector<std::string> *activeConfNames();
+        std::vector<int> allConfIDs();
+        std::vector<std::string> allConfNames();
+        std::vector<int> activeConfIDs();
+        std::vector<std::string> activeConfNames();
 
 
 
@@ -65,8 +65,8 @@ private:
 //        void recordToTables(const MyRecord *data);
 
 	// USER
-        void createUser(const User *user);
-        void updateUser(const User *user);
+        void createUser(User *user);
+        void updateUser(User *user);
 
 	// CONF
         void createConf(Conference *conf);
