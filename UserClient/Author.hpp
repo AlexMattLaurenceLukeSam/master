@@ -70,7 +70,7 @@ class Author : public User {
     void addToOwnPapers(const PaperSummary& in) {
       ownPapers.push_back(in);
     }
-    void removeOwnPaper(int paperToRemove) {
+    void removeOwnPaper(int paperToRemove) { //remove by paperID
       for(unsigned int i = 0; i < ownPapers.size(); ++i)
       {
         if(ownPapers[i].paperID == paperToRemove) {
