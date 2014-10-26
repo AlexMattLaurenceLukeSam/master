@@ -13,6 +13,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <list>
 
 using namespace sql;
 
@@ -1033,7 +1034,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 		int reviewerID = rs->getInt(2);
 		int commentID = rs->getInt(3);
 		DiscussionPost discuss(comment, reviewerID, commentID);
-                discussion.push_back(disucss);
+                discussion.push_back(discuss);
         }
 
         delete rs;
@@ -1087,7 +1088,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
         delete pstmt;
 
 	Paper paper(
-		paperId,
+		paperID,
 		confID,
 		leadAuthorID,
 		title,
@@ -1095,8 +1096,8 @@ Paper Database::fetchPaper(int key) throw (const char*)
 		authors,
 		keywords,
 		confKeyword,
-		discussion,
-		reviews);
+		reviews,
+		discussion);
 
 	return paper;
 }

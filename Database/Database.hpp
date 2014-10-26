@@ -9,6 +9,9 @@
 #include "../DataAll/PersonalInfo.hpp"
 #include "../DataAll/Paper.hpp"
 #include "../DataAll/PaperSummary.hpp"
+#include "../DataAll/Review.hpp"
+#include "../DataAll/Discussion.hpp"
+#include "../DataAll/DiscussionPost.hpp"
 
 class Database {
 public:
