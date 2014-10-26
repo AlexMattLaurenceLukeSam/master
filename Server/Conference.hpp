@@ -7,6 +7,8 @@
 #include <vector>
 
 struct Conference {
+  Conference() {}
+  
   Conference(bool iisActive,
   std::string& ititle,
   int& iconfID,
