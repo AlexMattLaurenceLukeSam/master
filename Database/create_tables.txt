@@ -138,8 +138,10 @@ ALTER TABLE `PaperKeywords` ADD UNIQUE `unique_index`(`paperID`, `keywordID`);
 CREATE TABLE `PaperAssigned` (
 	`paperID` int NOT NULL,
 	`reviewerID` int NOT NULL,
+	`confID` int NOT NULL,
 	`reviewed` boolean NOT NULL DEFAULT 0,
 	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
+	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 	

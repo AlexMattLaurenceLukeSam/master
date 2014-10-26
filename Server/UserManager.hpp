@@ -33,7 +33,7 @@ public:
   
   //bool deleteUser(int);
   void sendUser();
-  void sendUserBatch();
+  void sendUserBatch(int);
   void fetchUser(std::string);
   std:vector<User> getAllUsers();
 
