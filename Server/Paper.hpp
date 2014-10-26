@@ -16,7 +16,6 @@ struct Paper {
       const std::string& iabstract,
       const std::vector<std::string>& iauthors,
       const std::vector<std::string>& ikeywords,
-      const std::string& ifname,
       const std::vector<Review>& ireviews,
       const Discussion& idiscussion)
       :
@@ -25,7 +24,6 @@ struct Paper {
       abstract(iabstract),
       authors(iauthors),
       keywords(ikeywords),
-      fname(ifname),
       reviews(ireviews),
       discussion(idiscussion)
       { }
@@ -35,8 +33,6 @@ struct Paper {
     std::string abstract{""};
     std::vector<User> authors;
     std::vector<std::string> keywords;
-    std::string fname{""};
-
     Discussion discussion;
     std::vector<Review> reviews;
 };
