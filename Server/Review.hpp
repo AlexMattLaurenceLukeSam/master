@@ -3,8 +3,8 @@
 #include <string>
 
 struct Review {
-  Review(const std::string& ireviewerName,
-  int reviewId,
+  Review(
+  int ireviewerID,
   int ioverall,
   int iconfidence,
   int irelevance,
@@ -18,7 +18,7 @@ struct Review {
   const std::string& icommentsSuggestions,
   const std::string& icommentsShortPaper,
   const std::string& icommentsBestAward):
-  reviewerName(ireviewerName),
+  reviewerID(ireviewerID),
   overall(ioverall),
   confidence(iconfidence),
   relevance(irelevance),
@@ -33,8 +33,7 @@ struct Review {
   commentsShortPaper(icommentsShortPaper),
   commentsBestAward(icommentsBestAward)
   { }
-  std::string reviewerName;
-  int reviewId{0};
+  int reviewerID{0};
   int overall{0};
   int confidence{0};
   int relevance{0};
