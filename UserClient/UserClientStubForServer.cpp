@@ -11,21 +11,16 @@
 #include "mainwindow.hpp"
 #include "UserClientStubForServer.hpp"
 
-// NOTE: future possible includes:
-// #include "LoginManager.hpp"
-// #include "User.hpp" // for UserType_t enum
-// etc.
-
-void UserClientStubForServer::checkLoginDetails(QString uname, QString pword)
+void UserClientStubForServer::sendLoginRequest(QString uname, QString pword)
 {
     if (this->busy)
         return;
 
     this->setupForRequest();
-    this->setupForResponse(); // expecting a response to this request
+    this->setupForResponse(); // expecting a response to this request (omit otherwise)
     
-    // Send a QString with command name
-    QString checkLoginCmd = "CHECKLOGIN"; // NOTE: might be changed to enum
+    // Send a QString with command name as first on qdatastream
+    QString checkLoginCmd = "CHECKLOGIN";
     
     (*this->requestWriter) << checkLoginCmd;
     (*this->requestWriter) << uname;
@@ -33,30 +28,22 @@ void UserClientStubForServer::checkLoginDetails(QString uname, QString pword)
     this->sendRequest();
 }
 
-void UserClientStubForServer::handleCheckLoginDetailsResponse()
+void UserClientStubForServer::handleLoginResponse()
 {
-    int userType; // NOTE: UserType_t
-    QString msg;
-    (*this->responseReader) >> userType;
+    User* userResponse = new User;
+    (*this->responseReader) >> userResponse;
     
+    mainGui->setCurrentUser(userResponse);
     
-    
-//    
-//    if(userType == "PCCHAIR")
-//        setUser(1);
-//    else if(userType == "REVIEWER")
-//        setUser(2);
-//    else if(userType == "AUTHOR")
-//        setUser(3);
-//    
-//    mainGui->showReponse(msg);
-    
-    
+    mainGui->loginResponse()
 }
 
+// receives response from server, takes qstring command off qdatastream, calls appropriate function
 void UserClientStubForServer::dispatch(QString responseName) {
+        
+    // check command here and call appropriate handle function in LoginManager
     if (responseName == "CHECKLOGIN")
-        handleCheckLoginDetailsResponse();
+        handleLoginResponse();
 }
 
 void UserClientStubForServer::handleResponse() {

@@ -16,11 +16,13 @@ struct Discussion {
     discussion = in.discussion;
   }
   std::list<DiscussionPost> discussion;
+};
+
   inline QDataStream& operator<<(QDataStream& out, Discussion* disc)
   {
     QList<DiscussionPost> tempQList;
      for (unsigned int i = 0; i < disc->discussion.size(); ++i)
-       tempQList.append(QString::fromStdString(disc->discussion[i]));
+       tempQList.append(disc->discussion[i]);
      out << tempQList;
      tempQList.clear();
 
@@ -56,5 +58,6 @@ struct Discussion {
     tempQList.clear();
     return in;
   }
-};
+
+
 #endif

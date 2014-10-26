@@ -66,6 +66,8 @@ struct Paper {
     std::string confKeyword;
     Discussion discussion;
     std::vector<Review> reviews;
+};
+
     
     inline QDataStream& operator<<(QDataStream& out, Paper* pap)
     {
@@ -202,5 +204,5 @@ struct Paper {
           pap.reviews.push_back(tempQvectorR[i]);
         tempQvector.clear();
     }
-};
+
 #endif

@@ -3,6 +3,7 @@
  */
 
 #include "ClientHandler.hpp"
+#include "UserManager.hpp"
 //#include "UserList.h" NOTE: old
 #include <iostream> 
 
@@ -13,7 +14,7 @@ ClientHandler::ClientHandler(int socketDescriptor, QObject* parent)
     this->tcpSocket = NULL;
 }
 
-void ClientHandler::run() {
+void ClientHandler::run() { // DO NOT TOUCH
     //using namespace std;
     std::cout << "Handling a new client at socketDescriptor " << this->socketDescriptor << std::endl;
     this->tcpSocket = new QTcpSocket(0);
@@ -30,12 +31,12 @@ void ClientHandler::run() {
     }
 }
 
-void ClientHandler::handleOneRequest() {
+void ClientHandler::handleOneRequest() { // DO NOT TOUCH
     if (this->getRequest())
         this->dispatchRequest(); 
 }
 
-bool ClientHandler::getRequest() {
+bool ClientHandler::getRequest() { //DO NOT TOUCH
     //using namespace std;
     requestData.clear();
     // Requests:
@@ -62,7 +63,7 @@ bool ClientHandler::getRequest() {
     return true; 
 } 
 
-bool ClientHandler::waitForBytes(int numbytes) {
+bool ClientHandler::waitForBytes(int numbytes) { // DO NOT TOUCH
     //using namespace std; 
 
     const int Timeout = 500000;
@@ -82,13 +83,15 @@ bool ClientHandler::waitForBytes(int numbytes) {
     return true; 
 }
 
+// receives request from client, takes qstring command off qdatastream, calls appropriate function
 void ClientHandler::dispatchRequest() {
-    //using namespace std; 
 
     requestReader = new QDataStream(&requestData, QIODevice::ReadOnly);
     requestReader->setVersion(QDataStream::Qt_4_0);
     QString cmd;
     (*requestReader) >> cmd;
+    
+    // check command here and call appropriate function
     if (cmd == "CHECKLOGIN")
         this->handleLoginRequest();
 
@@ -97,25 +100,34 @@ void ClientHandler::dispatchRequest() {
 }
 
 void ClientHandler::handleLoginRequest() {
+    // extract objects after command qstring
     QString uname;
     QString pword;
     (*requestReader) >> uname;
     (*requestReader) >> pword;
 
-    prepareToRespond();
+    prepareToRespond(); // only if response needed
     
+    // interact with whatever to interact with database here
     // check if user exists and check password
     theUser->fetchUser(uname.toStdString());
-    if (theUser->) //here
+    if (theUser->getCurrentUser()->password != pword.toStdString()) {
+        theUser->setCurrentUser(nullptr);
+    }
     
+    // if needed send response
+    // first qstring is a command
     QString cmd = "CHECKLOGIN";
     (*this->responseWriter) << cmd;
     
-    (*this->responseWriter) << response;
+    // write the rest of the response
+    (*this->responseWriter) << theUser->getCurrentUser();
+    
+    // sendResponse
     this->sendResponse(); 
 }
 
-void ClientHandler::prepareToRespond() {
+void ClientHandler::prepareToRespond() { // DO NO TOUCH
     this->responseData.clear(); 
     this->responseWriter = new QDataStream(&responseData, QIODevice::WriteOnly);
     this->responseWriter->setVersion(QDataStream::Qt_4_0);
@@ -126,7 +138,7 @@ void ClientHandler::prepareToRespond() {
     // buffer; 
 }
 
-void ClientHandler::sendResponse() {
+void ClientHandler::sendResponse() { // DO NOT TOUCH
     // Request is complete - just have to adjust the length field
     int datalength = this->responseData.size();
 
@@ -142,4 +154,3 @@ void ClientHandler::sendResponse() {
     // Now tidy up
     delete this->responseWriter; 
 } 
-

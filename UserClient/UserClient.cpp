@@ -1,8 +1,6 @@
 #include <iostream>
 #include <QApplication>
-//#include <qt5/QtWidgets/qwidget.h> // NOTE: might need to be <QtGui/QApplication>
 
-//#include "LoginManager.hpp"
 #include "mainwindow.hpp"
 
 QTcpSocket *establishConnection();
@@ -23,8 +21,8 @@ int main(int argc, char *argv[]) {
 }
 
 QTcpSocket *establishConnection() {
-    // just connect on localhost
-    std::string servername = "10.64.32.150";//"127.0.0.1";
+    //just connect on localhost
+    std::string servername = "127.0.0.1";
     std::string pnumstr = "23456";
     /*QRegExp portChk("^\\d{4,5}$");
     QRegExp ipChk("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");

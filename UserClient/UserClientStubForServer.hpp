@@ -37,7 +37,8 @@ public:
     // calls appropriate "call-back" functions that adjust data in the form
     
     // NOTE: functions for requests sent to server go here
-    void checkLoginDetails(QString uname, QString pword); // NOTE: example
+    // sendFooRequest()
+    void sendLoginRequest(QString uname, QString pword);
    
 public slots:
     void readResponseData(); 
@@ -51,7 +52,8 @@ private:
     void dispatch(QString responseName);
     
     // NOTE: functions to handle responses from server go here
-    void handleCheckLoginDetailsResponse(); // NOTE: example
+    // handleFooResponse())
+    void handleLoginResponse();
     
     // NOTE: probably delete
     // Don't define copy constructor
@@ -68,7 +70,7 @@ private:
 
     // Collaborators 
     QTcpSocket *theServer;
-    LoginManager *mainGui; // used to send server responses to gui NOTE: was LoginManager *theLoginForm;
+    LoginManager *mainGui; // used to send server responses to/from gui
 
 };
 

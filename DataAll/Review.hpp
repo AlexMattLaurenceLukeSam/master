@@ -74,6 +74,24 @@ struct Review {
     commentsShortPaper(icommentsShortPaper),
     commentsBestAward(icommentsBestAward)
     { }
+  int reportID{0};
+  int paperID{0};
+  int reviewerID{0};
+  int overall{0};
+  int confidence{0};
+  int relevance{0};
+  int originality{0};
+  int significance{0};
+  int presentation{0};
+  int techQuality{0};
+  int evaluation{0};
+  std::string commentsStrength{""};
+  std::string commentsWeakness{""};
+  std::string commentsSuggestions{""};
+  std::string commentsShortPaper{""};
+  std::string commentsBestAward{""};
+
+};
 
   inline QDataStream& operator<<(QDataStream& out, Review* rev)
   {
@@ -105,7 +123,7 @@ struct Review {
   inline QDataStream& operator<<(QDataStream& out, Review& rev)
   {
      QString tempQstring;
-     out << rev,reportID;
+     out << rev.reportID;
      out << rev.paperID;
      out << rev.reviewerID;
      out << rev.overall;
@@ -182,22 +200,6 @@ struct Review {
     rev.commentsBestAward = tempQstring.toStdString();
     return in;
   }
-  int reportID{0};
-  int paperID{0};
-  int reviewerID{0};
-  int overall{0};
-  int confidence{0};
-  int relevance{0};
-  int originality{0};
-  int significance{0};
-  int presentation{0};
-  int techQuality{0};
-  int evaluation{0};
-  std::string commentsStrength{""};
-  std::string commentsWeakness{""};
-  std::string commentsSuggestions{""};
-  std::string commentsShortPaper{""};
-  std::string commentsBestAward{""};
 
-};
+
 #endif

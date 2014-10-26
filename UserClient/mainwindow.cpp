@@ -16,9 +16,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::login()
+void MainWindow::errorBox(QString msg)
 {
-//    if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Error!");
+        msgBox.setDetailedText(msg.c_str());
+        msgBox.exec();
+}
+
+void MainWindow::loginRequest()
+{
+    loginMgr.loginRequest(ui->usernameLogin->text(), ui->passwordLogin->text());
 //        setUser(loginMgr.getCurrentUser()->getUserType());
 }
 
@@ -34,7 +42,7 @@ void MainWindow::noUser()
     ui->tabWidget->addTab(ui->loginTab, "Login");
 }
 
-void MainWindow::setUser(/*UserType_t*/int userType)
+void MainWindow::setUser(UserType_t userType)
 {
     switch(userType)
     {

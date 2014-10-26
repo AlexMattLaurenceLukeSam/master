@@ -41,6 +41,9 @@ struct PersonalInfo {
   std::string organisation{""};
   std::string phone{""};
   
+};
+
+  
   inline QDataStream& operator<<(QDataStream& out, PersonalInfo* pers)
   {
      QString tempQstring;
@@ -101,5 +104,5 @@ struct PersonalInfo {
      return in;
   }
 
-};
+
 #endif

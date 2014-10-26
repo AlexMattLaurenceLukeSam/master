@@ -21,8 +21,13 @@ struct DiscussionPost {
                  comment(icomment),
                  reviewerID(ireviewerID)
                  { }
+  
+  std::string comment{""};
+  int reviewerID{0};
+  int postID{0};
+};
 
-  inline QDataStream& operator<<(QDataStream& out, DiscussionPost* discp)
+  inline QDataStream& operator<<(QDataStream& out, const DiscussionPost* discp)
   {
     QString tempQstring;
     out << discp->reviewerID;
@@ -61,9 +66,5 @@ struct DiscussionPost {
     discp.comment = tempQstring.toStdString();
     return in;
   }
-  
-  std::string comment{""};
-  int reviewerID{0};
-  int postID{0};
-};
+
 #endif

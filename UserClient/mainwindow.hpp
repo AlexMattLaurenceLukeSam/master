@@ -4,10 +4,6 @@
 #include <QMainWindow>
 #include "LoginManager.hpp"
 
-//class LoginManager;
-
-//enum UserType_t; //{AUTHOR, REVIEWER, PCCHAIR};
-
 namespace Ui {
 class MainWindow;
 }
@@ -22,6 +18,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void errorBox(QString msg);
+    
 private slots:
     void on_login_clicked();//server stuff here
 
@@ -88,9 +86,9 @@ private slots:
     void on_papersTable_itemSelectionChanged();
 
 private:
-    void setUser(/*UserType_t*/ int userType);
+    void setUser(UserType_t userType);
     void noUser();
-    void login();
+    void loginRequest();
     void logout();
     void populate_infoTabAuthor();
     void populate_infoTabChair();

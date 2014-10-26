@@ -14,6 +14,8 @@ struct PaperSummary {
 
 	int paperID{0};
 	std::string paperName{""};
+};
+
 	inline QDataStream& operator<<(QDataStream& out, PaperSummary* paps)
         {
            QString tempQstring;
@@ -23,7 +25,7 @@ struct PaperSummary {
            return out;
         }
         
-        inline QDataStream& operator<<(QDataStream& out, PaperSummary* paps)
+        inline QDataStream& operator<<(QDataStream& out, PaperSummary& paps)
         {
            QString tempQstring;
            out << paps.paperID;
@@ -49,5 +51,5 @@ struct PaperSummary {
            paps.paperName = tempQstring.toStdString();
            return in;
         }
-};
+
 #endif
