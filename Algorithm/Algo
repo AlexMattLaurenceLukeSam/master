@@ -13,6 +13,8 @@
 
 
 //returns vector of reviewerIDs from getter
+#include <iostream>
+#include <vector>
 
 
 struct ReviewerBid
