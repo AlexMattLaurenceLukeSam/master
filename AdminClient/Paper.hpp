@@ -15,7 +15,6 @@ struct Paper {
     std::vector<User> authors;
     std::vector<std::string> keywords;
     std::string confKeyword{""};
-    std::string fname{""};
     std::vector<Review> reviews;
     Discussion discussion;
     int paperID{0};
@@ -28,7 +27,6 @@ struct Paper {
       const std::vector<User>& iauthors,
       const std::vector<std::string>& ikeywords,
       const std::string& iconfKeyword,
-      const std::string& ifname,
       const std::vector<Review>& ireviews,
       const Discussion& idiscussion,
       int ipaperID,
@@ -40,7 +38,6 @@ struct Paper {
       authors(iauthors),
       keywords(ikeywords),
       confKeyword(iconfKeyword),
-      fname(ifname),
       reviews(ireviews),
       discussion(idiscussion),
       paperID(ipaperID),
