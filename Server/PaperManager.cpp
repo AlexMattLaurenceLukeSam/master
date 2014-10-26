@@ -3,12 +3,6 @@ void PaperManager::fetchPaper(int paperID)
   *currentPaper = database->fetchPaper(paperID);
 }
 
-void PaperManager::sendPaper(int paperID)
-{
-  fetchPaper(paperID);
- //send *currentPaper to the client
-}
-
 void PaperManager::addPaper(const std::string& pdf)
 {
   database->createPaper(*currentPaper, pdf);
@@ -23,6 +17,22 @@ void PaperManager::modifyPaper(int paperID)
 void PaperManager::modifyPDF(int paperID, int confID, const std::string& pdf)
 {
    database->updatePDF(paperID, confID, pdf);
+}
+
+void PaperManager::addReview()
+{
+ 
+}
+
+void PaperManager::modifyReview(int confID, int reportID)
+{
+ 
+}
+
+void PaperManager::sendPaper(int paperID)
+{
+  fetchPaper(paperID);
+ //send *currentPaper to the client
 }
 
 void PaperManager::sendPaperSummaryBatch(int confID)

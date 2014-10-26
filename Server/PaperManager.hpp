@@ -25,6 +25,7 @@ public:
   //bool deleteDiscPost(int);
   void modifyDiscPost(int);
   //bool deleteReview(int);
+  void addReview();
   void modifyReview(int);
   //bool deletePaper(int);
   void sendPaper(); //just send a paper
