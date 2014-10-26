@@ -11,8 +11,7 @@
 
 #include <vector>
 
-typedef User* userPtr;
-std::vector<userPtr> g_theUsers;
+std::vector<User> g_theUsers;
 
 static void createUsers();
 
@@ -61,10 +60,10 @@ db.putUser(key, usertemp);
 std::vector<std::string>{"geographyt","english"});
 std::vector theUsers{usertemp, usertemp2}; */
 
-        std::vector<userPtr>::const_iterator it;
+        std::vector<User>::const_iterator it;
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
-                userPtr ptr = (*it);
+                User ptr = *it;
                 std::string key = ptr->userName;
                 db.putUser(key, ptr);
                 std::cout << "Wrote record " << key << std::endl;
@@ -113,7 +112,7 @@ static void createUsers()
                 phone = "04666666666";
 		keywords.push_back("mathematics");
 		keywords.push_back("science");
-		next = new User(
+		User user(
 			username,
 			name,
 			email,
@@ -122,7 +121,7 @@ static void createUsers()
 			password,
 			keywords);
 
-                g_theUsers.push_back(next);
+                g_theUsers.push_back(user);
         }
         {
 		std::vector<std::string> keywords;
@@ -135,7 +134,7 @@ static void createUsers()
                 phone = "04666667666";
 		keywords.push_back("geographyt");
 		keywords.push_back("english");
-		next = new User(
+		User user(
 			username,
 			name,
 			email,
@@ -144,6 +143,6 @@ static void createUsers()
 			password,
 			keywords);
 
-                g_theUsers.push_back(next);
+                g_theUsers.push_back(user);
         }
 }
