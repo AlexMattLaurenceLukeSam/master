@@ -853,6 +853,41 @@ std::vector<std::string> Database::activeConfNames()
         return vptr;
 }
 
+PaperSummary Database::fetchPaperSummary(int key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaperSummary = "SELECT paperName FROM Paper WHERE paperID=?";
+
+        // =======================================
+        // Paper Summary 
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperSummary);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return PaperSummary();
+	}
+
+        std::string paperName = rs->getString(1);
+
+        delete rs;
+        delete pstmt;
+
+        PaperSummary papSum(key, paperName);
+	
+	return papSum;
+}
+
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
 //{

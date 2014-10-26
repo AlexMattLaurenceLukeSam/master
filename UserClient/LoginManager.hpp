@@ -70,7 +70,18 @@ class LoginManager {
   void setActiveConference(Conference* iactiveConference) {activeConference =  iactiveConference;}
   void setConferences(const std::vector<Conference*>& iconferences) {conferences =  iconferences;}
   std::vector<std::string> searchForKWords(std::string);
-
+  void addToConferences(Conference* in) {
+      conferences.push_back(in);
+  }
+  void removeConference(int conferenceToRemove) { //remove by paperID
+    for(unsigned int i = 0; i < conferences.size(); ++i)
+    {
+      if(conferences[i]->confID == conferenceToRemove) {
+        conferences.erase(conferences.begin() + i);
+        return;
+      }
+    }
+  } 
 
   private:
   User* currentUser{nullptr};

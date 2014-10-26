@@ -35,6 +35,8 @@ public:
         std::vector<int> activeConfIDs();
         std::vector<std::string> activeConfNames();
 
+	// PAPER
+	PaperSummary fetchPaperSummary(int key) throw (const char*);
 
 
 //        // Delete - returns false if there wasn't a record with that key
