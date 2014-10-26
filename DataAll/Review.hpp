@@ -1,6 +1,10 @@
 #ifndef REVIEW_H
 #define REVIEW_H
 
+#include <QString>
+#include <QVector>
+#include <QDataStream>
+
 struct Paper;
 
 struct Review {
@@ -71,6 +75,113 @@ struct Review {
     commentsBestAward(icommentsBestAward)
     { }
 
+  inline QDataStream& operator<<(QDataStream& out, Review* rev)
+  {
+     QString tempQstring;
+     out << rev->reportID;
+     out << rev->paperID;
+     out << rev->reviewerID;
+     out << rev->overall;
+     out << rev->confidence;
+     out << rev->relevance;
+     out << rev->originality;
+     out << rev->significance;
+     out << rev->presentation;
+     out << rev->techQuality;
+     out << rev->evaluation;
+     tempQstring = QString::fromStdString(rev->commentsStrength);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev->commentsWeakness);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev->commentsSuggestions);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev->commentsShortPaper);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev->commentsBestAward);
+     out << tempQstring;
+     return out;
+  }
+  
+  inline QDataStream& operator<<(QDataStream& out, Review& rev)
+  {
+     QString tempQstring;
+     out << rev,reportID;
+     out << rev.paperID;
+     out << rev.reviewerID;
+     out << rev.overall;
+     out << rev.confidence;
+     out << rev.relevance;
+     out << rev.originality;
+     out << rev.significance;
+     out << rev.presentation;
+     out << rev.techQuality;
+     out << rev.evaluation;
+     tempQstring = QString::fromStdString(rev.commentsStrength);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev.commentsWeakness);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev.commentsSuggestions);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev.commentsShortPaper);
+     out << tempQstring;
+     tempQstring = QString::fromStdString(rev.commentsBestAward);
+     out << tempQstring;
+     return out;
+  }
+
+  inline QDataStream& operator>>(QDataStream& in, Review* rev)
+  {
+    QString tempQstring;
+    in >> rev->reportID;
+    in >> rev->paperID;
+    in >> rev->reviewerID;
+    in >> rev->overall;
+    in >> rev->confidence;
+    in >> rev->relevance;
+    in >> rev->originality;
+    in >> rev->significance;
+    in >> rev->presentation;
+    in >> rev->techQuality;
+    in >> rev->evaluation;
+    in >> tempQstring;
+    rev->commentsStrength = tempQstring.toStdString();
+    in >> tempQstring;
+    rev->commentsWeakness = tempQstring.toStdString();
+    in >> tempQstring;
+    rev->commentsSuggestions = tempQstring.toStdString();
+    in >> tempQstring;
+    rev->commentsShortPaper = tempQstring.toStdString();
+    in >> tempQstring;
+    rev->commentsBestAward = tempQstring.toStdString();
+    return in;
+  }
+  
+  inline QDataStream& operator>>(QDataStream& in, Review& rev)
+  {
+    QString tempQstring;
+    in >> rev.reportID;
+    in >> rev.paperID;
+    in >> rev.reviewerID;
+    in >> rev.overall;
+    in >> rev.confidence;
+    in >> rev.relevance;
+    in >> rev.originality;
+    in >> rev.significance;
+    in >> rev.presentation;
+    in >> rev.techQuality;
+    in >> rev.evaluation;
+    in >> tempQstring;
+    rev.commentsStrength = tempQstring.toStdString();
+    in >> tempQstring;
+    rev.commentsWeakness = tempQstring.toStdString();
+    in >> tempQstring;
+    rev.commentsSuggestions = tempQstring.toStdString();
+    in >> tempQstring;
+    rev.commentsShortPaper = tempQstring.toStdString();
+    in >> tempQstring;
+    rev.commentsBestAward = tempQstring.toStdString();
+    return in;
+  }
   int reportID{0};
   int paperID{0};
   int reviewerID{0};
