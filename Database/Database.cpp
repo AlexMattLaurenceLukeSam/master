@@ -673,7 +673,7 @@ void Database::updateConf(Conference conf)
 
 	const char* getConfID = "SELECT confID FROM Conference where name = ?";
 
-	const char* updateConference = "UPDATE Conference SET confID=?, name=?, topic=?, description=?, location=?, active=?, paperDeadlineD=?, paperDeadlineM=?, paperDeadlineY=?, paperDeadlineBool=?, allocationDateD=?, allocationDateM=?, allocationDateY=?, allocationDateBool=?, reviewDeadlineSoftD=?, reviewDeadlineSoftM=?, reviewDeadlineSoftY=?, reviewDeadlineSoftBool=?, reviewDeadlineHardD=?, reviewDeadlineHardM=?, reviewDeadlineHardY=?, reviewDeadlineHardBool=?, discussDeadlineD=?, discussDeadlineM=?, discussDeadlineY=?, discussDeadlineBool=?, reviewersPerPaper=?, postWordlimit=? WHERE confID=?";
+	const char* updateConference = "UPDATE Conference SET name=?, topic=?, description=?, location=?, active=?, paperDeadlineD=?, paperDeadlineM=?, paperDeadlineY=?, paperDeadlineBool=?, allocationDateD=?, allocationDateM=?, allocationDateY=?, allocationDateBool=?, reviewDeadlineSoftD=?, reviewDeadlineSoftM=?, reviewDeadlineSoftY=?, reviewDeadlineSoftBool=?, reviewDeadlineHardD=?, reviewDeadlineHardM=?, reviewDeadlineHardY=?, reviewDeadlineHardBool=?, discussDeadlineD=?, discussDeadlineM=?, discussDeadlineY=?, discussDeadlineBool=?, reviewersPerPaper=?, postWordlimit=? WHERE confID=?";
 
         const char* deleteKeywords = "DELETE FROM ConferenceKeywords WHERE confID=?";
 	const char* insertKeywords = "INSERT IGNORE INTO ConferenceKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
@@ -762,7 +762,6 @@ void Database::updateConf(Conference conf)
       		        pstmt->executeUpdate();
 		}
       		delete pstmt;
-
       	}
 }
 
@@ -1021,7 +1020,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 
         // =======================================
         // Discussion
-        std::list<DiscussionPost> discussion;
+        Discussion discussion;
 	
 	pstmt = dbcon->prepareStatement(getDiscussPost);
 	pstmt->setInt(1, paperID);
@@ -1034,7 +1033,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 		int reviewerID = rs->getInt(2);
 		int commentID = rs->getInt(3);
 		DiscussionPost discuss(comment, reviewerID, commentID);
-                discussion.push_back(discuss);
+                discussion.discussion.push_back(discuss);
         }
 
         delete rs;
@@ -1154,7 +1153,9 @@ void Database::createPaper(Paper paper, std::string pdf)
 		pstmt->setInt(1, paperID);
 		pstmt->setInt(2, pInfo.infoID);
 
+		std::cout << "here1" << std::endl;
 	        pstmt->executeUpdate();
+		std::cout << "here2" << std::endl;
 	}
 	delete pstmt;
 

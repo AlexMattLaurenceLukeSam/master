@@ -3,8 +3,8 @@
 #include <fstream>
 #include <string>
 
-#include "MyRecord.h"
-#include "MyRecordStore.h"
+//#include "MyRecord.h"
+//#include "MyRecordStore.h"
 
 #include "Database.hpp"
 #include "../Server/User.hpp"
@@ -41,32 +41,40 @@ organisation,
 phone,
 password,
 keywords);*/
-User usertemp("foo",
-"bar",
-"thefoo",
-"boos_tom@ourcompany.com.au",
-"University of Wollongong",
-"04666666666",
-std::vector<std::string>{"mathematics","science"});
-std::string key = usertemp.userName;
-db.putUser(key, usertemp);
+//User usertemp("foo",
+//"bar",
+//"thefoo",
+//"boos_tom@ourcompany.com.au",
+//"University of Wollongong",
+//"04666666666",
+//std::vector<std::string>{"mathematics","science"});
+//std::string key = usertemp.userName;
+//db.putUser(key, usertemp);
 
+std::string baz = "baz";
+std::string blah = "blah";
+std::string boo = "boo";
+std::string flop = "flop";
+Date date(1,12,30);
+std::vector<std::string> test;
+test.push_back("one");
+test.push_back("two");
 Conference conferencetemp(true, 
-"baz",
-"blah",
-"boo",
-"flop",
-std::vector<std::string>("one", "two"),
-TRUE,
-Date(1,12,30),
-TRUE,
-Date(1,12,30),
-TRUE,
-Date(1,12,30),
-TRUE,
-Date(1,12,30),
-TRUE,
-Date(1,12,30),
+baz,
+blah,
+boo,
+flop,
+test,
+true,
+date,
+true,
+date,
+true,
+date,
+true,
+date,
+true,
+date,
 4,
 250);
 std::string title = conferencetemp.title;
@@ -74,16 +82,26 @@ db.putConf(title, conferencetemp);
 
 PersonalInfo infotemp("a", "b", "c", "d");
 
-const int CONFID = 7;
-Paper papertemp(5,
+std::vector<PersonalInfo> vec;
+vec.push_back(infotemp);
+std::vector<std::string> vec2;
+vec2.push_back("one");
+vec2.push_back("two");
+std::string fee("one");
+std::string fi("two");
+std::string giant("one");
+int CONFID=1;
+int five=1;
+Paper papertemp(five,
 CONFID,
-"fee",
-"fi",
-std::vector<PersonalInfo>(infotemp),
-std::vector<std::string>("fo", "fum"),
-"giants");
+fee,
+fi,
+vec,
+vec2,
+giant);
 std::string pdf = "whyyougoanddothesethings";
 db.createPaper(papertemp, pdf);
+std::cout << "here3" << std::endl;
 
 /* User usertemp2("dick",
 "wrong",
@@ -117,7 +135,7 @@ std::vector theUsers{usertemp, usertemp2}; */
         std::vector<int>::iterator confiter;
         for(confiter=ConfIDs.begin(); confiter!=ConfIDs.end(); confiter++)
         {
-        	int key = (*iter);
+        	int key = (*confiter);
         	Conference conference = db.fetchConference(key);
         	std::cout << conference.title << " " << conference.keywords[0] << std::endl;
         }
@@ -126,7 +144,7 @@ std::vector theUsers{usertemp, usertemp2}; */
         std::vector<int>::iterator paperiter;
         for(paperiter=PaperIDs.begin(); paperiter!=PaperIDs.end(); paperiter++)
         {
-        	int key = (*iter);
+        	int key = (*paperiter);
         	Paper paper = db.fetchPaper(key);
         	std::cout << paper.paperID << " " << paper.confID << " " << paper.leadAuthorID << " " << paper.keywords[0] << std::endl;
         }
