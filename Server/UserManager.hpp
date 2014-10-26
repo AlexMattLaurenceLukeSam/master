@@ -1,6 +1,8 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
+#include "../Database/Database.hpp"
+
 #include <string>
 
 class UserManager {
