@@ -15,6 +15,9 @@
 //returns vector of reviewerIDs from getter
 #include <iostream>
 #include <vector>
+#include "Conference.hpp"
+#include "Paper".hpp
+#include "User.hpp"
 
 
 struct ReviewerBid
