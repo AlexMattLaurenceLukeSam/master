@@ -108,4 +108,152 @@ Conference(bool iisActive, //no confID
   int postWordLimit{0};
 
 };
+
+inline QDataStream& operator<<(QDataStream& out, const Conference* conf)
+{
+    QString tempQstring;
+    QVector<QString> tempQvector;
+    
+    out << conf->isActive;
+    tempQstring = QString::fromStdString(conf->title);
+    out << conf->tempQstring;
+    out << conf->confID{0};
+    tempQstring = QString::fromStdString(conf->topic);
+    out << conf->tempQstring;
+    tempQstring = QString::fromStdString(conf->description);
+    out << conf->tempQstring;
+    tempQstring = QString::fromStdString(conf->location);
+    out << conf->tempQstring;
+    
+    for (unsigned int i = 0; i < conf->keywords.size(); ++i)
+    {
+        tempQstring = QString::fromStdString(conf->keywords[i]);
+        tempQvector.append(tempQstring);
+    }
+    out << tempQvector;
+    tempQvector.clear();
+  
+    out << conf->isBeforePaperDeadline;
+    out << conf->paperDeadline;
+    out << conf->isBeforeAllocationDate;
+    out << conf->allocationDate;
+    out << conf->isBeforeSoftReviewDeadline;
+    out << conf->reviewDeadlineSoft;
+    out << conf->isBeforeHardReviewDeadline;
+    out << conf->reviewDeadlineHard;
+    out << conf->isBeforeDiscussDeadline;
+    out << conf->discussDeadline;
+    out << conf->reviewersPerPaper;
+    out << conf->postWordLimit;
+    return out;
+}
+
+inline QDataStream& operator<<(QDataStream& out, const Conference& conf)
+{
+    QString tempQstring;
+    QVector<QString> tempQvector;
+    
+    out << conf.isActive;
+    tempQstring = QString::fromStdString(conf.title);
+    out << conf.tempQstring;
+    out << conf.confID{0};
+    tempQstring = QString::fromStdString(conf.topic);
+    out << conf.tempQstring;
+    tempQstring = QString::fromStdString(conf.description);
+    out << conf.tempQstring;
+    tempQstring = QString::fromStdString(conf.location);
+    out << conf.tempQstring;
+    
+    for (unsigned int i = 0; i < conf.keywords.size(); ++i)
+        tempQvector.append(QString::fromStdString(conf.keywords[i]));
+    out << tempQvector;
+    tempQvector.clear();
+  
+    out << conf.isBeforePaperDeadline;
+    out << conf.paperDeadline;
+    out << conf.isBeforeAllocationDate;
+    out << conf.allocationDate;
+    out << conf.isBeforeSoftReviewDeadline;
+    out << conf.reviewDeadlineSoft;
+    out << conf.isBeforeHardReviewDeadline;
+    out << conf.reviewDeadlineHard;
+    out << conf.isBeforeDiscussDeadline;
+    out << conf.discussDeadline;
+    out << conf.reviewersPerPaper;
+    out << conf.postWordLimit;
+    return out;
+}
+
+inline QDataStream& operator>>(QDataStream& in, Conference* conf)
+{
+    QString tempQstring;
+    QVector<QString> tempQvector;
+    
+    in >>  conf->isActive;
+    tempQstring = QString::fromStdString(conf->title);
+    in >>  conf->tempQstring;
+    in >>  conf->confID{0};
+    tempQstring = QString::fromStdString(conf->topic);
+    in >>  conf->tempQstring;
+    tempQstring = QString::fromStdString(conf->description);
+    in >>  conf->tempQstring;
+    tempQstring = QString::fromStdString(conf->location);
+    in >>  conf->tempQstring;
+    
+    in >>  tempQvector;
+    for (unsigned int i = 0; i < tempQvector.size(); ++i)
+        conf->keywords.push_back(tempQvector[i].toStdString());
+    tempQvector.clear();
+  
+    in >>  conf->isBeforePaperDeadline;
+    in >>  conf->paperDeadline;
+    in >>  conf->isBeforeAllocationDate;
+    in >>  conf->allocationDate;
+    in >>  conf->isBeforeSoftReviewDeadline;
+    in >>  conf->reviewDeadlineSoft;
+    in >>  conf->isBeforeHardReviewDeadline;
+    in >>  conf->reviewDeadlineHard;
+    in >>  conf->isBeforeDiscussDeadline;
+    in >>  conf->discussDeadline;
+    in >>  conf->reviewersPerPaper;
+    in >>  conf->postWordLimit;
+    return in;
+}
+
+inline QDataStream& operator>>(QDataStream& in, const Conference& conf)
+{
+    QString tempQstring;
+    QVector<QString> tempQvector;
+    
+    in >>  conf.isActive;
+    tempQstring = QString::fromStdString(conf.title);
+    in >>  conf.tempQstring;
+    in >>  conf.confID{0};
+    tempQstring = QString::fromStdString(conf.topic);
+    in >>  conf.tempQstring;
+    tempQstring = QString::fromStdString(conf.description);
+    in >>  conf.tempQstring;
+    tempQstring = QString::fromStdString(conf.location);
+    in >>  conf.tempQstring;
+    
+    in >>  tempQvector;
+    for (unsigned int i = 0; i < tempQvector.size(); ++i)
+        conf.keywords.push_back(tempQvector[i].toStdString());
+    tempQvector.clear();
+  
+    in >>  conf.isBeforePaperDeadline;
+    in >>  conf.paperDeadline;
+    in >>  conf.isBeforeAllocationDate;
+    in >>  conf.allocationDate;
+    in >>  conf.isBeforeSoftReviewDeadline;
+    in >>  conf.reviewDeadlineSoft;
+    in >>  conf.isBeforeHardReviewDeadline;
+    in >>  conf.reviewDeadlineHard;
+    in >>  conf.isBeforeDiscussDeadline;
+    in >>  conf.discussDeadline;
+    in >>  conf.reviewersPerPaper;
+    in >>  conf.postWordLimit;
+}
+
+
 #endif
