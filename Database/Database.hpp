@@ -31,6 +31,9 @@ public:
         void putConf(std::string key, const Conference *conf) throw (const char*);
         std::vector<int> *allConfIDs();
         std::vector<std::string> *allConfNames();
+        std::vector<int> *activeConfIDs();
+        std::vector<std::string> *activeConfNames();
+
 
 
 //        // Delete - returns false if there wasn't a record with that key
