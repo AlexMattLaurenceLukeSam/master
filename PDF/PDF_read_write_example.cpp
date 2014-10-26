@@ -14,6 +14,7 @@ Alex Cremona Oct 2014
 */
 
 #include <fstream>
+#include <string>
 
 
 int main()
@@ -40,6 +41,13 @@ int main()
 	fin.read(buffer, length);
 
 	fin.close();
+	
+	
+	//set string for saving
+	std::string = buffer;
+
+
+
 
 	//open output in Binary and output content elsewhere
 	fout.open(outName, std::ios::out | std::ios::binary);
