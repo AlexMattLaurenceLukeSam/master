@@ -67,6 +67,17 @@ class Author : public User {
     std::vector<std::string> keywords;
     std::vector<PaperSummary> getOwnPapers() {return ownPapers;}
     void setOwnPapers(const std::vector<PaperSummary>& iownPapers) {ownPapers = iownPapers;}
+    void addToOwnPapers(const PaperSummary& in) {
+      ownPapers.push_back(in);
+    }
+    void removeOwnPaper(int paperToRemove) {
+      for(int i = 0; i < ownPapers.size(); ++i)
+      {
+        if(ownPapers.paperID == paperToRemove) {
+          ownPapers.erase(ownPapers.begin() + i);
+        }
+      }
+    } 
   protected:
     std::vector<PaperSummary> ownPapers;
 };

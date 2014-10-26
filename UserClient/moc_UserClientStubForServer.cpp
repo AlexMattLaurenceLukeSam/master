@@ -1,25 +1,47 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'UserClientStubForServer.hpp'
 **
-** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "UserClientStubForServer.hpp"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'UserClientStubForServer.hpp' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.6. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.2.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_UserClientStubForServer_t {
+    QByteArrayData data[3];
+    char stringdata[43];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    offsetof(qt_meta_stringdata_UserClientStubForServer_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData) \
+    )
+static const qt_meta_stringdata_UserClientStubForServer_t qt_meta_stringdata_UserClientStubForServer = {
+    {
+QT_MOC_LITERAL(0, 0, 23),
+QT_MOC_LITERAL(1, 24, 16),
+QT_MOC_LITERAL(2, 41, 0)
+    },
+    "UserClientStubForServer\0readResponseData\0"
+    "\0"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_UserClientStubForServer[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -29,20 +51,18 @@ static const uint qt_meta_data_UserClientStubForServer[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      25,   24,   24,   24, 0x0a,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   19,    2, 0x0a,
+
+ // slots: parameters
+    QMetaType::Void,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_UserClientStubForServer[] = {
-    "UserClientStubForServer\0\0readResponseData()\0"
 };
 
 void UserClientStubForServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         UserClientStubForServer *_t = static_cast<UserClientStubForServer *>(_o);
         switch (_id) {
         case 0: _t->readResponseData(); break;
@@ -52,28 +72,21 @@ void UserClientStubForServer::qt_static_metacall(QObject *_o, QMetaObject::Call 
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData UserClientStubForServer::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject UserClientStubForServer::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_UserClientStubForServer,
-      qt_meta_data_UserClientStubForServer, &staticMetaObjectExtraData }
+    { &QObject::staticMetaObject, qt_meta_stringdata_UserClientStubForServer.data,
+      qt_meta_data_UserClientStubForServer,  qt_static_metacall, 0, 0}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &UserClientStubForServer::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *UserClientStubForServer::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *UserClientStubForServer::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_UserClientStubForServer))
+    if (!strcmp(_clname, qt_meta_stringdata_UserClientStubForServer.stringdata))
         return static_cast<void*>(const_cast< UserClientStubForServer*>(this));
     return QObject::qt_metacast(_clname);
 }
@@ -86,6 +99,10 @@ int UserClientStubForServer::qt_metacall(QMetaObject::Call _c, int _id, void **_
     if (_c == QMetaObject::InvokeMetaMethod) {
         if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 1;
     }
     return _id;

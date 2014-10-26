@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "LoginManager.hpp"
+//#include "LoginManager.hpp"
+
+class LoginManager;
 
 //enum UserType_t; //{AUTHOR, REVIEWER, PCCHAIR};
 
@@ -57,14 +59,20 @@ private slots:
 
     void on_selectPaperAuthor_currentTextChanged(const QString &arg1);
 
+    void on_tabWidget_currentChanged(int index);
+
 private:
     void setUser(/*UserType_t*/ int userType);
+    void noUser();
     void login();
     void logout();
-    
-    // NOTE: the following functions were not declare
-    //       placing in private for now
-    void noUser();
+    void populate_infoTabAuthor();
+    void populate_infoTabChair();
+    void populate_authorTab();
+    void populate_reviewerTab();
+    void populate_papersTab();
+    void populate_usersTab();
+    void populate_reviewTab();
 
     Ui::MainWindow *ui;
     LoginManager* loginMgr;
