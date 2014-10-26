@@ -24,3 +24,31 @@ int main()
 
   return 0;
 }
+
+/*
+
+
+#include <iostream>
+#include <QApplication>
+#include "ServerMain.h"
+
+int main(int argc, char *argv[]) {
+
+    std::cout << "Server application starting" << std::endl;
+    std::cout << "Initializing QT framework" << std::endl;
+    QApplication app(argc, argv);
+    std::cout << "Creating threaded network server" << std::endl;
+    ServerMain *theServer = new ServerMain();
+    std::cout << "Server location: " << theServer->getIpAddress().toStdString()
+              << ":" << theServer->listeningPort().toStdString() << std::endl;
+    if(!theServer->serverIsOK()) {
+        std::cout << "Failed" << std::endl;
+        std::exit(1);
+    }
+    
+    // create and show your widgets here
+//    gDialogptr = new Dialog();
+//    return gDialogptr->exec();
+    return app.exec();
+}
+*/
