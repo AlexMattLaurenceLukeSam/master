@@ -1,7 +1,5 @@
-#include "mainwindow.hpp"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#include "User.hpp" // for UserType_t enum
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,7 +18,7 @@ MainWindow::~MainWindow()
 void MainWindow::login()
 {
     if(loginMgr.login(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.getCurrentUser()->getUserType());
+        setUser(loginMgr.currentUser->getUserType());
 }
 
 void MainWindow::logout()
@@ -91,7 +89,7 @@ void MainWindow::on_passwordLogin_returnPressed()
 void MainWindow::on_createAccount_clicked()
 {
     if(loginMgr.createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr.getCurrentUser()->getUserType());
+        setUser(loginMgr.currentUser->getUserType());
 }
 
 void MainWindow::on_apply_clicked()
@@ -157,14 +155,155 @@ void MainWindow::on_rmvAuthKey_clicked()
     delete ui->authKeyList->currentItem();
 }
 
-void MainWindow::on_selectPaperAuthor_activated(int /*index*/) //NOTE
+void MainWindow::on_selectPaperAuthor_activated(int index)
 {
 
 }
 
-void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/)
-{ // NOTE: unused parameter 'arg1'
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
+{
     ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
     if(ui->selectPaperAuthor->findText("*NEW*") == -1)
         ui->selectPaperAuthor->addItem("*NEW*");
 }
+
+//void MainWindow::on_tabWidget_currentChanged(int index)
+//{//change to current text or something
+//    switch(index){
+//    case 1:
+//        populate_infoTabAuthor();
+//        break;
+//    case 2:
+//        populate_infoTabChair();
+//        break;
+//    case 3:
+//        populate_authorTab();
+//        break;
+//    case 4:
+//        populate_reviewerTab();
+//        break;
+//    case 5:
+//        populate_papersTab();
+//        break;
+//    case 6:
+//        populate_usersTab();
+//        break;
+//    case 7:
+//        populate_reviewTab();
+//        break;
+//    default:
+//        break;
+
+
+//    }
+//}
+
+//void MainWindow::populate_infoTabAuthor()
+//{
+//    User* user;
+//    if(loginMgr.currentAuthor != nullptr)
+//        user = dynamic_cast<User*>(currentAuthor);
+//    if(loginMgr.currentReviewer != nullptr)
+//        user = dynamic_cast<User*>(currentReviewer);
+
+//    ui->username->setText(user->username);
+//    ui->userid->setText(user->getUserId());
+//    ui->name->setText(user->getName());
+//    ui->email->setText(user->getEmail());
+//    ui->organisation->setText(user->getOrganisation());
+//    ui->phone->setText(user->getPhone());
+
+//    if(loginMgr.currentAuthor != nullptr)
+//        for(std::vector<std::string>::iterator it = loginMgr.currentAuthor->keywords.begin(); it != loginMgr.currentAuthor->keywords.end(); ++it)
+//            ui->authKeyList->addItem(*it);
+//    if(loginMgr.currentReviewer != nullptr)
+//        for(std::vector<std::string>::iterator it = loginMgr.currentReviewer->keywords.begin(); it != loginMgr.currentReviewer->keywords.end(); ++it)
+//            ui->authKeyList->addItem(*it);
+
+//    ui->conferenceName->setText(loginMgr.activeConference->title);
+//    ui->confTopic->setText(loginMgr.activeConference->topic);
+//    ui->confLocation->setText(loginMgr.activeConference->location);
+//    ui->confDesc->setText(loginMgr.activeConference->description);
+//    for(std::vector<std::string>::iterator it = loginMgr.activeConference->keywords.begin(); it != loginMgr.activeConference->keywords.end(); ++it)
+//        ui->confKeyList->addItem(*it);
+//    ui->subDate->setText(loginMgr.activeConference->paperDeadline.toString());
+//    ui->discDate->setText(loginMgr.activeConference->discussDeadline.toString());
+//    ui->hReviewDate->setText(loginMgr.activeConference->reviewDeadlineHard.toString());
+//    ui->sReviewDate->setText(loginMgr.activeConference->reviewDeadlineSoft.toString());
+//    //ui->allocDate->setText(loginMgr.activeConference->);
+//}
+
+//void MainWindow::populate_infoTabChair()
+//{
+//    PCChair* user = loginMgr.currentPCChair;
+//    Conference* conf = loginMgr.activeConference;
+
+//    ui->username->setText(user->username);
+//    ui->userid->setText(user->getUserId());
+//    ui->name->setText(user->getName());
+//    ui->email->setText(user->getEmail());
+//    ui->organisation->setText(user->getOrganisation());
+//    ui->phone->setText(user->getPhone());
+
+//    ui->conferenceName->setText(conf->title);
+//    ui->confTopic->setText(conf->topic);
+//    ui->confLocation->setText(conf->location);
+//    ui->confDesc->setText(conf->description);
+//    for(std::vector<std::string>::iterator it = conf->keywords.begin(); it != conf->keywords.end(); ++it)
+//        ui->confKeyList->addItem(*it);
+//    ui->subDateEdit->date().setDate(conf->paperDeadline.day, conf->paperDeadline.month, conf->paperDeadline.year);
+//    //ui->allocDateEdit->date().setDate(conf->paperDeadline.day, conf->paperDeadline.month, conf->paperDeadline.year);
+//    ui->sReviewDateEdit->date().setDate(conf->reviewDeadlineSoft.day, conf->reviewDeadlineSoft.month, conf->reviewDeadlineSoft.year);
+//    ui->hReviewDateEdit->date().setDate(conf->reviewDeadlineHard.day, conf->reviewDeadlineHard.month, conf->reviewDeadlineHard.year);
+//    ui->discDateEdit->date().setDate(conf->discussDeadline.day, conf->discussDeadline.month, conf->discussDeadline.year);
+//}
+
+//void MainWindow::populate_authorTab()
+//{
+//    Author* user = loginMgr.currentAuthor;
+//    std::vector<PaperSummary> papers = user->getOwnPapers();
+//    std::vector<std::string> keys = user->getCurrentPaper().getKeywords();
+//    std::vector<User> authors = user->getCurrentPaper().getAuthors();
+
+//    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+//        ui->selectPaperAuthor->addItem(it->paperName);
+
+//    ui->paperAbstract->setText(user->getCurrentPaper().getAbstract());
+//    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
+//        ui->paperKeyListAuth->addItem(*it);
+
+//    for(std::vector<User>::iterator it = authors.begin(); it != authors.end(); ++it){
+//        int rows = ui->authorsTable->rowCount();
+//        ui->authorsTable->insertRow(rows);
+//        QTableWidgetItem* newItem = new QTableWidgetItem(it->getName());
+//        ui->authorsTable->setItem(rows, 0, newItem);
+//        newItem = new QTableWidgetItem(it->getName());
+//        ui->authorsTable->setItem(rows, 1, newItem);
+//        newItem = new QTableWidgetItem(it->getOrganisation());
+//        ui->authorsTable->setItem(rows, 2, newItem);
+//        newItem = new QTableWidgetItem(it->getPhone());
+//        ui->authorsTable->setItem(rows, 3, newItem);
+//    }
+
+//    ui->filenameAuth->setText(user->getCurrentPaper().getFname());
+//}
+
+//void MainWindow::populate_papersTab()
+//{
+
+//}
+
+//void MainWindow::populate_reviewerTab()
+//{
+
+//}
+
+//void MainWindow::populate_reviewTab()
+//{
+
+//}
+
+//void MainWindow::populate_usersTab()
+//{
+
+//}
