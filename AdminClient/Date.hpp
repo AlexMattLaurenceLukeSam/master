@@ -22,9 +22,9 @@ public:
     int getDay() {return day;}
     int getMonth() {return month;}
     int getYear() {return year;}
-    int setDay(int iday) {day = iday;}
-    int setMonth(int imonth) {month = imonth;}
-    int setYear(int iyear) {year = iyear;}
+    void setDay(int iday) {day = iday;}
+    void setMonth(int imonth) {month = imonth;}
+    void setYear(int iyear) {year = iyear;}
 
   
   bool compare(const Date& idate) //returns true if idate is before or on the same day as this
