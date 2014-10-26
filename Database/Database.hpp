@@ -53,6 +53,8 @@ public:
 	std::vector<int> getReviewersForConf(int confID) throw (const char*);
 	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
 	
+	std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
+	
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
 //        // Put - insert/replace a record; returns false if failed
