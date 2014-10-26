@@ -20,7 +20,7 @@ public:
 private: 
 
     // handler functions here
-    void handleUserCheckRequest();
+    void handleLoginRequest();
 
     void handleOneRequest();
     bool getRequest();
@@ -39,6 +39,8 @@ private:
     QDataStream *requestReader;
     QDataStream *responseWriter; 
 
+    UserManager* theUser{nullptr};
+    
 };
 
 #endif	/* CLIENTHANDLER_H */
