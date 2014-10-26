@@ -29,7 +29,30 @@ class PCChair : public User {
   void fetchPapers();
   void fetchUsers();
   void checkConferencesDeadlines(); // NOTE: was not declared but function existed, putting here for now
-
+  void addToAllPapers(const PaperSummary& in) {
+    allPapers.push_back(in);
+  }
+  void removePaperFromOwnPapers(int paperToRemove) { //remove by paperID
+    for(unsigned int i = 0; i < allPapers.size(); ++i)
+    {
+      if(allPapers[i].paperID == paperToRemove) {
+        allPapers.erase(allPapers.begin() + i);
+        return;
+      }
+    }
+  }
+  void addToAllUsers(const User& in) {
+    allUsers.push_back(in);
+  }
+  void removeUser(int userToRemove) { //remove by paperID
+    for(unsigned int i = 0; i < allUsers.size(); ++i)
+    {
+      if(allUsers[i].userID == userToRemove) {
+        allUsers.erase(allUsers.begin() + i);
+        return;
+      }
+    }
+  }
   private:
   PaperSummary* getPaperByTitle(std::string);
   PaperSummary* getPaperById(int);
