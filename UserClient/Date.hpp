@@ -21,9 +21,9 @@ public:
     }
     
 // NOTE: changed get functions, new below
-//    int getDay(int iday) {day = iday;}
-//    int getMonth(int imonth) {month = imonth;}
-//    int getYear(int iyear) {year = iyear;}
+    int setDay(int iday) {day = iday;}
+    int setMonth(int imonth) {month = imonth;}
+    int setYear(int iyear) {year = iyear;}
     int getDay() {return day;}
     int getMonth() {return month;}
     int getYear() {return year;}
