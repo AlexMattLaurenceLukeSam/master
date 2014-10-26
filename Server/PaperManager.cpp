@@ -89,5 +89,22 @@ void PaperManager::sendAuthoredPaperSummaries(int leadAuthorID, int confID)
   //send papersAuthored to the client
 }
 
+void sendPapersAccepted(int confID)
+{
+  std::vector<int> acceptedPaperIDs = db->fetchPaperAccepted(confID);
+  std::vector<Paper> acceptedPapers;
+  for(unsigned int i = 0; i < acceptedPaperIDs.size(); ++i)
+  {
+    fetchPaper(acceptedPaperIDs[i]);
+    std::vector<Paper> acceptedPapers[i] = *currentPaper;
+  }
+  // send acceptedPapers to client 
+}
+void addPaperAccepted(int paperID)
+{
+  fetchPaper(paperID);
+  db->addPaperAccepted(currentPaper->paperID, currentPaper->confID);
+}
+
 
 
