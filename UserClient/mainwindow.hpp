@@ -75,8 +75,6 @@ private slots:
 
     void on_rejectPaper_clicked();//probably are faking this part
 
-    void on_downloadReview_clicked();//see downloadPaper()
-
     void downloadPaper();//server stuff here
 
     void on_submitReview_clicked();//server shit here
@@ -84,6 +82,10 @@ private slots:
     void on_addAsReviewer_clicked();//server shit here
 
     void on_addAsReviewer_2_clicked();//server shit here
+
+    void on_reviewersTable_activated(const QModelIndex &index);
+
+    void on_papersTable_itemSelectionChanged();
 
 private:
     void setUser(/*UserType_t*/ int userType);
