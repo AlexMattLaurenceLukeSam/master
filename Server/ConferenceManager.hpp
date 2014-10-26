@@ -32,6 +32,8 @@ public:
   void sendConferenceBatch();
   void checkAllDeadlines();
   void allocatePapers();
+  std:vector<Conferences> getAllActiveConferences();
+  std:vector<Conferences> getAllConferences();
 
 
 
