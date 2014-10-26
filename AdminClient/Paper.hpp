@@ -15,8 +15,9 @@ struct Paper {
     std::vector<User> authors;
     std::vector<std::string> keywords;
     std::string fname{""};
-    Discussion discussion;
     std::vector<Review> reviews;
+    Discussion discussion;
+    int paperId{0};
 
     Paper() { }
     Paper(const std::string& ititle,
@@ -25,7 +26,8 @@ struct Paper {
       const std::vector<std::string>& ikeywords,
       const std::string& ifname,
       const std::vector<Review>& ireviews,
-      const Discussion& idiscussion)
+      const Discussion& idiscussion,
+      int ipaperId)
       :
       title(ititle),
       abstract(iabstract),
@@ -33,7 +35,8 @@ struct Paper {
       keywords(ikeywords),
       fname(ifname),
       reviews(ireviews),
-      discussion(idiscussion)
+      discussion(idiscussion),
+      paperId(ipaperId)
       { }
 
     // no assignment operator or copy constructor deemed necessary at this point
