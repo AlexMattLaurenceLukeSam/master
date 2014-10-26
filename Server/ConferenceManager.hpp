@@ -25,7 +25,7 @@ public:
 
 
 private:
-  void checkDeadlines(Conference*);
+  bool checkDeadlines(Conference*);
   void fetchConference(int);
   std::vector<Conference*> conferences;
 };
