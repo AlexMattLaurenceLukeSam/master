@@ -65,7 +65,7 @@ class Author : public User {
     void modifyDetails();
 
     std::vector<std::string> keywords;
-    std:vector<PaperSummary> getOwnPapers() {return ownPapers;}
+    std::vector<PaperSummary> getOwnPapers() {return ownPapers;}
     void setOwnPapers(const std::vector<PaperSummary>& iownPapers) {ownPapers = iownPapers;}
   protected:
     std::vector<PaperSummary> ownPapers;
