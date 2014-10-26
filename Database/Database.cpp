@@ -765,11 +765,11 @@ void Database::updateConf(Conference* conf)
       	}
 }
 
-std::vector<int> *Database::allConfIDs()
+std::vector<int> Database::allConfIDs()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<int> *vptr = new std::vector<int>();
+        std::vector<int> vptr;
 
         const char* selectall = "select confID from Conference";
 
@@ -781,17 +781,17 @@ std::vector<int> *Database::allConfIDs()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 int anid = rs->getInt(1);
-                vptr->push_back(anid);
+                vptr.push_back(anid);
         }
 
         return vptr;
 }
 
-std::vector<std::string> *Database::allConfNames()
+std::vector<std::string> Database::allConfNames()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<std::string> *vptr = new std::vector<std::string>();
+        std::vector<std::string> vptr;
 
         const char* selectall = "select name from Conference";
 
@@ -803,7 +803,7 @@ std::vector<std::string> *Database::allConfNames()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 std::string aname = rs->getString(1);
-                vptr->push_back(aname);
+                vptr.push_back(aname);
         }
 
         return vptr;
