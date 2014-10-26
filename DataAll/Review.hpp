@@ -14,7 +14,7 @@ struct Review {
     int isignificance,
     int ipresentation,
     int itechQuality,
-    int ievalution,
+    int ievaluation,
     const std::string& icommentsStrength,
     const std::string& icommentsWeakness,
     const std::string& icommentsSuggestions,
@@ -29,7 +29,7 @@ struct Review {
     significance(isignificance),
     presentation(ipresentation),
     techQuality(itechQuality),
-    evalution(ievalution),
+    evaluation(ievaluation),
     commentsStrength(icommentsStrength),
     commentsWeakness(icommentsWeakness),
     commentsSuggestions(icommentsSuggestions),
@@ -47,7 +47,7 @@ struct Review {
     int isignificance,
     int ipresentation,
     int itechQuality,
-    int ievalution,
+    int ievaluation,
     const std::string& icommentsStrength,
     const std::string& icommentsWeakness,
     const std::string& icommentsSuggestions,
@@ -63,7 +63,7 @@ struct Review {
     significance(isignificance),
     presentation(ipresentation),
     techQuality(itechQuality),
-    evalution(ievalution),
+    evaluation(ievaluation),
     commentsStrength(icommentsStrength),
     commentsWeakness(icommentsWeakness),
     commentsSuggestions(icommentsSuggestions),
@@ -81,7 +81,7 @@ struct Review {
   int significance{0};
   int presentation{0};
   int techQuality{0};
-  int evalution{0};
+  int evaluation{0};
   std::string commentsStrength{""};
   std::string commentsWeakness{""};
   std::string commentsSuggestions{""};

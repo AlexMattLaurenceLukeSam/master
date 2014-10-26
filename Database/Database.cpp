@@ -1202,6 +1202,7 @@ void Database::updatePaper(Paper paper)
 
         // =======================================
         // Paper
+        sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(updatePaper);
         pstmt->setInt(1, paper.leadAuthorID);
         pstmt->setInt(1, paper.confID);
@@ -1232,7 +1233,7 @@ void Database::updatePaper(Paper paper)
 	{
 		PersonalInfo pInfo = *it;	
 
-		pstmt->setInt(1, paperID);
+		pstmt->setInt(1, paper.paperID);
 		pstmt->setInt(2, pInfo.infoID);
 
 	        pstmt->executeUpdate();
@@ -1242,7 +1243,7 @@ void Database::updatePaper(Paper paper)
         // =======================================
         // Keywords Delete
         pstmt = dbcon->prepareStatement(deleteKeywords);
-        pstmt->setInt(1, userID);
+        pstmt->setInt(1, paper.paperID);
 
         pstmt->executeUpdate();
 
@@ -1261,7 +1262,7 @@ void Database::updatePaper(Paper paper)
 			{
 				this->addKeyword(word);
 			}
-			pstmt->setInt(1, paperID);
+			pstmt->setInt(1, paper.paperID);
 			pstmt->setString(2, word);
 
       		        pstmt->executeUpdate();
@@ -1280,12 +1281,12 @@ void Database::updatePaper(Paper paper)
 		{
 			DiscussionPost discuss = *it;	
 
-        		if (discuss->postID==0)
+        		if (discuss.postID==0)
 			{
-				pstmt->setInt(1, paperID);
+				pstmt->setInt(1, paper.paperID);
 				pstmt->setInt(2, paper.confID);
-				pstmt->setInt(3, discuss->reviewerID);
-				pstmt->setString(4, discuss->comment);
+				pstmt->setInt(3, discuss.reviewerID);
+				pstmt->setString(4, discuss.comment);
 
       		        	pstmt->executeUpdate();
 			}
@@ -1304,26 +1305,26 @@ void Database::updatePaper(Paper paper)
 		{
 			Review review = *it;	
 
-        		if (review->reportID==0)
+        		if (review.reportID==0)
 			{
       				pstmt = dbcon->prepareStatement(insertReview);
 
-				pstmt->setInt(1, paperID);
-				pstmt->setInt(2, review->reviewerID);
+				pstmt->setInt(1, paper.paperID);
+				pstmt->setInt(2, review.reviewerID);
 				pstmt->setInt(3, paper.confID);
-				pstmt->setInt(4, review->overall);
-				pstmt->setInt(5, review->confidence);
-				pstmt->setInt(6, review->relevance);
-				pstmt->setInt(7, review->originality);
-				pstmt->setInt(8, review->significance);
-				pstmt->setInt(9, review->presentation);
-				pstmt->setInt(10, review->techQuality);
-				pstmt->setInt(11, review->evaluation);
-				pstmt->setString(12, review->commentsStrength);
-				pstmt->setString(13, review->commentsWeakness);
-				pstmt->setString(14, review->commentsSuggestions);
-				pstmt->setString(15, review->commentsShortPaper);
-				pstmt->setString(16, review->commentsBestAward);
+				pstmt->setInt(4, review.overall);
+				pstmt->setInt(5, review.confidence);
+				pstmt->setInt(6, review.relevance);
+				pstmt->setInt(7, review.originality);
+				pstmt->setInt(8, review.significance);
+				pstmt->setInt(9, review.presentation);
+				pstmt->setInt(10, review.techQuality);
+				pstmt->setInt(11, review.evaluation);
+				pstmt->setString(12, review.commentsStrength);
+				pstmt->setString(13, review.commentsWeakness);
+				pstmt->setString(14, review.commentsSuggestions);
+				pstmt->setString(15, review.commentsShortPaper);
+				pstmt->setString(16, review.commentsBestAward);
 
       		        	pstmt->executeUpdate();
 			}
@@ -1331,23 +1332,23 @@ void Database::updatePaper(Paper paper)
 			{
       				pstmt = dbcon->prepareStatement(updateReview);
 
-				pstmt->setInt(1, paperID);
-				pstmt->setInt(2, review->reviewerID);
+				pstmt->setInt(1, paper.paperID);
+				pstmt->setInt(2, review.reviewerID);
 				pstmt->setInt(3, paper.confID);
-				pstmt->setInt(4, review->overall);
-				pstmt->setInt(5, review->confidence);
-				pstmt->setInt(6, review->relevance);
-				pstmt->setInt(7, review->originality);
-				pstmt->setInt(8, review->significance);
-				pstmt->setInt(9, review->presentation);
-				pstmt->setInt(10, review->techQuality);
-				pstmt->setInt(11, review->evaluation);
-				pstmt->setString(12, review->commentsStrength);
-				pstmt->setString(13, review->commentsWeakness);
-				pstmt->setString(14, review->commentsSuggestions);
-				pstmt->setString(15, review->commentsShortPaper);
-				pstmt->setString(16, review->commentsBestAward);
-				pstmt->setInt(17, review->reportID);
+				pstmt->setInt(4, review.overall);
+				pstmt->setInt(5, review.confidence);
+				pstmt->setInt(6, review.relevance);
+				pstmt->setInt(7, review.originality);
+				pstmt->setInt(8, review.significance);
+				pstmt->setInt(9, review.presentation);
+				pstmt->setInt(10, review.techQuality);
+				pstmt->setInt(11, review.evaluation);
+				pstmt->setString(12, review.commentsStrength);
+				pstmt->setString(13, review.commentsWeakness);
+				pstmt->setString(14, review.commentsSuggestions);
+				pstmt->setString(15, review.commentsShortPaper);
+				pstmt->setString(16, review.commentsBestAward);
+				pstmt->setInt(17, review.reportID);
 
       		        	pstmt->executeUpdate();
 			}
