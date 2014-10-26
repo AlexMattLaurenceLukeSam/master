@@ -37,7 +37,7 @@ public:
 
 	// PAPER
 	PaperSummary fetchPaperSummary(int key) throw (const char*);
-
+        std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*)
 
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
