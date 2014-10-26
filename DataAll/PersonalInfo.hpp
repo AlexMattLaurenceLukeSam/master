@@ -26,7 +26,7 @@ struct PersonalInfo {
          const std::string& iname,
          const std::string& iemail,
          const std::string& iorganisation,
-         const std::string& iphone,
+         const std::string& iphone
          ):
          name(iname),
          email(iemail),

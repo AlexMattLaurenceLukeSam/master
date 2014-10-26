@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include <sstream>
+#include <QDataStream>
 
 class Date {
     
@@ -60,35 +61,43 @@ private:
     
 };
 
-inline QDataStream& operator<<(QDataStream& out, const Date* d)
+inline QDataStream& operator<<(QDataStream& out, Date* d)
 {
-    out << d->day;
-    out << d->month;
-    out << d->year;
+    out << d->getDay();
+    out << d->getMonth();
+    out << d->getYear();
     return out;
 }
 
-inline QDataStream& operator<<(QDataStream& out, const Date& d)
+inline QDataStream& operator<<(QDataStream& out, Date& d)
 {
-    out << d.day;
-    out << d.month;
-    out << d.year;
+    out << d.getDay();
+    out << d.getMonth();
+    out << d.getYear();
     return out;
 }
 
 inline QDataStream& operator>>(QDataStream& in, Date* d)
 {
-    in >> d->day;
-    in >> d->month;
-    in >> d->year;
+    int tmp;
+    in >> tmp;
+    d->setDay(tmp);
+    in >> tmp;
+    d->setMonth(tmp);
+    in >> tmp;
+    d->setYear(tmp);
     return in;
 }
 
-inline QDataStream& operator>>(QDataStream& in, const Date& d)
+inline QDataStream& operator>>(QDataStream& in, Date& d)
 {
-    in >> d.day;
-    in >> d.month;
-    in >> d.year;
+    int tmp;
+    in >> tmp;
+    d.setDay(tmp);
+    in >> tmp;
+    d.setMonth(tmp);
+    in >> tmp;
+    d.setYear(tmp);
     return in;
 }
 

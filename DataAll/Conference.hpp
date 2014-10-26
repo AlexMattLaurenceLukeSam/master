@@ -5,6 +5,9 @@
 
 #include <string>
 #include <vector>
+#include <QString>
+#include <QVector>
+#include <QDataStream>
 
 struct Conference {
   Conference() {}
@@ -109,21 +112,21 @@ Conference(bool iisActive, //no confID
 
 };
 
-inline QDataStream& operator<<(QDataStream& out, const Conference* conf)
+inline QDataStream& operator<<(QDataStream& out, Conference* conf)
 {
     QString tempQstring;
     QVector<QString> tempQvector;
     
     out << conf->isActive;
     tempQstring = QString::fromStdString(conf->title);
-    out << conf->tempQstring;
-    out << conf->confID{0};
+    out << tempQstring;
+    out << conf->confID;
     tempQstring = QString::fromStdString(conf->topic);
-    out << conf->tempQstring;
+    out << tempQstring;
     tempQstring = QString::fromStdString(conf->description);
-    out << conf->tempQstring;
+    out << tempQstring;
     tempQstring = QString::fromStdString(conf->location);
-    out << conf->tempQstring;
+    out << tempQstring;
     
     for (unsigned int i = 0; i < conf->keywords.size(); ++i)
     {
@@ -148,21 +151,21 @@ inline QDataStream& operator<<(QDataStream& out, const Conference* conf)
     return out;
 }
 
-inline QDataStream& operator<<(QDataStream& out, const Conference& conf)
+inline QDataStream& operator<<(QDataStream& out, Conference& conf)
 {
     QString tempQstring;
     QVector<QString> tempQvector;
     
     out << conf.isActive;
     tempQstring = QString::fromStdString(conf.title);
-    out << conf.tempQstring;
-    out << conf.confID{0};
+    out << tempQstring;
+    out << conf.confID;
     tempQstring = QString::fromStdString(conf.topic);
-    out << conf.tempQstring;
+    out << tempQstring;
     tempQstring = QString::fromStdString(conf.description);
-    out << conf.tempQstring;
+    out << tempQstring;
     tempQstring = QString::fromStdString(conf.location);
-    out << conf.tempQstring;
+    out << tempQstring;
     
     for (unsigned int i = 0; i < conf.keywords.size(); ++i)
         tempQvector.append(QString::fromStdString(conf.keywords[i]));
@@ -189,16 +192,16 @@ inline QDataStream& operator>>(QDataStream& in, Conference* conf)
     QString tempQstring;
     QVector<QString> tempQvector;
     
-    in >>  conf->isActive;
+    in >> conf->isActive;
     tempQstring = QString::fromStdString(conf->title);
-    in >>  conf->tempQstring;
-    in >>  conf->confID{0};
+    in >> tempQstring;
+    in >> conf->confID;
     tempQstring = QString::fromStdString(conf->topic);
-    in >>  conf->tempQstring;
+    in >> tempQstring;
     tempQstring = QString::fromStdString(conf->description);
-    in >>  conf->tempQstring;
+    in >> tempQstring;
     tempQstring = QString::fromStdString(conf->location);
-    in >>  conf->tempQstring;
+    in >> tempQstring;
     
     in >>  tempQvector;
     for (unsigned int i = 0; i < tempQvector.size(); ++i)
@@ -220,21 +223,21 @@ inline QDataStream& operator>>(QDataStream& in, Conference* conf)
     return in;
 }
 
-inline QDataStream& operator>>(QDataStream& in, const Conference& conf)
+inline QDataStream& operator>>(QDataStream& in, Conference& conf)
 {
     QString tempQstring;
     QVector<QString> tempQvector;
     
-    in >>  conf.isActive;
+    in >> conf.isActive;
     tempQstring = QString::fromStdString(conf.title);
-    in >>  conf.tempQstring;
-    in >>  conf.confID{0};
+    in >> tempQstring;
+    in >> conf.confID;
     tempQstring = QString::fromStdString(conf.topic);
-    in >>  conf.tempQstring;
+    in >> tempQstring;
     tempQstring = QString::fromStdString(conf.description);
-    in >>  conf.tempQstring;
+    in >> tempQstring;
     tempQstring = QString::fromStdString(conf.location);
-    in >>  conf.tempQstring;
+    in >> tempQstring;
     
     in >>  tempQvector;
     for (unsigned int i = 0; i < tempQvector.size(); ++i)
@@ -254,6 +257,5 @@ inline QDataStream& operator>>(QDataStream& in, const Conference& conf)
     in >>  conf.reviewersPerPaper;
     in >>  conf.postWordLimit;
 }
-
 
 #endif
