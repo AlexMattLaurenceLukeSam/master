@@ -46,14 +46,14 @@ class Paper {
 
     std::string getTitle() {return title;}
     std::string getAbstract() {return abstract;}
-    std::vector<std::string> getAuthorNames() {return authorNames;}
+    std::vector<User> getAuthors() {return authors;}
     std::vector<std::string> getKeywords() {return keywords;}
     std::string getFname() {return fname;}
     Discussion getDiscussion() {return discussion;}
     
     void setTitle(const std::string& ititle) {title = ititle;}
     void setAbstract(const std::string& iabstract) {abstract = iabstract;}
-    void setAuthorNames(const std::vector<std::string>& iauthorNames) {authorNames = iauthorNames;}
+    void setAuthors(const std::vector<User>& iauthors) {authors = iauthors;}
     void setKeywords(const std::vector<std::string>& ikeywords) {keywords = ikeywords;}
     void setFname(const std::string& ifname) {fname = ifname;}
     void setDiscussion(Discussion idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
@@ -62,7 +62,7 @@ class Paper {
   private:
     std::string title{""};
     std::string abstract{""};
-    std::vector<std::string> authorNames;
+    std::vector<User> authors;
     std::vector<std::string> keywords;
     std::string fname{""};
     Discussion discussion;
