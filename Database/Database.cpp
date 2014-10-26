@@ -1523,6 +1523,36 @@ std::vector<int> Database::getPaperIDsForAllocatedReviewer(int reviewerID, int c
 	return vec;
 }
 
+std::vector<int> Database::getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaperIDs = "SELECT paperID FROM Paper WHERE (leadAuthorID=? and confID=?)";
+
+        // =======================================
+        // Paper ID
+        std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperIDs);
+	pstmt->setInt(1, leadAuthorID);
+	pstmt->setInt(2, confID);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                int paperID = rs->getInt(1);
+                vec.push_back(paperID);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	return vec;
+}
+
 
 
 //
