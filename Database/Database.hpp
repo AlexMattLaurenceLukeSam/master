@@ -70,6 +70,9 @@ public:
 	std::vector<std::string> getKeywordsForUser(int userID) throw (const char*);
 	std::vector<int> getReviewersForConf(int confID) throw (const char*);
 	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
+	void assignPaper(int paperID, int reviewerID, int confID) throw (const char*);
+
+	std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*);
 	
 	std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
 	std::vector<int> getPaperIDsForAllocatedReviewer(int reviewerID, int confID) throw (const char*);
