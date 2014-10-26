@@ -11,7 +11,13 @@ bool LoginManager::login(std::string /*username*/, std::string /*password*/)
 //            uType = REVIEWER;
 //        else if(username == "Author" && password == "user")
 //            uType = PCCHAIR;
-
+        
+        if(uType = PCCHAIR)
+        {
+            currentConference = new Conference(/* initialization constructor based on packet */)
+            //FIND HIS CONFERENCE
+            checkDeadlines(Conference* myConf);
+        }
 
 //    std::vector<std::string> keys;
 //    std::vector<PaperSummary> papers;
