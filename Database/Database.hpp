@@ -61,6 +61,7 @@ public:
 	
 	std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
 	std::vector<int> getPaperIDsForAllocatedReviewer(int reviewerID, int confID) throw (const char*);
+	std::vector<int> getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*);
 	
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
