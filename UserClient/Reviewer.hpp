@@ -3,7 +3,7 @@
 
 #include "Author.hpp"
 #include "../DataAll/PaperSummary.hpp"
-#include "Review.hpp"
+#include "../DataAll/Review.hpp"
 
 class Reviewer : public Author {
   public:
@@ -108,7 +108,7 @@ class Reviewer : public Author {
     void removeReview(int reviewToRemove) { //remove by paper ID of the paper that was reviewed
       for(unsigned int i = 0; i < reviews.size(); ++i)
       {
-        if(reviews[i].paper->getPaperID() == reviewToRemove) {
+        if(reviews[i].paper->paperID() == reviewToRemove) {
           reviews.erase(reviews.begin() + i);
           return;
         }

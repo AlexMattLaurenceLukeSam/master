@@ -3,8 +3,8 @@
 #define PAPER_H
 
 #include "../DataAll/Discussion.hpp"
-#include "Review.hpp"
-#include "User.hpp"
+#include "../DataAll/Review.hpp"
+//#include "User.hpp"
 #include "../DataAll/PersonalInfo.hpp"
 
 #include <vector>

@@ -6,11 +6,11 @@
 struct PaperSummary {
 	PaperSummary() {}
 
-	PaperSummary(int ipaperId, const std::string& ipaperName) :
-	paperId(ipaperId), paperName(ipaperName)
+	PaperSummary(int ipaperID, const std::string& ipaperName) :
+	paperID(ipaperID), paperName(ipaperName)
 	{ }
 
-	int paperId{0};
+	int paperID{0};
 	std::string paperName{""};
 };
 #endif

@@ -5,8 +5,6 @@
 
 #include <string>
 
-//class Paper;
-
 enum UserType_t {AUTHOR, REVIEWER, PCCHAIR};
 
 class User {
