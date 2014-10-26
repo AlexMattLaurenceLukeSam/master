@@ -5,6 +5,7 @@
 #include "../DataAll/Discussion.hpp"
 #include "Review.hpp"
 #include "User.hpp"
+#include "../DataAll/PersonalInfo.hpp"
 
 #include <vector>
 
@@ -16,7 +17,7 @@ struct Paper {
       const int ileadAuthorID,
       const std::string& ititle,
       const std::string& iabstract,
-      const std::vector<std::string>& iauthors,
+      const std::vector<PersonalInfo>& iauthors,
       const std::vector<std::string>& ikeywords,
       const std::string& iconfKeyword,
       const std::vector<Review>& ireviews,
@@ -39,9 +40,9 @@ struct Paper {
     int leadAuthorID{0};
     std::string title{""};
     std::string abstract{""};
-    std::vector<User> authors;
+    std::vector<PersonalInfo> authors;
     std::vector<std::string> keywords;
-    std::string confKeyword
+    std::string confKeyword;
 
     Discussion discussion;
     std::vector<Review> reviews;

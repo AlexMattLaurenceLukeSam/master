@@ -1,5 +1,5 @@
-#ifndef USER_H
-#define USER_H
+#ifndef PERSONAL_INFO_H 
+#define PERSONAL_INFO_H
 
 #include <string>
 #include <vector>
@@ -13,14 +13,12 @@ struct PersonalInfo {
          std::string& iemail,
          std::string& iorganisation,
          std::string& iphone,
-         std::string& ipassword,
-         int iinfoID,
+         int iinfoID
          ):
          name(iname),
          email(iemail),
          organisation(iorganisation),
          phone(iphone),
-         password(ipassword),
          infoID(iinfoID)
          { }
 
@@ -29,13 +27,12 @@ struct PersonalInfo {
          const std::string& iemail,
          const std::string& iorganisation,
          const std::string& iphone,
-         const std::string& ipassword,
+         const std::string& ipassword
          ):
          name(iname),
          email(iemail),
          organisation(iorganisation),
-         phone(iphone),
-         password(ipassword),
+         phone(iphone)
          { }
   int infoID{0};
   std::string name{""};

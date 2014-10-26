@@ -964,7 +964,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 
 	rs = pstmt->executeQuery();
 
-	bool haveRecord = rs->next();
+	haveRecord = rs->next();
 	if (!haveRecord)
 	{
 		delete rs;
@@ -1007,7 +1007,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 		std::string email = rs->getString(4);
 		std::string organisation = rs->getString(5);
 		std::string phone = rs->getString(6);
-		PersonalInfo pInfo(infoId, name, email, organisation, phone);
+		PersonalInfo pInfo(name, email, organisation, phone, infoID);
                 authors.push_back(pInfo);
         }
 
@@ -1016,29 +1016,29 @@ Paper Database::fetchPaper(int key) throw (const char*)
 
 
 
-        Conference conf(
-		isActive,
-		title,
-		confID,
-		topic,
-		description,
-		location,
-		vec,
-		isBeforePaperDeadline,
-		paperDeadline,
-		isBeforeAllocationDate,
-		allocationDate,
-		isBeforeSoftReviewDeadline,
-		reviewDeadlineSoft,
-		isBeforeHardReviewDeadline,
-		reviewDeadlineHard,
-		isBeforeDiscussDeadline,
-		discussDeadline,
-		reviewersPerPaper,
-		postWordLimit
-		);
-	
-	return conf;
+//        Conference conf(
+//		isActive,
+//		title,
+//		confID,
+//		topic,
+//		description,
+//		location,
+//		vec,
+//		isBeforePaperDeadline,
+//		paperDeadline,
+//		isBeforeAllocationDate,
+//		allocationDate,
+//		isBeforeSoftReviewDeadline,
+//		reviewDeadlineSoft,
+//		isBeforeHardReviewDeadline,
+//		reviewDeadlineHard,
+//		isBeforeDiscussDeadline,
+//		discussDeadline,
+//		reviewersPerPaper,
+//		postWordLimit
+//		);
+//	
+//	return conf;
 }
 
 
