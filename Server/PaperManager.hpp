@@ -1,16 +1,24 @@
 #ifndef PAPER_MANAGER_H
 #define PAPER_MANAGER_H
+
+#include "../Database/Database.hpp"
 #include "Paper.hpp"
 
 class PaperManager {
 public:
   PaperManager() { }
-  PaperManager(Paper* icurrentPaper) : currentPaper(icurrentPaper) { }
+  PaperManager(Paper* icurrentPaper, 
+  Database* idatabase) : 
+  currentPaper(icurrentPaper),
+  database(idatabase)
+  { }
   ~PaperManager() { if(currentPaper != nullptr)
                       delete currentPaper;}
 
   Paper* getCurrentPaper() {return currentPaper;}
   void setCurrentPaper(Paper* icurrentPaper) {currentPaper = icurrentPaper;}
+  Database* getDatabase() {return database;}
+  void setDatabase(Database* idatabase) {database = idatabase;}
   void addPaper();
   void modifyPaper(int);
   bool deleteDiscPost(int);
@@ -26,5 +34,6 @@ public:
 private:
 void fetchPaper(int);
 Paper* currentPaper{nullptr};
+Database* database{nullptr};
 };
 #endif
