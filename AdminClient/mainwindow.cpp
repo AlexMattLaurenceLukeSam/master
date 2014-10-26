@@ -21,7 +21,8 @@ void MainWindow::on_addConf_clicked()
 
 void MainWindow::on_rmvConf_clicked()
 {
-    ui->confTable->removeRow(ui->confTable->currentRow());
+//    error: ‘class Ui::MainWindow’ has no member named ‘confTable’
+//    ui->confTable->removeRow(ui->confTable->currentRow());
 }
 
 void MainWindow::on_addUserKey_clicked()
