@@ -1014,31 +1014,87 @@ Paper Database::fetchPaper(int key) throw (const char*)
         delete rs;
         delete pstmt;
 
+        // =======================================
+        // Discussion
+        std::list<DiscussionPost> discussion;
+	
+	pstmt = dbcon->prepareStatement(getDiscussPost);
+	pstmt->setInt(1, paperID);
+	pstmt->setInt(2, confID);
 
+	rs = pstmt->executeQuery();
 
-//        Conference conf(
-//		isActive,
-//		title,
-//		confID,
-//		topic,
-//		description,
-//		location,
-//		vec,
-//		isBeforePaperDeadline,
-//		paperDeadline,
-//		isBeforeAllocationDate,
-//		allocationDate,
-//		isBeforeSoftReviewDeadline,
-//		reviewDeadlineSoft,
-//		isBeforeHardReviewDeadline,
-//		reviewDeadlineHard,
-//		isBeforeDiscussDeadline,
-//		discussDeadline,
-//		reviewersPerPaper,
-//		postWordLimit
-//		);
-//	
-//	return conf;
+        while (rs->next()) {
+		std::string comment = rs->getString(1);
+		int reviewerID = rs->getInt(2);
+		int commentID = rs->getInt(3);
+		DiscussionPost discuss(comment, reviewerID, commentID);
+                discussion.push_back(disucss);
+        }
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Reviews
+        std::vector<Review> reviews;
+	
+	pstmt = dbcon->prepareStatement(getReviews);
+	pstmt->setInt(1, paperID);
+	pstmt->setInt(2, confID);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		int reviewerID = rs->getInt(3);
+		int overall = rs->getInt(5);
+		int confidence = rs->getInt(6);
+		int relevance = rs->getInt(7);
+		int originality = rs->getInt(8);
+		int significance = rs->getInt(9);
+		int presentation = rs->getInt(10);
+		int techQuality = rs->getInt(11);
+		int evaluation = rs->getInt(12);
+  		std::string commentsStrength = rs->getString(13);
+  		std::string commentsWeakness = rs->getString(14);
+  		std::string commentsSuggestions = rs->getString(15);
+  		std::string commentsShortPaper = rs->getString(16);
+  		std::string commentsBestAward = rs->getString(17);
+
+		Review review(paperID, 
+			reviewerID, 
+			overall, 
+			confidence, 
+			relevance, 
+			originality, 
+			significance, 
+			presentation, 
+			techQuality, 
+			evaluation, 
+			commentsStrength, 
+			commentsWeakness, 
+			commentsSuggestions, 
+			commentsShortPaper, 
+			commentsBestAward);
+		reviews.push_back(review);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	Paper paper(
+		paperId,
+		confID,
+		leadAuthorID,
+		title,
+		abstract,
+		authors,
+		keywords,
+		confKeyword,
+		discussion,
+		reviews);
+
+	return paper;
 }
 
 std::vector<int> Database::getAuthorsForPaper(int paperID) throw (const char*)
