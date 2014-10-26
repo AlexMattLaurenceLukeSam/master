@@ -1273,6 +1273,34 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
 	return preference;
 }
 
+std::vector<int> Database::getPaperIDsForConf(int confID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaperIDs = "SELECT paperID FROM Paper WHERE confID=?";
+
+        // =======================================
+        // Paper ID
+        std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperIDs);
+	pstmt->setInt(1, confID);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                int paperID = rs->getInt(1);
+                vec.push_back(paperID);
+        }
+
+        delete rs;
+        delete pstmt;
+
+	return vec;
+}
 
 
 
