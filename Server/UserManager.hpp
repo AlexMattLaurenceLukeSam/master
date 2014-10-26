@@ -30,7 +30,6 @@ public:
 
 
 private:
- void fetchUser(int);
  User* currentUser{nullptr};
  Database* database{nullptr};
 };
