@@ -11,3 +11,5 @@ Makefile
 *build/
 *dist/
 .*
+moc_*
+ui_*
