@@ -20,7 +20,7 @@ public:
   Database* getDatabase() {return database;}
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addPaper();
-  void modifyPaper(int);
+  void modifyPaper(int, const std::string&);
   void modifyPdf(int, int, const std::string&);
   //bool deleteDiscPost(int);
   void modifyDiscPost(int);
