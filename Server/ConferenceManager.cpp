@@ -94,3 +94,9 @@ std:vector<Conferences> ConferenceManager::getAllConferences()
     
     return conferences;
 }
+
+void ConferenceManager::fetchConference(int confId)
+{
+    currentConference = db->fetchConference(confId);
+    
+}
