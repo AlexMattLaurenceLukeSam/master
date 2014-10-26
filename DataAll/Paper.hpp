@@ -12,16 +12,16 @@
 struct Paper {
 
     Paper() { }
-    Paper(const int ipaperID,
-      const int iconfID,
-      const int ileadAuthorID,
-      const std::string& ititle,
-      const std::string& iabstract,
-      const std::vector<PersonalInfo>& iauthors,
-      const std::vector<std::string>& ikeywords,
-      const std::string& iconfKeyword,
-      const std::vector<Review>& ireviews,
-      const Discussion& idiscussion)
+    Paper(int &ipaperID,
+      int &iconfID,
+      int &ileadAuthorID,
+      std::string& ititle,
+      std::string& iabstract,
+      std::vector<PersonalInfo>& iauthors,
+      std::vector<std::string>& ikeywords,
+      std::string& iconfKeyword,
+      std::vector<Review>& ireviews,
+      Discussion& idiscussion)
       :
       paperID(ipaperID),
       confID(iconfID),
@@ -36,13 +36,13 @@ struct Paper {
       { }
 
     Paper(
-      const int iconfID,
-      const int ileadAuthorID,
-      const std::string& ititle,
-      const std::string& iabstract,
-      const std::vector<PersonalInfo>& iauthors,
-      const std::vector<std::string>& ikeywords,
-      const std::string& iconfKeyword)
+      int &iconfID,
+      int &ileadAuthorID,
+      std::string& ititle,
+      std::string& iabstract,
+      std::vector<PersonalInfo>& iauthors,
+      std::vector<std::string>& ikeywords,
+      std::string& iconfKeyword)
       :
       confID(iconfID),
       leadAuthorID(ileadAuthorID),
