@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -155,20 +155,20 @@ void MainWindow::on_rmvAuthKey_clicked()
     delete ui->authKeyList->currentItem();
 }
 
-void MainWindow::on_selectPaperAuthor_activated(int index)
+void MainWindow::on_selectPaperAuthor_activated(int /*index*/)
 {
 
 }
 
-void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/)
 {
     ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
     if(ui->selectPaperAuthor->findText("*NEW*") == -1)
         ui->selectPaperAuthor->addItem("*NEW*");
 }
 
-//void MainWindow::on_tabWidget_currentChanged(int index)
-//{//change to current text or something
+void MainWindow::on_tabWidget_currentChanged(int index)
+{//change to current text or something
 //    switch(index){
 //    case 1:
 //        populate_infoTabAuthor();
@@ -196,7 +196,7 @@ void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
 
 
 //    }
-//}
+}
 
 //void MainWindow::populate_infoTabAuthor()
 //{

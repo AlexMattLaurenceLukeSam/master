@@ -1,6 +1,6 @@
 #include <iostream>
 #include <QApplication>
-#include <qt5/QtWidgets/qwidget.h> // NOTE: might need to be <QtGui/QApplication>
+//#include <qt5/QtWidgets/qwidget.h> // NOTE: might need to be <QtGui/QApplication>
 
 //#include "LoginManager.hpp"
 #include "mainwindow.hpp"

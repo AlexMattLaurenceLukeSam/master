@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include "LoginManager.hpp"
+#include "LoginManager.hpp"
 
-class LoginManager;
+//class LoginManager;
 
 //enum UserType_t; //{AUTHOR, REVIEWER, PCCHAIR};
 
