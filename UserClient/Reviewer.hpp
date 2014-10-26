@@ -2,7 +2,7 @@
 #define REVIEWER_H
 
 #include "Author.hpp"
-#include "PaperSummary.hpp"
+#include "../DataAll/PaperSummary.hpp"
 #include "Review.hpp"
 
 class Reviewer : public Author {

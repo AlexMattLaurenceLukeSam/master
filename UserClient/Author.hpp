@@ -2,7 +2,7 @@
 #define AUTHOR_H
 
 #include "Paper.hpp"
-#include "PaperSummary.hpp"
+#include "../DataAll/PaperSummary.hpp"
 #include "User.hpp"
 
 #include <vector>

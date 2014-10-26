@@ -8,7 +8,7 @@
 #include "../DataAll/Date.hpp"
 #include "../DataAll/PersonalInfo.hpp"
 #include "../Server/Paper.hpp"
-#include "../Server/PaperSummary.hpp"
+#include "../DataAll/PaperSummary.hpp"
 
 class Database {
 public:
