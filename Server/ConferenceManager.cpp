@@ -105,7 +105,11 @@ void ConferenceManager::allocatePapers()
 {
         //for each paper!!!!
         //NEED LOOP HERE
-        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
+        std::vector<int> paperIDsForConf = database->getPaperIDsForConf(*currentConference.confID);
+        for(unsigned int i = 0; i < paperIDsForConf.size(); ++i)
+        {
+          PaperForReview(paperIDsForConf[i], currentConference, currentConference->reviewersPerPaper, database());
+        }
 }   
     
 void ConferenceManager::sendConference()
