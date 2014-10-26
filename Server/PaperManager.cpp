@@ -14,9 +14,15 @@ void PaperManager::addPaper()
   database->createPaper(*currentPaper);
 }
 
-void PaperManager::modifyPaper()
+void PaperManager::modifyPaper(int paperID)
 {
+  fetchPaper(int paperID);
   database->updatePaper(*currentPaper);
+}
+
+void PaperManager::modifyPDF(int paperID, int confID, const std::string& pdf)
+{
+   database->updatePDF(paperID, confID, pdf);
 }
 
 void PaperManager::sendPaperSummaryBatch(int confID)
