@@ -1,7 +1,7 @@
 #ifndef PAPER_H
 #define PAPER_H
 
-#include "Discussion.hpp"
+#include "../DataAll/Discussion.hpp"
 #include "Review.hpp"
 
 #include <vector>
