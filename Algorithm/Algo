@@ -1,6 +1,8 @@
 /*
 	Algo to be run on server side at bool variable change "allocationDateBool"
 	See below for arguments
+	
+	//takes in paperID, conferenceID, and numReqReviewers for paper
 */
 
 //Algo:
@@ -29,13 +31,15 @@ struct ReviewerBid
 class PaperForReview
 {
 	private:
-		PapersForReview(int);
+		PapersForReview(int, int, int);
 		~PapersForReview();
 		int paperID;
 		int conferenceID;
 		
-		ReviewerBid reviewerBids[numOfReqReviewrs] ;
-
+		std::vector<ReviewerBid> reviewerBids;
+		
+		int numOfReqReviewrs;
+		
 		std::vector<int> authors;
 		std::vector<int> involvedOrganisation;
 		std::vector<int> conflictingReviewersVec;
@@ -108,14 +112,19 @@ PaperForReview::~PaperForReview()
 
 }
 
-PaperForReview::PaperForReview(int newPaperID, int confID)
+PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers)
 {
 	paperID = newPaperID
 	conferenceID = confID;
 	
-	for(int i=0; i< NumOfReqReviewrs; i++)
+	numOfReqReviewrs = numReviewers;
+	
+	reviewerBids.resize(numOfReqReviewrs)
+	
+	for(int i=0; i< numOfReqReviewrs; i++)
 	{
 		reviewerBids[i].score = -1;
+		reviewerBids[i].reviewerID = -1;
 	}
 	
 	fillVectors(paperID);
@@ -143,7 +152,7 @@ void  PaperForReview::conflictingReviewers()
 				//PushBack^
 
 	//pastCoAuthors
-		//(4)ForEachAuthor:   selectAllPapers in temp
+		//(4)ForEachAuthor:   selectAllPapers into temp
 			//Select All authors for each paper in temp
 				//pushBack^
 }

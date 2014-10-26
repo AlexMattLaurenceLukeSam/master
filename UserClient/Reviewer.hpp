@@ -105,10 +105,10 @@ class Reviewer : public Author {
     void addToReviews(const Review& in) {
       reviews.push_back(in);
     }
-    void removeReview(int paperToRemove) {
+    void removeReview(int reviewToRemove) { //remove by paper ID of the paper that was reviewed
       for(unsigned int i = 0; i < reviews.size(); ++i)
       {
-        if(reviews[i].paperID == paperToRemove) {
+        if(reviews[i].paper->paperID == reviewToRemove) {
           reviews.erase(reviews.begin() + i);
           return;
         }

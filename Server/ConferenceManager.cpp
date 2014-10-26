@@ -62,7 +62,7 @@ void ConferenceManager::checkAllDeadlines()
 {
     std::vector<Conference> in = getAllConferences(); //gets all conferences in database
     
-    for (unsigned i=0; i < in.size(); i++) {
+    for (unsigned i = 0; i < in.size(); i++) {
       checkDeadlines(&in[i])
   }
 }
@@ -73,7 +73,7 @@ std:vector<Conferences> ConferenceManager::getAllActiveConferences()
     
     std::vector<Conference> conferences;
     
-    for(int i = 0; i < activeConfs.size(); ++i)
+    for(unsigned int i = 0; i < activeConfs.size(); ++i)
     {
         conferences.push_back(db->fetchConference(activeConfs[i]));
     }
@@ -87,7 +87,7 @@ std:vector<Conferences> ConferenceManager::getAllConferences()
     
     std::vector<Conference> conferences;
     
-    for(int i = 0; i < activeConfs.size(); ++i)
+    for(unsigned int i = 0; i < activeConfs.size(); ++i)
     {
         conferences.push_back(db->fetchConference(allConfs[i]));
     }
@@ -98,5 +98,4 @@ std:vector<Conferences> ConferenceManager::getAllConferences()
 void ConferenceManager::fetchConference(int confId)
 {
     *currentConference = db->fetchConference(confId);
-    
 }
