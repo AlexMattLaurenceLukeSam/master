@@ -39,6 +39,7 @@ class User {
     std::string getOrganisation() {return organisation;}
     std::string getPhone() {return phone;}
     UserType_t getUserType() {return userType;}
+    Paper getCurrentPaper() {return currentPaper;}
     void setUserID(int iuserID) {userID = iuserID;}
     void setPassword(const std::string& ipassword) {password = ipassword;}
     void setName(const std::string& iname) {name = iname;}
@@ -46,6 +47,7 @@ class User {
     void setOrganisation(const std::string& iorganisation) {organisation = iorganisation;}
     void setPhone(const std::string& iphone) {phone = iphone;}
     void setUserType(UserType_t iuserType) {userType = iuserType;}
+    void setCurrentPaper(const Paper& icurrentPaper) {currentPaper = icurrentPaper;}
 
     std::string userName;
 
