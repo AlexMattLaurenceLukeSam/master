@@ -1147,13 +1147,13 @@ void Database::createPaper(Paper* paper, std::string pdf)
         // Paper Authors
         pstmt = dbcon->prepareStatement(insertAuthors);
 
-	std::vector<std::string>::const_iterator it;
+	std::vector<PersonalInfo>::const_iterator it;
 	for (it = paper->authors.begin(); it != paper->authors.end(); it ++)
 	{
 		PersonalInfo pInfo = *it;	
 
 		pstmt->setInt(1, paperID);
-		pstmt->setInt(2, pInfo->infoID);
+		pstmt->setInt(2, pInfo.infoID);
 
 	        pstmt->executeUpdate();
 	}
