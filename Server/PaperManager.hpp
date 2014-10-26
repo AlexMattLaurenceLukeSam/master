@@ -26,10 +26,10 @@ public:
   //bool deleteReview(int);
   void modifyReview(int);
   //bool deletePaper(int);
-  void sendPaper();
-  void sendPaperSummaryBatch(int);
-  void sendAuthoredPaper(int);
-  void sendPaperSummariesToReview(int);
+  void sendPaper(); //just send a paper
+  void sendPaperSummaryBatch(int); //all papers for a conf
+  void sendAuthoredPaperSummaries(int, int); //
+  void sendPaperSummariesToReview(int, int); //all papers for a reviewer in a conference
 
 private:
 void fetchPaper(int);
