@@ -20,11 +20,11 @@ void ConferenceManager::checkDeadlines(Conference* in)
         return;
     }
     
-    const bool oldisBeforePaperDeadline = isBeforePaperDeadline;
-    const bool oldisBeforeAllocationDate = isBeforeAllocationDate;
-    const bool oldisBeforeSoftReviewDeadline = isBeforeSoftReviewDeadline;
-    const bool oldisBeforeHardReviewDeadline = isBeforeHardReviewDeadline;
-    const bool oldisBeforeDiscussDeadline = isBeforeDiscussDeadline;
+    const bool oldisBeforePaperDeadline = in->isBeforePaperDeadline;
+    const bool oldisBeforeAllocationDate = in->isBeforeAllocationDate;
+    const bool oldisBeforeSoftReviewDeadline = in->isBeforeSoftReviewDeadline;
+    const bool oldisBeforeHardReviewDeadline = in->isBeforeHardReviewDeadline;
+    const bool oldisBeforeDiscussDeadline = in->isBeforeDiscussDeadline;
     
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t );
@@ -39,7 +39,7 @@ void ConferenceManager::checkDeadlines(Conference* in)
     //for deadlines, you can still submit papers on the day of the paper deadline
     //for dates, it occurs on the day, so if it is the day of the allocation date or after, allocation is done
     //this means that it occurs one day earlier, this is why we use yesterday
-    if(!isBeforeAllocationDate) {
+    if(!in->isBeforeAllocationDate) {
         //run allocation
         //algo is responsible for updating the database with the reviwere paper allocations
     }
@@ -47,11 +47,11 @@ void ConferenceManager::checkDeadlines(Conference* in)
     in->isBeforeHardReviewDeadline = in->reviewDeadlineHard.compare(today);
     in->isBeforeDiscussDeadline = in->discussDeadline.compare(today);
     
-    if(!(oldisBeforePaperDeadline == isBeforePaperDeadline && //ie something changed
-    oldisBeforeAllocationDate == isBeforeAllocationDate &&
-    oldisBeforeSoftReviewDeadline == isBeforeSoftReviewDeadline &&
-    oldisBeforeHardReviewDeadline == isBeforeHardReviewDeadline &&
-    oldisBeforeDiscussDeadline == isBeforeDiscussDeadline))
+    if(!(oldisBeforePaperDeadline == in->isBeforePaperDeadline && //ie something changed
+    oldisBeforeAllocationDate == in->isBeforeAllocationDate &&
+    oldisBeforeSoftReviewDeadline == in->isBeforeSoftReviewDeadline &&
+    oldisBeforeHardReviewDeadline == in->isBeforeHardReviewDeadline &&
+    oldisBeforeDiscussDeadline == in->isBeforeDiscussDeadline))
     {
         updateConference(*in); // update conference in database if something changed
     }
@@ -81,7 +81,7 @@ std:vector<Conferences> ConferenceManager::getAllActiveConferences()
     return conferences;
 }
 
-std:vector<Conferences> ConferenceManager::getAllConferences()
+std:vector<Conference> ConferenceManager::getAllConferences()
 {
     std::vector<int> allConfs = db->allConfIDs();
     
@@ -105,7 +105,7 @@ void ConferenceManager::allocatePapers()
 {
         //for each paper!!!!
         //NEED LOOP HERE
-        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
+        //PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
 }   
     
 
