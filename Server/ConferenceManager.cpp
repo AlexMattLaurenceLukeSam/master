@@ -95,9 +95,9 @@ std:vector<Conference> ConferenceManager::getAllConferences()
     return conferences;
 }
 
-void ConferenceManager::fetchConference(int confId)
+void ConferenceManager::fetchConference(int confID)
 {
-    *currentConference = db->fetchConference(confId);
+    *currentConference = db->fetchConference(confID);
 }
 
 
@@ -105,7 +105,7 @@ void ConferenceManager::allocatePapers()
 {
         //for each paper!!!!
         //NEED LOOP HERE
-        //PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
+        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
 }   
     
 
