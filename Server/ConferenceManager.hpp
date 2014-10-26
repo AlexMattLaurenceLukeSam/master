@@ -25,9 +25,15 @@ public:
   void setCurrentConference(Conference* icurrentConference) {currentConference = icurrentConference;}
   Database* getDatabase() {return database;}
   void setDatabase(Database* idatabase) {database = idatabase;}
-  void addConference();
-  void modifyConference(int);
-  bool deleteConference(int);
+  void addConference() 
+  {
+    db->putConf(currentConference->title, currentConference);
+  }
+  void modifyConference(int)
+  {
+    addConference;
+  }
+  //bool deleteConference(int);
   void sendConference();
   void sendConferenceBatch();
   void checkAllDeadlines();
