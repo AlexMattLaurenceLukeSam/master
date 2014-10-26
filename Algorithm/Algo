@@ -45,14 +45,14 @@ class PaperForReview
 		
 	public:
 		//getter
-		vector<int> getReviewers(int, int);
+		std::vector<int> getReviewers(int, int);
 
 };
 
-vector<int> getReviewers(int paperID, int confID)
+std::vector<int> getReviewers(int paperID, int confID)
 {
 	
-	vector<int> reviewers;
+	std::vector<int> reviewers;
 	
 	for(int i=0; i<numOfReqReviewrs; i++)
 	{
