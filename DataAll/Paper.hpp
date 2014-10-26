@@ -34,6 +34,24 @@ struct Paper {
       reviews(ireviews),
       discussion(idiscussion)
       { }
+
+    Paper(
+      const int iconfID,
+      const int ileadAuthorID,
+      const std::string& ititle,
+      const std::string& iabstract,
+      const std::vector<PersonalInfo>& iauthors,
+      const std::vector<std::string>& ikeywords,
+      const std::string& iconfKeyword)
+      :
+      confID(iconfID),
+      leadAuthorID(ileadAuthorID),
+      title(ititle),
+      abstract(iabstract),
+      authors(iauthors),
+      keywords(ikeywords),
+      confKeyword(iconfKeyword)
+      { }
     // no assignment operator or copy constructor deemed necessary at this point
     int paperID{0};
     int confID{0};
