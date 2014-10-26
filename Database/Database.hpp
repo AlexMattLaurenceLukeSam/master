@@ -43,6 +43,10 @@ public:
         std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
         Paper fetchPaper(int key) throw (const char*);
 
+	// ALGO
+	std::vector<int> getAuthorsForPaper(int key) throw (const char*);
+	std::vector<std::string> getOrganisationForAuthor(int key) throw (const char*);
+	
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
 //        // Put - insert/replace a record; returns false if failed
