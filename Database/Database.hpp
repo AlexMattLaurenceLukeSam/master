@@ -7,6 +7,7 @@
 #include "../DataAll/Conference.hpp"
 #include "../DataAll/Date.hpp"
 #include "../DataAll/PersonalInfo.hpp"
+#include "../Server/Paper.hpp"
 #include "../Server/PaperSummary.hpp"
 
 class Database {
