@@ -3,6 +3,8 @@
 #include <string>
 
 struct DiscussionPost {
+  DiscussionPost() {}
+
   DiscussionPost(const std::string& icomment,
                  int ireviewerID,
                  int ipostID):
@@ -10,6 +12,13 @@ struct DiscussionPost {
                  reviewerID(ireviewerID),
                  postID(ipostID)
                  { }
+
+  DiscussionPost(const std::string& icomment,
+                 int ireviewerID):
+                 comment(icomment),
+                 reviewerID(ireviewerID)
+                 { }
+
   std::string comment{""};
   int reviewerID{0};
   int postID{0};
