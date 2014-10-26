@@ -1,8 +1,8 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
-#include "../Database/Database.hpp"
 #include "User.hpp"
+#include "../Database/Database.hpp"
 
 #include <string>
 #include <vector>

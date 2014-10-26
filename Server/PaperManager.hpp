@@ -1,8 +1,8 @@
 #ifndef PAPER_MANAGER_H
 #define PAPER_MANAGER_H
 
-#include "../Database/Database.hpp"
 #include "Paper.hpp"
+#include "../Database/Database.hpp"
 
 class PaperManager {
 public:
