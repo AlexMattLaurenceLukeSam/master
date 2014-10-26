@@ -6,10 +6,12 @@
 
 class ConferenceManager {
 public:
-  ConferenceManager(std::vector<Conference*> iconferences, 
+  ConferenceManager(std::vector<Conference*> iconferences,
+                    Conference* icurrentConference,
                     Database* idatabase) :
                     conferences(iconferences), 
-                    database(idatabase) 
+                    currentConference(icurrentConference),
+                    database(idatabase)
                     { }
   ~ConferenceManager() {
   for (unsigned i=0; i < conferences.size(); i++) {
@@ -35,6 +37,7 @@ private:
   void checkDeadlines(Conference*);
   void fetchConference(int);
   std::vector<Conference*> conferences;
+  Conference* currentConference{nullptr};
   Database* database{nullptr};
 };
 #endif
