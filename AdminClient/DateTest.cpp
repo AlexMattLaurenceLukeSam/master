@@ -2,7 +2,7 @@
 //#define BOOST_TEST_MODULE CompareTest
 #include <boost/test/unit_test.hpp>
 //#include "C:\Users\Lucha\Documents\Boost\boost\test\unit_test.hpp"
-#include "Date.hpp"
+#include "../DataAll/Date.hpp"
 
 //BOOST_AUTO_TEST_SUITE(CompareTest)
 BOOST_AUTO_TEST_CASE(EqualDates) {

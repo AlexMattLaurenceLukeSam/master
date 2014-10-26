@@ -1,7 +1,7 @@
 #ifndef CONFERENCE_H
 #define CONFERENCE_H
 
-#include "Date.hpp"
+#include "../DataAll/Date.hpp"
 
 #include <string>
 #include <vector>
