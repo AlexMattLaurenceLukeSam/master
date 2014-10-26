@@ -25,8 +25,43 @@ int main(int arc, char *argv[])
                 std::cout << "Failed to open database file" << std::endl;
                 exit(1);
         }
+/*std::vector<std::string> keywords;
+username = "tom";
+password = "fake";
+name = "Thomas";
+email = "boos_tom@ourcompany.com.au";
+organisation = "University of Wollongong";
+phone = "04666666666";
+keywords.push_back("mathematics");
+keywords.push_back("science");
+User usertemp(
+username,
+name,
+email,
+organisation,
+phone,
+password,
+keywords);*/
+User usertemp("foo",
+"bar",
+"thefoo",
+"boos_tom@ourcompany.com.au",
+"University of Wollongong",
+"04666666666",
+std::vector<std::string>{"mathematics","science"});
+std::string key = usertemp.userName;
+db.putUser(key, usertemp);
 
-        vector<userPtr>::const_iterator it;
+/* User usertemp2("dick",
+"wrong",
+"Dick",
+"clever_dick@ourcompany.com.au",
+"University of Wollongong",
+"04666667666",
+std::vector<std::string>{"geographyt","english"});
+std::vector theUsers{usertemp, usertemp2}; */
+
+        std::vector<User>::const_iterator it;
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
                 userPtr ptr = (*it);
