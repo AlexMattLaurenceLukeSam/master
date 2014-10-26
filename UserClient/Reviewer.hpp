@@ -76,7 +76,45 @@ class Reviewer : public Author {
     void setAllocatedPapers(const std::vector<PaperSummary>& iallocatedPapers) {allocatedPapers = iallocatedPapers;}
     void setPapersToBid(const std::vector<PaperSummary>& ipapersToBid) {papersToBid = ipapersToBid;}
     void setReviews(const std::vector<Review>& ireviews) {reviews = ireviews;}
-
+    void addToAllocatedPapers(const PaperSummary& in) {
+      allocatedPapers.push_back(in);
+    }
+    void removeAllocatedPaper(int paperToRemove) { //remove by paperID
+      for(unsigned int i = 0; i < allocatedPapers.size(); ++i)
+      {
+        if(allocatedPapers.paperID == paperToRemove) {
+          allocatedPapers.erase(allocatedPapers.begin() + i);
+          return;
+        }
+      }
+    } 
+    
+    void addToPapersToBid(const PaperSummary& in) {
+      papersToBid.push_back(in);
+    }
+    void removePaperToBid(int paperToRemove) {
+      for(unsigned int i = 0; i < papersToBid.size(); ++i)
+      {
+        if(papersToBid.paperID == paperToRemove) {
+          papersToBid.erase(papersToBid.begin() + i);
+          return;
+        }
+      }
+    } 
+    
+    void addToReviews(const Review& in) {
+      reviews.push_back(in);
+    }
+    void removeReview(int paperToRemove) {
+      for(unsigned int i = 0; i < reviews.size(); ++i)
+      {
+        if(reviews.paperID == paperToRemove) {
+          reviews.erase(reviews.begin() + i);
+          return;
+        }
+      }
+    } 
+    
   private:
     Paper* getPaperByTitle(std::string); // helper
     Paper* getPaperByIndex(int); // helper
