@@ -60,4 +60,36 @@ private:
     
 };
 
+inline QDataStream& operator<<(QDataStream& out, const Date* d)
+{
+    out << d->day;
+    out << d->month;
+    out << d->year;
+    return out;
+}
+
+inline QDataStream& operator<<(QDataStream& out, const Date& d)
+{
+    out << d.day;
+    out << d.month;
+    out << d.year;
+    return out;
+}
+
+inline QDataStream& operator>>(QDataStream& in, Date* d)
+{
+    in >> d->day;
+    in >> d->month;
+    in >> d->year;
+    return in;
+}
+
+inline QDataStream& operator>>(QDataStream& in, const Date& d)
+{
+    in >> d.day;
+    in >> d.month;
+    in >> d.year;
+    return in;
+}
+
 #endif
