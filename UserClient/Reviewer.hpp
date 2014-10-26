@@ -82,7 +82,7 @@ class Reviewer : public Author {
     void removeAllocatedPaper(int paperToRemove) { //remove by paperID
       for(unsigned int i = 0; i < allocatedPapers.size(); ++i)
       {
-        if(allocatedPapers.paperID == paperToRemove) {
+        if(allocatedPapers[i].paperID == paperToRemove) {
           allocatedPapers.erase(allocatedPapers.begin() + i);
           return;
         }
@@ -95,7 +95,7 @@ class Reviewer : public Author {
     void removePaperToBid(int paperToRemove) {
       for(unsigned int i = 0; i < papersToBid.size(); ++i)
       {
-        if(papersToBid.paperID == paperToRemove) {
+        if(papersToBid[i].paperID == paperToRemove) {
           papersToBid.erase(papersToBid.begin() + i);
           return;
         }
@@ -108,7 +108,7 @@ class Reviewer : public Author {
     void removeReview(int paperToRemove) {
       for(unsigned int i = 0; i < reviews.size(); ++i)
       {
-        if(reviews.paperID == paperToRemove) {
+        if(reviews[i].paperID == paperToRemove) {
           reviews.erase(reviews.begin() + i);
           return;
         }
