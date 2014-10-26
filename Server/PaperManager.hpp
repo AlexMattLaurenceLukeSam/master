@@ -38,6 +38,8 @@ public:
   void sendPaperSummaryBatch(int); //all papers for a conf
   void sendAuthoredPaperSummaries(int, int); //
   void sendPaperSummariesToReview(int, int); //all papers for a reviewer in a conference
+  void sendPapersAccepted(int);
+  void addPaperAccepted(int);
 
 private:
 void fetchPaper(int);
