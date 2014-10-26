@@ -5,7 +5,7 @@
 #include "ConferenceManager.hpp"
 #include "../DataAll/Date.hpp"
 #include "../DataAll/Discussion.hpp"
-#include "DiscussionPost.hpp"
+#include "../DataAll/DiscussionPost.hpp"
 #include "Paper.hpp"
 #include "PaperManager.hpp"
 #include "Review.hpp"

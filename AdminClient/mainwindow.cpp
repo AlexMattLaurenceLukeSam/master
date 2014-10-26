@@ -15,7 +15,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addConf_clicked()
 {
-    ui->confTable->insertRow(ui->confTable->rowCount());
+//    error: ‘class Ui::MainWindow’ has no member named ‘confTable’    
+//    ui->confTable->insertRow(ui->confTable->rowCount());
 }
 
 void MainWindow::on_rmvConf_clicked()

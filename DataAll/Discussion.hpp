@@ -1,7 +1,7 @@
 #ifndef DISCUSSION_H
 #define DISCUSSION_H
 
-#include "../Server/DiscussionPost.hpp"
+#include "../DataAll/DiscussionPost.hpp"
 
 #include <list>
 
