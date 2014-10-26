@@ -201,10 +201,10 @@ void Database::createUser(User user)
         // Personal Info
         sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(insertPersonalInfo);
-        pstmt->setString(1, user->name);
-        pstmt->setString(2, user->email);
-        pstmt->setString(3, user->organisation);
-        pstmt->setString(4, user->phone);
+        pstmt->setString(1, user.name);
+        pstmt->setString(2, user.email);
+        pstmt->setString(3, user.organisation);
+        pstmt->setString(4, user.phone);
 
         pstmt->executeUpdate();
 
@@ -213,8 +213,8 @@ void Database::createUser(User user)
         // =======================================
         // user account
         pstmt = dbcon->prepareStatement(insertUser);
-        pstmt->setString(1, user->userName);
-        pstmt->setString(2, user->password);
+        pstmt->setString(1, user.userName);
+        pstmt->setString(2, user.password);
 
         pstmt->executeUpdate();
 
@@ -244,11 +244,11 @@ void Database::createUser(User user)
 
         // =======================================
         // Expertise
-      	if (user->keywords.size() > 0)
+      	if (user.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertExpertise);
 		std::vector<std::string>::const_iterator it;
-      		for (it = user->keywords.begin(); it != user->keywords.end(); it ++)
+      		for (it = user.keywords.begin(); it != user.keywords.end(); it ++)
 		{
 			std::string word = *it;	
 
@@ -285,7 +285,7 @@ void Database::updateUser(User user)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getUserID);
-        pstmt->setString(1, user->userName);
+        pstmt->setString(1, user.userName);
 
 	rs = pstmt->executeQuery();
 	bool haveRecord = rs->next();
@@ -298,8 +298,8 @@ void Database::updateUser(User user)
         // =======================================
         // user account
         pstmt = dbcon->prepareStatement(updateUser);
-        pstmt->setString(1, user->userName);
-        pstmt->setString(2, user->password);
+        pstmt->setString(1, user.userName);
+        pstmt->setString(2, user.password);
         pstmt->setInt(3, userID);
 
         pstmt->executeUpdate();
@@ -309,10 +309,10 @@ void Database::updateUser(User user)
         // =======================================
         // Personal Info
         pstmt = dbcon->prepareStatement(updatePersonalInfo);
-        pstmt->setString(1, user->name);
-        pstmt->setString(2, user->email);
-        pstmt->setString(3, user->organisation);
-        pstmt->setString(4, user->phone);
+        pstmt->setString(1, user.name);
+        pstmt->setString(2, user.email);
+        pstmt->setString(3, user.organisation);
+        pstmt->setString(4, user.phone);
         pstmt->setInt(5, userID);
 
         pstmt->executeUpdate();
@@ -330,11 +330,11 @@ void Database::updateUser(User user)
 
         // =======================================
         // Expertise Insert
-      	if (user->keywords.size() > 0)
+      	if (user.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertExpertise);
 		std::vector<std::string>::const_iterator it;
-      		for (it = user->keywords.begin(); it != user->keywords.end(); it ++)
+      		for (it = user.keywords.begin(); it != user.keywords.end(); it ++)
 		{
 			std::string word = *it;	
         		if (!this->existsKeyword(word))
@@ -595,33 +595,33 @@ void Database::createConf(Conference conf)
         sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(insertConference);
 
-        pstmt->setString(1, conf->title);
-        pstmt->setString(2, conf->topic);
-        pstmt->setString(3, conf->description);
-        pstmt->setString(4, conf->location);
-        pstmt->setBoolean(5, conf->isActive);
-        pstmt->setInt(6, conf->paperDeadline.getDay());
-        pstmt->setInt(7, conf->paperDeadline.getMonth());
-        pstmt->setInt(8, conf->paperDeadline.getYear());
-        pstmt->setBoolean(9, conf->isBeforePaperDeadline);
-        pstmt->setInt(10, conf->allocationDate.getDay());
-        pstmt->setInt(11, conf->allocationDate.getMonth());
-        pstmt->setInt(12, conf->allocationDate.getYear());
-        pstmt->setBoolean(13, conf->isBeforeAllocationDate);
-        pstmt->setInt(14, conf->reviewDeadlineSoft.getDay());
-        pstmt->setInt(15, conf->reviewDeadlineSoft.getMonth());
-        pstmt->setInt(16, conf->reviewDeadlineSoft.getYear());
-        pstmt->setBoolean(17, conf->isBeforeSoftReviewDeadline);
-        pstmt->setInt(18, conf->reviewDeadlineHard.getDay());
-        pstmt->setInt(19, conf->reviewDeadlineHard.getMonth());
-        pstmt->setInt(20, conf->reviewDeadlineHard.getYear());
-        pstmt->setBoolean(21, conf->isBeforeHardReviewDeadline);
-        pstmt->setInt(22, conf->discussDeadline.getDay());
-        pstmt->setInt(23, conf->discussDeadline.getMonth());
-        pstmt->setInt(24, conf->discussDeadline.getYear());
-        pstmt->setBoolean(25, conf->isBeforeDiscussDeadline);
-	pstmt->setInt(26, conf->reviewersPerPaper);
-	pstmt->setInt(27, conf->postWordLimit);
+        pstmt->setString(1, conf.title);
+        pstmt->setString(2, conf.topic);
+        pstmt->setString(3, conf.description);
+        pstmt->setString(4, conf.location);
+        pstmt->setBoolean(5, conf.isActive);
+        pstmt->setInt(6, conf.paperDeadline.getDay());
+        pstmt->setInt(7, conf.paperDeadline.getMonth());
+        pstmt->setInt(8, conf.paperDeadline.getYear());
+        pstmt->setBoolean(9, conf.isBeforePaperDeadline);
+        pstmt->setInt(10, conf.allocationDate.getDay());
+        pstmt->setInt(11, conf.allocationDate.getMonth());
+        pstmt->setInt(12, conf.allocationDate.getYear());
+        pstmt->setBoolean(13, conf.isBeforeAllocationDate);
+        pstmt->setInt(14, conf.reviewDeadlineSoft.getDay());
+        pstmt->setInt(15, conf.reviewDeadlineSoft.getMonth());
+        pstmt->setInt(16, conf.reviewDeadlineSoft.getYear());
+        pstmt->setBoolean(17, conf.isBeforeSoftReviewDeadline);
+        pstmt->setInt(18, conf.reviewDeadlineHard.getDay());
+        pstmt->setInt(19, conf.reviewDeadlineHard.getMonth());
+        pstmt->setInt(20, conf.reviewDeadlineHard.getYear());
+        pstmt->setBoolean(21, conf.isBeforeHardReviewDeadline);
+        pstmt->setInt(22, conf.discussDeadline.getDay());
+        pstmt->setInt(23, conf.discussDeadline.getMonth());
+        pstmt->setInt(24, conf.discussDeadline.getYear());
+        pstmt->setBoolean(25, conf.isBeforeDiscussDeadline);
+	pstmt->setInt(26, conf.reviewersPerPaper);
+	pstmt->setInt(27, conf.postWordLimit);
 
         pstmt->executeUpdate();
 
@@ -643,11 +643,11 @@ void Database::createConf(Conference conf)
 
         // =======================================
         // Expertise
-      	if (conf->keywords.size() > 0)
+      	if (conf.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertConfKeyword);
 		std::vector<std::string>::const_iterator it;
-      		for (it = conf->keywords.begin(); it != conf->keywords.end(); it ++)
+      		for (it = conf.keywords.begin(); it != conf.keywords.end(); it ++)
 		{
 			std::string word = *it;	
 
@@ -684,7 +684,7 @@ void Database::updateConf(Conference conf)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getConfID);
-        pstmt->setString(1, conf->title);
+        pstmt->setString(1, conf.title);
 
 	rs = pstmt->executeQuery();
 	bool haveRecord = rs->next();
@@ -698,36 +698,36 @@ void Database::updateConf(Conference conf)
         // Conference
         pstmt = dbcon->prepareStatement(updateConference);
 
-        pstmt->setString(1, conf->title);
-        pstmt->setString(2, conf->topic);
-        pstmt->setString(3, conf->description);
-        pstmt->setString(4, conf->location);
-        pstmt->setBoolean(5, conf->isActive);
-	int day = conf->paperDeadline.getDay();
-	int month = conf->paperDeadline.getMonth();
-	int year = conf->paperDeadline.getYear();
+        pstmt->setString(1, conf.title);
+        pstmt->setString(2, conf.topic);
+        pstmt->setString(3, conf.description);
+        pstmt->setString(4, conf.location);
+        pstmt->setBoolean(5, conf.isActive);
+	int day = conf.paperDeadline.getDay();
+	int month = conf.paperDeadline.getMonth();
+	int year = conf.paperDeadline.getYear();
         pstmt->setInt(6, day);
         pstmt->setInt(7, month);
         pstmt->setInt(8, year);
-        pstmt->setBoolean(9, conf->isBeforePaperDeadline);
-        pstmt->setInt(10, conf->allocationDate.getDay());
-        pstmt->setInt(11, conf->allocationDate.getMonth());
-        pstmt->setInt(12, conf->allocationDate.getYear());
-        pstmt->setBoolean(13, conf->isBeforeAllocationDate);
-        pstmt->setInt(14, conf->reviewDeadlineSoft.getDay());
-        pstmt->setInt(15, conf->reviewDeadlineSoft.getMonth());
-        pstmt->setInt(16, conf->reviewDeadlineSoft.getYear());
-        pstmt->setBoolean(17, conf->isBeforeSoftReviewDeadline);
-        pstmt->setInt(18, conf->reviewDeadlineHard.getDay());
-        pstmt->setInt(19, conf->reviewDeadlineHard.getMonth());
-        pstmt->setInt(20, conf->reviewDeadlineHard.getYear());
-        pstmt->setBoolean(21, conf->isBeforeHardReviewDeadline);
-        pstmt->setInt(22, conf->discussDeadline.getDay());
-        pstmt->setInt(23, conf->discussDeadline.getMonth());
-        pstmt->setInt(24, conf->discussDeadline.getYear());
-        pstmt->setBoolean(25, conf->isBeforeDiscussDeadline);
-	pstmt->setInt(26, conf->reviewersPerPaper);
-	pstmt->setInt(27, conf->postWordLimit);
+        pstmt->setBoolean(9, conf.isBeforePaperDeadline);
+        pstmt->setInt(10, conf.allocationDate.getDay());
+        pstmt->setInt(11, conf.allocationDate.getMonth());
+        pstmt->setInt(12, conf.allocationDate.getYear());
+        pstmt->setBoolean(13, conf.isBeforeAllocationDate);
+        pstmt->setInt(14, conf.reviewDeadlineSoft.getDay());
+        pstmt->setInt(15, conf.reviewDeadlineSoft.getMonth());
+        pstmt->setInt(16, conf.reviewDeadlineSoft.getYear());
+        pstmt->setBoolean(17, conf.isBeforeSoftReviewDeadline);
+        pstmt->setInt(18, conf.reviewDeadlineHard.getDay());
+        pstmt->setInt(19, conf.reviewDeadlineHard.getMonth());
+        pstmt->setInt(20, conf.reviewDeadlineHard.getYear());
+        pstmt->setBoolean(21, conf.isBeforeHardReviewDeadline);
+        pstmt->setInt(22, conf.discussDeadline.getDay());
+        pstmt->setInt(23, conf.discussDeadline.getMonth());
+        pstmt->setInt(24, conf.discussDeadline.getYear());
+        pstmt->setBoolean(25, conf.isBeforeDiscussDeadline);
+	pstmt->setInt(26, conf.reviewersPerPaper);
+	pstmt->setInt(27, conf.postWordLimit);
 	pstmt->setInt(28, confID);
 
         pstmt->executeUpdate();
@@ -745,11 +745,11 @@ void Database::updateConf(Conference conf)
 
         // =======================================
         // Keywords Insert
-      	if (conf->keywords.size() > 0)
+      	if (conf.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertKeywords);
 		std::vector<std::string>::const_iterator it;
-      		for (it = conf->keywords.begin(); it != conf->keywords.end(); it ++)
+      		for (it = conf.keywords.begin(); it != conf.keywords.end(); it ++)
 		{
 			std::string word = *it;	
         		if (!this->existsKeyword(word))
@@ -1118,11 +1118,11 @@ void Database::createPaper(Paper paper, std::string pdf)
         // Paper
         sql::PreparedStatement *pstmt = NULL;
         pstmt = dbcon->prepareStatement(insertPaper);
-        pstmt->setInt(1, paper->leadAuthorID);
-        pstmt->setInt(2, paper->confID);
-        pstmt->setString(3, paper->confKeyword);
-        pstmt->setString(4, paper->title);
-        pstmt->setString(5, paper->abstract);
+        pstmt->setInt(1, paper.leadAuthorID);
+        pstmt->setInt(2, paper.confID);
+        pstmt->setString(3, paper.confKeyword);
+        pstmt->setString(4, paper.title);
+        pstmt->setString(5, paper.abstract);
         pstmt->setString(6, pdf);
 
         pstmt->executeUpdate();
@@ -1148,7 +1148,7 @@ void Database::createPaper(Paper paper, std::string pdf)
         pstmt = dbcon->prepareStatement(insertAuthors);
 
 	std::vector<PersonalInfo>::const_iterator it;
-	for (it = paper->authors.begin(); it != paper->authors.end(); it ++)
+	for (it = paper.authors.begin(); it != paper.authors.end(); it ++)
 	{
 		PersonalInfo pInfo = *it;	
 
@@ -1161,11 +1161,11 @@ void Database::createPaper(Paper paper, std::string pdf)
 
         // =======================================
         // Keywords
-      	if (paper->keywords.size() > 0)
+      	if (paper.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertKeywords);
 		std::vector<std::string>::const_iterator it;
-      		for (it = paper->keywords.begin(); it != paper->keywords.end(); it ++)
+      		for (it = paper.keywords.begin(); it != paper.keywords.end(); it ++)
 		{
 			std::string word = *it;	
 
@@ -1185,18 +1185,18 @@ void Database::createPaper(Paper paper, std::string pdf)
 
 //        // =======================================
 //        // Discussion
-//      	if (paper->discussion.discussion.size() > 0)
+//      	if (paper.discussion.discussion.size() > 0)
 //      	{
 //      		pstmt = dbcon->prepareStatement(insertDiscuss);
 //		std::list<DiscussionPost>::const_iterator it;
-//      		for (it = paper->discussion.discussion.begin(); it != paper->discussion.discussion.end(); it ++)
+//      		for (it = paper.discussion.discussion.begin(); it != paper.discussion.discussion.end(); it ++)
 //		{
 //			DiscussionPost discuss = *it;	
 //
 //        		if (discuss->postID==0)
 //			{
 //				pstmt->setInt(1, paperID);
-//				pstmt->setInt(2, paper->confID);
+//				pstmt->setInt(2, paper.confID);
 //				pstmt->setInt(3, discuss->reviewerID);
 //				pstmt->setString(4, discuss->comment);
 //
@@ -1209,18 +1209,18 @@ void Database::createPaper(Paper paper, std::string pdf)
 //
 //        // =======================================
 //        // Reviews
-//      	if (paper->reviews.size() > 0)
+//      	if (paper.reviews.size() > 0)
 //      	{
 //      		pstmt = dbcon->prepareStatement(insertReview);
 //		std::vector<Review>::const_iterator it;
-//      		for (it = paper->reviews.begin(); it != paper->reviews.end(); it ++)
+//      		for (it = paper.reviews.begin(); it != paper.reviews.end(); it ++)
 //		{
 //			Review review = *it;	
 //
 //        		if (discuss->postID==0)
 //			{
 //				pstmt->setInt(1, paperID);
-//				pstmt->setInt(2, paper->confID);
+//				pstmt->setInt(2, paper.confID);
 //				pstmt->setInt(3, discuss->reviewerID);
 //				pstmt->setString(4, discuss->comment);
 //

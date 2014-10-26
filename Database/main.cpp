@@ -64,7 +64,7 @@ std::vector theUsers{usertemp, usertemp2}; */
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
                 User ptr = *it;
-                std::string key = ptr->userName;
+                std::string key = ptr.userName;
                 db.putUser(key, ptr);
                 std::cout << "Wrote record " << key << std::endl;
         }
@@ -92,7 +92,6 @@ static void createUsers()
 {
         // Hard code procedural creation of a few records so that can
         // have some data to show in the Qt based GUI
-        userPtr next;
         std::string username;
         std::string password;
         std::string name;
