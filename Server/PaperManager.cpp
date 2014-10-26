@@ -1,6 +1,6 @@
 void PaperManager::fetchPaper(int paperID)
 {
-  *currentPaper = db->fetchPaper(paperID);
+  *currentPaper = database->fetchPaper(paperID);
 }
 
 void PaperManager::sendPaper(int paperID)
@@ -11,17 +11,17 @@ void PaperManager::sendPaper(int paperID)
 
 void PaperManager::addPaper()
 {
-  db->createPaper(*currentPaper);
+  database->createPaper(*currentPaper);
 }
 
 void PaperManager::modifyPaper()
 {
-  db->updatePaper(*currentPaper);
+  database->updatePaper(*currentPaper);
 }
 
 void PaperManager::sendPaperSummaryBatch(int confID)
 {
-  std::vector<int> paperIDsOfConf = db->getPaperIDsForConf(confID);
+  std::vector<int> paperIDsOfConf = database->getPaperIDsForConf(confID);
   //returns all paperSummaries using that confID
   std::vector<PaperSummary> papersOfConf;
   for(unsigned int i = 0; i < paperIDsOfConf.size(); ++i)
@@ -33,7 +33,7 @@ void PaperManager::sendPaperSummaryBatch(int confID)
 
 void PaperManager::sendPaperSummariesToReview(int userID, int confID)
 {
- std::vector<int> paperIDsToReview = db->getPaperIDsForAllocatedReviewer(userID, confID); //or something like that
+ std::vector<int> paperIDsToReview = database->getPaperIDsForAllocatedReviewer(userID, confID); //or something like that
  std::vector<PaperSummary> papersToReview;
  for(unsigned int i = 0; i < paperIDsToReview.size(); ++i)
  {
@@ -44,7 +44,7 @@ void PaperManager::sendPaperSummariesToReview(int userID, int confID)
 
 void PaperManager::sendAuthoredPaperSummaries(int leadAuthorID, int confID)
 {
- std::vector<int> paperIDsAuthored = db->fetchPapersFromLeadAuthorIDAndConfID(leadAuthorID, confID); 
+ std::vector<int> paperIDsAuthored = database->fetchPapersFromLeadAuthorIDAndConfID(leadAuthorID, confID); 
  //or something like that
  std::vector<PaperSummary> papersAuthored;
  for(unsigned int i = 0; i < paperIDsAuthored.size(); ++i)
