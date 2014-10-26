@@ -191,7 +191,7 @@ void PaperForReview::algo(int paperID, int conferenceID)
 					// 1=yes
 					//2=maybe
 					//3=conflict
-			reviewersPreference = ;//(8)GET PREF FROM DATABASE fetchreviewerPreference(userUD, paperID);
+			reviewersPreference = ;//(8)GET PREF FROM DATABASE fetchreviewerPreference(userID, paperID);
 			
 			if(reviewersPreference == 1)
 			{
@@ -225,7 +225,8 @@ void fillVectors(int paperID)
 	// (2)select organisation for each author
 		//add involved organisation
 	
-	// CONFLICTING HERE
+	//CONFLICTING HERE
+		conflictingReviewers();
 }
 
 
