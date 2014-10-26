@@ -20,7 +20,7 @@ struct Paper {
       const std::vector<Review>& ireviews,
       const Discussion& idiscussion)
       :
-      paperID(ipaperID)
+      paperID(ipaperID),
       title(ititle),
       abstract(iabstract),
       authors(iauthors),
