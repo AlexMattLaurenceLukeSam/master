@@ -1,3 +1,5 @@
+#ifndef DATABASE_H
+#define DATABASE_H
 #include <string>
 #include <vector>
 #include "mysql_connection.h"
@@ -96,3 +98,4 @@ private:
         void updateConf(Conference *conf);
 
 };
+#endif
