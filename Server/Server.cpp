@@ -4,35 +4,22 @@
 #include "PaperManager.hpp"
 #include "UserManager.hpp"
 
-int main()
-{
-  Database* db;
-  PaperManager* pm;
-  ConferenceManager* cm;
-  UserManager* um;
-  
-  
-  db = new Database(/*CONSTRUCTOR*/);
-  pm = new PaperManager(nullptr, db);
-  cm = new ConferenceManager(std::vector<Conference*>(), db, nullptr);
-  um = new UserManager(nullptr, db);
-  
-  delete um;
-  delete cm;
-  delete pm;
-  delete db;
-
-  return 0;
-}
-
-/*
-
-
 #include <iostream>
 #include <QApplication>
-#include "ServerMain.h"
+#include "ServerMain.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
+//  Database* db;
+//  PaperManager* pm;
+//  ConferenceManager* cm;
+//  UserManager* um;
+//    
+//  db = new Database(/*CONSTRUCTOR*/);
+//  pm = new PaperManager(nullptr, db);
+//  cm = new ConferenceManager(std::vector<Conference*>(), db, nullptr);
+//  um = new UserManager(nullptr, db);
+  
 
     std::cout << "Server application starting" << std::endl;
     std::cout << "Initializing QT framework" << std::endl;
@@ -45,10 +32,19 @@ int main(int argc, char *argv[]) {
         std::cout << "Failed" << std::endl;
         std::exit(1);
     }
+  
     
     // create and show your widgets here
 //    gDialogptr = new Dialog();
 //    return gDialogptr->exec();
-    return app.exec();
+  
+    // GO! GO! GO!
+    int rtnValue = app.exec();
+   
+//  delete um;
+//  delete cm;
+//  delete pm;
+//  delete db;
+
+  return rtnValue;
 }
-*/
