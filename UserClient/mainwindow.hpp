@@ -23,7 +23,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_login_clicked();
+    void on_login_clicked();//server stuff here
 
     void on_quit_clicked();
 
@@ -33,11 +33,11 @@ private slots:
 
     void on_passwordLogin_returnPressed();
 
-    void on_createAccount_clicked();
+    void on_createAccount_clicked();//server stuff here
 
-    void on_apply_clicked();
+    void on_apply_clicked();//server things here
 
-    void on_apply_2_clicked();
+    void on_applyChair_clicked();//server things here
 
     void on_addConfKey_clicked();
 
@@ -60,6 +60,30 @@ private slots:
     void on_selectPaperAuthor_currentTextChanged(const QString &arg1);
 
     void on_tabWidget_currentChanged(int index);
+
+    void on_submit_clicked();//server stuff here
+
+    void on_submitBid_clicked();//server stuff here
+
+    void on_downloadReviewer_clicked();//see downloadPaper()
+
+    void on_submitPosts_clicked();//server stuff here
+
+    void on_downloadChair_clicked(); //see downloadPaper()
+
+    void on_acceptPaper_clicked();//server stuff here
+
+    void on_rejectPaper_clicked();//probably are faking this part
+
+    void on_downloadReview_clicked();//see downloadPaper()
+
+    void downloadPaper();//server stuff here
+
+    void on_submitReview_clicked();//server shit here
+
+    void on_addAsReviewer_clicked();//server shit here
+
+    void on_addAsReviewer_2_clicked();//server shit here
 
 private:
     void setUser(/*UserType_t*/ int userType);
