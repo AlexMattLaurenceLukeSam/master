@@ -31,10 +31,11 @@ struct ReviewerBid
 class PaperForReview
 {
 	private:
-		PapersForReview(int, int, int);
+		PapersForReview(int, int, int,Database*);
 		~PapersForReview();
 		int paperID;
 		int conferenceID;
+		Database* db;
 		
 		std::vector<ReviewerBid> reviewerBids;
 		
@@ -111,10 +112,11 @@ PaperForReview::~PaperForReview()
 
 }
 
-PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers)
+PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers, Database* database)
 {
 	paperID = newPaperID
 	conferenceID = confID;
+	db = database;
 	
 	numOfReqReviewrs = numReviewers;
 	
