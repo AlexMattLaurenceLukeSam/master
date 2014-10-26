@@ -770,6 +770,49 @@ std::vector<std::string> *Database::allConfNames()
 
         return vptr;
 }
+std::vector<int> *Database::activeConfIDs()
+{
+        if (invalid)
+                throw (noDB);
+        std::vector<int> *vptr = new std::vector<int>();
+
+        const char* selectActive = "SELECT confID FROM Conference WHERE active = 1";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(selectActive);
+
+        rs = pstmt->executeQuery();
+        while (rs->next()) {
+                int anid = rs->getInt(1);
+                vptr->push_back(anid);
+        }
+
+        return vptr;
+}
+
+std::vector<std::string> *Database::activeConfNames()
+{
+        if (invalid)
+                throw (noDB);
+        std::vector<std::string> *vptr = new std::vector<std::string>();
+
+        const char* selectActive = "SELECT name FROM Conference WHERE active = 1";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(selectActive);
+
+        rs = pstmt->executeQuery();
+        while (rs->next()) {
+                std::string aname = rs->getString(1);
+                vptr->push_back(aname);
+        }
+
+        return vptr;
+}
 
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
