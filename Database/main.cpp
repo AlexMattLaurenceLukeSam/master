@@ -41,8 +41,8 @@ int main(int arc, char *argv[])
         for(iter=Names->begin(); iter!=Names->end(); iter++)
         {
                 std::string key = (*iter);
-                userPtr user = db.fetchUser(key);
-                std::cout << user->userName << " " << user->name << " " <<  user->keywords[0] << " " << user->email << " " << key << std::endl;
+                User user = db.fetchUser(key);
+                std::cout << user.userName << " " << user.name << " " <<  user.keywords[0] << " " << user.email << " " << key << std::endl;
         }
 //        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
 //        {
