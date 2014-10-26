@@ -1119,7 +1119,7 @@ std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (c
 
         while (rs->next()) {
 		int reviewerID = rs->getInt(1);
-                vec.push_back(reviewersID);
+                vec.push_back(reviewerID);
         }
 
         delete rs;
@@ -1198,7 +1198,7 @@ std::vector<std::string> Database::getKeywordsForUser(int userID) throw (const c
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
 	
-	pstmt = dbcon->prepareStatement(getPaperKeywords);
+	pstmt = dbcon->prepareStatement(getUserKeywords);
 	pstmt->setInt(1, userID);
 	rs = pstmt->executeQuery();
 
@@ -1227,7 +1227,7 @@ std::vector<int> Database::getReviewersForConf(int confID) throw (const char*)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getReviewers);
-	pstmt->setInt(1, key);
+	pstmt->setInt(1, confID);
 	rs = pstmt->executeQuery();
 
         while (rs->next()) {
@@ -1250,7 +1250,7 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
 	
-	pstmt = dbcon->prepareStatement(getPaper);
+	pstmt = dbcon->prepareStatement(getReviewerPreference);
 	pstmt->setInt(1, userID);
 	pstmt->setInt(2, confID);
 	pstmt->setInt(3, paperID);
