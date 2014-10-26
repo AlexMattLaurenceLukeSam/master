@@ -51,6 +51,39 @@ std::vector<std::string>{"mathematics","science"});
 std::string key = usertemp.userName;
 db.putUser(key, usertemp);
 
+Conference conferencetemp(true, 
+"baz",
+"blah",
+"boo",
+"flop",
+std::vector<std::string>("one", "two"),
+TRUE,
+Date(1,12,30),
+TRUE,
+Date(1,12,30),
+TRUE,
+Date(1,12,30),
+TRUE,
+Date(1,12,30),
+TRUE,
+Date(1,12,30),
+4,
+250);
+std::string title = conferencetemp.title;
+db.putConf(title, conferencetemp);
+
+PersonalInfo infotemp("a", "b", "c", "d");
+
+Paper papertemp(5,
+7,
+"fee",
+"fi",
+std::vector<PersonalInfo>(infotemp),
+std::vector<std::string>("fo", "fum"),
+"giants");
+std::string pdf = "whyyougoanddothesethings";
+db.createPaper(papertemp, pdf);
+
 /* User usertemp2("dick",
 "wrong",
 "Dick",
