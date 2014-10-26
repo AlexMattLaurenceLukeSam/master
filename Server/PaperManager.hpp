@@ -21,11 +21,11 @@ public:
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addPaper();
   void modifyPaper(int);
-  bool deleteDiscPost(int);
+  //bool deleteDiscPost(int);
   void modifyDiscPost(int);
-  bool deleteReview(int);
+  //bool deleteReview(int);
   void modifyReview(int);
-  bool deletePaper(int);
+  //bool deletePaper(int);
   void sendPaper();
   void sendPaperBatch(int);
   void sendAuthoredPaper(int);
