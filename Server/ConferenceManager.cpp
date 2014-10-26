@@ -104,8 +104,8 @@ void ConferenceManager::fetchConference(int confId)
 void ConferenceManager::allocatePapers()
 {
         //for each paper!!!!
-        
-        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper);
+        //NEED LOOP HERE
+        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
 }   
     
 
