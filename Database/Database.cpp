@@ -441,7 +441,7 @@ Conference *Database::fetchConference(int key) throw (const char*)
                 throw (noDB);
 
 	// Add information on user from database to User object
-	const char* getConference = "SELECT * FROM Conference WHERE confID=?
+	const char* getConference = "SELECT * FROM Conference WHERE confID=?";
 	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords where confID=?)";
 
         // =======================================
@@ -467,15 +467,15 @@ Conference *Database::fetchConference(int key) throw (const char*)
         std::string description = rs->getString(4);
         std::string location = rs->getString(5);
         bool isActive = rs->getBoolean(6);
-        Date paperDeadline  = rs->getDate(7);
+        Date paperDeadline  = rs->getString(7);
         bool isBeforePaperDeadline = rs->getBoolean(8);
-        Date allocationDate  = rs->getDate(9);
+        Date allocationDate  = rs->getString(9);
         bool isBeforeAllocationDate = rs->getBoolean(10);
-        Date reviewDeadlineSoft  = rs->getDate(11);
+        Date reviewDeadlineSoft  = rs->getString(11);
         bool isBeforeSoftReviewDeadline = rs->getBoolean(12);
-        Date reviewDeadlineHard  = rs->getDate(13);
+        Date reviewDeadlineHard  = rs->getString(13);
         bool isBeforeHardReviewDeadline = rs->getBoolean(14);
-        Date discussDeadline  = rs->getDate(15);
+        Date discussDeadline  = rs->getString(15);
         bool isBeforeDiscussDeadline = rs->getBoolean(16);
 	int reviewersPerPaper = rs->getInt(17);
 	int postWordLimit = rs->getInt(18);
@@ -521,7 +521,7 @@ Conference *Database::fetchConference(int key) throw (const char*)
 		postWordLimit
 		);
 	
-	return Conference;
+	return conf;
 }
 
 bool Database::existsConfName(std::string key) throw (const char*)
@@ -560,7 +560,7 @@ void Database::putConf(std::string key, const Conference *conf) throw (const cha
         }
 	else
 	{
-        	this->createConf(conf;
+        	this->createConf(conf);
 	}
 }
 
@@ -584,17 +584,17 @@ void Database::createConf(const Conference* conf)
         pstmt->setString(3, conf->description);
         pstmt->setString(4, conf->location);
         pstmt->setBoolean(5, conf->isActive);
-        pstmt->setDate(6, conf->paperDeadline);
+        pstmt->setString(6, conf->paperDeadline);
         pstmt->setBoolean(7, conf->isBeforePaperDeadline);
-        pstmt->setDate(8, conf->allocationDate);
+        pstmt->setString(8, conf->allocationDate);
         pstmt->setBoolean(9, conf->isBeforeAllocationDate);
-        pstmt->setDate(10, conf->reviewDeadlineSoft);
+        pstmt->setString(10, conf->reviewDeadlineSoft);
         pstmt->setBoolean(11, conf->isBeforeSoftReviewDeadline);
-        pstmt->setDate(12, conf->reviewDeadlineHard);
+        pstmt->setString(12, conf->reviewDeadlineHard);
         pstmt->setBoolean(13, conf->isBeforeHardReviewDeadline);
-        pstmt->setDate(14, conf->discussDeadline);
+        pstmt->setString(14, conf->discussDeadline);
         pstmt->setBoolean(15, conf->isBeforeDiscussDeadline);
-	pstmt->setInt(16, conf->reviersPerPaper);
+	pstmt->setInt(16, conf->reviewersPerPaper);
 	pstmt->setInt(17, conf->postWordLimit);
 
         pstmt->executeUpdate();
@@ -658,7 +658,7 @@ void Database::updateConf(const Conference* conf)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getConfID);
-        pstmt->setString(1, conf->name);
+        pstmt->setString(1, conf->title);
 
 	rs = pstmt->executeQuery();
 	bool haveRecord = rs->next();
@@ -677,17 +677,17 @@ void Database::updateConf(const Conference* conf)
         pstmt->setString(3, conf->description);
         pstmt->setString(4, conf->location);
         pstmt->setBoolean(5, conf->isActive);
-        pstmt->setDate(6, conf->paperDeadline);
+        pstmt->setString(6, conf->paperDeadline);
         pstmt->setBoolean(7, conf->isBeforePaperDeadline);
-        pstmt->setDate(8, conf->allocationDate);
+        pstmt->setString(8, conf->allocationDate);
         pstmt->setBoolean(9, conf->isBeforeAllocationDate);
-        pstmt->setDate(10, conf->reviewDeadlineSoft);
+        pstmt->setString(10, conf->reviewDeadlineSoft);
         pstmt->setBoolean(11, conf->isBeforeSoftReviewDeadline);
-        pstmt->setDate(12, conf->reviewDeadlineHard);
+        pstmt->setString(12, conf->reviewDeadlineHard);
         pstmt->setBoolean(13, conf->isBeforeHardReviewDeadline);
-        pstmt->setDate(14, conf->discussDeadline);
+        pstmt->setString(14, conf->discussDeadline);
         pstmt->setBoolean(15, conf->isBeforeDiscussDeadline);
-	pstmt->setInt(16, conf->reviersPerPaper);
+	pstmt->setInt(16, conf->reviewersPerPaper);
 	pstmt->setInt(17, conf->postWordLimit);
 	pstmt->setInt(18, confID);
 

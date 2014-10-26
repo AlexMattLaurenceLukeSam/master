@@ -27,10 +27,10 @@ public:
 
 	// CONFERENCE
 	Conference *fetchConference(int key) throw (const char*);
-        bool existsConfID(int key) throw (const char*);
+        bool existsConfName(std::string key) throw (const char*);
         void putConf(std::string key, const Conference *conf) throw (const char*);
-        std::vector<int> *allUserIDs();
-        std::vector<std::string> *allUserNames();
+        std::vector<int> *allConfIDs();
+        std::vector<std::string> *allConfNames();
 
 
 //        // Delete - returns false if there wasn't a record with that key
