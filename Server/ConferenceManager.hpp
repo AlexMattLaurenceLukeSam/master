@@ -27,7 +27,7 @@ public:
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addConference() 
   {
-    db->putConf(currentConference->title, currentConference);
+    database->putConf(currentConference->title, currentConference);
   }
   void modifyConference(int)
   {
