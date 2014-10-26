@@ -2,6 +2,7 @@
 #define CONFERENCE_MANAGER_H
 
 #include "Conference.hpp"
+#include "../Database/Database.hpp"
 
 class ConferenceManager {
 public:
@@ -18,6 +19,8 @@ public:
 
   std::vector<Conference*> getConferences() {return conferences;}
   void setConferences(const std::vector<Conference*>& iconferences) {conferences = iconferences;}
+  Database* getDatabase() {return database;}
+  void setDatabase(Database* idatabase) {database = idatabase;}
   void addConference();
   void modifyConference(int);
   bool deleteConference(int);
