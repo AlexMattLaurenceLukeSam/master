@@ -48,6 +48,7 @@ public:
         std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
         Paper fetchPaper(int key) throw (const char*);
         void createPaper(Paper paper, std::string pdf);
+        void updatePaper(Paper paper);
 
 	// ALGO
 	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
