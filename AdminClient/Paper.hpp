@@ -44,7 +44,43 @@ struct Paper {
       confID(iconfID),
       leadAuthorID(ileadAuthorID)
       { }
-
+    
+    void addToKeywords(const std::string& in) {
+      keywords.push_back(in);
+    }
+    void removeKeyword(const std::string& keywordToRemove) { //remove by paperID
+      for(unsigned int i = 0; i < keywords.size(); ++i)
+      {
+        if(keywords[i] == keywordToRemove) {
+          keywords.erase(keywords.begin() + i);
+          return;
+        }
+      }
+    }
+    void addToAuthors(const User& in) {
+      authors.push_back(in);
+    }
+    void removeAuthor(int userToRemove) { //remove by paperID
+      for(unsigned int i = 0; i < authors.size(); ++i)
+      {
+        if(authors[i].userID == userToRemove) {
+          authors.erase(authors.begin() + i);
+          return;
+        }
+      }
+    }
+    void addToReviews(const Review& in) {
+      reviews.push_back(in);
+    }
+    void removeReview(int reviewToRemove) { //remove by reviewer ID
+      for(unsigned int i = 0; i < reviews.size(); ++i)
+      {
+        if(reviews[i].reviewerID == reviewToRemove) {
+          reviews.erase(reviews.begin() + i);
+          return;
+        }
+      }
+    }
     // no assignment operator or copy constructor deemed necessary at this point
 };
 #endif

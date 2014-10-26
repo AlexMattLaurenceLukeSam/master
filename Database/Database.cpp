@@ -888,6 +888,38 @@ PaperSummary Database::fetchPaperSummary(int key) throw (const char*)
 	return papSum;
 }
 
+std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int authorID) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaperSummary = "SELECT paperName, paperID FROM Paper WHERE (confID=? and paperID IN (SELECT paperID FROM paperAuthors WHERE authorID=?))";
+
+        // =======================================
+        // Paper Summary 
+	std::vector<PaperSummary> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaperSummary);
+	pstmt->setInt(1, confID);
+	pstmt->setInt(2, authorID);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+        	std::string paperName = rs->getString(1);
+        	int paperID = rs->getInt(2);
+        	PaperSummary papSum(paperID, paperName);
+                vec.push_back(papSum);
+        }
+
+        delete rs;
+        delete pstmt;
+	
+	return vec;
+}
+
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
 //{
