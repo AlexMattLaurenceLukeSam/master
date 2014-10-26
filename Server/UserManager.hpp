@@ -27,6 +27,7 @@ public:
   void sendUser();
   void sendUserBatch();
   void fetchUser(std::string);
+   std:vector<User> getAllUsers();
 
 
 private:
