@@ -29,9 +29,10 @@ public:
   {
     database->putConf(currentConference->title, currentConference);
   }
-  void modifyConference(int)
+  void modifyConference(int confID)
   {
-    addConference;
+    fetchConference(confID);
+    addConference();
   }
   //bool deleteConference(int);
   void sendConference();
