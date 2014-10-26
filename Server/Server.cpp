@@ -14,8 +14,8 @@ int main()
   
   
   db = new Database(/*CONSTRUCTOR*/);
-  pm = new PaperManager(/*CONSTRUCTOR*/);
-  cm = new ConferenceManager(/*CONSTRUCTOR*/);
+  pm = new PaperManager(nullptr, db);
+  cm = new ConferenceManager(std::vector<Conference*>(), db, nullptr);
   
 
 
