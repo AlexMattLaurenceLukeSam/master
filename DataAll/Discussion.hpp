@@ -4,6 +4,8 @@
 #include "../DataAll/DiscussionPost.hpp"
 
 #include <list>
+#include <QList>
+#include <QDataStream>
 
 struct Discussion {
   Discussion() { }
@@ -14,5 +16,45 @@ struct Discussion {
     discussion = in.discussion;
   }
   std::list<DiscussionPost> discussion;
+  inline QDataStream& operator<<(QDataStream& out, Discussion* disc)
+  {
+    QList<DiscussionPost> tempQList;
+     for (unsigned int i = 0; i < disc->discussion.size(); ++i)
+       tempQList.append(QString::fromStdString(disc->discussion[i]));
+     out << tempQList;
+     tempQList.clear();
+
+     return out;
+  }
+  
+  inline QDataStream& operator<<(QDataStream& out, Discussion& disc)
+  {
+    QList<DiscussionPost> tempQList;
+     for (unsigned int i = 0; i < disc.discussion.size(); ++i)
+       tempQList.append(QString::fromStdString(disc.discussion[i]));
+     out << tempQList;
+     tempQList.clear();
+     return out;
+  }
+  
+  inline QDataStream& operator>>(QDataStream& in, Discussion* disc)
+  {
+    QList<DiscussionPost> tempQList;
+    in >> tempQList;
+    for (unsigned int i = 0; i < tempQList.size(); ++i)
+      disc->discussion.push_back(tempQList[i].toStdString());
+    tempQList.clear();
+    return in;
+  }
+  
+  inline QDataStream& operator>>(QDataStream& in, Discussion& disc)
+  {
+    QList<DiscussionPost> tempQList;
+    in >> tempQList;
+    for (unsigned int i = 0; i < tempQList.size(); ++i)
+      disc.discussion.push_back(tempQList[i].toStdString());
+    tempQList.clear();
+    return in;
+  }
 };
 #endif
