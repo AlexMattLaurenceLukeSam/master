@@ -24,7 +24,7 @@ public:
   void setDatabase(Database* idatabase) {database = idatabase;}
   void addUser() 
   {
-    database->putUser(currentUser->name, currentUser);
+    database->putUser(currentUser->name, *currentUser);
   }
   void modifyUser()
   {
