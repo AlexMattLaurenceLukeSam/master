@@ -128,9 +128,12 @@ CREATE TABLE `paperAuthors` (
 
 CREATE TABLE `PaperKeywords` (
 	`paperID` int NOT NULL,
-	`keyword` varchar(64) NOT NULL,
-	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
+	`keywordID` int NOT NULL,
+	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
+	FOREIGN KEY(`keywordID`) REFERENCES Keywords(`keywordID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `PaperKeywords` ADD UNIQUE `unique_index`(`paperID`, `keywordID`);
 
 CREATE TABLE `PaperAssigned` (
 	`paperID` int NOT NULL,
