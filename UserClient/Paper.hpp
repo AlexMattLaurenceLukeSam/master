@@ -13,7 +13,6 @@ class Paper {
       const std::vector<User>& iauthors,
       const std::vector<std::string>& ikeywords,
       const std::string& iconfKeyword,
-      const std::string& ifname,
       const Discussion& idiscussion,
       int ipaperID,
       int iconfID,
@@ -23,7 +22,6 @@ class Paper {
       abstract(iabstract),
       authors(iauthors),
       keywords(ikeywords),
-      fname(ifname),
       confKeyword(iconfKeyword),
       discussion(idiscussion),
       paperID(ipaperID),
@@ -38,7 +36,6 @@ class Paper {
     std::vector<User> getAuthors() {return authors;}
     std::vector<std::string> getKeywords() {return keywords;}
     std::string getConfKeyword() {return confKeyword;}
-    std::string getFname() {return fname;}
     Discussion getDiscussion() {return discussion;}
     int getPaperID() {return paperID;}
     int getConfID() {return confID;}
@@ -52,7 +49,6 @@ class Paper {
     void setPaperID(int ipaperID) {paperID = ipaperID;}
     void setConfID(int iconfID) {confID = iconfID;}
     void setLeadAuthorID(int ileadAuthorID) {leadAuthorID = ileadAuthorID;}
-    void setFname(const std::string& ifname) {fname = ifname;}
     void setDiscussion(Discussion idiscussion) {discussion = idiscussion;} // potentially if the papers have the wrong discussions they can be swapped using this
     void downloadPaper();
 
@@ -62,7 +58,6 @@ class Paper {
     std::vector<User> authors;
     std::vector<std::string> keywords;
     std::string confKeyword{""};
-    std::string fname{""};
     Discussion discussion;
     int paperID{0};
     int confID{0};
