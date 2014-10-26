@@ -66,3 +66,31 @@ void ConferenceManager::checkAllDeadlines()
       checkDeadlines(&in[i])
   }
 }
+
+std:vector<Conferences> ConferenceManager::getAllActiveConferences()
+{
+    std::vector<int> activeConfs = db->activeConfIDs();
+    
+    std::vector<Conference> conferences;
+    
+    for(int i = 0; i < activeConfs.size(); ++i)
+    {
+        conferences.push_back(db->fetchConference(activeConfs[i]));
+    }
+    
+    return conferences;
+}
+
+std:vector<Conferences> ConferenceManager::getAllConferences()
+{
+    std::vector<int> allConfs = db->allConfIDs();
+    
+    std::vector<Conference> conferences;
+    
+    for(int i = 0; i < activeConfs.size(); ++i)
+    {
+        conferences.push_back(db->fetchConference(allConfs[i]));
+    }
+    
+    return conferences;
+}
