@@ -61,7 +61,7 @@ db.putUser(key, usertemp);
 std::vector<std::string>{"geographyt","english"});
 std::vector theUsers{usertemp, usertemp2}; */
 
-        std::vector<User>::const_iterator it;
+        std::vector<userPtr>::const_iterator it;
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
                 userPtr ptr = (*it);
