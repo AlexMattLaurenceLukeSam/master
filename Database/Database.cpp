@@ -84,7 +84,7 @@ User Database::fetchUser(std::string key) throw (const char*)
 	{
 		delete rs;
 		delete pstmt;
-		return NULL;
+		return User();
 	}
 
         int userID = rs->getInt(1);
@@ -458,7 +458,7 @@ Conference Database::fetchConference(int key) throw (const char*)
 	{
 		delete rs;
 		delete pstmt;
-		return NULL;
+		return Conference();
 	}
 
         int confID = rs->getInt(1);
