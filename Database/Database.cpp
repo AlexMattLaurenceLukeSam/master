@@ -1041,6 +1041,94 @@ Paper Database::fetchPaper(int key) throw (const char*)
 //	return conf;
 }
 
+std::vector<int> Database::getAuthorsForPaper(int key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getAuthors = "SELECT authorID FROM paperAuthors WHERE paperID=?";
+
+        // =======================================
+        // Authors
+	std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getAuthors);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		int authorID = rs->getInt(1);
+                vec.push_back(authorID);
+        }
+
+        delete rs;
+        delete pstmt;
+	
+	return vec;
+}
+
+std::vector<std::string> Database::getOrganisationForAuthor(int key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getOrg = "SELECT organisation FROM PersonalInfo WHERE infoID=?";
+
+        // =======================================
+        // Org
+	std::vector<std::string> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getOrg);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		std::string org = rs->getString(1);
+                vec.push_back(org);
+        }
+
+        delete rs;
+        delete pstmt;
+	
+	return vec;
+}
+
+std::vector<int> Database::getAuthorsForOrganisation(std::string org) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getAuthors = "SELECT infoID FROM PersonalInfo WHERE organisation=?";
+
+        // =======================================
+        // Authors
+	std::vector<int> vec;
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getAuthors);
+	pstmt->setString(1, org);
+
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		int authorID = rs->getInt(1);
+                vec.push_back(authorID);
+        }
+
+        delete rs;
+        delete pstmt;
+	
+	return vec;
+}
+
+
 
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
