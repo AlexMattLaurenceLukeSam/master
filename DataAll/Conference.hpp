@@ -193,8 +193,8 @@ inline QDataStream& operator>>(QDataStream& in, Conference* conf)
     QVector<QString> tempQvector;
     
     in >> conf->isActive;
-    tempQstring = QString::fromStdString(conf->title);
     in >> tempQstring;
+    conf->title = tempQstring.toStlString();
     in >> conf->confID;
     tempQstring = QString::fromStdString(conf->topic);
     in >> tempQstring;
