@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "LoginManager.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,9 @@ private slots:
     
 private:
     Ui::MainWindow *ui;
+    LoginManager* loginMgr;
+    QString username;
+    QString password;
 };
 
 #endif // MAINWINDOW_H

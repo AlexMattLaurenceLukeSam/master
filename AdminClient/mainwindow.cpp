@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,7 +25,8 @@ void MainWindow::on_rmvConf_clicked()
 
 void MainWindow::on_addUserKey_clicked()
 {
-    ui->userKeyList->addItem(ui->userKeyEntry->text());
+//    NOTE: error: ‘class Ui::MainWindow’ has no member named ‘userKeyEntry’
+//    ui->userKeyList->addItem(ui->userKeyEntry->text());
 }
 
 void MainWindow::on_rmvUserKey_clicked()

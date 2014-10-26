@@ -11,16 +11,16 @@
 #ifndef USERCLIENTSTUBFORSERVER_H
 #define	USERCLIENTSTUBFORSERVER_H
 
-#include <qt4/Qt/QtCore>
-#include <qt4/Qt/QtNetwork>
+#include <QtCore>
+#include <QtNetwork>
 
-class MainWindow;
+class LoginManager;
 
 class AdminClientStubForServer : public QObject {
     
     Q_OBJECT;
 public:
-    AdminClientStubForServer(QTcpSocket *aServer, MainWindow* aMainGui) {
+    AdminClientStubForServer(QTcpSocket *aServer, LoginManager* aMainGui) {
         this->theServer = aServer;
         this->mainGui = aMainGui;
         this->busy = false;
@@ -68,7 +68,7 @@ private:
 
     // Collaborators 
     QTcpSocket *theServer;
-    MainWindow *mainGui; // used to send server responses to gui NOTE: was LoginManager *theLoginForm;
+    LoginManager *mainGui; // used to send server responses to gui NOTE: was LoginManager *theLoginForm;
 
 };
 
