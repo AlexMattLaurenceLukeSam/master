@@ -104,7 +104,6 @@ CREATE TABLE `Paper` (
 	`keywordID` int NOT NULL,
 	`paperTitle` varchar(512) NOT NULL,
 	`paperAbstract` varchar(4096) NOT NULL,
-	`paperStatus` ENUM('accepted', 'rejected', 'submitted', 'assigned', 'reviewed'),
 	`paper` blob NOT NULL,
 	PRIMARY KEY(`paperID`),
 	FOREIGN KEY(`leadAuthorID`) REFERENCES UserAccount(`userID`),
@@ -125,6 +124,8 @@ CREATE TABLE `paperAuthors` (
 	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
 	FOREIGN KEY(`authorID`) REFERENCES PersonalInfo(`infoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `paperAuthors` ADD UNIQUE `unique_index`(`paperID`, `authorID`);
 
 CREATE TABLE `PaperKeywords` (
 	`paperID` int NOT NULL,
