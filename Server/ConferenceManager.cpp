@@ -99,3 +99,13 @@ void ConferenceManager::fetchConference(int confId)
 {
     *currentConference = db->fetchConference(confId);
 }
+
+
+void ConferenceManager::allocatePapers()
+{
+        //for each paper!!!!
+        
+        PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper);
+}   
+    
+
