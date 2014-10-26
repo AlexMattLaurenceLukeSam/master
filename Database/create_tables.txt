@@ -164,7 +164,6 @@ CREATE TABLE `Review` (
 	`commentsSuggestions` text,
 	`commentsShortPaper` text,
 	`commentsBestAward` text,
-	`authorRebuttal` text,
 	PRIMARY KEY(`reportID`),
 	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`),
 	FOREIGN KEY(`reviewerID`) REFERENCES UserAccount(`userID`),
