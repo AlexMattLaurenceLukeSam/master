@@ -920,6 +920,128 @@ std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int autho
 	return vec;
 }
 
+Paper Database::fetchPaper(int key) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* getPaper = "SELECT * FROM Paper WHERE paperID=?";
+	const char* getConfKeyword = "SELECT keyword FROM Keywords WHERE keywordID=(SELECT keywordID FROM Paper WHERE paperID=?)";
+	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords where paperID=?)";
+	
+	const char* getAuthors = "SELECT infoID, name, email, organisation, phone FROM PersonalInfo WHERE infoID IN (SELECT authorID FROM paperAuthors WHERE paperID=?)";
+
+        // =======================================
+        // Paper
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getPaper);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return Paper();
+	}
+
+    	int paperID = rs->getInt(1);
+	int confID = rs->getInt(3);
+    	int leadAuthorID = rs->getInt(2);
+    	std::string title = rs->getString(5);
+    	std::string abstract = rs->getString(6);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // confKeyword
+	pstmt = dbcon->prepareStatement(getConfKeyword);
+	pstmt->setInt(1, key);
+
+	rs = pstmt->executeQuery();
+
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return Paper();
+	}
+
+	std::string confKeyword = rs->getString(1);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Paper Keywords
+        std::vector<std::string> keywords;
+	
+	pstmt = dbcon->prepareStatement(getPaperKeywords);
+	pstmt->setInt(1, key);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+                std::string keyword = rs->getString(1);
+                keywords.push_back(keyword);
+        }
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Authors 
+        std::vector<PersonalInfo> authors;
+	
+	pstmt = dbcon->prepareStatement(getAuthors);
+	pstmt->setInt(1, key);
+	rs = pstmt->executeQuery();
+
+        while (rs->next()) {
+		int infoID = rs->getInt(1);
+		std::string name = rs->getString(3);
+		std::string email = rs->getString(4);
+		std::string organisation = rs->getString(5);
+		std::string phone = rs->getString(6);
+		PersonalInfo pInfo(infoId, name, email, organisation, phone);
+                authors.push_back(pInfo);
+        }
+
+        delete rs;
+        delete pstmt;
+
+
+
+        Conference conf(
+		isActive,
+		title,
+		confID,
+		topic,
+		description,
+		location,
+		vec,
+		isBeforePaperDeadline,
+		paperDeadline,
+		isBeforeAllocationDate,
+		allocationDate,
+		isBeforeSoftReviewDeadline,
+		reviewDeadlineSoft,
+		isBeforeHardReviewDeadline,
+		reviewDeadlineHard,
+		isBeforeDiscussDeadline,
+		discussDeadline,
+		reviewersPerPaper,
+		postWordLimit
+		);
+	
+	return conf;
+}
+
+
 //
 //std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
 //{
