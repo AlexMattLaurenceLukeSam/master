@@ -4,14 +4,14 @@
 
 struct DiscussionPost {
   DiscussionPost(const std::string& icomment,
-                 const std::string& ireviewerUName,
+                 int ireviewerID,
                  int ipostID):
                  comment(icomment),
-                 reviewerUName(ireviewerUName),
+                 reviewerID(ireviewerID),
                  postID(ipostID)
                  { }
   std::string comment{""};
-  std::string reviewerUName{""};
+  int reviewerID{0};
   int postID{0};
 };
 #endif
