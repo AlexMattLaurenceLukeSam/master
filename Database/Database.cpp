@@ -564,7 +564,7 @@ bool Database::existsConfName(std::string key) throw (const char*)
         return count == 1;
 }
 
-void Database::putConf(std::string key, const Conference *conf) throw (const char*)
+void Database::putConf(std::string key, Conference *conf) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -579,7 +579,7 @@ void Database::putConf(std::string key, const Conference *conf) throw (const cha
 	}
 }
 
-void Database::createConf(const Conference* conf)
+void Database::createConf(Conference* conf)
 {
         if (invalid)
                 throw (noDB);
@@ -665,7 +665,7 @@ void Database::createConf(const Conference* conf)
       	}
 }
 
-void Database::updateConf(const Conference* conf)
+void Database::updateConf(Conference* conf)
 {
         if (invalid)
                 throw (noDB);
@@ -702,25 +702,28 @@ void Database::updateConf(const Conference* conf)
         pstmt->setString(3, conf->description);
         pstmt->setString(4, conf->location);
         pstmt->setBoolean(5, conf->isActive);
-        pstmt->setInt(6, conf->paperDeadline.getDay();
-        pstmt->setInt(7, conf->paperDeadline.getMonth();
-        pstmt->setInt(8, conf->paperDeadline.getYear();
+	int day = conf->paperDeadline.getDay();
+	int month = conf->paperDeadline.getMonth();
+	int year = conf->paperDeadline.getYear();
+        pstmt->setInt(6, day);
+        pstmt->setInt(7, month);
+        pstmt->setInt(8, year);
         pstmt->setBoolean(9, conf->isBeforePaperDeadline);
-        pstmt->setInt(10, conf->allocationDate.getDay();
-        pstmt->setInt(11, conf->allocationDate.getMonth();
-        pstmt->setInt(12, conf->allocationDate.getYear();
+        pstmt->setInt(10, conf->allocationDate.getDay());
+        pstmt->setInt(11, conf->allocationDate.getMonth());
+        pstmt->setInt(12, conf->allocationDate.getYear());
         pstmt->setBoolean(13, conf->isBeforeAllocationDate);
-        pstmt->setInt(14, conf->reviewDeadlineSoft.getDay();
-        pstmt->setInt(15, conf->reviewDeadlineSoft.getMonth();
-        pstmt->setInt(16, conf->reviewDeadlineSoft.getYear();
+        pstmt->setInt(14, conf->reviewDeadlineSoft.getDay());
+        pstmt->setInt(15, conf->reviewDeadlineSoft.getMonth());
+        pstmt->setInt(16, conf->reviewDeadlineSoft.getYear());
         pstmt->setBoolean(17, conf->isBeforeSoftReviewDeadline);
-        pstmt->setInt(18, conf->reviewDeadlineHard.getDay();
-        pstmt->setInt(19, conf->reviewDeadlineHard.getMonth();
-        pstmt->setInt(20, conf->reviewDeadlineHard.getYear();
+        pstmt->setInt(18, conf->reviewDeadlineHard.getDay());
+        pstmt->setInt(19, conf->reviewDeadlineHard.getMonth());
+        pstmt->setInt(20, conf->reviewDeadlineHard.getYear());
         pstmt->setBoolean(21, conf->isBeforeHardReviewDeadline);
-        pstmt->setInt(22, conf->discussDeadline.getDay();
-        pstmt->setInt(23, conf->discussDeadline.getMonth();
-        pstmt->setInt(24, conf->discussDeadline.getYear();
+        pstmt->setInt(22, conf->discussDeadline.getDay());
+        pstmt->setInt(23, conf->discussDeadline.getMonth());
+        pstmt->setInt(24, conf->discussDeadline.getYear());
         pstmt->setBoolean(25, conf->isBeforeDiscussDeadline);
 	pstmt->setInt(26, conf->reviewersPerPaper);
 	pstmt->setInt(27, conf->postWordLimit);

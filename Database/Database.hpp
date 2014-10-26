@@ -5,6 +5,7 @@
 #include "MyRecord.h"
 #include "../Server/User.hpp"
 #include "../Server/Conference.hpp"
+#include "../Server/Date.hpp"
 
 class Database {
 public:
@@ -28,7 +29,7 @@ public:
 	// CONFERENCE
 	Conference *fetchConference(int key) throw (const char*);
         bool existsConfName(std::string key) throw (const char*);
-        void putConf(std::string key, const Conference *conf) throw (const char*);
+        void putConf(std::string key, Conference *conf) throw (const char*);
         std::vector<int> *allConfIDs();
         std::vector<std::string> *allConfNames();
         std::vector<int> *activeConfIDs();
@@ -68,7 +69,7 @@ private:
         void updateUser(const User *user);
 
 	// CONF
-        void createConf(const Conference *conf);
-        void updateConf(const Conference *conf);
+        void createConf(Conference *conf);
+        void updateConf(Conference *conf);
 
 };
