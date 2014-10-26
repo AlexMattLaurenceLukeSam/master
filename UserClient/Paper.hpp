@@ -57,7 +57,30 @@ class Paper {
     void setConfID(int iconfID) {confID = iconfID;}
     void setLeadAuthorID(int ileadAuthorID) {leadAuthorID = ileadAuthorID;}
     void downloadPaper();
-
+    void addToKeywords(const std::string& in) {
+      keywords.push_back(in);
+    }
+    void removeOwnPaper(const std::string& keywordToRemove) { //remove by paperID
+      for(unsigned int i = 0; i < keywords.size(); ++i)
+      {
+        if(keywords[i] == keywordToRemove) {
+          keywords.erase(keywords.begin() + i);
+          return;
+        }
+      }
+    }
+    void addToReviews(const Review& in) {
+      reviews.push_back(in);
+    }
+    void removeReview(int reviewToRemove) { //remove by paper ID of the paper that was reviewed
+      for(unsigned int i = 0; i < reviews.size(); ++i)
+      {
+        if(reviews[i].paper->paperID == reviewToRemove) {
+          reviews.erase(reviews.begin() + i);
+          return;
+        }
+      }
+    } 
   private:
     std::string title{""};
     std::string abstract{""};
