@@ -931,6 +931,10 @@ Paper Database::fetchPaper(int key) throw (const char*)
 	
 	const char* getAuthors = "SELECT infoID, name, email, organisation, phone FROM PersonalInfo WHERE infoID IN (SELECT authorID FROM paperAuthors WHERE paperID=?)";
 
+	const char* getDiscussPost = "SELECT comment, reviewerID, commentID FROM ReviewerDiscussion WHERE (paperID=? and confID=?)";
+
+	const char* getReviews = "SELECT * FROM Review WHERE (paperID=? and confID=?)";
+	
         // =======================================
         // Paper
 	sql::PreparedStatement *pstmt = NULL;
