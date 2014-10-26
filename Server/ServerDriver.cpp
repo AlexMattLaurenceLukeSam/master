@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "ClientHandler.hpp"
-#include "Conference.hpp"
+#include "../DataAll/Conference.hpp"
 #include "ConferenceManager.hpp"
 #include "../DataAll/Date.hpp"
 #include "Discussion.hpp"

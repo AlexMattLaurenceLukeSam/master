@@ -2,7 +2,7 @@
 #ifndef LOGIN_MANAGER_H
 #define LOGIN_MANAGER_H
 
-#include "Conference.hpp"
+#include "../DataAll/Conference.hpp"
 #include "User.hpp"
 #include "UserClientStubForServer.hpp"
 //#include "mainwindow.hpp"

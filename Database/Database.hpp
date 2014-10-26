@@ -4,7 +4,7 @@
 #include "mysql_driver.h"
 #include "MyRecord.h"
 #include "../Server/User.hpp"
-#include "../Server/Conference.hpp"
+#include "../DataAll/Conference.hpp"
 #include "../DataAll/Date.hpp"
 
 class Database {

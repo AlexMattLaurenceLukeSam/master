@@ -4,7 +4,7 @@
 #include "Paper.hpp"
 #include "PaperSummary.hpp"
 #include "User.hpp"
-#include "Conference.hpp" // for activeConference memeber variable
+#include "../DataAll/Conference.hpp" // for activeConference memeber variable
 
 #include <vector>
 

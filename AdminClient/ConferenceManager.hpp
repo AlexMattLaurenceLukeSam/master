@@ -1,6 +1,6 @@
 #ifndef CONFERENCE_MANAGER_H
 #define CONFERENCE_MANAGER_H
-#include "Conference.hpp"
+#include "../DataAll/Conference.hpp"
 
 class ConferenceManager {
 public:
