@@ -22,9 +22,16 @@ public:
   void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
   Database* getDatabase() {return database;}
   void setDatabase(Database* idatabase) {database = idatabase;}
-  void addUser();
-  void modifyUser();
-  bool deleteUser(int);
+  void addUser() 
+  {
+    putUser(currentUser->name, *currentUser);
+  }
+  void modifyUser()
+  {
+    addUser(); 
+  }
+  
+  //bool deleteUser(int);
   void sendUser();
   void sendUserBatch();
   void fetchUser(std::string);
