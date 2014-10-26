@@ -51,24 +51,23 @@ class PaperForReview
 		void conflictingReviewers();
 		void algo();
 		void fillVectors();
-		
-	public:
-		//getter
-		std::vector<int> getReviewers(int, int);
+		//push
+		void pushReviewers();
 
 };
 
-std::vector<int> getReviewers(int paperID, int confID)
+std::vector<int> pushReviewers()
 {
-	
-	std::vector<int> reviewers;
 	
 	for(int i=0; i<numOfReqReviewrs; i++)
 	{
-		reviewers.push_back(reviewerBids[i].reviewerID);
+		if(reviewerBids.score[i] > 1)
+		{
+			//Push new Reviewer to the database
+			//db->reviewerAssigned(paperID,ReviewerBid.reviewerID
+		}
 	}
-	
-	return reviewers;
+
 }
 
 void PaperForReview::checkNewReviewer(int newScore, int newReviewerID)
@@ -130,6 +129,10 @@ PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers)
 	fillVectors(paperID);
 	
 	algo(PaperID, confID);
+	
+	pushReviewers();
+	
+	//del???
 }
 
 
@@ -160,7 +163,6 @@ void  PaperForReview::conflictingReviewers()
 
 
 //TODO: matching keywords from database returns
-//		vectors?
 int calculateScore(int userID, int paperID)
 {
 	int score = 1;
