@@ -6,12 +6,18 @@
 class UserManager {
 public:
   UserManager() { }
-  UserManager(User* icurrentUser) : currentUser(icurrentUser) { }
+  UserManager(User* icurrentUser,
+              Database* idatabase) : 
+              currentUser(icurrentUser),
+              database(idatabase)
+              { }
   ~UserManager() { if(currentUser != nullptr)
                      delete currentUser;}
 
   User* getCurrentUser() {return currentUser;}
   void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
+  Database* getDatabase() {return database;}
+  void setDatabase(Database* idatabase) {database = idatabase;}
   void addUser();
   void modifyUser();
   bool deleteUser(int);
@@ -23,5 +29,6 @@ public:
 private:
  void fetchUser(int);
  User* currentUser{nullptr};
+ Database* database{nullptr};
 };
 #endif
