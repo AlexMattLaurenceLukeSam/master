@@ -20,7 +20,7 @@ struct Discussion {
 
   inline QDataStream& operator<<(QDataStream& out, Discussion* disc)
   {
-    QList<DiscussionPost> tempQList;
+    QList<Discussion> tempQList;
      for (unsigned int i = 0; i < disc->discussion.size(); ++i)
        tempQList.append(disc->discussion[i]);
      out << tempQList;
@@ -31,7 +31,7 @@ struct Discussion {
   
   inline QDataStream& operator<<(QDataStream& out, Discussion& disc)
   {
-    QList<DiscussionPost> tempQList;
+    QList<Discussion> tempQList;
      for (unsigned int i = 0; i < disc.discussion.size(); ++i)
        tempQList.append(QString::fromStdString(disc.discussion[i]));
      out << tempQList;
@@ -41,7 +41,7 @@ struct Discussion {
   
   inline QDataStream& operator>>(QDataStream& in, Discussion* disc)
   {
-    QList<DiscussionPost> tempQList;
+    QList<Discussion> tempQList;
     in >> tempQList;
     for (unsigned int i = 0; i < tempQList.size(); ++i)
       disc->discussion.push_back(tempQList[i].toStdString());
@@ -51,7 +51,7 @@ struct Discussion {
   
   inline QDataStream& operator>>(QDataStream& in, Discussion& disc)
   {
-    QList<DiscussionPost> tempQList;
+    QList<Discussion> tempQList;
     in >> tempQList;
     for (unsigned int i = 0; i < tempQList.size(); ++i)
       disc.discussion.push_back(tempQList[i].toStdString());

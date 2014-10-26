@@ -27,7 +27,7 @@ struct DiscussionPost {
   int postID{0};
 };
 
-  inline QDataStream& operator<<(QDataStream& out, const DiscussionPost* discp)
+  inline QDataStream& operator<<(QDataStream& out, DiscussionPost* discp)
   {
     QString tempQstring;
     out << discp->reviewerID;
