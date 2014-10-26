@@ -49,6 +49,17 @@ public:
         Paper fetchPaper(int key) throw (const char*);
         void createPaper(Paper paper, std::string pdf);
         void updatePaper(Paper paper);
+	void addPaperAccepted(int paperID, int confID) throw (const char*);
+	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
+
+	// REVIEW
+	Review fetchReview(int paperID, int reviewerID, int confID) throw (const char*);
+	void modifyReview(Review review, int confID) throw (const char*);
+
+	// DISCUSSION
+	Discussion fetchDiscussion(int paperID, int confID) throw (const char*);
+	DiscussionPost fetchRebuttal(int paperID, int userID, int confID) throw (const char*);
+	void createDiscussionPost(DiscussionPost discussionPost, int paperID, int confID) throw (const char*);
 
 	// ALGO
 	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
@@ -63,6 +74,7 @@ public:
 	std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
 	std::vector<int> getPaperIDsForAllocatedReviewer(int reviewerID, int confID) throw (const char*);
 	std::vector<int> getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*);
+	std::vector<int> getUserIDsForConf(int confID) throw (const char*);
 	
 //        // Delete - returns false if there wasn't a record with that key
 //        bool deleteRecord(const char* key) throw (const char*);
