@@ -60,7 +60,7 @@ void Database::close()
         invalid = true;
 }
 
-User *Database::fetchUser(std::string key) throw (const char*)
+User Database::fetchUser(std::string key) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -129,7 +129,7 @@ User *Database::fetchUser(std::string key) throw (const char*)
                 vec.push_back(expertise);
         }
 
-        User *user = new User(
+        User user(
 		username,
 		name,
 		email,
@@ -170,7 +170,7 @@ bool Database::existsUserName(std::string key) throw (const char*)
         return count == 1;
 }
 
-void Database::putUser(std::string key, const User *user) throw (const char*)
+void Database::putUser(std::string key, User *user) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -185,7 +185,7 @@ void Database::putUser(std::string key, const User *user) throw (const char*)
 	}
 }
 
-void Database::createUser(const User* user)
+void Database::createUser(User* user)
 {
         if (invalid)
                 throw (noDB);
@@ -266,7 +266,7 @@ void Database::createUser(const User* user)
       	}
 }
 
-void Database::updateUser(const User* user)
+void Database::updateUser(User* user)
 {
         if (invalid)
                 throw (noDB);
@@ -350,11 +350,11 @@ void Database::updateUser(const User* user)
       	}
 }
 
-std::vector<int> *Database::allUserIDs()
+std::vector<int> Database::allUserIDs()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<int> *vptr = new std::vector<int>();
+        std::vector<int> vptr;
 
         const char* selectall = "select userID from UserAccount";
 
@@ -366,17 +366,17 @@ std::vector<int> *Database::allUserIDs()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 int anid = rs->getInt(1);
-                vptr->push_back(anid);
+                vptr.push_back(anid);
         }
 
         return vptr;
 }
 
-std::vector<std::string> *Database::allUserNames()
+std::vector<std::string> Database::allUserNames()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<std::string> *vptr = new std::vector<std::string>();
+        std::vector<std::string> vptr;
 
         const char* selectall = "select username from UserAccount";
 
@@ -388,7 +388,7 @@ std::vector<std::string> *Database::allUserNames()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 std::string aname = rs->getString(1);
-                vptr->push_back(aname);
+                vptr.push_back(aname);
         }
 
         return vptr;
@@ -435,7 +435,7 @@ void Database::addKeyword(std::string key) throw (const char*)
         delete pstmt;
 }
 
-Conference *Database::fetchConference(int key) throw (const char*)
+Conference Database::fetchConference(int key) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -514,7 +514,7 @@ Conference *Database::fetchConference(int key) throw (const char*)
         delete rs;
         delete pstmt;
 
-        Conference *conf = new Conference(
+        Conference conf(
 		isActive,
 		title,
 		confID,
@@ -809,11 +809,11 @@ std::vector<std::string> *Database::allConfNames()
         return vptr;
 }
 
-std::vector<int> *Database::activeConfIDs()
+std::vector<int> Database::activeConfIDs()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<int> *vptr = new std::vector<int>();
+        std::vector<int> vptr;
 
         const char* selectActive = "SELECT confID FROM Conference WHERE active = 1";
 
@@ -825,17 +825,17 @@ std::vector<int> *Database::activeConfIDs()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 int anid = rs->getInt(1);
-                vptr->push_back(anid);
+                vptr.push_back(anid);
         }
 
         return vptr;
 }
 
-std::vector<std::string> *Database::activeConfNames()
+std::vector<std::string> Database::activeConfNames()
 {
         if (invalid)
                 throw (noDB);
-        std::vector<std::string> *vptr = new std::vector<std::string>();
+        std::vector<std::string> vptr;
 
         const char* selectActive = "SELECT name FROM Conference WHERE active = 1";
 
@@ -847,7 +847,7 @@ std::vector<std::string> *Database::activeConfNames()
         rs = pstmt->executeQuery();
         while (rs->next()) {
                 std::string aname = rs->getString(1);
-                vptr->push_back(aname);
+                vptr.push_back(aname);
         }
 
         return vptr;
