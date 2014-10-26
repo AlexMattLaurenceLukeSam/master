@@ -9,7 +9,7 @@
 class User;
 //class Review;
 
-class Paper {
+struct Paper {
   public:
     Paper() { }
     Paper(const std::string& ititle,
@@ -59,7 +59,6 @@ class Paper {
     void setConfID(int iconfID) {confID = iconfID;}
     void setLeadAuthorID(int ileadAuthorID) {leadAuthorID = ileadAuthorID;}
 
-  private:
     std::string title{""};
     std::string abstract{""};
     std::vector<User> authors;
