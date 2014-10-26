@@ -27,9 +27,9 @@ public:
   void modifyReview(int);
   //bool deletePaper(int);
   void sendPaper();
-  void sendPaperBatch(int);
+  void sendPaperSummaryBatch(int);
   void sendAuthoredPaper(int);
-  void sendPapersToReview(int);
+  void sendPaperSummariesToReview(int);
 
 private:
 void fetchPaper(int);
