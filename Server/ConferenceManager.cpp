@@ -108,4 +108,7 @@ void ConferenceManager::allocatePapers()
         PaperForReview(paperID, &currentConference, currentConference->reviewersPerPaper, getDatabase());
 }   
     
-
+void ConferenceManager::sendConference()
+{
+    //send *currentConference to the user
+}
