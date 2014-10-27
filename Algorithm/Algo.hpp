@@ -271,7 +271,9 @@ void fillVectors(int paperID)
     std::vector<int>::const_iterator it;
     for(it=authors.begin(); it!=authors.end(); it++)
     {
-        involvedOrganisation.push_back(db->getOrganisationForAuthor(*it));
+        std::string temp = db->getOrganisationForAuthor(*it);
+        if(!temp.empty())
+            involvedOrganisation.push_back(temp);
     }
 	
 	//CONFLICTING HERE

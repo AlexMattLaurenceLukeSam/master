@@ -17,39 +17,39 @@
 
 class Database {
 public:
-        Database();
-
-        ~Database();
-
-        void close();
+    Database();
+    
+    ~Database();
+    
+    void close();
 
 	// USER
 	User fetchUser(std::string key) throw (const char*);
-        bool existsUserName(std::string key) throw (const char*);
-        void putUser(std::string key, User user) throw (const char*);
-        std::vector<int> allUserIDs();
-        std::vector<std::string> allUserNames();
+    bool existsUserName(std::string key) throw (const char*);
+    void putUser(std::string key, User user) throw (const char*);
+    std::vector<int> allUserIDs();
+    std::vector<std::string> allUserNames();
 
 	// KEYWORD
-        bool existsKeyword(std::string key) throw (const char*);
+    bool existsKeyword(std::string key) throw (const char*);
 	void addKeyword(std::string key) throw (const char*);
 
 	// CONFERENCE
 	Conference fetchConference(int key) throw (const char*);
-        bool existsConfName(std::string key) throw (const char*);
-        void putConf(std::string key, Conference conf) throw (const char*);
-        std::vector<int> allConfIDs();
-        std::vector<std::string> allConfNames();
-        std::vector<int> activeConfIDs();
-        std::vector<std::string> activeConfNames();
+    bool existsConfName(std::string key) throw (const char*);
+    void putConf(std::string key, Conference conf) throw (const char*);
+    std::vector<int> allConfIDs();
+    std::vector<std::string> allConfNames();
+    std::vector<int> activeConfIDs();
+    std::vector<std::string> activeConfNames();
 
 	// PAPER
 	PaperSummary fetchPaperSummary(int key) throw (const char*);
-        std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
-        Paper fetchPaper(int key) throw (const char*);
+    std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
+    Paper fetchPaper(int key) throw (const char*);
 	bool existsPaperTitleConf(Paper paper) throw (const char*);
-        void createPaper(Paper paper, std::string pdf) throw (const char*);
-        void updatePaper(Paper paper) throw (const char*);
+    void createPaper(Paper paper, std::string pdf) throw (const char*);
+    void updatePaper(Paper paper) throw (const char*);
 	void addPaperAccepted(int paperID, int confID) throw (const char*);
 	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
 
@@ -92,28 +92,28 @@ public:
 //
 //
 
-        bool isOK()
-        {
-                return !(this->invalid);
-        }
+    bool isOK()
+    {
+        return !(this->invalid);
+    }
 
 private:
-        bool invalid;
-        const char* dbname;
-        sql::Connection *dbcon;
-        sql::Driver *driver;
-        Database(const Database& orig);
-        Database& operator=(const Database);
+    bool invalid;
+    const char* dbname;
+    sql::Connection *dbcon;
+    sql::Driver *driver;
+    Database(const Database& orig);
+    Database& operator=(const Database);
 
 //        void recordToTables(const MyRecord *data);
 
-	// USER
-        void createUser(User user);
-        void updateUser(User user);
+// USER
+    void createUser(User user);
+    void updateUser(User user);
 
-	// CONF
-        void createConf(Conference conf);
-        void updateConf(Conference conf);
+// CONF
+    void createConf(Conference conf);
+    void updateConf(Conference conf);
 
 };
 #endif

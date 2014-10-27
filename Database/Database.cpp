@@ -247,21 +247,21 @@ void Database::createUser(User user)
       	if (user.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertExpertise);
-		std::vector<std::string>::const_iterator it;
+    		std::vector<std::string>::const_iterator it;
       		for (it = user.keywords.begin(); it != user.keywords.end(); it ++)
-		{
-			std::string word = *it;	
+		    {
+			    std::string word = *it;	
 
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			
-			pstmt->setInt(1, userID);
-			pstmt->setString(2, word);
+        	    	if (!this->existsKeyword(word))
+			    {
+			    	this->addKeyword(word);
+			    }
+			    
+			    pstmt->setInt(1, userID);
+			    pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      		            pstmt->executeUpdate();
+		    }
       		delete pstmt;
 
       	}
@@ -333,19 +333,19 @@ void Database::updateUser(User user)
       	if (user.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertExpertise);
-		std::vector<std::string>::const_iterator it;
+		    std::vector<std::string>::const_iterator it;
       		for (it = user.keywords.begin(); it != user.keywords.end(); it ++)
-		{
-			std::string word = *it;	
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			pstmt->setInt(1, userID);
-			pstmt->setString(2, word);
+		    {
+		    	std::string word = *it;	
+            		if (!this->existsKeyword(word))
+		    	{
+		    		this->addKeyword(word);
+		    	}
+		    	pstmt->setInt(1, userID);
+		    	pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      	    	        pstmt->executeUpdate();
+		    }
       		delete pstmt;
 
       	}
@@ -397,27 +397,27 @@ std::vector<std::string> Database::allUserNames()
 
 bool Database::existsKeyword(std::string key) throw (const char*)
 {
-        if (invalid)
-                throw (noDB);
+    if (invalid)
+        throw (noDB);
 
 	const char* countKeyword = "SELECT COUNT(*) FROM Keywords WHERE keyword=?";
 
-        sql::PreparedStatement *pstmt = NULL;
-        sql::ResultSet * rs = NULL;
+    sql::PreparedStatement *pstmt = NULL;
+    sql::ResultSet * rs = NULL;
 
-        pstmt = dbcon->prepareStatement(countKeyword);
+    pstmt = dbcon->prepareStatement(countKeyword);
 
-        int count = 0;
-        pstmt->setString(1, key);
-        rs = pstmt->executeQuery();
+    int count = 0;
+    pstmt->setString(1, key);
+    rs = pstmt->executeQuery();
 
-        if (rs->next()) {
-                count = rs->getInt(1);
-        }
-        delete rs;
-        delete pstmt;
+    if (rs->next()) {
+            count = rs->getInt(1);
+    }
+    delete rs;
+    delete pstmt;
 
-        return count == 1;
+    return count == 1;
 }
 
 void Database::addKeyword(std::string key) throw (const char*)
@@ -646,21 +646,21 @@ void Database::createConf(Conference conf)
       	if (conf.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertConfKeyword);
-		std::vector<std::string>::const_iterator it;
+		    std::vector<std::string>::const_iterator it;
       		for (it = conf.keywords.begin(); it != conf.keywords.end(); it ++)
-		{
-			std::string word = *it;	
+		    {
+		    	std::string word = *it;	
 
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			
-			pstmt->setInt(1, confID);
-			pstmt->setString(2, word);
+            		if (!this->existsKeyword(word))
+		    	{
+		    		this->addKeyword(word);
+		    	}
+		    	
+		    	pstmt->setInt(1, confID);
+		    	pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      	    	        pstmt->executeUpdate();
+		    }
       		delete pstmt;
 
       	}
@@ -748,19 +748,19 @@ void Database::updateConf(Conference conf)
       	if (conf.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertKeywords);
-		std::vector<std::string>::const_iterator it;
+		    std::vector<std::string>::const_iterator it;
       		for (it = conf.keywords.begin(); it != conf.keywords.end(); it ++)
-		{
-			std::string word = *it;	
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			pstmt->setInt(1, confID);
-			pstmt->setString(2, word);
+		    {
+		    	std::string word = *it;	
+            		if (!this->existsKeyword(word))
+		    	{
+		    		this->addKeyword(word);
+		    	}
+		    	pstmt->setInt(1, confID);
+		    	pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      	    	        pstmt->executeUpdate();
+		    }
       		delete pstmt;
       	}
 }
@@ -1191,21 +1191,21 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
       	if (paper.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertKeywords);
-		std::vector<std::string>::const_iterator it;
+		    std::vector<std::string>::const_iterator it;
       		for (it = paper.keywords.begin(); it != paper.keywords.end(); it ++)
-		{
-			std::string word = *it;	
+		    {
+		    	std::string word = *it;	
 
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			
-			pstmt->setInt(1, paperID);
-			pstmt->setString(2, word);
+            		if (!this->existsKeyword(word))
+		    	{
+		    		this->addKeyword(word);
+		    	}
+		    	
+		    	pstmt->setInt(1, paperID);
+		    	pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      	    	        pstmt->executeUpdate();
+		    }
       		delete pstmt;
 
       	}
@@ -1278,19 +1278,19 @@ void Database::updatePaper(Paper paper) throw (const char*)
       	if (paper.keywords.size() > 0)
       	{
       		pstmt = dbcon->prepareStatement(insertKeywords);
-		std::vector<std::string>::const_iterator it;
+		    std::vector<std::string>::const_iterator it;
       		for (it = paper.keywords.begin(); it != paper.keywords.end(); it ++)
-		{
-			std::string word = *it;	
-        		if (!this->existsKeyword(word))
-			{
-				this->addKeyword(word);
-			}
-			pstmt->setInt(1, paper.paperID);
-			pstmt->setString(2, word);
+		    {
+		    	std::string word = *it;	
+            		if (!this->existsKeyword(word))
+		    	{
+		    		this->addKeyword(word);
+		    	}
+		    	pstmt->setInt(1, paper.paperID);
+		    	pstmt->setString(2, word);
 
-      		        pstmt->executeUpdate();
-		}
+      	    	        pstmt->executeUpdate();
+		    }
       		delete pstmt;
       	}
 }
@@ -1613,7 +1613,7 @@ std::string Database::getOrganisationForAuthor(int infoID) throw (const char*)
 	{
 		delete rs;
 		delete pstmt;
-		return DiscussionPost();
+		return std::string();
 	}
 
 	std::string org = rs->getString(1);
