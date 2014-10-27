@@ -19,12 +19,11 @@ Alex Cremona Oct 2014
 
 int main()
 {
-	char inName[256] = "Simple.pdf";
+    char inName[256] = "Simple.pdf";
 	char outName[256] = "testOut.pdf";
 	//std::string content;
 	std::ifstream fin;
 	std::ofstream fout;
-
 
 	//open pdf in binary
 	fin.open(inName, std::ios::in | std::ios::binary);
@@ -42,12 +41,8 @@ int main()
 
 	fin.close();
 	
-	
 	//set string for saving
 	std::string = buffer;
-
-
-
 
 	//open output in Binary and output content elsewhere
 	fout.open(outName, std::ios::out | std::ios::binary);
@@ -55,7 +50,4 @@ int main()
 	fout.close();
 
 	return 0;
-
-
-
 }
