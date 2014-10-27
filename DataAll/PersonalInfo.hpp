@@ -11,10 +11,10 @@ struct PersonalInfo {
   PersonalInfo() {}
   
   PersonalInfo(
-         std::string& iname,
-         std::string& iemail,
-         std::string& iorganisation,
-         std::string& iphone,
+         const std::string& iname,
+         const std::string& iemail,
+         const std::string& iorganisation,
+         const std::string& iphone,
          int iinfoID
          ):
          name(iname),
