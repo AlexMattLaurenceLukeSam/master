@@ -64,7 +64,7 @@ public:
 
 	// ALGO
 	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
-	std::vector<std::string> getOrganisationForAuthor(int infoID) throw (const char*);
+	std::string getOrganisationForAuthor(int infoID) throw (const char*);
 	std::vector<int> getReviewersForOrganisation(std::string org) throw (const char*);
 	std::vector<int> getPapersForAuthor(int authorID) throw (const char*);
 	std::vector<std::string> getKeywordsForPaper(int paperID) throw (const char*);

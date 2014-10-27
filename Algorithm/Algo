@@ -15,11 +15,10 @@
 
 
 //returns vector of reviewerIDs from getter
+
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include "Conference.hpp"
-#include "Paper".hpp
-#include "User.hpp"
 
 
 struct ReviewerBid
@@ -30,40 +29,39 @@ struct ReviewerBid
 
 class PaperForReview
 {
-	private:
-		PapersForReview(int, int, int,Database*);
-		~PapersForReview();
-		int paperID;
-		int conferenceID;
-		Database* db;
-		
-		std::vector<ReviewerBid> reviewerBids;
-		
-		int numOfReqReviewrs;
-		
-		std::vector<int> authors;
-		std::vector<int> involvedOrganisation;
-		std::vector<int> conflictingReviewersVec;
-		
-		int getMinScore();
-		void setNewReviewer(int, int);
-		void checkNewReviewer(int, int);
-		void addAuthor(int);
-		void conflictingReviewers();
-		void algo();
-		void fillVectors();
-		//push
-		void pushReviewers();
+public:
+	PaperForReview(int, int, int,Database*);
+	~PaperForReview();
 
+	int findMinScore();
+	void setNewReviewer(int, int);
+    void addNewReviewerUnderReqNum(int, int);
+	void checkNewReviewer(int, int);
+	void addAuthor(int);
+	void conflictingReviewers();
+	void algo();
+	void fillVectors();
+	void pushReviewers();
+
+private:
+	Database* db;
+	int paperID;
+	int conferenceID;
+    int minScore;
+	int numOfReqReviewrs;
+	std::vector<ReviewerBid> reviewerBids;
+	std::vector<int> authors;
+	std::vector<std::string> involvedOrganisation;
+	std::vector<int> conflictingReviewersVec;
 };
 
 std::vector<int> pushReviewers()
 {
-	
-	for(int i=0; i<numOfReqReviewrs; i++)
+	for(int i=0; i<reviewerBids.size(); i++)
 	{
 		if(reviewerBids.score[i] > 1)
 		{
+            db->assignPaper(paperID, reviewerBids.reviewerID, conferenceID);
 			//Push new Reviewer to the database
 			//db->reviewerAssigned(paperID,ReviewerBid.reviewerID
 		}
@@ -73,43 +71,57 @@ std::vector<int> pushReviewers()
 
 void PaperForReview::checkNewReviewer(int newScore, int newReviewerID)
 {
-	if(getMinScore() < newscore)
+    if(reviewerBids.size() < NumOfReqReviewers)
+    {
+        // Add reviewer
+        addNewReviewerUnderReqNum(newScore, newReviewerID);
+    }
+    else if(newscore > minScore)
 	{
-		//Set New Reviewer
+        // Update reviewer
 		setNewReviewer(newScore, newReviewerID);
 	}
 }
 
-int PaperForReview::getMinScore()
+void PaperForReview::addNewReviewerUnderReqNum(int newScore, int newReviewer)
 {
-	int minScore = -1;
+    ReviewerBid bid(newScore, newReviewer);
+
+    reviewerBids.push_back(bid);
+    
+    if(newScore < minScore)
+        minScore = newScore
+}
+
+void PaperForReview::findMinScore()
+{
+	int tempScore = -1;
 	for(int i=0; i<NumOfReqReviewers; i++)
 	{
-		if(reviewerBids[i].score < minScore)
-			minScore = reviewerBids[i].score;
+        if(tempScore == -1)
+            tempScore = reviewerBids[i].score;
+        else if(reviewerBids[i].score < tempScore)
+			tempScore = reviewerBids[i].score;
 	}
-	return minScore;
+	minScore = tempScore;
 }
 
 void PaperForReview::setNewReviewer(int newScore, int newReviewer)
 {
-
-	minScore = getMinScore();
 	for(int i=0; i< NumOfReqReviewers; i++)
 	{
-		if(reviewerBids[i].score < minScore)
+		if(reviewerBids[i].score == minScore)
 		{
 			reviewerBids[i].score = newScore;
 			reviewerBids[i].reviewerID =  newReviewer;
-			i=  NumOfReqReviewrs;
+            findMinScore();
 		}
 	}
-
 }
 
 PaperForReview::~PaperForReview()
 {
-
+    db = NULL;
 }
 
 PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers, Database* database)
@@ -133,33 +145,42 @@ PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers, Dat
 	algo(PaperID, confID);
 	
 	pushReviewers();
-	
-	//del???
-}
-
-
-void PaperForReview::addAuthor(int newAuthor)
-{
-	authors.push_back(newAuthor);
 }
 
 //TODO
 //populate clonflicting reviewers vector further from database queries
-void  PaperForReview::conflictingReviewers()
+void PaperForReview::conflictingReviewers()
 {
 	//authors
-		conflictingReviewers.insert(conflictingReviewers.end(), authors.begin(), authors.end());
-
+	conflictingReviewersVec.insert(conflictingReviewersVec.end(), authors.begin(), authors.end());
 
 	//(3)usersFromSameOrganisation
 		//ForEachAuthor:   SelectOrganisation
 			//SelectAllUsersFromEachOrganisation
 				//PushBack^
-
+    std::vector<std::string>::const_iterator it;
+    for(it=involvedOrganisation.begin(); it!=involvedOrganisation.end(); it++)
+    {
+        std::vector<int> reviewersForOrg = db->getReviewersForOrganisation(*it);
+	    conflictingReviewersVec.insert(conflictingReviewersVec.end(), reviewersForOrg.begin(), reviewersForOrg.end());
+    }
+        
 	//pastCoAuthors
-		//(4)ForEachAuthor:   selectAllPapers into temp
-			//Select All authors for each paper in temp
-				//pushBack^
+		//(4)ForEachAuthor:   selectAllPapers into papersForAuthor
+			//Select All authors for each paper in papersForAuthor and place into temp
+				//pushBack into conflictingReviewersVec
+    std::vector<int>::const_iterator it;
+    for(it=authors.begin(); it!=authors.end(); it++)
+    {
+        std::vector<int> papersForAuthor = db->getPapersForAuthor(*it);
+
+        std::vector<int>::const_iterator iter;
+        for(iter=papersForAuthor.begin(); iter!=papersForAuthor.end(); it++)
+        {
+            std::vector<int> temp = db->getAuthorsForPaper(*it);
+	        conflictingReviewersVec.insert(conflictingReviewersVec.end(), temp.begin(), temp.end());
+        }
+    }
 }
 
 
@@ -169,8 +190,20 @@ int calculateScore(int userID, int paperID)
 {
 	int score = 1;
 
+    std::vector<std::string> keysForPaper = db->getKeywordsForPaper(paperID);
+    std::vector<std::string> keysForUser = db->getKeywordsForUser(userID);
+
 	//(5)&(6)for each keyword match
-		 ++score;
+    std::vector<std::string>::const_iterator it;
+    for(it=keysForPaper.begin(); it!=keysForPaper.end(); it++)
+    {
+        std::vector<std::string>::const_iterator iter;
+        for(iter=keysForUser.begin(); iter!=keysForUser.end(); it++)
+        {
+            if (*it == *iter)
+		        ++score;
+        }
+    }
 
 	return score;
 
@@ -183,35 +216,42 @@ void PaperForReview::algo(int paperID, int conferenceID)
 	std::vector<int> userIDs;
 	
 	//(7) fill userIDs with reviewers from conference
-	
-	 for all in userIDs
-	 {
-	 	int score = 0;
-		If UserID not in  conflictingReviewers
-		{
-			int reviewersPreference = 0;
-					// 1=yes
-					//2=maybe
-					//3=conflict
-			reviewersPreference = ;//(8)GET PREF FROM DATABASE fetchreviewerPreference(userID, paperID);
-			
-			if(reviewersPreference == 1)
-			{
-				score = calculateScore(userID, paperID) * 1000000;
-				checkNewReviewer(score, userID);
-			}
-			elseif(reviewersPreference == 2)
-			{
-				score = calculateScore(userID, paperID) * 1000;
-				checkNewReviewer(score, userID);
-			}
-			elseif(reviewersPreference != 3)
-			{
-				score = calculate score(userID, paperID);
-				checkNewReviewer(score, userID);
-			}
-		}
-	}
+    userIDs = db->getReviewersForConf(conferenceID);
+    int UserID;	
+
+    std::vector<int>::const_iterator iter;
+    for(it=userIDs.begin(); it!=userIDs.end(); it++)
+    {
+        UserID = *it;
+     	int score = 0;
+        if (std::find(conflictingReviewersVec.begin(), conflictingReviewersVec.end(), UserID) != conflictingReviewersVec.end())
+        {
+    		int reviewersPreference = 0;
+    				// 1=yes
+    				//2=maybe
+                    //3=no
+    				//4=conflict
+    
+            //(8)GET PREF FROM DATABASE fetchreviewerPreference(userID, paperID);
+    		reviewersPreference = db->getReviewerPreference(UserID, conferenceID, paperID);			
+    
+    		if(reviewersPreference == 1)
+    		{
+    			score = calculateScore(UserID, paperID) * 1000000;
+    			checkNewReviewer(score, UserID);
+    		}
+    		elseif(reviewersPreference == 2)
+    		{
+    			score = calculateScore(UserID, paperID) * 1000;
+    			checkNewReviewer(score, UserID);
+    		}
+    		elseif(reviewersPreference != 3)
+    		{
+    			score = calculateScore(UserID, paperID);
+    			checkNewReviewer(score, UserID);
+    		}
+    	}
+    }
 }
 
 
@@ -223,12 +263,19 @@ void fillVectors(int paperID)
 
 	// (1)select all Authors where paper==paperID
 		//addAuthors to paper
+    authors = db->getAuthorsForPaper(paperID);
 
 	// (2)select organisation for each author
 		//add involved organisation
+    
+    std::vector<int>::const_iterator it;
+    for(it=authors.begin(); it!=authors.end(); it++)
+    {
+        involvedOrganisation.push_back(db->getOrganisationForAuthor(*it));
+    }
 	
 	//CONFLICTING HERE
-		conflictingReviewers();
+	conflictingReviewers();
 }
 
 

@@ -70,7 +70,7 @@ int main(int arc, char *argv[])
                 std::cout << "fetch username: " << user.userName << " name: " << user.name << " first expertise: " <<  user.keywords[0] << " email: " << user.email << std::endl;
         }
         
-        std::vector<int> ConfIDs{db.activeConfIDs()};
+        std::vector<int> ConfIDs = db.activeConfIDs();
         std::vector<int>::iterator confiter;
         for(confiter=ConfIDs.begin(); confiter!=ConfIDs.end(); confiter++)
         {
@@ -85,7 +85,7 @@ int main(int arc, char *argv[])
         {
         	int key = (*paperiter);
         	Paper paper = db.fetchPaper(key);
-        	std::cout << "fetch paper " << "paperID:" << paper.paperID << " confID:" << paper.confID << " leadAuthorID:" << paper.leadAuthorID << " first keyword " << paper.keywords[0] << std::endl;
+        	std::cout << "fetch paper " << "paperID:" << paper.paperID << " confID:" << paper.confID << " leadAuthorID:" << paper.leadAuthorID << " first keyword: " << paper.keywords[0] << std::endl;
         }
 
         return EXIT_SUCCESS;

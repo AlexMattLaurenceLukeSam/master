@@ -1590,7 +1590,7 @@ std::vector<int> Database::getAuthorsForPaper(int paperID) throw (const char*)
 	return vec;
 }
 
-std::vector<std::string> Database::getOrganisationForAuthor(int infoID) throw (const char*)
+std::string Database::getOrganisationForAuthor(int infoID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -1608,15 +1608,20 @@ std::vector<std::string> Database::getOrganisationForAuthor(int infoID) throw (c
 
 	rs = pstmt->executeQuery();
 
-        while (rs->next()) {
-		std::string org = rs->getString(1);
-                vec.push_back(org);
-        }
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return DiscussionPost();
+	}
 
-        delete rs;
-        delete pstmt;
+	std::string org = rs->getString(1);
+
+    delete rs;
+    delete pstmt;
 	
-	return vec;
+	return org;
 }
 
 std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (const char*)
