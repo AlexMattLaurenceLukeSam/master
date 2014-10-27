@@ -508,7 +508,7 @@ Conference Database::fetchConference(int key) throw (const char*)
 	rs = pstmt->executeQuery();
 
         while (rs->next()) {
-                std::string keyword = rs->getString(2);
+                std::string keyword = rs->getString(1);
                 vec.push_back(keyword);
         }
 
@@ -1007,10 +1007,10 @@ Paper Database::fetchPaper(int key) throw (const char*)
 
         while (rs->next()) {
 		int infoID = rs->getInt(1);
-		std::string name = rs->getString(3);
-		std::string email = rs->getString(4);
-		std::string organisation = rs->getString(5);
-		std::string phone = rs->getString(6);
+		std::string name = rs->getString(2);
+		std::string email = rs->getString(3);
+		std::string organisation = rs->getString(4);
+		std::string phone = rs->getString(5);
 		PersonalInfo pInfo(name, email, organisation, phone, infoID);
                 authors.push_back(pInfo);
         }
@@ -1101,12 +1101,38 @@ Paper Database::fetchPaper(int key) throw (const char*)
 	return paper;
 }
 
-void Database::createPaper(Paper paper, std::string pdf)
+bool Database::existsPaperTitleConf(Paper paper) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
 
-	const char* insertPaper = "INSERT INTO Paper(paperID, leadAuthorID, confID, keywordID, paperTitle, paperAbstract, paper) VALUES(NULL, ?, ?, (SELECT keywordID FROM Keywords WHERE keyword=?), ?, ?, ?)";
+	const char* countPaper = "SELECT COUNT(*) FROM Paper WHERE (paperTitle=? and confID=?)";
+
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet * rs = NULL;
+
+        pstmt = dbcon->prepareStatement(countPaper);
+
+        int count = 0;
+        pstmt->setString(1, paper.title);
+        pstmt->setInt(2, paper.confID);
+
+        rs = pstmt->executeQuery();
+
+        if (rs->next()) {
+                count = rs->getInt(1);
+        }
+        delete rs;
+        delete pstmt;
+
+        return count == 1;
+}
+void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	const char* insertPaper = "INSERT IGNORE INTO Paper(leadAuthorID, confID, keywordID, paperTitle, paperAbstract, paper) VALUES(?, ?, (SELECT keywordID FROM Keywords WHERE keyword=?), ?, ?, ?)";
 	const char* getPaperID = "SELECT LAST_INSERT_ID()";
 	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?, ?)";
 
@@ -1138,6 +1164,9 @@ void Database::createPaper(Paper paper, std::string pdf)
 
         int paperID = rs->getInt(1);
 
+	if( paperID == 0)
+		return;
+
         delete rs;
         delete pstmt;
 
@@ -1153,9 +1182,7 @@ void Database::createPaper(Paper paper, std::string pdf)
 		pstmt->setInt(1, paperID);
 		pstmt->setInt(2, pInfo.infoID);
 
-		std::cout << "here1" << std::endl;
 	        pstmt->executeUpdate();
-		std::cout << "here2" << std::endl;
 	}
 	delete pstmt;
 
@@ -1185,7 +1212,7 @@ void Database::createPaper(Paper paper, std::string pdf)
 
 }
 
-void Database::updatePaper(Paper paper)
+void Database::updatePaper(Paper paper) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -1357,7 +1384,7 @@ Review Database::fetchReview(int paperID, int reviewerID, int confID) throw (con
         std::string commentsShortPaper = rs->getString(16);
         std::string commentsBestAward = rs->getString(17);
 
-	Review review(reportID
+	Review review(reportID,
 		paperID, 
 		reviewerID, 
 		overall, 
@@ -1377,7 +1404,7 @@ Review Database::fetchReview(int paperID, int reviewerID, int confID) throw (con
         delete rs;
         delete pstmt;
 
-	return review
+	return review;
 }
 
 void Database::modifyReview(Review review, int confID) throw (const char*)
@@ -1392,58 +1419,53 @@ void Database::modifyReview(Review review, int confID) throw (const char*)
         sql::PreparedStatement *pstmt = NULL;
 
 	pstmt = dbcon->prepareStatement(insertReview);
-	std::vector<Review>::const_iterator it;
-	for (it = paper.reviews.begin(); it != paper.reviews.end(); it ++)
+
+	if (review.reportID==0)
 	{
-		Review review = *it;	
+		pstmt = dbcon->prepareStatement(insertReview);
 
-		if (review.reportID==0)
-		{
-			pstmt = dbcon->prepareStatement(insertReview);
+		pstmt->setInt(1, review.paperID);
+		pstmt->setInt(2, review.reviewerID);
+		pstmt->setInt(3, confID);
+		pstmt->setInt(4, review.overall);
+		pstmt->setInt(5, review.confidence);
+		pstmt->setInt(6, review.relevance);
+		pstmt->setInt(7, review.originality);
+		pstmt->setInt(8, review.significance);
+		pstmt->setInt(9, review.presentation);
+		pstmt->setInt(10, review.techQuality);
+		pstmt->setInt(11, review.evaluation);
+		pstmt->setString(12, review.commentsStrength);
+		pstmt->setString(13, review.commentsWeakness);
+		pstmt->setString(14, review.commentsSuggestions);
+		pstmt->setString(15, review.commentsShortPaper);
+		pstmt->setString(16, review.commentsBestAward);
 
-			pstmt->setInt(1, paper.paperID);
-			pstmt->setInt(2, review.reviewerID);
-			pstmt->setInt(3, paper.confID);
-			pstmt->setInt(4, review.overall);
-			pstmt->setInt(5, review.confidence);
-			pstmt->setInt(6, review.relevance);
-			pstmt->setInt(7, review.originality);
-			pstmt->setInt(8, review.significance);
-			pstmt->setInt(9, review.presentation);
-			pstmt->setInt(10, review.techQuality);
-			pstmt->setInt(11, review.evaluation);
-			pstmt->setString(12, review.commentsStrength);
-			pstmt->setString(13, review.commentsWeakness);
-			pstmt->setString(14, review.commentsSuggestions);
-			pstmt->setString(15, review.commentsShortPaper);
-			pstmt->setString(16, review.commentsBestAward);
+		pstmt->executeUpdate();
+	}
+	else
+	{
+		pstmt = dbcon->prepareStatement(updateReview);
 
-	        	pstmt->executeUpdate();
-		}
-		else
-		{
-			pstmt = dbcon->prepareStatement(updateReview);
+		pstmt->setInt(1, review.paperID);
+		pstmt->setInt(2, review.reviewerID);
+		pstmt->setInt(3, confID);
+		pstmt->setInt(4, review.overall);
+		pstmt->setInt(5, review.confidence);
+		pstmt->setInt(6, review.relevance);
+		pstmt->setInt(7, review.originality);
+		pstmt->setInt(8, review.significance);
+		pstmt->setInt(9, review.presentation);
+		pstmt->setInt(10, review.techQuality);
+		pstmt->setInt(11, review.evaluation);
+		pstmt->setString(12, review.commentsStrength);
+		pstmt->setString(13, review.commentsWeakness);
+		pstmt->setString(14, review.commentsSuggestions);
+		pstmt->setString(15, review.commentsShortPaper);
+		pstmt->setString(16, review.commentsBestAward);
+		pstmt->setInt(17, review.reportID);
 
-			pstmt->setInt(1, paper.paperID);
-			pstmt->setInt(2, review.reviewerID);
-			pstmt->setInt(3, paper.confID);
-			pstmt->setInt(4, review.overall);
-			pstmt->setInt(5, review.confidence);
-			pstmt->setInt(6, review.relevance);
-			pstmt->setInt(7, review.originality);
-			pstmt->setInt(8, review.significance);
-			pstmt->setInt(9, review.presentation);
-			pstmt->setInt(10, review.techQuality);
-			pstmt->setInt(11, review.evaluation);
-			pstmt->setString(12, review.commentsStrength);
-			pstmt->setString(13, review.commentsWeakness);
-			pstmt->setString(14, review.commentsSuggestions);
-			pstmt->setString(15, review.commentsShortPaper);
-			pstmt->setString(16, review.commentsBestAward);
-			pstmt->setInt(17, review.reportID);
-
-	        	pstmt->executeUpdate();
-		}
+		pstmt->executeUpdate();
 	}
 	delete pstmt;
 }
@@ -1458,6 +1480,9 @@ Discussion Database::fetchDiscussion(int paperID, int confID) throw (const char*
         // Discussion
         std::list<DiscussionPost> discussion;
 	
+        sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+
 	pstmt = dbcon->prepareStatement(getDiscussion);
 	pstmt->setInt(1, paperID);
 	pstmt->setInt(2, confID);
@@ -1476,7 +1501,7 @@ Discussion Database::fetchDiscussion(int paperID, int confID) throw (const char*
         delete pstmt;
 }
 
-DiscussionPost Database::fetchRebuttal(int paperID, int userId, int confID) throw (const char*)
+DiscussionPost Database::fetchRebuttal(int paperID, int userID, int confID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -1488,7 +1513,7 @@ DiscussionPost Database::fetchRebuttal(int paperID, int userId, int confID) thro
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
 	
-	pstmt = dbcon->prepareStatement(getDiscussion);
+	pstmt = dbcon->prepareStatement(getDiscussionPost);
 	pstmt->setInt(1, paperID);
 	pstmt->setInt(2, userID);
 	pstmt->setInt(3, confID);
@@ -1511,7 +1536,7 @@ DiscussionPost Database::fetchRebuttal(int paperID, int userId, int confID) thro
         delete rs;
         delete pstmt;
 	
-	return discuss
+	return discuss;
 }
 
 void Database::createDiscussionPost(DiscussionPost discussionPost, int paperID, int confID) throw (const char*)
@@ -1768,7 +1793,7 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
 	return preference;
 }
 
-std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*)
+std::vector<int> Database::fetchReviewersAssigned(int paperID, int confID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);

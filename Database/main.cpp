@@ -8,16 +8,24 @@
 
 #include "Database.hpp"
 #include "../Server/User.hpp"
+#include "../DataAll/Conference.hpp"
+#include "../DataAll/Paper.hpp"
 
 #include <vector>
 
 std::vector<User> g_theUsers;
+std::vector<Conference> g_theConfs;
+std::vector<Paper> g_thePapers;
 
 static void createUsers();
+static void createConf();
+static void createPaper();
 
 int main(int arc, char *argv[])
 {
         createUsers();
+	createConf();
+	createPaper();
         Database db;
         if (!db.isOK())
         {
@@ -51,57 +59,7 @@ keywords);*/
 //std::string key = usertemp.userName;
 //db.putUser(key, usertemp);
 
-std::string baz = "baz";
-std::string blah = "blah";
-std::string boo = "boo";
-std::string flop = "flop";
-Date date(1,12,30);
-std::vector<std::string> test;
-test.push_back("one");
-test.push_back("two");
-Conference conferencetemp(true, 
-baz,
-blah,
-boo,
-flop,
-test,
-true,
-date,
-true,
-date,
-true,
-date,
-true,
-date,
-true,
-date,
-4,
-250);
-std::string title = conferencetemp.title;
-db.putConf(title, conferencetemp);
 
-PersonalInfo infotemp("a", "b", "c", "d");
-
-std::vector<PersonalInfo> vec;
-vec.push_back(infotemp);
-std::vector<std::string> vec2;
-vec2.push_back("one");
-vec2.push_back("two");
-std::string fee("one");
-std::string fi("two");
-std::string giant("one");
-int CONFID=1;
-int five=1;
-Paper papertemp(five,
-CONFID,
-fee,
-fi,
-vec,
-vec2,
-giant);
-std::string pdf = "whyyougoanddothesethings";
-db.createPaper(papertemp, pdf);
-std::cout << "here3" << std::endl;
 
 /* User usertemp2("dick",
 "wrong",
@@ -112,13 +70,35 @@ std::cout << "here3" << std::endl;
 std::vector<std::string>{"geographyt","english"});
 std::vector theUsers{usertemp, usertemp2}; */
 
+
         std::vector<User>::const_iterator it;
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
         {
                 User ptr = *it;
                 std::string key = ptr.userName;
                 db.putUser(key, ptr);
-                std::cout << "Wrote record " << key << std::endl;
+                std::cout << "Wrote user: " << key << std::endl;
+        }
+
+        std::vector<Conference>::const_iterator it2;
+        for(it2=g_theConfs.begin(); it2!=g_theConfs.end(); it2++)
+        {
+                Conference ptr = *it2;
+                std::string key = ptr.title;
+		db.putConf(key, ptr);
+                std::cout << "Wrote conference: " << key << std::endl;
+        }
+
+        std::vector<Paper>::const_iterator it3;
+        for(it3=g_thePapers.begin(); it3!=g_thePapers.end(); it3++)
+        {
+                Paper ptr = *it3;
+		std::string pdf = "whyyougoanddothesethings";
+		if(!db.existsPaperTitleConf(ptr))
+		{
+			db.createPaper(ptr, pdf);
+                	std::cout << "Wrote paper: " << ptr.title << std::endl;
+		}
         }
 
 	std::vector<std::string> Names = db.allUserNames();
@@ -128,7 +108,7 @@ std::vector theUsers{usertemp, usertemp2}; */
         {
                 std::string key = (*iter);
                 User user = db.fetchUser(key);
-                std::cout << user.userName << " " << user.name << " " <<  user.keywords[0] << " " << user.email << " " << key << std::endl;
+                std::cout << "fetch username: " << user.userName << " name: " << user.name << " first expertise: " <<  user.keywords[0] << " email: " << user.email << std::endl;
         }
         
         std::vector<int> ConfIDs{db.activeConfIDs()};
@@ -137,16 +117,16 @@ std::vector theUsers{usertemp, usertemp2}; */
         {
         	int key = (*confiter);
         	Conference conference = db.fetchConference(key);
-        	std::cout << conference.title << " " << conference.keywords[0] << std::endl;
+        	std::cout << "fetch conference: " << conference.title << " first keyword: " << conference.keywords[0] << std::endl;
         }
         
-        std::vector<int> PaperIDs{db.getPaperIDsForConf(CONFID)};
+        std::vector<int> PaperIDs(db.getPaperIDsForConf(1));
         std::vector<int>::iterator paperiter;
         for(paperiter=PaperIDs.begin(); paperiter!=PaperIDs.end(); paperiter++)
         {
         	int key = (*paperiter);
         	Paper paper = db.fetchPaper(key);
-        	std::cout << paper.paperID << " " << paper.confID << " " << paper.leadAuthorID << " " << paper.keywords[0] << std::endl;
+        	std::cout << "fetch paper " << "paperID:" << paper.paperID << " confID:" << paper.confID << " leadAuthorID:" << paper.leadAuthorID << " first keyword " << paper.keywords[0] << std::endl;
         }
 //        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
 //        {
@@ -214,4 +194,73 @@ static void createUsers()
 
                 g_theUsers.push_back(user);
         }
+}
+
+static void createConf()
+{
+	bool active = true;
+	std::string title = "maths conference";
+	std::string topic = "linear algebra";
+	std::string description = "exciting LA and MORE!!";
+	std::string location = "UoW";
+	std::vector<std::string> keywords;
+	keywords.push_back("maths");
+	keywords.push_back("linear algebra");
+	Date date(1,12,30);
+	bool open = true;
+	int reviewersPerPaper = 10;
+	int postWordLimit = 250;
+	Conference conferencetemp(
+		active,
+		title,
+		topic,
+		description,
+		location,
+		keywords,
+		open,
+		date,
+		open,
+		date,
+		open,
+		date,
+		open,
+		date,
+		open,
+		date,
+		reviewersPerPaper,
+		postWordLimit);
+	
+        g_theConfs.push_back(conferencetemp);
+}
+
+static void createPaper()
+{
+	PersonalInfo infotemp(
+                "Dick",
+                "clever_dick@ourcompany.com.au",
+		"University of Wollongong",
+                "04666667666",
+		2);
+	
+	std::vector<PersonalInfo> authors;
+	authors.push_back(infotemp);
+	std::vector<std::string> keywords;
+	keywords.push_back("linear algebra");
+	std::string title("LA");
+	std::string abstract("amazing!");
+	std::string confKeyword("linear algebra");
+	int CONFID = 1;
+	int leadAuthorID = 2;
+
+	Paper papertemp(
+	CONFID,
+	leadAuthorID,
+	title,
+	abstract,
+	authors,
+	keywords,
+	confKeyword);
+
+
+        g_thePapers.push_back(papertemp);
 }

@@ -101,14 +101,16 @@ CREATE TABLE `Paper` (
 	`leadAuthorID` int NOT NULL,
 	`confID` int NOT NULL,
 	`keywordID` int NOT NULL,
-	`paperTitle` varchar(512) NOT NULL,
-	`paperAbstract` varchar(4096) NOT NULL,
+	`paperTitle` varchar(255) NOT NULL,
+	`paperAbstract` TEXT NOT NULL,
 	`paper` blob NOT NULL,
 	PRIMARY KEY(`paperID`),
 	FOREIGN KEY(`leadAuthorID`) REFERENCES UserAccount(`userID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`),
 	FOREIGN KEY(`keywordID`) REFERENCES Keywords(`keywordID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `Paper` ADD UNIQUE `unique_index`(`confID`, `paperTitle`);
 
 CREATE TABLE `AcceptedPapers` (
 	`confID` int NOT NULL,
@@ -117,7 +119,7 @@ CREATE TABLE `AcceptedPapers` (
 	FOREIGN KEY(`paperID`) REFERENCES Paper(`paperID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
-ALTER TABLE `AcceptedPaper` ADD UNIQUE `unique_index`(`paperID`, `confID`);
+ALTER TABLE `AcceptedPapers` ADD UNIQUE `unique_index`(`paperID`, `confID`);
 
 CREATE TABLE `paperAuthors` (
 	`paperID` int NOT NULL,

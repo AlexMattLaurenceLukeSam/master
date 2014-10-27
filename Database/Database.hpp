@@ -47,8 +47,9 @@ public:
 	PaperSummary fetchPaperSummary(int key) throw (const char*);
         std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int authorID) throw (const char*);
         Paper fetchPaper(int key) throw (const char*);
-        void createPaper(Paper paper, std::string pdf);
-        void updatePaper(Paper paper);
+	bool existsPaperTitleConf(Paper paper) throw (const char*);
+        void createPaper(Paper paper, std::string pdf) throw (const char*);
+        void updatePaper(Paper paper) throw (const char*);
 	void addPaperAccepted(int paperID, int confID) throw (const char*);
 	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
 
