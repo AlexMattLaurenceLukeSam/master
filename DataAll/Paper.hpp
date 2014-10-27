@@ -173,6 +173,7 @@ struct Paper {
         for (unsigned int i = 0; i < tempQvectorR.size(); ++i)
           pap->reviews.push_back(tempQvectorR[i]);
         tempQvector.clear();
+        return in;
     }
     
     inline QDataStream& operator>>(QDataStream& in, Paper& pap)
@@ -203,6 +204,7 @@ struct Paper {
         for (unsigned int i = 0; i < tempQvectorR.size(); ++i)
           pap.reviews.push_back(tempQvectorR[i]);
         tempQvector.clear();
+        return in;
     }
 
 #endif
