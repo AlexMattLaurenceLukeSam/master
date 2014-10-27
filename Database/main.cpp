@@ -3,9 +3,6 @@
 #include <fstream>
 #include <string>
 
-//#include "MyRecord.h"
-//#include "MyRecordStore.h"
-
 #include "Database.hpp"
 #include "../Server/User.hpp"
 #include "../DataAll/Conference.hpp"
@@ -32,44 +29,6 @@ int main(int arc, char *argv[])
                 std::cout << "Failed to open database file" << std::endl;
                 exit(1);
         }
-/*std::vector<std::string> keywords;
-username = "tom";
-password = "fake";
-name = "Thomas";
-email = "boos_tom@ourcompany.com.au";
-organisation = "University of Wollongong";
-phone = "04666666666";
-keywords.push_back("mathematics");
-keywords.push_back("science");
-User usertemp(
-username,
-name,
-email,
-organisation,
-phone,
-password,
-keywords);*/
-//User usertemp("foo",
-//"bar",
-//"thefoo",
-//"boos_tom@ourcompany.com.au",
-//"University of Wollongong",
-//"04666666666",
-//std::vector<std::string>{"mathematics","science"});
-//std::string key = usertemp.userName;
-//db.putUser(key, usertemp);
-
-
-
-/* User usertemp2("dick",
-"wrong",
-"Dick",
-"clever_dick@ourcompany.com.au",
-"University of Wollongong",
-"04666667666",
-std::vector<std::string>{"geographyt","english"});
-std::vector theUsers{usertemp, usertemp2}; */
-
 
         std::vector<User>::const_iterator it;
         for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
@@ -128,29 +87,18 @@ std::vector theUsers{usertemp, usertemp2}; */
         	Paper paper = db.fetchPaper(key);
         	std::cout << "fetch paper " << "paperID:" << paper.paperID << " confID:" << paper.confID << " leadAuthorID:" << paper.leadAuthorID << " first keyword " << paper.keywords[0] << std::endl;
         }
-//        for(it=g_theUsers.begin(); it!=g_theUsers.end(); it++)
-//        {
-//                userPtr ptr = (*it);
-//                int key = ptr->userID;
-//                db.deleteRecord(key);
-//                std::cout << "Deleted record " << key << std::endl;
-//        }
+
         return EXIT_SUCCESS;
 }
 
 static void createUsers()
 {
-        // Hard code procedural creation of a few records so that can
-        // have some data to show in the Qt based GUI
         std::string username;
         std::string password;
         std::string name;
         std::string email;
         std::string organisation;
 	std::string phone;
-
-        // You will need to adjust filenames etc to match the image files
-        // that you provide
         {
 		std::vector<std::string> keywords;
                 username = "tom";
@@ -260,7 +208,6 @@ static void createPaper()
 	authors,
 	keywords,
 	confKeyword);
-
 
         g_thePapers.push_back(papertemp);
 }
