@@ -2,10 +2,10 @@
 #include "ui_mainwindow.h"
 #include "Review.hpp"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
 {
+    QMainWindow = parent;
+    ui = new Ui::MainWindow;
     ui->setupUi(this);
     noUser();
     ui->passwordLogin->setEchoMode(QLineEdit::Password);
@@ -171,32 +171,31 @@ void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/
 void MainWindow::on_tabWidget_currentChanged(int index)
 {//change to current text or something
     QString text = ui->tabWidget->tabText(index);
-    switch(text){
-    case "Info":
-        populate_infoTabAuthor();
-        break;
-    case "Information":
-        populate_infoTabChair();
-        break;
-    case "Author":
-        populate_authorTab();
-        break;
-    case "Reviewer":
-        populate_reviewerTab();
-        break;
-    case "Paper Management":
-        populate_papersTab();
-        break;
-    case "User Management":
-        populate_usersTab();
-        break;
-    case "Review":
-        populate_reviewTab();
-        break;
-    default:
-        break;
-
-
+    switch(text)
+    {
+        case "Info":
+            populate_infoTabAuthor();
+            break;
+        case "Information":
+            populate_infoTabChair();
+            break;
+        case "Author":
+            populate_authorTab();
+            break;
+        case "Reviewer":
+            populate_reviewerTab();
+            break;
+        case "Paper Management":
+            populate_papersTab();
+            break;
+        case "User Management":
+            populate_usersTab();
+            break;
+        case "Review":
+            populate_reviewTab();
+            break;
+        default:
+            break;
     }
 }
 

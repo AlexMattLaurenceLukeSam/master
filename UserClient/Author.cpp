@@ -5,8 +5,6 @@ void Author::getAllPapers()
     //sends request to server asking for PaperSummaries
 
     //populates ownPaper vector with response
-
-
 }
 
 void Author::getPaper()

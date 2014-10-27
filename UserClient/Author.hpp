@@ -7,8 +7,9 @@
 
 #include <vector>
 
-class Author : public User {
-  public:
+class Author : public User 
+{
+public:
     Author() { }
     /*
     Author(const std::string& iuserName,
@@ -43,19 +44,21 @@ class Author : public User {
          int iuserID,
          UserType_t iuserType,
          const std::vector<std::string>& ikeywords,
-         const std::vector<PaperSummary>& iownPapers):
-         User(iuserName,
+         const std::vector<PaperSummary>& iownPapers)
+    :
+    User(iuserName,
          iname,
          iemail,
          iorganisation,
          iphone,
          ipassword,
          iuserID,
-         iuserType
-         ),
+         iuserType)
+    {
          keywords(ikeywords),
          ownPapers(iownPapers)
-         { }
+    }
+
     virtual void view();
     void getAllPapers();
     void getPaper();
@@ -67,19 +70,25 @@ class Author : public User {
     std::vector<std::string> keywords;
     std::vector<PaperSummary> getOwnPapers() {return ownPapers;}
     void setOwnPapers(const std::vector<PaperSummary>& iownPapers) {ownPapers = iownPapers;}
-    void addToOwnPapers(const PaperSummary& in) {
-      ownPapers.push_back(in);
+
+    void addToOwnPapers(const PaperSummary& in) 
+    {
+        ownPapers.push_back(in);
     }
-    void removeOwnPaper(int paperToRemove) { //remove by paperID
-      for(unsigned int i = 0; i < ownPapers.size(); ++i)
-      {
-        if(ownPapers[i].paperID == paperToRemove) {
-          ownPapers.erase(ownPapers.begin() + i);
-          return;
+
+    void removeOwnPaper(int paperToRemove) //remove by paperID
+    {
+        for(unsigned int i = 0; i < ownPapers.size(); ++i)
+        {
+            if(ownPapers[i].paperID == paperToRemove) 
+            {
+                ownPapers.erase(ownPapers.begin() + i);
+                return;
+            }
         }
-      }
     } 
-  protected:
+
+protected:
     std::vector<PaperSummary> ownPapers;
 };
 #endif

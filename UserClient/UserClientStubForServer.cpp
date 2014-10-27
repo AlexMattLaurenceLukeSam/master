@@ -39,21 +39,23 @@ void UserClientStubForServer::handleLoginResponse()
 }
 
 // receives response from server, takes qstring command off qdatastream, calls appropriate function
-void UserClientStubForServer::dispatch(QString responseName) {
-        
+void UserClientStubForServer::dispatch(QString responseName) 
+{
     // check command here and call appropriate handle function in LoginManager
     if (responseName == "CHECKLOGIN")
         handleLoginResponse();
 }
 
-void UserClientStubForServer::handleResponse() {
+void UserClientStubForServer::handleResponse() 
+{
     QString responseName;
     (*this->responseReader) >> responseName;
     this->dispatch(responseName);
     this->busy = false; 
 } 
 
-void UserClientStubForServer::setupForRequest() {
+void UserClientStubForServer::setupForRequest() 
+{
     this->requestData.clear();
     this->requestWriter = new QDataStream(&requestData, QIODevice::WriteOnly);
     this->requestWriter->setVersion(QDataStream::Qt_4_0);
@@ -64,7 +66,8 @@ void UserClientStubForServer::setupForRequest() {
     // buffer
 }
 
-void UserClientStubForServer::sendRequest() {
+void UserClientStubForServer::sendRequest() 
+{
     // Request is complete - just have to adjust the length field
     int datalength = this->requestData.size();
     
@@ -80,7 +83,8 @@ void UserClientStubForServer::sendRequest() {
     delete this->requestWriter; 
 } 
 
-void UserClientStubForServer::setupForResponse() {
+void UserClientStubForServer::setupForResponse() 
+{
     this->busy = true;
     // don't want any other requests made if need a response
     
@@ -91,7 +95,8 @@ void UserClientStubForServer::setupForResponse() {
     this->responseReader->setVersion(QDataStream::Qt_4_0);
 }
 
-void UserClientStubForServer::readResponseData() {
+void UserClientStubForServer::readResponseData() 
+{
     // This function will be called repeatedly as the underlying system
     // detects incoming bytes on the tcp connection.
     
@@ -103,7 +108,8 @@ void UserClientStubForServer::readResponseData() {
     int headersize = sizeof (quint32);
     if (!this->responseLengthReceived) {
         // Waiting for the 4byte header
-        if (theServer->bytesAvailable() < headersize) return; // not ready
+        if (theServer->bytesAvailable() < headersize) 
+            return; // not ready
         quint32 tmp;
         QDataStream in(theServer);
         in.setVersion(QDataStream::Qt_4_0);
