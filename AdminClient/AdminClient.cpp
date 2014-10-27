@@ -7,7 +7,8 @@
 
 QTcpSocket *establishConnection();
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) 
+{
     // initialize resources, if needed
     // Q_INIT_RESOURCE(resfile);
 
@@ -22,7 +23,8 @@ int main(int argc, char *argv[]) {
     return app.exec();
 }
 
-QTcpSocket *establishConnection() {
+QTcpSocket *establishConnection() 
+{
     // just connect on localhost
     std::string servername = "10.64.32.150";//"127.0.0.1";
     std::string pnumstr = "23456";
@@ -51,16 +53,21 @@ QTcpSocket *establishConnection() {
     // Allow time for connection to establish, then check that all
     // looks good. If any problems, abort execution.
     bool ok = tcpSocket->waitForConnected(1000);
-    if (!ok) {
+    if (!ok) 
+    {
         std::cout << "Wait for connected didn't work" << std::endl;
         exit(1);
     }
-    if (!tcpSocket->isValid()) {
+
+    if (!tcpSocket->isValid()) 
+    {
         std::cout << "Didn't connect completely?" << std::endl;
         exit(1);
     } QAbstractSocket::SocketState state;
+
     state = tcpSocket->state();
-    if (state != QAbstractSocket::ConnectedState) {
+    if (state != QAbstractSocket::ConnectedState) 
+    {
         std::cout << "Not happy with state" << std::endl;
         exit(1);
     }

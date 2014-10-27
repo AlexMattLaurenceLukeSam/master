@@ -54,19 +54,22 @@ void AdminClientStubForServer::handleCheckLoginDetailsResponse()
     
 }
 
-void AdminClientStubForServer::dispatch(QString responseName) {
+void AdminClientStubForServer::dispatch(QString responseName) 
+{
     if (responseName == "CHECKLOGIN")
         handleCheckLoginDetailsResponse();
 }
 
-void AdminClientStubForServer::handleResponse() {
+void AdminClientStubForServer::handleResponse() 
+{
     QString responseName;
     (*this->responseReader) >> responseName;
     this->dispatch(responseName);
     this->busy = false; 
 } 
 
-void AdminClientStubForServer::setupForRequest() {
+void AdminClientStubForServer::setupForRequest() 
+{
     this->requestData.clear();
     this->requestWriter = new QDataStream(&requestData, QIODevice::WriteOnly);
     this->requestWriter->setVersion(QDataStream::Qt_4_0);
@@ -77,7 +80,8 @@ void AdminClientStubForServer::setupForRequest() {
     // buffer
 }
 
-void AdminClientStubForServer::sendRequest() {
+void AdminClientStubForServer::sendRequest() 
+{
     // Request is complete - just have to adjust the length field
     int datalength = this->requestData.size();
     
@@ -93,7 +97,8 @@ void AdminClientStubForServer::sendRequest() {
     delete this->requestWriter; 
 } 
 
-void AdminClientStubForServer::setupForResponse() {
+void AdminClientStubForServer::setupForResponse() 
+{
     this->busy = true;
     // don't want any other requests made if need a response
     
@@ -104,7 +109,8 @@ void AdminClientStubForServer::setupForResponse() {
     this->responseReader->setVersion(QDataStream::Qt_4_0);
 }
 
-void AdminClientStubForServer::readResponseData() {
+void AdminClientStubForServer::readResponseData() 
+{
     // This function will be called repeatedly as the underlying system
     // detects incoming bytes on the tcp connection.
     

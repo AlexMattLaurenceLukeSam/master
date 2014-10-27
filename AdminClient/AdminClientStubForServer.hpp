@@ -16,11 +16,13 @@
 
 class LoginManager;
 
-class AdminClientStubForServer : public QObject {
+class AdminClientStubForServer : public QObject 
+{
     
     Q_OBJECT;
 public:
-    AdminClientStubForServer(QTcpSocket *aServer, LoginManager* aMainGui) {
+    AdminClientStubForServer(QTcpSocket *aServer, LoginManager* aMainGui) 
+    {
         this->theServer = aServer;
         this->mainGui = aMainGui;
         this->busy = false;
@@ -69,7 +71,6 @@ private:
     // Collaborators 
     QTcpSocket *theServer;
     LoginManager *mainGui; // used to send server responses to gui NOTE: was LoginManager *theLoginForm;
-
 };
 
 #endif	/* USERCLIENTSTUBFORSERVER_H */

@@ -2,25 +2,30 @@
 #define CONFERENCE_MANAGER_H
 #include "../DataAll/Conference.hpp"
 
-class ConferenceManager {
+class ConferenceManager 
+{
 public:
-  ConferenceManager() { }
-  ConferenceManager(Conference* icurrentConference) : currentConference(icurrentConference) { }
-  ~ConferenceManager() { if(currentConference != nullptr)
-                     delete currentConference;}
+    ConferenceManager() { }
 
-  Conference* getcurrentConference(return currentConference;)
-  void setConference(Conference* icurrentConference) {currentConference = icurrentConference;}
-  void createConference();
-  void removeConference();
-  void listConferences();
-  void viewConference();
-  void editConference();
-  void addKWords();
+    ConferenceManager(Conference* icurrentConference) : currentConference(icurrentConference) { }
+
+    ~ConferenceManager() 
+    { 
+        if(currentConference != nullptr)
+        delete currentConference;
+    }
+    
+    Conference* getcurrentConference(return currentConference;)
+    void setConference(Conference* icurrentConference) {currentConference = icurrentConference;}
+    void createConference();
+    void removeConference();
+    void listConferences();
+    void viewConference();
+    void editConference();
+    void addKWords();
   
   
 private:
-  Conference* currentConference{nullptr};
-
+    Conference* currentConference = nullptr;
 };
 #endif
