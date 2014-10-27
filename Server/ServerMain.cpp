@@ -11,7 +11,9 @@
 #include <QtNetwork>
 #include <iostream>
 
-ServerMain::ServerMain(QObject *parent) : QTcpServer(parent) {
+ServerMain::ServerMain(QObject *parent): 
+{
+    QTcpServer = parent;
     const char* arbitraryPort = "23456";
     this->portnum = arbitraryPort;
 
@@ -35,13 +37,14 @@ ServerMain::ServerMain(QObject *parent) : QTcpServer(parent) {
     }
 }
 
-void ServerMain::incomingConnection(int socketDescriptor) {
-
+void ServerMain::incomingConnection(int socketDescriptor) 
+{
     ClientHandler *handler = new ClientHandler(socketDescriptor, this);
     connect(handler, SIGNAL(finished()), handler, SLOT(deleteLater()));
     handler->start();
 }
 
-bool ServerMain::serverIsOK() {
+bool ServerMain::serverIsOK() 
+{
     return this->isListening(); 
 }

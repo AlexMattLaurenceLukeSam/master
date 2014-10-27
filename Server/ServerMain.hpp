@@ -10,7 +10,8 @@
 
 #include <QTcpServer>
 
-class ServerMain : public QTcpServer {
+class ServerMain : public QTcpServer 
+{
     Q_OBJECT
     
 public:
@@ -26,7 +27,6 @@ protected:
 private:
     QString portnum;
     QHostAddress ipAddress;
-
 };
 
 

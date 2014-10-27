@@ -7,39 +7,47 @@
 #include <string>
 #include <vector>
 
-class UserManager {
+class UserManager 
+{
 public:
-  UserManager() { }
-  UserManager(User* icurrentUser,
-              Database* idatabase) : 
-              currentUser(icurrentUser),
-              database(idatabase)
-              { }
-  ~UserManager() { if(currentUser != nullptr)
-                     delete currentUser;}
+    UserManager() { }
 
-  User* getCurrentUser() {return currentUser;}
-  void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
-  Database* getDatabase() {return database;}
-  void setDatabase(Database* idatabase) {database = idatabase;}
-  void addUser() 
-  {
-    database->putUser(currentUser->name, *currentUser);
-  }
-  void modifyUser()
-  {
-    addUser(); 
-  }
-  
-  //bool deleteUser(int);
-  void sendUser();
-  void sendUserBatch(int);
-  void fetchUser(std::string);
-  std::vector<User> getAllUsers();
+    UserManager(User* icurrentUser,
+        Database* idatabase)
+    { 
+        currentUser = icurrentUser;
+        database = idatabase;
+    }
 
+    ~UserManager() 
+    { 
+        if(currentUser != nullptr)
+            delete currentUser;
+    }
+    
+    User* getCurrentUser() {return currentUser;}
+    void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
+    Database* getDatabase() {return database;}
+    void setDatabase(Database* idatabase) {database = idatabase;}
+
+    void addUser() 
+    {
+        jdatabase->putUser(currentUser->name, *currentUser);
+    }
+
+    void modifyUser()
+    {
+        addUser(); 
+    }
+    
+    //bool deleteUser(int);
+    void sendUser();
+    void sendUserBatch(int);
+    void fetchUser(std::string);
+    std::vector<User> getAllUsers();
 
 private:
- User* currentUser{nullptr};
- Database* database{nullptr};
+    User* currentUser = nullptr;
+    Database* database = nullptr;
 };
 #endif

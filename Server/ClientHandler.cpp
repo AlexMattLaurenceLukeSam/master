@@ -10,7 +10,9 @@
 #include <QtNetwork>
 
 ClientHandler::ClientHandler(int socketDescriptor, QObject* parent)
-    : QThread(parent), socketDescriptor(socketDescriptor) {
+{
+    QThread = parent;
+    socketDescriptor = socketDescriptor;
     this->tcpSocket = NULL;
 }
 

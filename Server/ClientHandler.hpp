@@ -39,7 +39,7 @@ private:
     QDataStream *requestReader;
     QDataStream *responseWriter; 
 
-    UserManager* theUser{nullptr};
+    UserManager* theUser = nullptr;
     
 };
 

@@ -15,9 +15,12 @@
 
 int main()
 {
-std::cout << "hello world" << std::endl;
-int foo = 6;
-auto bar = foo;
-std::cout << bar << "bar" << std::endl;
-return 0;
+    std::cout << "hello world" << std::endl;
+
+    int foo = 6;
+    auto bar = foo;
+
+    std::cout << bar << "bar" << std::endl;
+
+    return 0;
 }
