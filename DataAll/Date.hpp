@@ -54,14 +54,7 @@ public:
     return(temp.str());
   } 
     
-private:
-    int day{0};
-    int month{0};
-    int year{0};
-    
-};
-
-inline QDataStream& operator<<(QDataStream& out, Date* d)
+  inline QDataStream& operator<<(QDataStream& out, Date* d)
 {
     out << d->getDay();
     out << d->getMonth();
@@ -100,5 +93,12 @@ inline QDataStream& operator>>(QDataStream& in, Date& d)
     d.setYear(tmp);
     return in;
 }
+
+private:
+    int day{0};
+    int month{0};
+    int year{0};
+    
+};
 
 #endif
