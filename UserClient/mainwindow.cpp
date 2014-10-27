@@ -2,9 +2,8 @@
 #include "ui_mainwindow.h"
 #include "Review.hpp"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    QMainWindow = parent;
     ui = new Ui::MainWindow;
     ui->setupUi(this);
     noUser();
