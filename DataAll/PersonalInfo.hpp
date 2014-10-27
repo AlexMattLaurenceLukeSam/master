@@ -7,40 +7,41 @@
 #include <vector>
 
 
-struct PersonalInfo {
-  PersonalInfo() {}
-  
-  PersonalInfo(
-         const std::string& iname,
-         const std::string& iemail,
-         const std::string& iorganisation,
-         const std::string& iphone,
-         int iinfoID
-         ):
-         name(iname),
-         email(iemail),
-         organisation(iorganisation),
-         phone(iphone),
-         infoID(iinfoID)
-         { }
+struct PersonalInfo
+{
+    PersonalInfo() {}
+    
+    PersonalInfo(
+        const std::string& iname,
+        const std::string& iemail,
+        const std::string& iorganisation,
+        const std::string& iphone,
+        int iinfoID)
+    {
+        name = iname;
+        email = iemail;
+        organisation = iorganisation;
+        phone = iphone;
+        infoID = iinfoID;
+    }
+    
+    PersonalInfo(
+        const std::string& iname,
+        const std::string& iemail,
+        const std::string& iorganisation,
+        const std::string& iphone)
+    {
+        name = iname;
+        email = iemail;
+        organisation = iorganisation;
+        phone = iphone;
+    }
 
-  PersonalInfo(
-         const std::string& iname,
-         const std::string& iemail,
-         const std::string& iorganisation,
-         const std::string& iphone
-         ):
-         name(iname),
-         email(iemail),
-         organisation(iorganisation),
-         phone(iphone)
-         { }
-  int infoID{0};
-  std::string name{""};
-  std::string email{""};
-  std::string organisation{""};
-  std::string phone{""};
-  
+    int infoID = 0;
+    std::string name;
+    std::string email;
+    std::string organisation;
+    std::string phone;
 };
 
   

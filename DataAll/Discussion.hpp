@@ -8,15 +8,21 @@
 #include <QLinkedList>
 #include <QDataStream>
 
-struct Discussion {
-  Discussion() { }
-  Discussion(const std::list<DiscussionPost>& idiscussion):
-               discussion(idiscussion)
-               { }
-  Discussion(const Discussion& in) {
-    discussion = in.discussion;
-  }
-  std::list<DiscussionPost> discussion;
+struct Discussion 
+{
+    Discussion() { }
+
+    Discussion(const std::list<DiscussionPost>& idiscussion)
+    {
+        discussion = idiscussion;
+    }
+
+    Discussion(const Discussion& in) 
+    {
+        discussion = in.discussion;
+    }
+
+    std::list<DiscussionPost> discussion;
 };
 
   inline QDataStream& operator<<(QDataStream& out, Discussion* disc)

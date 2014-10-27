@@ -4,17 +4,17 @@
 #include <sstream>
 #include <QDataStream>
 
-class Date {
-    
+class Date 
+{
 public:
     Date() { }
-    Date(int iday,
-         int imonth,
-         int iyear):
-         day(iday),
-         month(imonth),
-         year(iyear)
-             { }
+
+    Date(int iday, int imonth, int iyear)
+    {
+        day = iday;
+        month = imonth;
+        year = iyear;
+    }
     
     Date(const Date& in)
     {
@@ -23,7 +23,6 @@ public:
         year = in.year;
     }
     
-// NOTE: changed get functions, new below
     void setDay(int iday) {day = iday;}
     void setMonth(int imonth) {month = imonth;}
     void setYear(int iyear) {year = iyear;}
@@ -47,18 +46,18 @@ public:
         return true;
     }
 
-  std::string convertToString()
-  {
-    std::stringstream temp;
-    temp << day << "/" << month << "/" << year; 
-    return(temp.str());
-  } 
+    std::string convertToString()
+    {
+        std::stringstream temp;
+        temp << day << "/" << month << "/" << year; 
+
+        return temp.str();
+    } 
     
 private:
-    int day{0};
-    int month{0};
-    int year{0};
-    
+    int day = 0;
+    int month = 0;
+    int year = 0;
 };
 
   inline QDataStream& operator<<(QDataStream& out, Date* d)

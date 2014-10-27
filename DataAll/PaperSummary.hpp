@@ -5,15 +5,18 @@
 #include <QDataStream>
 #include <string>
 
-struct PaperSummary {
+struct PaperSummary 
+{
 	PaperSummary() {}
 
-	PaperSummary(int ipaperID, const std::string& ipaperName) :
-	paperID(ipaperID), paperName(ipaperName)
-	{ }
+	PaperSummary(int ipaperID, const std::string& ipaperName)
+    {
+	    paperID = ipaperID;
+        paperName = ipaperName;
+	}
 
-	int paperID{0};
-	std::string paperName{""};
+	int paperID = 0;
+	std::string paperName;
 };
 
 	inline QDataStream& operator<<(QDataStream& out, PaperSummary* paps)
