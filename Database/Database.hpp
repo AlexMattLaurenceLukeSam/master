@@ -29,6 +29,9 @@ public:
     void putUser(std::string key, User user) throw (const char*);
     std::vector<int> allUserIDs();
     std::vector<std::string> allUserNames();
+    void setUserAsAuthor(int userID, int confID) throw (const char*);
+    void setUserAsPC(int userID, int confID) throw (const char*);
+    void setUserAsChair(int userID, int confID) throw (const char*);
 
 	// KEYWORD
     bool existsKeyword(std::string key) throw (const char*);

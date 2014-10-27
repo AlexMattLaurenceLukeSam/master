@@ -67,9 +67,9 @@ User Database::fetchUser(std::string key) throw (const char*)
                 throw (noDB);
 
 	// Add information on user from database to User object
-	const char* getUser = "SELECT * FROM UserAccount where username=?";
-	const char* getPersonalInfo = "SELECT * FROM PersonalInfo where userID=?";
-	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea where userID=?)";
+	const char* getUser = "SELECT * FROM UserAccount WHERE username=?";
+	const char* getPersonalInfo = "SELECT * FROM PersonalInfo WHERE userID=?";
+	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
 
         // =======================================
         // user account
@@ -193,7 +193,7 @@ void Database::createUser(User user)
 
 	const char* insertPersonalInfo = "INSERT INTO PersonalInfo(userID, name, email, organisation, phone) VALUES(NULL, ?, ?, ?, ?)";
 	const char* insertUser = "INSERT INTO UserAccount(username, password, infoID) VALUES(?, ?, LAST_INSERT_ID())";
-	const char* updatePIuserID = "UPDATE PersonalInfo SET userID = LAST_INSERT_ID() where infoID=(SELECT infoID FROM UserAccount where userID=LAST_INSERT_ID())";
+	const char* updatePIuserID = "UPDATE PersonalInfo SET userID = LAST_INSERT_ID() WHERE infoID=(SELECT infoID FROM UserAccount WHERE userID=LAST_INSERT_ID())";
 	const char* getUserID = "SELECT LAST_INSERT_ID()";
 	const char* insertExpertise = "INSERT IGNORE INTO ExpertiseArea VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
 
@@ -272,7 +272,7 @@ void Database::updateUser(User user)
         if (invalid)
                 throw (noDB);
 
-	const char* getUserID = "SELECT userID FROM UserAccount where username = ?";
+	const char* getUserID = "SELECT userID FROM UserAccount WHERE username = ?";
 	const char* updateUser = "UPDATE UserAccount SET username=?, password=? WHERE userID=?";
 	const char* updatePersonalInfo = "UPDATE PersonalInfo SET name=?, email=?, organisation=?, phone=? WHERE infoID=?";
 
@@ -395,6 +395,60 @@ std::vector<std::string> Database::allUserNames()
         return vptr;
 }
 
+void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
+{
+    if (invalid)
+        throw (noDB);
+
+    const char* insertAuthorType = "INSERT INTO UserType VALUES(?, ?, 'author')";
+
+    sql::PreparedStatement *pstmt = NULL;
+
+    pstmt = dbcon->prepareStatement(insertAuthorType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
+
+    pstmt->executeUpdate();
+
+    delete pstmt;
+}
+
+void Database::setUserAsPC(int userID, int confID) throw (const char*)
+{
+    if (invalid)
+        throw (noDB);
+
+    const char* insertPCType = "INSERT INTO UserType VALUES(?, ?, 'pc')";
+
+    sql::PreparedStatement *pstmt = NULL;
+
+    pstmt = dbcon->prepareStatement(insertPCType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
+
+    pstmt->executeUpdate();
+
+    delete pstmt;
+}
+
+void Database::setUserAsChair(int userID, int confID) throw (const char*)
+{
+    if (invalid)
+        throw (noDB);
+
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'chair')";
+
+    sql::PreparedStatement *pstmt = NULL;
+
+    pstmt = dbcon->prepareStatement(insertChairType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
+
+    pstmt->executeUpdate();
+
+    delete pstmt;
+}
+
 bool Database::existsKeyword(std::string key) throw (const char*)
 {
     if (invalid)
@@ -443,7 +497,7 @@ Conference Database::fetchConference(int key) throw (const char*)
 
 	// Add information on user from database to User object
 	const char* getConference = "SELECT * FROM Conference WHERE confID=?";
-	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords where confID=?)";
+	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords WHERE confID=?)";
 
         // =======================================
         // Conference 
@@ -671,7 +725,7 @@ void Database::updateConf(Conference conf)
         if (invalid)
                 throw (noDB);
 
-	const char* getConfID = "SELECT confID FROM Conference where name = ?";
+	const char* getConfID = "SELECT confID FROM Conference WHERE name = ?";
 
 	const char* updateConference = "UPDATE Conference SET name=?, topic=?, description=?, location=?, active=?, paperDeadlineD=?, paperDeadlineM=?, paperDeadlineY=?, paperDeadlineBool=?, allocationDateD=?, allocationDateM=?, allocationDateY=?, allocationDateBool=?, reviewDeadlineSoftD=?, reviewDeadlineSoftM=?, reviewDeadlineSoftY=?, reviewDeadlineSoftBool=?, reviewDeadlineHardD=?, reviewDeadlineHardM=?, reviewDeadlineHardY=?, reviewDeadlineHardBool=?, discussDeadlineD=?, discussDeadlineM=?, discussDeadlineY=?, discussDeadlineBool=?, reviewersPerPaper=?, postWordlimit=? WHERE confID=?";
 
@@ -927,7 +981,7 @@ Paper Database::fetchPaper(int key) throw (const char*)
 
 	const char* getPaper = "SELECT * FROM Paper WHERE paperID=?";
 	const char* getConfKeyword = "SELECT keyword FROM Keywords WHERE keywordID=(SELECT keywordID FROM Paper WHERE paperID=?)";
-	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords where paperID=?)";
+	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords WHERE paperID=?)";
 	
 	const char* getAuthors = "SELECT infoID, name, email, organisation, phone FROM PersonalInfo WHERE infoID IN (SELECT authorID FROM paperAuthors WHERE paperID=?)";
 
@@ -1629,7 +1683,7 @@ std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (c
         if (invalid)
                 throw (noDB);
 
-	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType='pc' and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?))";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType = 'pc' and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?)))";
 
         // =======================================
         // Reviewers
@@ -1687,7 +1741,7 @@ std::vector<std::string> Database::getKeywordsForPaper(int paperID) throw (const
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords where paperID=?)";
+	const char* getPaperKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM PaperKeywords WHERE paperID=?)";
 
         // =======================================
         // Paper Keywords
@@ -1715,7 +1769,7 @@ std::vector<std::string> Database::getKeywordsForUser(int userID) throw (const c
         if (invalid)
                 throw (noDB);
 
-	const char* getUserKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea where userID=?)";
+	const char* getUserKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
 
         // =======================================
         // Expertise Keywords
@@ -1796,6 +1850,26 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
         delete pstmt;
 	
 	return preference;
+}
+
+void Database::assignPaper(int paperID, int reviewerID, int confID) throw (const char*)
+{
+    if (invalid)
+            throw (noDB);
+
+	const char* insertPaperAssigned = "INSERT INTO PaperAssigned(paperID, reviewerID, confID) VALUES(?, ?, ?)";
+
+    // =======================================
+    // Paper Assigned
+    sql::PreparedStatement *pstmt = NULL;
+    pstmt = dbcon->prepareStatement(insertPaperAssigned);
+    pstmt->setInt(1, paperID);
+    pstmt->setInt(2, reviewerID);
+    pstmt->setInt(3, confID);
+
+    pstmt->executeUpdate();
+
+    delete pstmt;
 }
 
 std::vector<int> Database::fetchReviewersAssigned(int paperID, int confID) throw (const char*)
@@ -1956,7 +2030,7 @@ std::vector<int> Database::getUserIDsForConf(int confID) throw (const char*)
 //        // Laboured
 //        // First get a list of the ids with the role, then one by one get the
 //        // complete records.
-//        const char* getrolepersons = "selects personid from roles where _role=?";
+//        const char* getrolepersons = "selects personid from roles WHERE _role=?";
 //
 //        sql::PreparedStatement *pstmt = NULL;
 //        sql::ResultSet * rs = NULL;
@@ -2008,11 +2082,11 @@ std::vector<int> Database::getUserIDsForConf(int confID) throw (const char*)
 //        // explicitly delete subordinate records in Phones, Address, others and Roles
 //        // then delete the myrecord entry
 //        // recreating the prepared statements for each operation - costly
-//        const char* deletephones = "delete from phones where personid=?";
-//        const char* deleteaddress = "delete from addresses where personid=?";
-//        const char* deleteother = "delete from other where personid=?";
-//        const char* deleteroles = "delete from roles where personid=?";
-//        const char* deletemyrecord = "delete from myrecord where _id=?";
+//        const char* deletephones = "delete from phones WHERE personid=?";
+//        const char* deleteaddress = "delete from addresses WHERE personid=?";
+//        const char* deleteother = "delete from other WHERE personid=?";
+//        const char* deleteroles = "delete from roles WHERE personid=?";
+//        const char* deletemyrecord = "delete from myrecord WHERE _id=?";
 //        const char* unused; // Pointer to unused part of sql string (?)
 //        sql::PreparedStatement *pstmt = NULL;
 //        // Phones
@@ -2055,11 +2129,11 @@ std::vector<int> Database::getUserIDsForConf(int confID) throw (const char*)
 //                throw (noDB);
 //        // Again laborious
 //        // Load the MyRecord from its table, then add data from Other tables.
-//        const char* getrecord = "select * from myrecord where _id=?";
-//        const char* getroles = "select role from roles where personid=?";
-//        const char* getphones = "select type, number from phones where personid=?";
-//        const char* getaddress = "select type, address from addresses where personid=?";
-//        const char* getother = "select key, valyue from other where personid=?";
+//        const char* getrecord = "select * from myrecord WHERE _id=?";
+//        const char* getroles = "select role from roles WHERE personid=?";
+//        const char* getphones = "select type, number from phones WHERE personid=?";
+//        const char* getaddress = "select type, address from addresses WHERE personid=?";
+//        const char* getother = "select key, valyue from other WHERE personid=?";
 //
 //        sql::PreparedStatement *pstmt = NULL;
 //        sql::ResultSet *rs = NULL;
