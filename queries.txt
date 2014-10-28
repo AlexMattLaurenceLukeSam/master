@@ -28,6 +28,8 @@ db->fetchUser
 	to take 2 inputs (username, confname)
 	get user's userType for that conf
 	sets userType for User
+	
+Matt - DONE!
 
 describe algo in report!!!!!!!!!
 
