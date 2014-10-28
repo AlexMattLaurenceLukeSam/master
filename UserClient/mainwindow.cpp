@@ -37,13 +37,14 @@ void MainWindow::login()
     
     QString uname = ui->usernameLogin->text();
     QString pword = ui->usernameLogin->text();
-    QString confname; // get name of conference selected
+    QString confname = ui->confList->currentItem()->text(); // get name of conference selected
     
     ui->usernameLogin->clear();
     ui->passwordLogin->clear();
+    ui->confList->clearSelection();
     
     theUser = new User;
-    (*theUser) = theDB->fetchUser(uname.toStdString()); // need to change to send confname as well
+    (*theUser) = theDB->fetchUser(uname.toStdString()/*, confname.toStdString()*/); // need to change to send confname as well
     
     if (theUser->userID == -1)
     {
