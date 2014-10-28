@@ -10,7 +10,10 @@
 class Author : public User 
 {
 public:
-    Author() { }
+    Author()
+    {
+        this->userType = AUTHOR;
+    }
     /*
     Author(const std::string& iuserName,
          const std::string& iname,
@@ -55,8 +58,8 @@ public:
          iuserID,
          iuserType)
     {
-         keywords(ikeywords),
-         ownPapers(iownPapers)
+         keywords = ikeywords;
+         ownPapers = iownPapers;
     }
 
     virtual void view();
