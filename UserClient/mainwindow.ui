@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>606</height>
+    <width>791</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="centralwidget" native="true">
+   <widget class="QWidget" name="centralWidget_4" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -23,7 +23,7 @@
       <height>601</height>
      </rect>
     </property>
-    <widget class="QWidget" name="centralWidget_2" native="true">
+    <widget class="QWidget" name="centralwidget_2" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -32,893 +32,50 @@
        <height>601</height>
       </rect>
      </property>
-     <widget class="QWidget" name="centralWidget_3" native="true">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>801</width>
-        <height>601</height>
+        <width>871</width>
+        <height>651</height>
        </rect>
       </property>
-      <widget class="QWidget" name="centralwidget_2" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>801</width>
-         <height>601</height>
-        </rect>
-       </property>
-       <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="loginTab">
+       <attribute name="title">
+        <string>Login</string>
+       </attribute>
+       <widget class="QWidget" name="verticalLayoutWidget_2">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>871</width>
-          <height>651</height>
+          <x>260</x>
+          <y>150</y>
+          <width>353</width>
+          <height>211</height>
          </rect>
         </property>
-        <property name="currentIndex">
-         <number>2</number>
-        </property>
-        <widget class="QWidget" name="loginTab">
-         <attribute name="title">
-          <string>Login</string>
-         </attribute>
-         <widget class="QWidget" name="verticalLayoutWidget_2">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>150</y>
-            <width>353</width>
-            <height>211</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="font">
+            <font>
+             <pointsize>18</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Conference Management System</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QLabel" name="label_7">
-             <property name="font">
-              <font>
-               <pointsize>18</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Conference Management System</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <spacer name="horizontalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>UserName</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="usernameLogin"/>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Password</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="passwordLogin"/>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
-              <widget class="QPushButton" name="login">
-               <property name="text">
-                <string>Login</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="createAccount">
-               <property name="text">
-                <string>Create Account</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="quit">
-             <property name="text">
-              <string>Quit</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QListWidget" name="confList">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>40</y>
-            <width>191</width>
-            <height>491</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="infoTabAuthor">
-         <attribute name="title">
-          <string>Info</string>
-         </attribute>
-         <widget class="QWidget" name="verticalLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>233</width>
-            <height>551</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
-              <widget class="QLabel" name="username">
-               <property name="text">
-                <string>USERNAME</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="userid">
-               <property name="text">
-                <string>USERID</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="name">
-             <property name="text">
-              <string>NAME</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="email">
-             <property name="text">
-              <string>EMAIL</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="organisation">
-             <property name="text">
-              <string>ORGANISATION</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="phone">
-             <property name="text">
-              <string>PHONE</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Keywords</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_21">
-             <item>
-              <widget class="QListWidget" name="authKeyList"/>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_15">
-               <item>
-                <widget class="QLineEdit" name="authKeyEntry"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="addAuthKey">
-                 <property name="text">
-                  <string>Add Keyword</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="rmvAuthKey">
-                 <property name="text">
-                  <string>Remove Keyword</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="apply">
-             <property name="text">
-              <string>Apply</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="logout">
-             <property name="text">
-              <string>Logout</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_14">
-          <property name="geometry">
-           <rect>
-            <x>270</x>
-            <y>10</y>
-            <width>501</width>
-            <height>551</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_16">
-           <item>
-            <widget class="QLabel" name="conferenceName">
-             <property name="font">
-              <font>
-               <pointsize>16</pointsize>
-               <weight>75</weight>
-               <italic>true</italic>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>CONFERENCENAME</string>
-             </property>
-             <property name="scaledContents">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="confTopic">
-             <property name="text">
-              <string>CONFERENCETOPIC</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="confLocation">
-             <property name="text">
-              <string>CONFERENCELOCATION</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_22">
-             <item>
-              <widget class="QLabel" name="label_26">
-               <property name="text">
-                <string>Keywords</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QListWidget" name="confKeyListNoEdit"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_28">
-             <item>
-              <widget class="QLabel" name="label_47">
-               <property name="text">
-                <string>Submission</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_48">
-               <property name="text">
-                <string>Allocation</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_49">
-               <property name="text">
-                <string>Soft Review</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_50">
-               <property name="text">
-                <string>Hard Review</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_51">
-               <property name="text">
-                <string>Discussion</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_25">
-             <item>
-              <widget class="QLabel" name="subDate">
-               <property name="text">
-                <string>DATE</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="allocDate">
-               <property name="text">
-                <string>DATE</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="sReviewDate">
-               <property name="text">
-                <string>DATE</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="hReviewDate">
-               <property name="text">
-                <string>DATE</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="discDate">
-               <property name="text">
-                <string>DATE</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QTextBrowser" name="confDesc">
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="infoTabChair">
-         <attribute name="title">
-          <string>Information</string>
-         </attribute>
-         <widget class="QWidget" name="verticalLayoutWidget_3">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>233</width>
-            <height>551</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QLabel" name="username_2">
-               <property name="text">
-                <string>USERNAME</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="userid_2">
-               <property name="text">
-                <string>USERID</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="name_2">
-             <property name="text">
-              <string>NAME</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="email_2">
-             <property name="text">
-              <string>EMAIL</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="organisation_2">
-             <property name="text">
-              <string>ORGANISATION</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="phone_2">
-             <property name="text">
-              <string>PHONE</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="applyChair">
-             <property name="text">
-              <string>Apply</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="logout_2">
-             <property name="text">
-              <string>Logout</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_4">
-          <property name="geometry">
-           <rect>
-            <x>280</x>
-            <y>10</y>
-            <width>481</width>
-            <height>551</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLineEdit" name="confNameMng">
-             <property name="text">
-              <string>CONFERENCE NAME</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="confTopicMng">
-             <property name="text">
-              <string>CONFERENCE TOPIC</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="confLocMng">
-             <property name="text">
-              <string>CONFERENCE LOCATION</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTextEdit" name="confDescMng">
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_26">
-               <item>
-                <widget class="QLabel" name="label_44">
-                 <property name="text">
-                  <string>Submission</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_45">
-                 <property name="text">
-                  <string>Allocation</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_46">
-                 <property name="text">
-                  <string>Soft Review</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_43">
-                 <property name="text">
-                  <string>Hard Review</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_42">
-                 <property name="text">
-                  <string>Discussion</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_27">
-               <item>
-                <widget class="QDateEdit" name="subDateEdit"/>
-               </item>
-               <item>
-                <widget class="QDateEdit" name="allocDateEdit"/>
-               </item>
-               <item>
-                <widget class="QDateEdit" name="sReviewDateEdit"/>
-               </item>
-               <item>
-                <widget class="QDateEdit" name="hReviewDateEdit"/>
-               </item>
-               <item>
-                <widget class="QDateEdit" name="discDateEdit"/>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_25">
-             <property name="text">
-              <string>Keywords</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_20">
-             <item>
-              <widget class="QListWidget" name="confKeyList"/>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
-               <item>
-                <widget class="QLineEdit" name="confKeyEntry"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="addConfKey">
-                 <property name="text">
-                  <string>Add Keyword</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="rmvConfKey">
-                 <property name="text">
-                  <string>Remove Keyword</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="authorTab">
-         <attribute name="title">
-          <string>Author</string>
-         </attribute>
-         <widget class="QWidget" name="gridLayoutWidget_3">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>741</width>
-            <height>531</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="2" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QTableWidget" name="authorsTable">
-               <column>
-                <property name="text">
-                 <string>Name</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Email</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Org</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Phone</string>
-                </property>
-               </column>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="selectMainKey"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="selectPaperAuthor">
-             <property name="editable">
-              <bool>true</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>*NEW*</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QTextEdit" name="paperAbstract">
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;ABSTRACT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <layout class="QVBoxLayout" name="verticalLayout_14">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QLineEdit" name="paperKeyEntry"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="addPaperKey">
-                 <property name="text">
-                  <string>Add Key</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="rmvPaperKey">
-                 <property name="text">
-                  <string>Remove Key</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QListWidget" name="paperKeyListAuth"/>
-             </item>
-            </layout>
-           </item>
-           <item row="5" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_10">
-             <item>
-              <widget class="QPushButton" name="addAuthor">
-               <property name="text">
-                <string>Add Author</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="rmvAuthor">
-               <property name="text">
-                <string>Remove Author</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_32">
-               <property name="text">
-                <string>Rebuttal</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="rebuttalEntry"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="selectFile">
-               <property name="text">
-                <string>Select File</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="submit">
-               <property name="text">
-                <string>Submit</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="reviewerTab">
-         <attribute name="title">
-          <string>Reviewer</string>
-         </attribute>
-         <widget class="QWidget" name="gridLayoutWidget_4">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>200</y>
-            <width>741</width>
-            <height>351</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QLabel" name="discussionLabel_2">
-             <property name="text">
-              <string>Discussion</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="submitPosts">
-             <property name="text">
-              <string>Submit Post</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QTextEdit" name="postBody">
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;POST INPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QTextBrowser" name="discussionBodyReviewer">
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;DISCUSSION POSTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="horizontalLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>160</y>
-            <width>741</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <spacer name="horizontalSpacer">
+            <spacer name="horizontalSpacer_4">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Ignored</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -929,120 +86,636 @@ p, li { white-space: pre-wrap; }
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bidlabel">
+            <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>Bid:</string>
+              <string>UserName</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="selectBid"/>
+            <widget class="QLineEdit" name="usernameLogin"/>
            </item>
            <item>
-            <widget class="QPushButton" name="submitBid">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_8">
              <property name="text">
-              <string>Submit Bid</string>
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="passwordLogin"/>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QPushButton" name="login">
+             <property name="text">
+              <string>Login to Conference</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="joinConf">
+             <property name="text">
+              <string>Join Conference</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="createAccount">
+             <property name="text">
+              <string>Create New Account</string>
              </property>
             </widget>
            </item>
           </layout>
-         </widget>
-         <widget class="QWidget" name="gridLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>741</width>
-            <height>151</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="1" column="2">
-            <widget class="QTextBrowser" name="paperAbstractReviewer"/>
-           </item>
-           <item row="1" column="3">
-            <widget class="QListWidget" name="paperKeyListReviewer"/>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="mainKeyReviewer">
+         </item>
+         <item>
+          <widget class="QPushButton" name="quit">
+           <property name="text">
+            <string>Quit</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QListWidget" name="confList">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>191</width>
+          <height>491</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="infoTabAuthor">
+       <attribute name="title">
+        <string>Info</string>
+       </attribute>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>233</width>
+          <height>551</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="username">
              <property name="text">
-              <string>MAINKEY</string>
+              <string>USERNAME</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="selectPaperReviewer"/>
-           </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="downloadReviewer">
+           <item>
+            <widget class="QLabel" name="userid">
              <property name="text">
-              <string>Download</string>
+              <string>USERID</string>
              </property>
             </widget>
            </item>
           </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="papersTab">
-         <attribute name="title">
-          <string>Paper Management</string>
-         </attribute>
-         <widget class="QTableWidget" name="papersTable">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>211</width>
-            <height>531</height>
-           </rect>
-          </property>
-          <column>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="name">
            <property name="text">
-            <string>Title</string>
+            <string>NAME</string>
            </property>
-          </column>
-          <column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="email">
            <property name="text">
-            <string notr="true">id</string>
+            <string>EMAIL</string>
            </property>
-           <property name="toolTip">
-            <string notr="true"/>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="organisation">
+           <property name="text">
+            <string>ORGANISATION</string>
            </property>
-          </column>
-         </widget>
-         <widget class="QWidget" name="gridLayoutWidget_6">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>20</y>
-            <width>511</width>
-            <height>171</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <widget class="QLabel" name="paperNameMng">
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="phone">
+           <property name="text">
+            <string>PHONE</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Keywords</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_21">
+           <item>
+            <widget class="QListWidget" name="authKeyList"/>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QLineEdit" name="authKeyEntry"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addAuthKey">
+               <property name="text">
+                <string>Add Keyword</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="rmvAuthKey">
+               <property name="text">
+                <string>Remove Keyword</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="apply">
+           <property name="text">
+            <string>Apply</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="logout">
+           <property name="text">
+            <string>Logout</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_14">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>10</y>
+          <width>501</width>
+          <height>551</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_16">
+         <item>
+          <widget class="QLabel" name="conferenceName">
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+             <weight>75</weight>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>CONFERENCENAME</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="confTopic">
+           <property name="text">
+            <string>CONFERENCETOPIC</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="confLocation">
+           <property name="text">
+            <string>CONFERENCELOCATION</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_22">
+           <item>
+            <widget class="QLabel" name="label_26">
              <property name="text">
-              <string>PAPERNAME</string>
+              <string>Keywords</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="downloadChair">
+           <item>
+            <widget class="QListWidget" name="confKeyListNoEdit"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_28">
+           <item>
+            <widget class="QLabel" name="label_47">
              <property name="text">
-              <string>Download</string>
+              <string>Submission</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="mainKeyMng">
+           <item>
+            <widget class="QLabel" name="label_48">
              <property name="text">
-              <string>MAINKEY</string>
+              <string>Allocation</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QTableWidget" name="authorsTableMng">
+           <item>
+            <widget class="QLabel" name="label_49">
+             <property name="text">
+              <string>Soft Review</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_50">
+             <property name="text">
+              <string>Hard Review</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_51">
+             <property name="text">
+              <string>Discussion</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <item>
+            <widget class="QLabel" name="subDate">
+             <property name="text">
+              <string>DATE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="allocDate">
+             <property name="text">
+              <string>DATE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sReviewDate">
+             <property name="text">
+              <string>DATE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="hReviewDate">
+             <property name="text">
+              <string>DATE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="discDate">
+             <property name="text">
+              <string>DATE</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTextBrowser" name="confDesc">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="infoTabChair">
+       <attribute name="title">
+        <string>Information</string>
+       </attribute>
+       <widget class="QWidget" name="verticalLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>233</width>
+          <height>551</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="username_2">
+             <property name="text">
+              <string>USERNAME</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="userid_2">
+             <property name="text">
+              <string>USERID</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="name_2">
+           <property name="text">
+            <string>NAME</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="email_2">
+           <property name="text">
+            <string>EMAIL</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="organisation_2">
+           <property name="text">
+            <string>ORGANISATION</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="phone_2">
+           <property name="text">
+            <string>PHONE</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_9">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="applyChair">
+           <property name="text">
+            <string>Apply</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="logout_2">
+           <property name="text">
+            <string>Logout</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>10</y>
+          <width>481</width>
+          <height>551</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLineEdit" name="confNameMng">
+           <property name="text">
+            <string>CONFERENCE NAME</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="confTopicMng">
+           <property name="text">
+            <string>CONFERENCE TOPIC</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="confLocMng">
+           <property name="text">
+            <string>CONFERENCE LOCATION</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="confDescMng">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_26">
+             <item>
+              <widget class="QLabel" name="label_44">
+               <property name="text">
+                <string>Submission</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_45">
+               <property name="text">
+                <string>Allocation</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_46">
+               <property name="text">
+                <string>Soft Review</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_43">
+               <property name="text">
+                <string>Hard Review</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_42">
+               <property name="text">
+                <string>Discussion</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_27">
+             <item>
+              <widget class="QDateEdit" name="subDateEdit"/>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="allocDateEdit"/>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="sReviewDateEdit"/>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="hReviewDateEdit"/>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="discDateEdit"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_25">
+           <property name="text">
+            <string>Keywords</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_20">
+           <item>
+            <widget class="QListWidget" name="confKeyList"/>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QLineEdit" name="confKeyEntry"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addConfKey">
+               <property name="text">
+                <string>Add Keyword</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="rmvConfKey">
+               <property name="text">
+                <string>Remove Keyword</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="authorTab">
+       <attribute name="title">
+        <string>Author</string>
+       </attribute>
+       <widget class="QWidget" name="gridLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>741</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="2" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QTableWidget" name="authorsTable">
              <column>
               <property name="text">
                <string>Name</string>
@@ -1065,691 +738,998 @@ p, li { white-space: pre-wrap; }
              </column>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QListWidget" name="paperKeyListMng"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QTextBrowser" name="paperAbstractMng"/>
-           </item>
           </layout>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_11">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>190</y>
-            <width>511</width>
-            <height>361</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_12">
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="selectMainKey"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QComboBox" name="selectPaperAuthor">
+           <property name="editable">
+            <bool>true</bool>
+           </property>
            <item>
-            <layout class="QGridLayout" name="gridLayout_7">
-             <item row="0" column="0">
-              <widget class="QLabel" name="discussionLabel_3">
+            <property name="text">
+             <string>*NEW*</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QTextEdit" name="paperAbstract">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;ABSTRACT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLineEdit" name="paperKeyEntry"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addPaperKey">
                <property name="text">
-                <string>Discussion</string>
+                <string>Add Key</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QTextBrowser" name="discussionBodyMng">
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+             <item>
+              <widget class="QPushButton" name="rmvPaperKey">
+               <property name="text">
+                <string>Remove Key</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QListWidget" name="paperKeyListAuth"/>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QPushButton" name="addAuthor">
+             <property name="text">
+              <string>Add Author</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="rmvAuthor">
+             <property name="text">
+              <string>Remove Author</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Rebuttal</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="rebuttalEntry"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="selectFile">
+             <property name="text">
+              <string>Select File</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="submit">
+             <property name="text">
+              <string>Submit</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="reviewerTab">
+       <attribute name="title">
+        <string>Reviewer</string>
+       </attribute>
+       <widget class="QWidget" name="gridLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>200</y>
+          <width>741</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="discussionLabel_2">
+           <property name="text">
+            <string>Discussion</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="submitPosts">
+           <property name="text">
+            <string>Submit Post</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QTextEdit" name="postBody">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;POST INPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTextBrowser" name="discussionBodyReviewer">
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;DISCUSSION POSTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>160</y>
+          <width>741</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Ignored</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="bidlabel">
+           <property name="text">
+            <string>Bid:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="selectBid"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="submitBid">
+           <property name="text">
+            <string>Submit Bid</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>741</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="1" column="2">
+          <widget class="QTextBrowser" name="paperAbstractReviewer"/>
+         </item>
+         <item row="1" column="3">
+          <widget class="QListWidget" name="paperKeyListReviewer"/>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="mainKeyReviewer">
+           <property name="text">
+            <string>MAINKEY</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="selectPaperReviewer"/>
+         </item>
+         <item row="2" column="3">
+          <widget class="QPushButton" name="downloadReviewer">
+           <property name="text">
+            <string>Download</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="papersTab">
+       <attribute name="title">
+        <string>Paper Management</string>
+       </attribute>
+       <widget class="QTableWidget" name="papersTable">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>211</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Title</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string notr="true">id</string>
+         </property>
+         <property name="toolTip">
+          <string notr="true"/>
+         </property>
+        </column>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget_6">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>20</y>
+          <width>511</width>
+          <height>171</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QLabel" name="paperNameMng">
+           <property name="text">
+            <string>PAPERNAME</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="downloadChair">
+           <property name="text">
+            <string>Download</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="mainKeyMng">
+           <property name="text">
+            <string>MAINKEY</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTableWidget" name="authorsTableMng">
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Email</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Org</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Phone</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QListWidget" name="paperKeyListMng"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QTextBrowser" name="paperAbstractMng"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_11">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>190</y>
+          <width>511</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_12">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QLabel" name="discussionLabel_3">
+             <property name="text">
+              <string>Discussion</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTextBrowser" name="discussionBodyMng">
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;DISCUSSION POSTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QTableWidget" name="reviewersTable">
+               <column>
+                <property name="text">
+                 <string>Name</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Email</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Org</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Phone</string>
+                </property>
+               </column>
               </widget>
              </item>
-             <item row="1" column="1">
-              <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
-                <widget class="QTableWidget" name="reviewersTable">
-                 <column>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Email</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Org</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Phone</string>
-                  </property>
-                 </column>
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>User:</string>
+                 </property>
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
-                 <item>
-                  <widget class="QLabel" name="label_5">
-                   <property name="text">
-                    <string>User:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="toReview_2"/>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="addAsReviewer_2">
-                   <property name="text">
-                    <string>Add as Reviewer</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="QLineEdit" name="toReview_2"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="addAsReviewer_2">
+                 <property name="text">
+                  <string>Add as Reviewer</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_6">
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Reviewers</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QLabel" name="label_41">
                <property name="text">
-                <string>Reviewers</string>
+                <string>Comments</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <layout class="QVBoxLayout" name="verticalLayout_13">
-               <item>
-                <widget class="QLabel" name="label_41">
-                 <property name="text">
-                  <string>Comments</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QTextBrowser" name="commentsBrowser"/>
-               </item>
-              </layout>
-             </item>
-             <item row="2" column="0">
-              <layout class="QFormLayout" name="formLayout">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_24">
-                 <property name="text">
-                  <string>Overall</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="overallScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_27">
-                 <property name="text">
-                  <string>Confidence</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="confidenceScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_29">
-                 <property name="text">
-                  <string>Relevance</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLabel" name="relevanceScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_31">
-                 <property name="text">
-                  <string>Originality</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLabel" name="originalityScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_33">
-                 <property name="text">
-                  <string>Significance</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLabel" name="significanceScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_35">
-                 <property name="text">
-                  <string>Presentation</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="presentationScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="label_37">
-                 <property name="text">
-                  <string>Technical Quality</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="QLabel" name="techqualScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="label_39">
-                 <property name="text">
-                  <string>Evaluation</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1">
-                <widget class="QLabel" name="evaluationScore">
-                 <property name="text">
-                  <string>-</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="0">
-                <widget class="QPushButton" name="acceptPaper">
-                 <property name="text">
-                  <string>Accept Paper</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1">
-                <widget class="QPushButton" name="rejectPaper">
-                 <property name="text">
-                  <string>Reject Paper</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+             <item>
+              <widget class="QTextBrowser" name="commentsBrowser"/>
              </item>
             </layout>
            </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="usersTab">
-         <attribute name="title">
-          <string>User Management</string>
-         </attribute>
-         <widget class="QTableWidget" name="usersTable">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>311</width>
-            <height>531</height>
-           </rect>
-          </property>
-          <column>
-           <property name="text">
-            <string>Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>User Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>id</string>
-           </property>
-          </column>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_6">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>10</y>
-            <width>291</width>
-            <height>321</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QLabel" name="username_5">
-               <property name="text">
-                <string>USERNAME</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="userid_5">
-               <property name="text">
-                <string>USERID</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLabel" name="name_5">
-             <property name="text">
-              <string>NAME</string>
+           <item row="2" column="0">
+            <layout class="QFormLayout" name="formLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="email_5">
-             <property name="text">
-              <string>EMAIL</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="organisation_5">
-             <property name="text">
-              <string>ORGANISATION</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="phone_5">
-             <property name="text">
-              <string>PHONE</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>Keywords</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="userKeyList"/>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="horizontalLayoutWidget_2">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>500</y>
-            <width>291</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Paper:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="toReview"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="addAsReviewer">
-             <property name="text">
-              <string>Add to Review</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_15">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>400</y>
-            <width>291</width>
-            <height>101</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_17">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_23">
-             <item>
-              <widget class="QLabel" name="label_30">
-               <property name="text">
-                <string>Authored Papers</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_28">
-               <property name="text">
-                <string>Assigned to Review</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_24">
-             <item>
-              <widget class="QListWidget" name="authoredPapers"/>
-             </item>
-             <item>
-              <widget class="QListWidget" name="assignedPapers"/>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="verticalLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>340</y>
-            <width>291</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_18">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_29">
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Words per Post</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Reviewers per Paper</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_30">
-             <item>
-              <widget class="QLineEdit" name="lineEdit_5"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_4"/>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="reviewTab">
-         <attribute name="title">
-          <string>Review</string>
-         </attribute>
-         <widget class="QWidget" name="verticalLayoutWidget_7">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>150</y>
-            <width>761</width>
-            <height>416</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
-             <item>
-              <widget class="QLabel" name="label_11">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_24">
                <property name="text">
                 <string>Overall</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="overall"/>
+             <item row="0" column="1">
+              <widget class="QLabel" name="overallScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_12">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_27">
                <property name="text">
                 <string>Confidence</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="confidence"/>
+             <item row="1" column="1">
+              <widget class="QLabel" name="confidenceScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
-             <item>
-              <widget class="QLabel" name="label_13">
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_29">
                <property name="text">
                 <string>Relevance</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="relevance"/>
+             <item row="2" column="1">
+              <widget class="QLabel" name="relevanceScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_14">
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_31">
                <property name="text">
                 <string>Originality</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="originality"/>
+             <item row="3" column="1">
+              <widget class="QLabel" name="originalityScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
-             <item>
-              <widget class="QLabel" name="label_15">
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_33">
                <property name="text">
                 <string>Significance</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="significance"/>
+             <item row="4" column="1">
+              <widget class="QLabel" name="significanceScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_16">
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_35">
                <property name="text">
                 <string>Presentation</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="presentation"/>
+             <item row="5" column="1">
+              <widget class="QLabel" name="presentationScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_14">
-             <item>
-              <widget class="QLabel" name="label_17">
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_37">
                <property name="text">
                 <string>Technical Quality</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="techQuality"/>
+             <item row="6" column="1">
+              <widget class="QLabel" name="techqualScore">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_18">
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_39">
                <property name="text">
                 <string>Evaluation</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QSpinBox" name="evaluation"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_15">
-             <item>
-              <widget class="QLabel" name="label_19">
+             <item row="7" column="1">
+              <widget class="QLabel" name="evaluationScore">
                <property name="text">
-                <string>Strengths of the paper</string>
+                <string>-</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLabel" name="label_20">
+             <item row="8" column="0">
+              <widget class="QPushButton" name="acceptPaper">
                <property name="text">
-                <string>Weaknesses of the paper</string>
+                <string>Accept Paper</string>
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_16">
-             <item>
-              <widget class="QTextEdit" name="commentsStrengths"/>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="commentsWeaknesses"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_17">
-             <item>
-              <widget class="QLabel" name="label_21">
+             <item row="8" column="1">
+              <widget class="QPushButton" name="rejectPaper">
                <property name="text">
-                <string>Would this paper be suitable as a short paper?</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_22">
-               <property name="text">
-                <string>Should this paper be considered for a best paper award?</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_18">
-             <item>
-              <widget class="QTextEdit" name="commentsShortPaper"/>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="commentsBestAward"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_19">
-             <item>
-              <widget class="QLabel" name="label_23">
-               <property name="text">
-                <string>Detailed comments and suggestions</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="commentsSuggestions">
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Reject Paper</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
           </layout>
-         </widget>
-         <widget class="QWidget" name="gridLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>761</width>
-            <height>130</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="selectPaperReview"/>
-           </item>
-           <item row="1" column="1">
-            <widget class="QListWidget" name="paperKeyListReview"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QTextBrowser" name="paperAbstractReview"/>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="mainKey">
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="usersTab">
+       <attribute name="title">
+        <string>User Management</string>
+       </attribute>
+       <widget class="QTableWidget" name="usersTable">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>311</width>
+          <height>551</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>User Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_6">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>10</y>
+          <width>291</width>
+          <height>321</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="username_5">
              <property name="text">
-              <string>MAINKEY</string>
+              <string>USERNAME</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="userid_5">
+             <property name="text">
+              <string>USERID</string>
              </property>
             </widget>
            </item>
           </layout>
-         </widget>
-         <widget class="QPushButton" name="submitReview">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>550</y>
-            <width>75</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Submit</string>
-          </property>
-         </widget>
-        </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="name_5">
+           <property name="text">
+            <string>NAME</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="email_5">
+           <property name="text">
+            <string>EMAIL</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="organisation_5">
+           <property name="text">
+            <string>ORGANISATION</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="phone_5">
+           <property name="text">
+            <string>PHONE</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Keywords</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="userKeyList"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="changeReviewer">
+           <property name="text">
+            <string>Add/Remove Reviewer</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_15">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>340</y>
+          <width>291</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_17">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_23">
+           <item>
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Authored Papers</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string>Assigned to Review</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <widget class="QListWidget" name="authoredPapers"/>
+           </item>
+           <item>
+            <widget class="QListWidget" name="assignedPapers"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>490</y>
+          <width>291</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_18">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_29">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Words per Post</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Reviewers per Paper</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_30">
+           <item>
+            <widget class="QLineEdit" name="wordsPerPost">
+             <property name="text">
+              <string>100</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="reviewersPerPaper">
+             <property name="text">
+              <string>5</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="updateConfSettings">
+           <property name="text">
+            <string>Update Conference Settings</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="reviewTab">
+       <attribute name="title">
+        <string>Review</string>
+       </attribute>
+       <widget class="QWidget" name="verticalLayoutWidget_7">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>150</y>
+          <width>761</width>
+          <height>416</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Overall</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="overall"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Confidence</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="confidence"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Relevance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="relevance"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Originality</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="originality"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <item>
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Significance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="significance"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Presentation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="presentation"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Technical Quality</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="techQuality"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Evaluation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="evaluation"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Strengths of the paper</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Weaknesses of the paper</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_16">
+           <item>
+            <widget class="QTextEdit" name="commentsStrengths"/>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="commentsWeaknesses"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <item>
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Would this paper be suitable as a short paper?</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Should this paper be considered for a best paper award?</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <item>
+            <widget class="QTextEdit" name="commentsShortPaper"/>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="commentsBestAward"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Detailed comments and suggestions</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="commentsSuggestions">
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>761</width>
+          <height>130</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="selectPaperReview"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QListWidget" name="paperKeyListReview"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTextBrowser" name="paperAbstractReview"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="mainKey">
+           <property name="text">
+            <string>MAINKEY</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="submitReview">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>550</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Submit</string>
+        </property>
        </widget>
       </widget>
      </widget>
