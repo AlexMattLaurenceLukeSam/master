@@ -2,14 +2,20 @@ return vector of PaperSummaries
   get PaperSummary for each Paper in a given Conference
 this is for Reviewer seeing what papers he can bid on as well as PCChair getting all papers for a conference
 
+Matt - getPaperIDsForConf  ->  For loop -> fetchPaperSummary
+
 return vector of PaperSummaries
   get Paper Summary for each Paper that a given user is allocated as a reviewer for in a given conference
 for reviewers
+
+Matt - getPaperIDsForAllocatedReviewer  ->  fetchPaperSummary for each id
 
 return vector of users
   get users for a given paper id that they are allocated to review
   essentially the above function but in reverse
 for PCChairs seeing people allocated to review a paper
+
+Matt - fetchReviewersAssigned -> fetchUser
 
 
 
@@ -29,8 +35,12 @@ db needs call
 	inputs confname (or confID, don't implement both)
 	returns vector of paper summeries for every paper in that conferences
 
-put pdf into database as std::string
+Matt - getPaperIDsForConf -> for loop -> fetchPaperSumamry
+
+put/get pdf into database as std::string
 
 add userType to UserTypeTable in database
 	already there db->setUserAs...
+	
+fetchUserName(int userID)
 
