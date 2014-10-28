@@ -40,13 +40,13 @@ private slots:
 
     void on_apply_clicked();// done (i think)
     
-    void on_applyChair_clicked();// laurence is here
+    void on_applyChair_clicked();// done (i think)
 
-    void on_addConfKey_clicked();
+    void on_addConfKey_clicked(); // already done (i think)
 
-    void on_rmvConfKey_clicked();
+    void on_rmvConfKey_clicked(); // already done (i think)
 
-    void on_addAuthor_clicked();
+    void on_addAuthor_clicked(); // laurence is up to here, haven't done yet
 
     void on_rmvAuthor_clicked();
 
