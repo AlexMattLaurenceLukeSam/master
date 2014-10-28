@@ -92,7 +92,7 @@ void MainWindow::setUser(UserType_t userType)
         ui->tabWidget->clear();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
-        //ui->tabWidget->removeTab(0);
+        //ui->tabWidget->removeTab(0); //TEST
         break;
     case REVIEWER://reviewer
         ui->tabWidget->clear();
