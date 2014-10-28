@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "LoginManager.hpp"
+#include "../Server/User.hpp"
+#include "../Database/Database.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -15,13 +16,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(Database *db, QWidget *parent = 0);
     ~MainWindow();
-
-    void errorBox(QString msg);
     
 private slots:
-    void on_login_clicked();//server stuff here
+    void on_login_clicked();//done (i think)
 
     void on_quit_clicked();
 
@@ -31,7 +30,7 @@ private slots:
 
     void on_passwordLogin_returnPressed();
 
-    void on_createAccount_clicked();//server stuff here
+    void on_createAccount_clicked();// working on
 
     void on_apply_clicked();//server things here
 
@@ -88,7 +87,7 @@ private slots:
 private:
     void setUser(UserType_t userType);
     void noUser();
-    void loginRequest();
+    void login();
     void logout();
     void populate_infoTabAuthor();
     void populate_infoTabChair();
@@ -97,11 +96,13 @@ private:
     void populate_papersTab();
     void populate_usersTab();
     void populate_reviewTab();
+    void errorBox(QString msg);
 
     Ui::MainWindow *ui;
-    LoginManager* loginMgr;
-    QString username;
-    QString password;
+    User* theUser;
+    Database* theDB;
+//    QString username;
+//    QString password;
 };
 
 #endif // MAINWINDOW_H
