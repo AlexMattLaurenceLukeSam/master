@@ -4,9 +4,10 @@
 #include <QMainWindow>
 #include "../Server/User.hpp"
 #include "../Database/Database.hpp"
+#include "../DataAll/Conference.hpp"
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class LoginManager;
@@ -20,7 +21,7 @@ public:
     ~MainWindow();
     
 private slots:
-    void on_login_clicked();//done (i think)
+    void on_login_clicked();
 
     void on_quit_clicked();
 
@@ -30,7 +31,7 @@ private slots:
 
     void on_passwordLogin_returnPressed();
 
-    void on_createAccount_clicked();// done (i think)
+    void on_createAccount_clicked();// laurence needs work
 
     void on_apply_clicked();//laurence is here
 
@@ -86,8 +87,8 @@ private slots:
 
 private:
     void setUser(UserType_t userType);
-    void noUser();
-    void login();
+    void noUser(); // laurence is here
+    void login(); // laurence is here
     void logout();
     void populate_infoTabAuthor();
     void populate_infoTabChair();
@@ -100,8 +101,8 @@ private:
 
     Ui::MainWindow *ui;
     User* theUser;
-    Conference* theConf;
     Database* theDB;
+    Conference* theConf;
     std::vector<PaperSummary> papers;
 };
 
