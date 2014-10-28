@@ -30,9 +30,9 @@ private slots:
 
     void on_passwordLogin_returnPressed();
 
-    void on_createAccount_clicked();// working on
+    void on_createAccount_clicked();// done (i think)
 
-    void on_apply_clicked();//server things here
+    void on_apply_clicked();//laurence is here
 
     void on_applyChair_clicked();//server things here
 
@@ -96,7 +96,7 @@ private:
     void populate_papersTab();
     void populate_usersTab();
     void populate_reviewTab();
-    void errorBox(QString msg);
+    void popupBox(QString type, QString msg);
 
     Ui::MainWindow *ui;
     User* theUser;
