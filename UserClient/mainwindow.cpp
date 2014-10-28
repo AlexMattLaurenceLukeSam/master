@@ -56,6 +56,7 @@ void MainWindow::setUser(UserType_t userType)
         ui->tabWidget->addTab(ui->infoTabAuthor, "Information");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         ui->tabWidget->addTab(ui->reviewerTab, "Reviewer");
+        ui->tabWidget->addTab(ui->reviewTab, "Review");
         ui->tabWidget->removeTab(0);
         break;
     case PCCHAIR://pcchair
