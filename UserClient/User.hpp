@@ -5,11 +5,21 @@
 
 #include <string>
 
-enum UserType_t {AUTHOR, REVIEWER, PCCHAIR};
+enum UserType_t {NOUSER, AUTHOR, REVIEWER, PCCHAIR, ADMIN};
 
 class User {
 public:
-    User() { }
+    User()
+    {
+        password = "";
+        name = "";
+        email = "";
+        organisation = "";
+        phone = "";
+        userID = 0;
+        userType = NOUSER;
+        currentPaper = Paper();
+    }
 
     User(const std::string& iuserName,
         const std::string& ipassword,
@@ -60,7 +70,7 @@ protected:
     std::string email;
     std::string organisation;
     std::string phone;
-    int userID = 0;
+    int userID;
     UserType_t userType;
     Paper currentPaper;
 };
