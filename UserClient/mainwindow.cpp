@@ -75,7 +75,11 @@ void MainWindow::noUser()
     ui->tabWidget->clear();
     
     // populate conference list ui->confList
-    ui->confList
+    // get current conferences from db
+    std::vector<std::string> activeConfs = theDB->activeConfNames();
+    // for numOfCurrConfs ui->confList->addItem(QString)
+    for (int i = 0; i < activeConfs.size(); ++i)
+        ui->confList->addItems(QString::fromStdString(activeConfs[i]));
     
     ui->tabWidget->addTab(ui->loginTab, "Login");
 }
