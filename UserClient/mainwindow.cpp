@@ -1,17 +1,21 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "Review.hpp"
+#include "../DataAll/Review.hpp"
+#include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
+    theDB = db;
     ui = new Ui::MainWindow;
     ui->setupUi(this);
-    noUser();
     ui->passwordLogin->setEchoMode(QLineEdit::Password);
+    noUser();
 }
 
 MainWindow::~MainWindow()
 {
+    delete theUser;
+//    delete theDB;
     delete ui;
 }
 
@@ -19,14 +23,41 @@ void MainWindow::errorBox(QString msg)
 {
         QMessageBox msgBox;
         msgBox.setWindowTitle("Error!");
-        msgBox.setDetailedText(msg.c_str());
+        msgBox.setText(msg);
         msgBox.exec();
 }
 
-void MainWindow::loginRequest()
+void MainWindow::login()
 {
-    loginMgr.loginRequest(ui->usernameLogin->text(), ui->passwordLogin->text());
-//        setUser(loginMgr.getCurrentUser()->getUserType());
+    // get username password from gui and grabs user from db, checks pw updates gui
+    
+    QString msg;
+    
+    QString uname = ui->usernameLogin->text();
+    QString pword = ui->usernameLogin->text();
+    
+    ui->usernameLogin->clear();
+    ui->passwordLogin->clear();
+    
+    theUser = new User;
+    (*theUser) = theDB->fetchUser(uname.toStdString();
+    
+    if (theUser->userID == -1)
+    {
+        msg = "User does not exist!";
+        errorBox(msg);
+        noUser();
+    }
+    else if (theUser->password != pword)
+    {
+        msg = "Incorrect password!";
+        errorBox(msg);
+        noUser();
+    }
+    else // get userType and load tab
+    {
+        setUser(theUser->userType)
+    }
 }
 
 void MainWindow::logout()
@@ -95,16 +126,50 @@ void MainWindow::on_passwordLogin_returnPressed()
     login();
 }
 
-void MainWindow::on_createAccount_clicked()
+void MainWindow::on_createAccount_clicked() // laurence is here
 {
-    if(loginMgr->createAccount(ui->usernameLogin->text().toStdString(), ui->passwordLogin->text().toStdString()))
-        setUser(loginMgr->getCurrentUser()->getUserType());
+    theUser = new User();
+    QString msg;
+    bool userExists;
+    
+    QString uname = ui->usernameLogin->text();
+    QString pword = ui->usernameLogin->text();
+    ui->usernameLogin->clear();
+    ui->passwordLogin->clear();
+    
+    userExists = theDB->existsUserName(uname);
+    
+    if (userExists)
+    {
+        msg = "Username already taken!";
+        errorBox(msg);
+        noUser();
+    }
+    
+    theUser->userType = AUTHOR;
+    setUser(theUser->userType);
+    
+    // send to db
 }
 
 void MainWindow::on_apply_clicked()
 {
     //send user details to server
     //no response needed from server
+    
+    //update user from gui
+    theUser->name = ui->name->text().toStdString();
+    theUser->email = ui->email->text().toStdString();
+    theUser->phone = ui->phone->text().toStdString();
+    theUser->organisation = ui->organisation->text().toStdString();
+    
+    //clear current users keywords and populate with list from gui
+    theUser->keywords.clear();
+    for (int i = 0; i < ui->authKeyList->count(); ++i)
+        theUser->keywords.push_back(ui->authKeyList->item(i)->text());
+    
+    // send update user to db
+     
 }
 
 void MainWindow::on_applyChair_clicked()
