@@ -2,12 +2,16 @@
 #define DATE_H
 
 #include <sstream>
-#include <QDataStream>
 
 class Date 
 {
 public:
-    Date() { }
+    Date()
+    {
+        day = 0;
+        month = 0;
+        year = 0;
+    }
 
     Date(int iday, int imonth, int iyear)
     {
@@ -30,8 +34,8 @@ public:
     int getMonth() {return month;}
     int getYear() {return year;}
     
-    bool compare(const Date& idate) //returns true if idate is before or on the same day as this
-    {
+    bool compare(const Date& idate)
+    { //returns true if idate is before or on the same day as this
         if(idate.year != year) {
             return idate.year < year;
         } else {
@@ -55,49 +59,9 @@ public:
     } 
     
 private:
-    int day = 0;
-    int month = 0;
-    int year = 0;
+    int day;
+    int month;
+    int year;
 };
-
-  inline QDataStream& operator<<(QDataStream& out, Date* d)
-{
-    out << d->getDay();
-    out << d->getMonth();
-    out << d->getYear();
-    return out;
-}
-
-inline QDataStream& operator<<(QDataStream& out, Date& d)
-{
-    out << d.getDay();
-    out << d.getMonth();
-    out << d.getYear();
-    return out;
-}
-
-inline QDataStream& operator>>(QDataStream& in, Date* d)
-{
-    int tmp;
-    in >> tmp;
-    d->setDay(tmp);
-    in >> tmp;
-    d->setMonth(tmp);
-    in >> tmp;
-    d->setYear(tmp);
-    return in;
-}
-
-inline QDataStream& operator>>(QDataStream& in, Date& d)
-{
-    int tmp;
-    in >> tmp;
-    d.setDay(tmp);
-    in >> tmp;
-    d.setMonth(tmp);
-    in >> tmp;
-    d.setYear(tmp);
-    return in;
-}
 
 #endif

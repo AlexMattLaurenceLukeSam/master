@@ -1,13 +1,16 @@
 #ifndef DISCUSSION_POST_H
 #define DISCUSSION_POST_H
 
-#include <QString>
-#include <QDataStream>
 #include <string>
 
 struct DiscussionPost 
 {
-    DiscussionPost() {}
+    DiscussionPost()
+    {
+        comment = "";
+        reviewerID = 0;
+        postID = 0;
+    }
     
     DiscussionPost(const std::string& icomment,
         int ireviewerID,
@@ -27,48 +30,8 @@ struct DiscussionPost
     }
     
     std::string comment;
-    int reviewerID = 0;
-    int postID = 0;
+    int reviewerID;
+    int postID;
 };
-
-  inline QDataStream& operator<<(QDataStream& out, DiscussionPost* discp)
-  {
-    QString tempQstring;
-    out << discp->reviewerID;
-    out << discp->postID;
-    tempQstring = QString::fromStdString(discp->comment);
-    out << tempQstring;
-    return out;
-  }
-  
-  inline QDataStream& operator<<(QDataStream& out, DiscussionPost& discp)
-  {
-    QString tempQstring;
-    out << discp.reviewerID;
-    out << discp.postID;
-    tempQstring = QString::fromStdString(discp.comment);
-    out << tempQstring;
-    return out;
-  }
-  
-  inline QDataStream& operator>>(QDataStream& in, DiscussionPost* discp)
-  {
-    QString tempQstring;
-    in >> discp->reviewerID;
-    in >> discp->postID;
-    in >> tempQstring;
-    discp->comment = tempQstring.toStdString();
-    return in;
-  }
-  
-  inline QDataStream& operator>>(QDataStream& in, DiscussionPost& discp)
-  {
-    QString tempQstring;
-    in >> discp.reviewerID;
-    in >> discp.postID;
-    in >> tempQstring;
-    discp.comment = tempQstring.toStdString();
-    return in;
-  }
 
 #endif

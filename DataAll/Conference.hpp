@@ -5,13 +5,31 @@
 
 #include <string>
 #include <vector>
-#include <QString>
-#include <QVector>
-#include <QDataStream>
 
 struct Conference {
-    Conference() {}
-	  
+    Conference()
+    {
+        isActive = false;
+        title = "";
+        confID = 0;
+        topic = "";
+        description = "";
+        location = "";
+        //keywords vector
+        isBeforePaperDeadline = false;
+        paperDeadline = Date();
+        isBeforeAllocationDate = false;
+        allocationDate = Date();
+        isBeforeSoftReviewDeadline = false;
+        reviewDeadlineSoft = Date();
+        isBeforeHardReviewDeadline = false;
+        reviewDeadlineHard = Date();
+        isBeforeDiscussDeadline = false;
+        discussDeadline = Date();
+        reviewersPerPaper = 0;
+        postWordLimit = 0;
+    }
+
     Conference(
         bool iisActive,
         std::string& ititle,
@@ -97,7 +115,7 @@ struct Conference {
 
     bool isActive;
     std::string title;
-    int confID = 0;
+    int confID;
     std::string topic;
     std::string description;
     std::string location;
@@ -112,156 +130,9 @@ struct Conference {
     Date reviewDeadlineHard;
     bool isBeforeDiscussDeadline;
     Date discussDeadline;
-    int reviewersPerPaper = 0;
-    int postWordLimit = 0;
+    int reviewersPerPaper;
+    int postWordLimit;
 
 };
-
-inline QDataStream& operator<<(QDataStream& out, Conference* conf)
-{
-    QString tempQstring;
-    QVector<QString> tempQvector;
-    
-    out << conf->isActive;
-    tempQstring = QString::fromStdString(conf->title);
-    out << tempQstring;
-    out << conf->confID;
-    tempQstring = QString::fromStdString(conf->topic);
-    out << tempQstring;
-    tempQstring = QString::fromStdString(conf->description);
-    out << tempQstring;
-    tempQstring = QString::fromStdString(conf->location);
-    out << tempQstring;
-    
-    for (unsigned int i = 0; i < conf->keywords.size(); ++i)
-    {
-        tempQstring = QString::fromStdString(conf->keywords[i]);
-        tempQvector.append(tempQstring);
-    }
-    out << tempQvector;
-    tempQvector.clear();
-  
-    out << conf->isBeforePaperDeadline;
-    out << conf->paperDeadline;
-    out << conf->isBeforeAllocationDate;
-    out << conf->allocationDate;
-    out << conf->isBeforeSoftReviewDeadline;
-    out << conf->reviewDeadlineSoft;
-    out << conf->isBeforeHardReviewDeadline;
-    out << conf->reviewDeadlineHard;
-    out << conf->isBeforeDiscussDeadline;
-    out << conf->discussDeadline;
-    out << conf->reviewersPerPaper;
-    out << conf->postWordLimit;
-    return out;
-}
-
-inline QDataStream& operator<<(QDataStream& out, Conference& conf)
-{
-    QString tempQstring;
-    QVector<QString> tempQvector;
-    
-    out << conf.isActive;
-    tempQstring = QString::fromStdString(conf.title);
-    out << tempQstring;
-    out << conf.confID;
-    tempQstring = QString::fromStdString(conf.topic);
-    out << tempQstring;
-    tempQstring = QString::fromStdString(conf.description);
-    out << tempQstring;
-    tempQstring = QString::fromStdString(conf.location);
-    out << tempQstring;
-    
-    for (unsigned int i = 0; i < conf.keywords.size(); ++i)
-        tempQvector.append(QString::fromStdString(conf.keywords[i]));
-    out << tempQvector;
-    tempQvector.clear();
-  
-    out << conf.isBeforePaperDeadline;
-    out << conf.paperDeadline;
-    out << conf.isBeforeAllocationDate;
-    out << conf.allocationDate;
-    out << conf.isBeforeSoftReviewDeadline;
-    out << conf.reviewDeadlineSoft;
-    out << conf.isBeforeHardReviewDeadline;
-    out << conf.reviewDeadlineHard;
-    out << conf.isBeforeDiscussDeadline;
-    out << conf.discussDeadline;
-    out << conf.reviewersPerPaper;
-    out << conf.postWordLimit;
-    return out;
-}
-
-inline QDataStream& operator>>(QDataStream& in, Conference* conf)
-{
-    QString tempQstring;
-    QVector<QString> tempQvector;
-    
-    in >> conf->isActive;
-    in >> tempQstring;
-    conf->title = tempQstring.toStdString();
-    in >> conf->confID;
-    in >> tempQstring;
-    conf->topic = tempQstring.toStdString();
-    in >> tempQstring;
-    conf->description = tempQstring.toStdString();
-    in >> tempQstring;
-    conf->location = tempQstring.toStdString();
-    
-    in >>  tempQvector;
-    for (unsigned int i = 0; i < tempQvector.size(); ++i)
-        conf->keywords.push_back(tempQvector[i].toStdString());
-    tempQvector.clear();
-  
-    in >>  conf->isBeforePaperDeadline;
-    in >>  conf->paperDeadline;
-    in >>  conf->isBeforeAllocationDate;
-    in >>  conf->allocationDate;
-    in >>  conf->isBeforeSoftReviewDeadline;
-    in >>  conf->reviewDeadlineSoft;
-    in >>  conf->isBeforeHardReviewDeadline;
-    in >>  conf->reviewDeadlineHard;
-    in >>  conf->isBeforeDiscussDeadline;
-    in >>  conf->discussDeadline;
-    in >>  conf->reviewersPerPaper;
-    in >>  conf->postWordLimit;
-    return in;
-}
-
-inline QDataStream& operator>>(QDataStream& in, Conference& conf)
-{
-    QString tempQstring;
-    QVector<QString> tempQvector;
-    
-    in >> conf.isActive;
-    in >> tempQstring;
-    conf.title = tempQstring.toStdString();
-    in >> conf.confID;
-    in >> tempQstring;
-    conf.topic = tempQstring.toStdString();
-    in >> tempQstring;
-    conf.description = tempQstring.toStdString();
-    in >> tempQstring;
-    conf.location = tempQstring.toStdString();
-    
-    in >>  tempQvector;
-    for (unsigned int i = 0; i < tempQvector.size(); ++i)
-        conf.keywords.push_back(tempQvector[i].toStdString());
-    tempQvector.clear();
-  
-    in >>  conf.isBeforePaperDeadline;
-    in >>  conf.paperDeadline;
-    in >>  conf.isBeforeAllocationDate;
-    in >>  conf.allocationDate;
-    in >>  conf.isBeforeSoftReviewDeadline;
-    in >>  conf.reviewDeadlineSoft;
-    in >>  conf.isBeforeHardReviewDeadline;
-    in >>  conf.reviewDeadlineHard;
-    in >>  conf.isBeforeDiscussDeadline;
-    in >>  conf.discussDeadline;
-    in >>  conf.reviewersPerPaper;
-    in >>  conf.postWordLimit;
-    return in;
-}
 
 #endif
