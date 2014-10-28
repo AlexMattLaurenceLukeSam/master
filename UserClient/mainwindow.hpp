@@ -2,15 +2,18 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QModelIndex>
 #include "../Server/User.hpp"
 #include "../Database/Database.hpp"
 #include "../DataAll/Conference.hpp"
+#include <string>
+#include <vector>
+#include "../DataAll/PaperSummary.hpp"
+#include "ui_mainwindow.h"
 
 namespace Ui {
     class MainWindow;
 }
-
-class LoginManager;
 
 class MainWindow : public QMainWindow
 {
@@ -21,21 +24,23 @@ public:
     ~MainWindow();
     
 private slots:
-    void on_login_clicked();
+    void on_login_clicked(); //done
 
-    void on_quit_clicked();
+    void on_quit_clicked(); //done
 
-    void on_logout_clicked();
+    void on_logout_clicked(); //done
 
-    void on_logout_2_clicked();
+    void on_logout_2_clicked(); //done
 
-    void on_passwordLogin_returnPressed();
+    void on_passwordLogin_returnPressed(); //done
 
-    void on_createAccount_clicked();// laurence needs work
+    void on_createAccount_clicked(); // done (i think)
 
-    void on_apply_clicked();//laurence is here
+    void on_joinConf_clicked(); // done (i think)
 
-    void on_applyChair_clicked();//server things here
+    void on_apply_clicked();// done (i think)
+    
+    void on_applyChair_clicked();// laurence is here
 
     void on_addConfKey_clicked();
 
@@ -55,7 +60,7 @@ private slots:
 
     void on_selectPaperAuthor_activated(int index);
 
-    void on_selectPaperAuthor_currentTextChanged(const QString &arg1);
+//    void on_selectPaperAuthor_currentTextChanged(const int &arg1);
 
     void on_tabWidget_currentChanged(int index);
 
@@ -77,11 +82,11 @@ private slots:
 
     void on_submitReview_clicked();//server shit here
 
-    void on_addAsReviewer_clicked();//server shit here
+//    void on_addAsReviewer_clicked();//server shit here
 
     void on_addAsReviewer_2_clicked();//server shit here
 
-    void on_reviewersTable_activated(const QModelIndex &index);
+//    void on_reviewersTable_activated(const QModelIndex &index);
 
     void on_papersTable_itemSelectionChanged();
 
@@ -93,7 +98,7 @@ private slots:
 
 private:
     void setUser(UserType_t userType);
-    void noUser(); // done (i think)
+//    void noUser(); call logout() instead
     void login(); // done (i think)
     void logout();
     void populate_infoTabAuthor();
@@ -104,11 +109,13 @@ private:
     void populate_usersTab();
     void populate_reviewTab();
     void popupBox(QString type, QString msg);
-
+    
+    void clearAllTabs();
+    
     Ui::MainWindow *ui;
-    User* theUser;
+    User theUser;
     Database* theDB;
-    Conference* theConf;
+    Conference theConf;
     std::vector<PaperSummary> papers;
 };
 
