@@ -100,9 +100,9 @@ private:
 
     Ui::MainWindow *ui;
     User* theUser;
+    Conference* theConf;
     Database* theDB;
-//    QString username;
-//    QString password;
+    std::vector<PaperSummary> papers;
 };
 
 #endif // MAINWINDOW_H
