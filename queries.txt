@@ -15,7 +15,7 @@ return vector of users
   essentially the above function but in reverse
 for PCChairs seeing people allocated to review a paper
 
-Matt - fetchReviewersAssigned -> fetchUser
+Matt - fetchReviewersAssigned -> fetchUserName
 
 
 
