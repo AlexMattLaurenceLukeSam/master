@@ -11,6 +11,11 @@
 class PCChair : public User 
 {
 public:
+    PCChair()
+    {
+        userType = PCCHAIR;
+        activeConference = NULL;
+    }
     PCChair(const std::vector<PaperSummary>& iallPapers)
     {
         allPapers = iallPapers;
@@ -69,9 +74,10 @@ public:
 private:
     PaperSummary* getPaperByTitle(std::string);
     PaperSummary* getPaperById(int);
+    
     std::vector<PaperSummary> allPapers;
     std::vector<User> allUsers;
-    Conference* activeConference = nullptr;
+    Conference* activeConference;
 };
 
 #endif
