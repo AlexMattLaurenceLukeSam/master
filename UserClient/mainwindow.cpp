@@ -297,9 +297,41 @@ void MainWindow::on_apply_clicked() // done (i think)
 
 void MainWindow::on_applyChair_clicked()
 {
-    //send user details to server
-    //send conference details to  server
-    //no response needed from server
+    //send user details to db
+    //update user from gui
+    theUser.name = ui->name_2->text().toStdString();
+    theUser.email = ui->email_2->text().toStdString();
+    theUser.phone = ui->phone_2->text().toStdString();
+    theUser.organisation = ui->organisation_2->text().toStdString();
+        
+    // send updated user to db
+    theDB->putUser(theUser.name, theUser);
+    
+    //send conference details to db
+    //update conf from gui
+    std::string confTitleOld = theConf.title;
+    theConf.title = ui->confNameMng->text().toStdString();
+    theConf.topic = ui->confTopicMng->text().toStdString();
+    theConf.location = ui->confLocMng->text().toStdString();
+    theConf.description = ui->confDescMng->toPlainText().toStdString();
+    QDate tempQdate = ui->subDateEdit->date();
+    theConf.paperDeadline = Date(tempQdate.day(), tempQdate.month(), tempQdate.year());
+    tempQdate = ui->allocDateEdit->date();
+    theConf.allocationDate = Date(tempQdate.day(), tempQdate.month(), tempQdate.year());
+    tempQdate = ui->sReviewDateEdit->date();
+    theConf.reviewDeadlineSoft = Date(tempQdate.day(), tempQdate.month(), tempQdate.year());
+    tempQdate = ui->hReviewDateEdit->date();
+    theConf.reviewDeadlineHard = Date(tempQdate.day(), tempQdate.month(), tempQdate.year());
+    tempQdate = ui->discDateEdit->date();
+    theConf.discussDeadline = Date(tempQdate.day(), tempQdate.month(), tempQdate.year());
+    
+    //clear current conference keywords and populate with list from gui
+    theConf.keywords.clear();
+    for (int i = 0; i < ui->confKeyList->count(); ++i)
+        theConf.keywords.push_back(ui->confKeyList->item(i)->text().toStdString());
+    
+    // send updated conf to db
+    theDB->putConf(confTitleOld, theConf);
 }
 
 void MainWindow::on_addConfKey_clicked()
