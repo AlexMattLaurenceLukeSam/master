@@ -1,9 +1,9 @@
 #include "LoginManager.hpp"
 
-void LoginManager::loginRequest(QString username, QString password)
+void LoginManager::loginRequest(std::string username, std::string password)
 {
 
-    theServer->sendLoginRequest(username, password);
+//    theServer->sendLoginRequest(username, password);
     
     //this function sends the username and password to the server for verification
     //the response received is used to construct the currentUser pointer member of loginmanager
@@ -12,12 +12,12 @@ void LoginManager::loginRequest(QString username, QString password)
 
 void LoginManager::loginResponse()
 {
-    if (currentUser == nullptr) {
-        loggedIn = false;
-        QString msg = "Incorrect username/password!";
-        mWindow->errorBox(msg);
-        mWindow->noUser();
-    }
+//    if (currentUser == NULL) {
+//        loggedIn = false;
+//        std::string msg = "Incorrect username/password!";
+//        mWindow->errorBox(msg);
+//        mWindow->noUser();
+//    }
 }
 
 void LoginManager::logout()

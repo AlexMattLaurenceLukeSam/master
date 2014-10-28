@@ -4,38 +4,46 @@
 
 #include "../DataAll/Conference.hpp"
 #include "User.hpp"
-#include "UserClientStubForServer.hpp"
+//#include "UserClientStubForServer.hpp"
 //#include "mainwindow.hpp"
 
 class MainWindow;
 
 class LoginManager {
 public:
-    LoginManager(QTcpSocket* aServer) 
+    LoginManager()
     {
-        // Connection will mainly be managed by an instance of client stub class
-        UserClientStubForServer *stub = new UserClientStubForServer(aServer, this);
-        this->theServer = stub;
-        // but do have some more initialisation to do on the connection
-        aServer->setParent(this->theServer);
-        // Read events generated through TCP connection to be handled by
-        // instance of clientstub class
-        QObject::connect(aServer, SIGNAL(readyRead()), stub, SLOT(readResponseData()));
-    
-//    mWindow = new MainWindow();
-    
-//    widget.setupUi(this);
-    
-//    connect(widget.loginButton, SIGNAL(clicked()), this,
-//            SLOT(handleLoginButton()));
-//    
-//    connect(widget.quitButton, SIGNAL(clicked()), this, SLOT(close()));
-    
-    // Start things by sending a request for the names that are needed to
-    // populate the list
-    //this->theServer->getNames(); //ASYNCHRONOUS request - names will arrive sometime
-    
+        currentUser = NULL;
+        loggedIn = false;
+//        std::vector<Conference*> conferences;
+        activeConference = NULL;
     }
+
+//    LoginManager(QTcpSocket* aServer) 
+//    {
+//        // Connection will mainly be managed by an instance of client stub class
+//        UserClientStubForServer *stub = new UserClientStubForServer(aServer, this);
+//        this->theServer = stub;
+//        // but do have some more initialisation to do on the connection
+//        aServer->setParent(this->theServer);
+//        // Read events generated through TCP connection to be handled by
+//        // instance of clientstub class
+//        QObject::connect(aServer, SIGNAL(readyRead()), stub, SLOT(readResponseData()));
+//    
+////    mWindow = new MainWindow();
+//    
+////    widget.setupUi(this);
+//    
+////    connect(widget.loginButton, SIGNAL(clicked()), this,
+////            SLOT(handleLoginButton()));
+////    
+////    connect(widget.quitButton, SIGNAL(clicked()), this, SLOT(close()));
+//    
+//    // Start things by sending a request for the names that are needed to
+//    // populate the list
+//    //this->theServer->getNames(); //ASYNCHRONOUS request - names will arrive sometime
+//    
+//    }
 
     LoginManager(bool iloggedIn,
         const std::vector<Conference*>& iconferences,
@@ -64,7 +72,7 @@ public:
     void setCurrentUser(User* icurrentUser) {currentUser = icurrentUser;}
     void setLoggedIn(bool iloggedIn) {loggedIn = iloggedIn;}  
     
-    void loginRequest(QString, QString);
+    void loginRequest(std::string, std::string);
     void loginResponse();
     
     void logout();
@@ -95,11 +103,11 @@ public:
     } 
     
 private:
-    User* currentUser = nullptr;
+    User* currentUser;
     bool loggedIn;
     std::vector<Conference*> conferences;
-    Conference* activeConference = nullptr;
-    UserClientStubForServer* theServer;
+    Conference* activeConference;
+//    UserClientStubForServer* theServer;
 
 };
 #endif
