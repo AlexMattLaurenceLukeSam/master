@@ -10,3 +10,27 @@ return vector of users
   get users for a given paper id that they are allocated to review
   essentially the above function but in reverse
 for PCChairs seeing people allocated to review a paper
+
+
+
+
+changes to make
+---------------
+
+
+db->fetchUser
+	to take 2 inputs (username, confname)
+	get user's userType for that conf
+	sets userType for User
+
+describe algo in report!!!!!!!!!
+
+db needs call
+	inputs confname (or confID, don't implement both)
+	returns vector of paper summeries for every paper in that conferences
+
+put pdf into database as std::string
+
+add userType to UserTypeTable in database
+	already there db->setUserAs...
+
