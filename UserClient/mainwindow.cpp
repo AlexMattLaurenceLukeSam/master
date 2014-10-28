@@ -19,10 +19,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::errorBox(QString msg)
-{
+void MainWindow::popupBox(QString boxTitle, QString msg)
+{ // 
         QMessageBox msgBox;
-        msgBox.setWindowTitle("Error!");
+        msgBox.setWindowTitle(boxTitle);
         msgBox.setText(msg);
         msgBox.exec();
 }
@@ -32,6 +32,7 @@ void MainWindow::login()
     // get username password from gui and grabs user from db, checks pw updates gui
     
     QString msg;
+    QString errorBox = "Error!";
     
     QString uname = ui->usernameLogin->text();
     QString pword = ui->usernameLogin->text();
@@ -45,13 +46,13 @@ void MainWindow::login()
     if (theUser->userID == -1)
     {
         msg = "User does not exist!";
-        errorBox(msg);
+        popupBox(errorBox, msg);
         noUser();
     }
     else if (theUser->password != pword)
     {
         msg = "Incorrect password!";
-        errorBox(msg);
+        popupBox(errorBox, msg);
         noUser();
     }
     else // get userType and load tab
@@ -126,10 +127,11 @@ void MainWindow::on_passwordLogin_returnPressed()
     login();
 }
 
-void MainWindow::on_createAccount_clicked() // laurence is here
+void MainWindow::on_createAccount_clicked() // done (i think)
 {
     theUser = new User();
     QString msg;
+    QString errorBox = "Error!";
     bool userExists;
     
     QString uname = ui->usernameLogin->text();
@@ -142,17 +144,20 @@ void MainWindow::on_createAccount_clicked() // laurence is here
     if (userExists)
     {
         msg = "Username already taken!";
-        errorBox(msg);
-        noUser();
+        popupBox(errorBox, msg);
+    }
+    else
+    {
+        theUser->userType = AUTHOR;
+        
+        // update DB with new user
+        theDB->putUser(uname, *theUser);
+        setUser(theUser->userType);
     }
     
-    theUser->userType = AUTHOR;
-    setUser(theUser->userType);
-    
-    // send to db
 }
 
-void MainWindow::on_apply_clicked()
+void MainWindow::on_apply_clicked() //laurence is here
 {
     //send user details to server
     //no response needed from server
