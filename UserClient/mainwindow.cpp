@@ -251,7 +251,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 //        populate_reviewerTab();
 //    else if(text == "Paper Management")
 //        populate_papersTab();
-//    else if(text == "USer Management")
+//    else if(text == "User Management")
 //        populate_usersTab();
 //    else if(text == "Review")
 //        populate_reviewTab();
