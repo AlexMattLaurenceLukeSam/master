@@ -74,21 +74,21 @@ struct Conference {
 
 // Conference ID not known
     Conference(
-    bool iisActive,
+    const bool iisActive,
     std::string& ititle,
     std::string& itopic,
     std::string& idescription,
     std::string& ilocation,
     std::vector<std::string>& ikeywords,
-    bool iisBeforePaperDeadline,
+    const bool iisBeforePaperDeadline,
     Date& ipaperDeadline,
-    bool iisBeforeAllocationDate,
+    const bool iisBeforeAllocationDate,
     Date& iallocationDate,
-    bool iisBeforeSoftReviewDeadline,
+    const bool iisBeforeSoftReviewDeadline,
     Date& ireviewDeadlineSoft,
-    bool iisBeforeHardReviewDeadline,
+    const bool iisBeforeHardReviewDeadline,
     Date& ireviewDeadlineHard,
-    bool iisBeforeDiscussDeadline,
+    const bool iisBeforeDiscussDeadline,
     Date& idiscussDeadline,
     int ireviewersPerPaper,
     int ipostWordLimit)

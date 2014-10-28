@@ -61,7 +61,7 @@ void Database::close()
         invalid = true;
 }
 
-User Database::fetchUser(std::string key) throw (const char*)
+User Database::fetchUser(std::string key, std::string confName) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
@@ -70,6 +70,7 @@ User Database::fetchUser(std::string key) throw (const char*)
 	const char* getUser = "SELECT * FROM UserAccount WHERE username=?";
 	const char* getPersonalInfo = "SELECT * FROM PersonalInfo WHERE userID=?";
 	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
+        const char* getUserType = "SELECT userType FROM UserType WHERE (userID=? and confID=(SELECT confID FROM Conference where name=?))";
 
         // =======================================
         // user account
@@ -130,6 +131,30 @@ User Database::fetchUser(std::string key) throw (const char*)
                 vec.push_back(expertise);
         }
 
+        // =======================================
+        // user type 
+        UserType_t userType = AUTHOR;
+        
+	pstmt = dbcon->prepareStatement(getUserType);
+        pstmt->setString(1, key);
+	pstmt->setString(1, confName);
+
+	rs = pstmt->executeQuery();
+	haveRecord = rs->next();
+	if (haveRecord)
+	{
+            int e = rs->getInt(1);
+            if (e = 1)
+                userType = AUTHOR;
+            else if (e = 2)
+                userType = REVIEWER;
+            else if (e = 3)
+                userType = PCCHAIR;
+	}
+
+        delete rs;
+        delete pstmt;
+
         User user(
 		username,
 		name,
@@ -138,7 +163,8 @@ User Database::fetchUser(std::string key) throw (const char*)
 		phone,
 		password,
 		userID,
-		vec);
+		vec,
+                userType);
 
         delete rs;
         delete pstmt;
@@ -490,13 +516,13 @@ void Database::addKeyword(std::string key) throw (const char*)
         delete pstmt;
 }
 
-Conference Database::fetchConference(int key) throw (const char*)
+Conference Database::fetchConference(std::string key) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
 
 	// Add information on user from database to User object
-	const char* getConference = "SELECT * FROM Conference WHERE confID=?";
+	const char* getConference = "SELECT * FROM Conference WHERE name=?";
 	const char* getConfKeywords = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT keywordID FROM ConferenceKeywords WHERE confID=?)";
 
         // =======================================
@@ -505,7 +531,7 @@ Conference Database::fetchConference(int key) throw (const char*)
 	sql::ResultSet *rs = NULL;
 	
 	pstmt = dbcon->prepareStatement(getConference);
-	pstmt->setInt(1, key);
+	pstmt->setString(1, key);
 
 	rs = pstmt->executeQuery();
 	bool haveRecord = rs->next();
@@ -558,7 +584,7 @@ Conference Database::fetchConference(int key) throw (const char*)
         std::vector<std::string> vec;
 	
 	pstmt = dbcon->prepareStatement(getConfKeywords);
-	pstmt->setInt(1, key);
+	pstmt->setInt(1, confID);
 	rs = pstmt->executeQuery();
 
         while (rs->next()) {
@@ -942,12 +968,12 @@ PaperSummary Database::fetchPaperSummary(int key) throw (const char*)
 	return papSum;
 }
 
-std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int authorID) throw (const char*)
+std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int leadAuthorID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperSummary = "SELECT paperName, paperID FROM Paper WHERE (confID=? and paperID IN (SELECT paperID FROM paperAuthors WHERE authorID=?))";
+	const char* getPaperSummary = "SELECT paperName, paperID FROM Paper WHERE (confID=? and leadAuthorID=?)";
 
         // =======================================
         // Paper Summary 
@@ -957,7 +983,7 @@ std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int autho
 	
 	pstmt = dbcon->prepareStatement(getPaperSummary);
 	pstmt->setInt(1, confID);
-	pstmt->setInt(2, authorID);
+	pstmt->setInt(2, leadAuthorID);
 
 	rs = pstmt->executeQuery();
 
@@ -2021,220 +2047,52 @@ std::vector<int> Database::getUserIDsForConf(int confID) throw (const char*)
 }
 
 
+void Database::adminChangeUserName(std::string currentUN, std::string newUN) throw (const char*)
+{
+	const char* getUserID = "SELECT userID FROM UserAccount WHERE username = ?";
+        const char* updateUserName = "UPDATE UserAccount SET username = ? WHERE userID=?";
 
-//
-//std::vector<MyRecord*> *Database::getInRole(const char* role) throw (const char*)
-//{
-//        if (invalid)
-//                throw (noDB);
-//        // Laboured
-//        // First get a list of the ids with the role, then one by one get the
-//        // complete records.
-//        const char* getrolepersons = "selects personid from roles WHERE _role=?";
-//
-//        sql::PreparedStatement *pstmt = NULL;
-//        sql::ResultSet * rs = NULL;
-//
-//        pstmt = dbcon->prepareStatement(getrolepersons);
-//        pstmt->setString(1, role);
-//        rs = pstmt->executeQuery();
-//
-//        bool haveRecord = rs->next();
-//        if (!haveRecord)
-//        {
-//                delete rs;
-//                delete pstmt;
-//                return NULL;
-//        }
-//
-//        std::vector<std::string> people;
-//
-//        // rc = sqlite3_step(stmt);
-//
-//        while (rs->next()) {
-//                std::string apersonid = std::string(rs->getString(1));
-////              const char* apersonid = reinterpret_cast<const char*> (rs->getString(2));
-//                people.push_back(apersonid);
-//        }
-//
-//        // Maybe there weren't any
-//        if (people.size() == 0)
-//                return NULL;
-//
-//        // Build collection by getting each record
-//        std::vector<MyRecord*> *roleholders = new std::vector<MyRecord*>();
-//
-//        std::vector<std::string>::const_iterator it;
-//        for (it = people.begin(); it != people.end(); it++) {
-//                std::string aperson = *it;
-//                MyRecord* rec = this->get(aperson.c_str());
-//                roleholders->push_back(rec);
-//        }
-//
-//        return roleholders;
-//}
-//
+        // =======================================
+        // Store userID
+        sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getUserID);
+        pstmt->setString(1, currentUN);
 
-//bool Database::deleteUser(int* key) throw (const char*)
-//{
-//        if (invalid)
-//                throw (noDB);
-//        // explicitly delete subordinate records in Phones, Address, others and Roles
-//        // then delete the myrecord entry
-//        // recreating the prepared statements for each operation - costly
-//        const char* deletephones = "delete from phones WHERE personid=?";
-//        const char* deleteaddress = "delete from addresses WHERE personid=?";
-//        const char* deleteother = "delete from other WHERE personid=?";
-//        const char* deleteroles = "delete from roles WHERE personid=?";
-//        const char* deletemyrecord = "delete from myrecord WHERE _id=?";
-//        const char* unused; // Pointer to unused part of sql string (?)
-//        sql::PreparedStatement *pstmt = NULL;
-//        // Phones
-//        pstmt = dbcon->prepareStatement(deletephones);
-//        pstmt->setString(1, key);
-//        pstmt->executeUpdate();
-//        delete pstmt;
-//
-//        // Addresses
-//        pstmt = dbcon->prepareStatement(deleteaddress);
-//        pstmt->setString(1, key);
-//        pstmt->executeUpdate();
-//        delete pstmt;
-//
-//        //Other
-//        pstmt = dbcon->prepareStatement(deleteother);
-//        pstmt->setString(1, key);
-//        pstmt->executeUpdate();
-//        delete pstmt;
-//
-//        // Roles
-//        pstmt = dbcon->prepareStatement(deleteroles);
-//        pstmt->setString(1, key);
-//        pstmt->executeUpdate();
-//        delete pstmt;
-//
-//        // Finally
-//        pstmt = dbcon->prepareStatement(deletemyrecord);
-//        pstmt->setString(1, key);
-//        pstmt->executeUpdate();
-//        delete pstmt;
-//
-//        return true;
-//}
-//
-//
-//MyRecord *Database::get(const char* key) throw (const char*)
-//{
-//        if (invalid)
-//                throw (noDB);
-//        // Again laborious
-//        // Load the MyRecord from its table, then add data from Other tables.
-//        const char* getrecord = "select * from myrecord WHERE _id=?";
-//        const char* getroles = "select role from roles WHERE personid=?";
-//        const char* getphones = "select type, number from phones WHERE personid=?";
-//        const char* getaddress = "select type, address from addresses WHERE personid=?";
-//        const char* getother = "select key, valyue from other WHERE personid=?";
-//
-//        sql::PreparedStatement *pstmt = NULL;
-//        sql::ResultSet *rs = NULL;
-//
-//        pstmt = dbcon->prepareStatement(getrecord);
-//        pstmt->setString(1, key);
-//        rs = pstmt->executeQuery();
-//        bool haveRecord = rs->next();
-//        if (!haveRecord)
-//        {
-//                delete rs;
-//                delete pstmt;
-//                return NULL;
-//        }
-//
-//        std::string id = rs->getString(1);
-//        std::string name = rs->getString(2);
-//        std::string email = rs->getString(3);
-//        std::string info = rs->getString(4);
-//        std::string image = rs->getString(5);
-//
-//        MyRecord *arec = new MyRecord(id);
-//        arec->setName(name);
-//        arec->setEmail(email);
-//        arec->setInfo(info);
-//        arec->setImage(image);
-//
-//        delete rs;
-//        delete pstmt;
-//        // =======================================
-//        // Now ask about roles
-//        pstmt = dbcon->prepareStatement(getroles);
-//        pstmt->setString(1, key);
-//        rs = pstmt->executeQuery();
-//        while (rs->next())
-//        {
-//                std::string arole = rs->getString(1);
-//                arec->addRole(arole);
-//        }
-//        delete rs;
-//        delete pstmt;
-//}
-//
-//void Database::recordToTables(const MyRecord* data)
-//{
-//        if (invalid)
-//                throw (noDB);
-//
-//        // Insert the myrecord data first, then deal with Other data tables
-//
-//        const char* putmyrecord = "insert into myrecord values( ?, ?, ?, ?, ?)";
-//        const char* putrole = "insert into roles values(?, ?)";
-//        const char* putphone = "insert into phones values (?, ?, ?)";
-//        const char* putaddress = "insert into addresses values (?, ?, ?)";
-//        const char* putother = "insert into other values (?, ?, ?)";
-//
-//        sql::PreparedStatement *pstmt = NULL;
-//        pstmt = dbcon->prepareStatement(putmyrecord);
-//        pstmt->setString(1, data->getID());
-//        pstmt->setString(2, data->getName());
-//        pstmt->setString(3, data->getEmail());
-//        pstmt->setString(4, data->getInfo());
-//        pstmt->setString(5, data->getImage());
-//
-//        pstmt->executeUpdate();
-//
-//        delete pstmt;
-//
-//        // Role 
-////      if (data->getOtherKV().size() > 0)
-////      {
-////              pstmt = dbcon->prepareStatement(putother);
-////              std::map<std::string, std::string>::const_iterator it;
-////              for (it = data->getRoles().begin(); it != data->getRoles().end(); it ++)
-////              {
-////                      std::string akey = it->first;
-////                      std::string avalue = it->second;
-////                      pstmt->setString(1, data->getID());
-////                      pstmt->setString(2, akey);
-////                      pstmt->setString(3, avalue);
-////                      pstmt->executeUpdate();
-////              }
-////              delete pstmt;
-////
-////      }
-//
-////      // Other
-////      if (data->getOtherKV().size() > 0)
-////      {
-////              pstmt = dbcon->prepareStatement(putother);
-////              std::map<std::string, std::string>::const_iterator it;
-////              for (it = data->getOtherKV.begin(); it != data->getOtherKV().end(); it ++)
-////              {
-////                      std::string akey = it->first;
-////                      std::string avalue = it->second;
-////                      pstmt->setString(1, data->getID());
-////                      pstmt->setString(2, akey);
-////                      pstmt->setString(3, avalue);
-////                      pstmt->executeUpdate();
-////              }
-////              delete pstmt;
-////
-////      }
-//}
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+
+        int userID = rs->getInt(1);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Personal Info Update
+
+        pstmt = dbcon->prepareStatement(updateUserName);
+        pstmt->setString(1, newUN);
+        pstmt->setInt(2, userID);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+}
+
+void Database::adminChangePassword(std::string username, std::string password) throw (const char*)
+{
+        const char* updatePassword = "UPDATE UserAccount SET password = ? WHERE username=?";
+
+        // =======================================
+        // Personal Info Update
+        sql::PreparedStatement *pstmt = NULL;
+
+        pstmt = dbcon->prepareStatement(updatePassword);
+        pstmt->setString(1, password);
+        pstmt->setString(1, username);
+
+        pstmt->executeUpdate();
+
+        delete pstmt;
+}
