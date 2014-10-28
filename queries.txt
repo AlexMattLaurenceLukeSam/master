@@ -28,7 +28,6 @@ db->fetchUser
 	to take 2 inputs (username, confname)
 	get user's userType for that conf
 	sets userType for User
-	
 Matt - DONE!
 
 describe algo in report!!!!!!!!!
@@ -36,13 +35,12 @@ describe algo in report!!!!!!!!!
 db needs call
 	inputs confname (or confID, don't implement both)
 	returns vector of paper summeries for every paper in that conferences
-
 Matt - getPaperIDsForConf -> for loop -> fetchPaperSumamry
 
 put/get pdf into database as std::string
 
 add userType to UserTypeTable in database
-	already there db->setUserAs...
+Matt - already there db->setUserAs...
 	
 fetchUserName(int userID)
 
