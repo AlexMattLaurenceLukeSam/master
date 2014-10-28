@@ -21,7 +21,7 @@ public:
     ~MainWindow();
     
 private slots:
-    void on_login_clicked();
+    void on_login_clicked();//done (i think)
 
     void on_quit_clicked();
 
@@ -31,9 +31,9 @@ private slots:
 
     void on_passwordLogin_returnPressed();
 
-    void on_createAccount_clicked();// laurence needs work
+    void on_createAccount_clicked();// working on
 
-    void on_apply_clicked();//laurence is here
+    void on_apply_clicked();//server things here
 
     void on_applyChair_clicked();//server things here
 
@@ -84,6 +84,13 @@ private slots:
     void on_reviewersTable_activated(const QModelIndex &index);
 
     void on_papersTable_itemSelectionChanged();
+
+    void on_selectPaperAuthor_currentIndexChanged(const QString &arg1);
+
+    void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
+
+    void on_updateConfSettings_clicked();
+    
 
 private:
     void setUser(UserType_t userType);
