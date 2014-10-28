@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "../DataAll/Review.hpp"
 #include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
@@ -250,10 +251,10 @@ void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
 void MainWindow::on_tabWidget_currentChanged(int index)
 {//change to current text or something
     QString text = ui->tabWidget->tabText(index);
-//    if(text == "Info")
-//        populate_infoTabAuthor();
-//    else if(text == "Information")
-//        populate_infoTabChair();
+    if(text == "Info")
+        populate_infoTabAuthor();
+    else if(text == "Information")
+        populate_infoTabChair();
 //    else if(text == "Author")
 //        populate_authorTab();
 //    else if(text == "Reviewer")
@@ -268,110 +269,72 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::populate_infoTabAuthor()
 {
-//    User* user;
-//    if(loginMgr->currentAuthor != nullptr)
-//        user = dynamic_cast<User*>(loginMgr->currentAuthor);
-//    if(loginMgr->currentReviewer != nullptr)
-//        user = dynamic_cast<User*>(loginMgr->currentReviewer);
+    ui->username->setText(QString::fromStdString(theUser->userName));
+    ui->userid->setText(QString::number(theUser->userID));
+    ui->name->setText(QString::fromStdString(theUser->name));
+    ui->email->setText(QString::fromStdString(theUser->email));
+    ui->organisation->setText(QString::fromStdString(theUser->organisation));
+    ui->phone->setText(QString::fromStdString(theUser->phone));
 
-//    ui->username->setText(QString::fromStdString(user->userName));
-//    ui->userid->setText(QString::number(user->getUserID()));
-//    ui->name->setText(QString::fromStdString(user->getName()));
-//    ui->email->setText(QString::fromStdString(user->getEmail()));
-//    ui->organisation->setText(QString::fromStdString(user->getOrganisation()));
-//    ui->phone->setText(QString::fromStdString(user->getPhone()));
+    for(std::vector<std::string>::iterator it = theUser->keywords.begin(); it != theUser->keywords.end(); ++it)
+        ui->authKeyList->addItem(QString::fromStdString(*it));
 
-//    if(loginMgr->currentAuthor != nullptr)
-//        for(std::vector<std::string>::iterator it = loginMgr->currentAuthor->keywords.begin(); it != loginMgr->currentAuthor->keywords.end(); ++it)
-//            ui->authKeyList->addItem(QString::fromStdString(*it));
-//    else if(loginMgr->currentReviewer != nullptr)
-//        for(std::vector<std::string>::iterator it = loginMgr->currentReviewer->keywords.begin(); it != loginMgr->currentReviewer->keywords.end(); ++it)
-//            ui->authKeyList->addItem(QString::fromStdString(*it));
-
-//    ui->conferenceName->setText(QString::fromStdString(loginMgr->activeConference->title));
-//    ui->confTopic->setText(QString::fromStdString(loginMgr->activeConference->topic));
-//    ui->confLocation->setText(QString::fromStdString(loginMgr->activeConference->location));
-//    ui->confDesc->append(QString::fromStdString(loginMgr->activeConference->description));
-//    for(std::vector<std::string>::iterator it = loginMgr->activeConference->keywords.begin(); it != loginMgr->activeConference->keywords.end(); ++it)
-//        ui->confKeyList->addItem(QString::fromStdString(*it));
-//    ui->subDate->setText(QString::fromStdString(loginMgr->activeConference->paperDeadline.toString()));
-//    ui->discDate->setText(QString::fromStdString(loginMgr->activeConference->discussDeadline.toString()));
-//    ui->hReviewDate->setText(QString::fromStdString(loginMgr->activeConference->reviewDeadlineHard.toString()));
-//    ui->sReviewDate->setText(QString::fromStdString(loginMgr->activeConference->reviewDeadlineSoft.toString()));
-//    ui->allocDate->setText("29/10/14");
+    ui->conferenceName->setText(QString::fromStdString(theConf->title));
+    ui->confTopic->setText(QString::fromStdString(theConf->topic));
+    ui->confLocation->setText(QString::fromStdString(theConf->location));
+    ui->confDesc->append(QString::fromStdString(theConf->description));
+    for(std::vector<std::string>::iterator it = theConf->keywords.begin(); it != theConf->keywords.end(); ++it)
+        ui->confKeyListNoEdit->addItem(QString::fromStdString(*it));
+    ui->subDate->setText(QString::fromStdString(theConf->paperDeadline.convertToString()));
+    ui->discDate->setText(QString::fromStdString(theConf->discussDeadline.convertToString()));
+    ui->hReviewDate->setText(QString::fromStdString(theConf->reviewDeadlineHard.convertToString()));
+    ui->sReviewDate->setText(QString::fromStdString(theConf->reviewDeadlineSoft.convertToString()));
+    ui->allocDate->setText(QString::fromStdString((theConf->allocationDate.convertToString())));
 }
 
 void MainWindow::populate_infoTabChair()
-{/*
-    PCChair* user = loginMgr->currentPCChair;
-    Conference* conf = loginMgr->getActiveConference();
+{
+    ui->name_2->setText(QString::fromStdString(theUser->name));
+    ui->email_2->setText(QString::fromStdString(theUser->email));
+    ui->organisation_2->setText(QString::fromStdString(theUser->organisation));
+    ui->phone_2->setText(QString::fromStdString(theUser->phone));
+    ui->confNameMng->setText(QString::fromStdString(theConf->title));
+    ui->confTopicMng->setText(QString::fromStdString(theConf->topic));
+    ui->confLocMng->setText(QString::fromStdString(theConf->location));
+    ui->confDescMng->setText(QString::fromStdString(theConf->description));
 
-    ui->name->setText(QString::fromStdString(user->getName()));
-    ui->email->setText(QString::fromStdString(user->getEmail()));
-    ui->organisation->setText(QString::fromStdString(user->getOrganisation()));
-    ui->phone->setText(QString::fromStdString(user->getPhone()));
-    ui->conferenceName->setText(QString::fromStdString(conf->title));
-    ui->confTopic->setText(QString::fromStdString(conf->topic));
-    ui->confLocation->setText(QString::fromStdString(conf->location));
-    ui->confDesc->setText(QString::fromStdString(conf->description));
-    for(std::vector<std::string>::iterator it = conf->keywords.begin(); it != conf->keywords.end(); ++it)
+    for(std::vector<std::string>::iterator it = theConf->keywords.begin(); it != theConf->keywords.end(); ++it)
         ui->confKeyList->addItem(QString::fromStdString(*it));
-    ui->subDateEdit->date().setDate(conf->paperDeadline.day, conf->paperDeadline.month, conf->paperDeadline.year);
-    ui->allocDate->setText("29/10/14");
-    ui->sReviewDateEdit->date().setDate(conf->reviewDeadlineSoft.day, conf->reviewDeadlineSoft.month, conf->reviewDeadlineSoft.year);
-    ui->hReviewDateEdit->date().setDate(conf->reviewDeadlineHard.day, conf->reviewDeadlineHard.month, conf->reviewDeadlineHard.year);
-    ui->discDateEdit->date().setDate(conf->discussDeadline.day, conf->discussDeadline.month, conf->discussDeadline.year);*/
+
+    ui->subDateEdit->date().setDate(theConf->paperDeadline.getDay(), theConf->paperDeadline.getMonth(), theConf->paperDeadline.getYear());
+    ui->allocDateEdit->date().setDate(theConf->allocationDate.getDay(), theConf->allocationDate.getMonth(), theConf->allocationDate.getYear());
+    ui->sReviewDateEdit->date().setDate(theConf->reviewDeadlineSoft.getDay(), theConf->reviewDeadlineSoft.getMonth(), theConf->reviewDeadlineSoft.getYear());
+    ui->hReviewDateEdit->date().setDate(theConf->reviewDeadlineHard.getDay(), theConf->reviewDeadlineHard.getMonth(), theConf->reviewDeadlineHard.getYear());
+    ui->discDateEdit->date().setDate(theConf->discussDeadline.getDay(), theConf->discussDeadline.getMonth(), theConf->discussDeadline.getYear());
 }
 
 void MainWindow::populate_authorTab()
 {
-//    Author* user;
-//    if(loginMgr->currentAuthor != nullptr)
-//        user = loginMgr->currentAuthor;
-//    else if(loginMgr->currentReviewer != nullptr)
-//        user = loginMgr->currentReviewer;
-//    std::vector<PaperSummary> papers = user->getOwnPapers();
-//    std::vector<std::string> keys = user->getCurrentPaper().keywords;
-//    std::vector<PersonalInfo> authors = user->getCurrentPaper().authors;
+    papers.clear();
+    //paper = fetch papersummaries
 
-//    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
-//        ui->selectPaperAuthor->addItem(QString::fromStdString(it->paperName));
-
-//    ui->paperAbstract->append(QString::fromStdString(user->getCurrentPaper().abstract));
-//    for(std::vector<std::string>::iterator it = keys.begin(); it != keys.end(); ++it)
-//        ui->paperKeyListAuth->addItem(QString::fromStdString(*it));
-
-//    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
-//        int rows = ui->authorsTable->rowCount();
-//        ui->authorsTable->insertRow(rows);
-//        QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(it->name));
-//        ui->authorsTable->setItem(rows, 0, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->email));
-//        ui->authorsTable->setItem(rows, 1, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->organisation));
-//        ui->authorsTable->setItem(rows, 2, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->phone));
-//        ui->authorsTable->setItem(rows, 3, newItem);
-//    }
-//    for(std::vector<std::string>::iterator it = loginMgr->getActiveConference()->keywords.begin(); it != loginMgr->getActiveConference()->keywords.end(); ++it){
-//        ui->selectMainKey->addItem(QString::fromStdString(*it));
-//    }
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+        ui->selectPaperAuthor->addItem(QString::fromStdString(it->paperName));
 }
 
 void MainWindow::populate_papersTab()
 {
-//    PCChair* user = loginMgr->currentPCChair;
-//    Paper* paper = &user->getCurrentPaper();
+//    Paper* paper = &theUser->getCurrentPaper();
 //    std::vector<Review>* reviews = &paper->reviews;
-//    std::vector<PersonalInfo>* authors = user->getCurrentPaper().authors;
+//    std::vector<PersonalInfo>* authors = theUser->getCurrentPaper().authors;
 //    std::vector<PersonalInfo> reviewers;
 
-//    std::vector<std::string> keys = user->getCurrentPaper().keywords;
+//    std::vector<std::string> keys = theUser->getCurrentPaper().keywords;
 
 //    ui->paperNameMng->setText(QString::fromStdString(paper->title));
 //    ui->mainKeyMng->setText(QString::fromStdString(paper->confKeyword));
 
-//    ui->paperAbstractMng->append(QString::fromStdString(user->getCurrentPaper().abstract));
+//    ui->paperAbstractMng->append(QString::fromStdString(theUser->getCurrentPaper().abstract));
 //    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
 //        ui->paperKeyListMng->addItem(QString::fromStdString(*it));
 
@@ -391,43 +354,26 @@ void MainWindow::populate_papersTab()
 
 void MainWindow::populate_reviewerTab()
 {
-//    Reviewer* user = loginMgr->currentReviewer;
-//    std::vector<PaperSummary> papers;
-//    std::vector<std::string> keys;
-//    if(loginMgr->getActiveConference()->isBeforePaperDeadline)
-//        papers = user->getPapersToBid();
-//    else
-//        papers = user->getAllocatedPapers();
-//    if(user->getCurrentPaper() == nullptr && !papers.empty()){
-//        user->setCurrentPaper(papers.at(0));
-//        keys = user->getCurrentPaper().getKeywords();
-//    }
-//    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
-//        ui->selectPaperReviewer->addItem(QString::fromStdString(it->paperName));
+    papers.clear();
+    //paper = fetch papersummaries
 
-//    ui->paperAbstractReviewer->append(QString::fromStdString(user->getCurrentPaper().abstract));
-//    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
-//        ui->paperKeyListReviewer->addItem(QString::fromStdString(*it));
-//    ui->mainKeyReviewer->setText(QString::fromStdString(user->getCurrentPaper().confKeyword));
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+        ui->selectPaperReviewer->addItem(QString::fromStdString(it->paperName));
 }
 
 void MainWindow::populate_reviewTab()
 {
-//    Reviewer* user = loginMgr->currentReviewer;
-//    std::vector<PaperSummary> papers = user->getAllocatedPapers();
-//    std::vector<std::string> keys = user->getCurrentPaper().keywords;
-//    std::vector<Review> reviews = user->getReviews();
 
 //    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
 //        ui->selectPaperReview->addItem(QString::fromStdString(it->paperName));
 
-//    ui->paperAbstractReviewer->setText(QString::fromStdString(user->getCurrentPaper().abstract));
-//    ui->mainKey->setText(QString::fromStdString(user->getCurrentPaper().confKeyword));
+//    ui->paperAbstractReviewer->setText(QString::fromStdString(theUser->getCurrentPaper().abstract));
+//    ui->mainKey->setText(QString::fromStdString(theUser->getCurrentPaper().confKeyword));
 //    for(std::vector<std::string>::iterator it = keys.begin(); it != keys.end(); ++it)
 //        ui->paperKeyListReview->addItem(QString::fromStdString(*it));
 
 //    for(std::vector<Review>::iterator it = reviews.begin(); it != reviews.end(); ++it){
-//        if(it->paperID == user->getCurrentPaper().paperID){
+//        if(it->paperID == theUser->getCurrentPaper().paperID){
 //            ui->commentsBestAward->setText(QString::fromStdString(it->commentsBestAward));
 //            ui->commentsShortPaper->setText(QString::fromStdString(it->commentsShortPaper));
 //            ui->commentsStrengths->setText(QString::fromStdString(it->commentsStrength));
@@ -457,9 +403,9 @@ void MainWindow::on_submit_clicked()
 void MainWindow::on_submitBid_clicked()
 {
     int bid = ui->selectBid->currentText().toInt();
-    int userId = loginMgr->getCurrentUser()->getUserID();
+    int userId = theUser->userID;
     int paperId;
-    //paperId = user->getCurrentPaper();
+    //paperId = theUser->getCurrentPaper();
 
     //send users bid on a paper to the server
     //no response from server
@@ -467,12 +413,7 @@ void MainWindow::on_submitBid_clicked()
 
 void MainWindow::downloadPaper()
 {
-    int paperId = loginMgr->getCurrentUser()->getCurrentPaper().paperID;
 
-    //send request to server for paper pdf along with the paper id of the wanted paper
-    //hopes to receive the pdf
-
-    //after receiving pdf will just create the file in the working directory blah blah blah ill do that
 }
 
 void MainWindow::on_downloadReviewer_clicked()
@@ -497,8 +438,8 @@ void MainWindow::on_submitPosts_clicked()
 
 void MainWindow::on_acceptPaper_clicked()
 {
-    int paperId = loginMgr->getCurrentUser()->getCurrentPaper().paperID;
-    int confId  = loginMgr->getActiveConference()->confID;
+    int paperId = theUser->getCurrentPaper().paperID;
+    int confId  = theConf->confID;
 
     //send paper id, conf id to server
     //no response from server
@@ -524,8 +465,8 @@ void MainWindow::on_submitReview_clicked()
 //    rev.commentsStrength = ui->commentsStrengths->toPlainText();
 //    rev.commentsSuggestions = ui->commentsSuggestions->toPlainText();
 //    rev.commentsWeakness = ui->commentsWeaknesses->toPlainText();
-//    rev.paperID = loginMgr->getCurrentUser()->getCurrentPaper.paperID;
-//    rev.reviewerID = loginMgr->getCurrentUser()->getUserID();
+//    rev.paperID = theUser->getCurrentPaper.paperID;
+//    rev.reviewerID = theUser->getUserID();
 
     //submit review to the server
     //no response from server
@@ -553,7 +494,7 @@ void MainWindow::on_addAsReviewer_2_clicked()
 void MainWindow::on_papersTable_itemSelectionChanged()
 {
 
-//    std::vector<PersonalInfo> authors = loginMgr->currentPCChair->getCurrentPaper().authors;
+//    std::vector<PersonalInfo> authors = theUser->getCurrentPaper().authors;
 
 //    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
 //        int rows = ui->reviewersTable->rowCount();
@@ -567,5 +508,47 @@ void MainWindow::on_papersTable_itemSelectionChanged()
 //        newItem = new QTableWidgetItem(QString::fromStdString(it->phone));
 //        ui->reviewersTable->setItem(rows, 3, newItem);
 //    }
+
+}
+
+void MainWindow::on_selectPaperAuthor_currentIndexChanged(const QString &arg1)
+{
+    Paper thePaper;
+    //thePaper = fetchPaper(   );
+    ui->paperAbstract->append(QString::fromStdString(thePaper.abstract));
+    for(std::vector<std::string>::iterator it = thePaper.keywords.begin(); it != thePaper.keywords.end(); ++it)
+        ui->paperKeyListAuth->addItem(QString::fromStdString(*it));
+
+    for(std::vector<PersonalInfo>::iterator it = thePaper.authors.begin(); it != thePaper.authors.end(); ++it){
+        int rows = ui->authorsTable->rowCount();
+        ui->authorsTable->insertRow(rows);
+        QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(it->name));
+        ui->authorsTable->setItem(rows, 0, newItem);
+        newItem = new QTableWidgetItem(QString::fromStdString(it->email));
+        ui->authorsTable->setItem(rows, 1, newItem);
+        newItem = new QTableWidgetItem(QString::fromStdString(it->organisation));
+        ui->authorsTable->setItem(rows, 2, newItem);
+        newItem = new QTableWidgetItem(QString::fromStdString(it->phone));
+        ui->authorsTable->setItem(rows, 3, newItem);
+    }
+    for(std::vector<std::string>::iterator it = theConf->keywords.begin(); it != theConf->keywords.end(); ++it){
+        ui->selectMainKey->addItem(QString::fromStdString(*it));
+    }
+}
+
+void MainWindow::on_selectPaperReviewer_currentIndexChanged(const QString &arg1)
+{
+    Paper thePaper;
+    //thePaper = fetchPaper(  );
+
+    ui->paperAbstractReviewer->append(QString::fromStdString(thePaper.abstract));
+    for(std::vector<std::string> it = thePaper.keywords.begin(); it != thePaper.keywords.end(); ++it)
+        ui->paperKeyListReviewer->addItem(QString::fromStdString(*it));
+    ui->mainKeyReviewer->setText(QString::fromStdString(thePaper.confKeyword));
+}
+
+
+void MainWindow::on_updateConfSettings_clicked()
+{
 
 }
