@@ -1,10 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
-#include <string>
-#include <vector>
-#include "mysql_connection.h"
-#include "mysql_driver.h"
-#include "MyRecord.h"
+#include "Exception.hpp"
 #include "../Server/User.hpp"
 #include "../DataAll/Conference.hpp"
 #include "../DataAll/Date.hpp"
@@ -14,6 +10,12 @@
 #include "../DataAll/Review.hpp"
 #include "../DataAll/Discussion.hpp"
 #include "../DataAll/DiscussionPost.hpp"
+
+#include "mysql_connection.h"
+#include "mysql_driver.h"
+
+#include <string>
+#include <vector>
 
 class Database {
 public:

@@ -25,8 +25,13 @@
 
 struct ReviewerBid
 {
-	int score = 0;
-	int reviewerID = 0;
+    ReviewerBid() 
+    { 
+        score = 0; 
+        reviewerID = 0; 
+    }
+	int score;
+	int reviewerID;
 };
 
 class PaperForReview

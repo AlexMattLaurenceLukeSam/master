@@ -52,6 +52,6 @@ struct User
     std::string organisation;
     std::string phone;
     std::vector<std::string> keywords;
-    int userID = 0;
+    int userID;
 };
 #endif
