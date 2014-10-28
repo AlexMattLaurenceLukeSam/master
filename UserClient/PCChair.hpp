@@ -16,6 +16,7 @@ public:
         userType = PCCHAIR;
         activeConference = NULL;
     }
+    
     PCChair(const std::vector<PaperSummary>& iallPapers)
     {
         allPapers = iallPapers;
