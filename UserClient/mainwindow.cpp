@@ -15,7 +15,8 @@ MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 MainWindow::~MainWindow()
 {
     delete theUser;
-//    delete theDB;
+    delete theDB;
+    delete theConf;
     delete ui;
 }
 
@@ -36,16 +37,17 @@ void MainWindow::login()
     
     QString uname = ui->usernameLogin->text();
     QString pword = ui->usernameLogin->text();
+    QString confname; // get name of conference selected
     
     ui->usernameLogin->clear();
     ui->passwordLogin->clear();
     
     theUser = new User;
-    (*theUser) = theDB->fetchUser(uname.toStdString();
+    (*theUser) = theDB->fetchUser(uname.toStdString()); // need to change to send confname as well
     
     if (theUser->userID == -1)
     {
-        msg = "User does not exist!";
+        msg = "User does not exist for !";
         popupBox(errorBox, msg);
         noUser();
     }
@@ -63,13 +65,18 @@ void MainWindow::login()
 
 void MainWindow::logout()
 {
+    delete theUser;
+    theUser = NULL;
     noUser();
-    loginMgr->logout();
 }
 
 void MainWindow::noUser()
-{
+{// clears all tabs, populates conference list, returns to login screen
     ui->tabWidget->clear();
+    
+    // populate conference list ui->confList
+    ui->confList
+    
     ui->tabWidget->addTab(ui->loginTab, "Login");
 }
 
@@ -79,20 +86,20 @@ void MainWindow::setUser(UserType_t userType)
     {
     case AUTHOR://author
         ui->tabWidget->clear();
-        ui->tabWidget->addTab(ui->infoTabAuthor, "Information");
+        ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         //ui->tabWidget->removeTab(0);
         break;
     case REVIEWER://reviewer
-        ui->tableWidget->clear();
-        ui->tabWidget->addTab(ui->infoTabAuthor, "Information");
+        ui->tabWidget->clear();
+        ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         ui->tabWidget->addTab(ui->reviewerTab, "Reviewer");
         ui->tabWidget->addTab(ui->reviewTab, "Review");
         ui->tabWidget->removeTab(0);
         break;
     case PCCHAIR://pcchair
-        ui->tableWidget->clear();
+        ui->tabWidget->clear();
         ui->tabWidget->addTab(ui->infoTabChair, "Information");
         ui->tabWidget->addTab(ui->usersTab, "User Management");
         ui->tabWidget->addTab(ui->papersTab, "Paper Management");
@@ -127,7 +134,7 @@ void MainWindow::on_passwordLogin_returnPressed()
     login();
 }
 
-void MainWindow::on_createAccount_clicked() // done (i think)
+void MainWindow::on_createAccount_clicked() // laurence needs work
 {
     theUser = new User();
     QString msg;
@@ -159,9 +166,6 @@ void MainWindow::on_createAccount_clicked() // done (i think)
 
 void MainWindow::on_apply_clicked() //laurence is here
 {
-    //send user details to server
-    //no response needed from server
-    
     //update user from gui
     theUser->name = ui->name->text().toStdString();
     theUser->email = ui->email->text().toStdString();
@@ -226,12 +230,12 @@ void MainWindow::on_rmvAuthKey_clicked()
     delete ui->authKeyList->currentItem();
 }
 
-void MainWindow::on_selectPaperAuthor_activated(int /*index*/)
+void MainWindow::on_selectPaperAuthor_activated(int index)
 {
 
 }
 
-void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &/*arg1*/)
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const QString &arg1)
 {
     ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
     if(ui->selectPaperAuthor->findText("*NEW*") == -1)
