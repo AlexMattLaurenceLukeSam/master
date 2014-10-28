@@ -1,8 +1,7 @@
 #include <iostream>
 #include <QApplication>
 
-//#include "mainwindow.hpp"
-#include "dummy_mainwindow.hpp"
+#include "mainwindow.hpp"
 
 int main(int argc, char *argv[]) 
 {
