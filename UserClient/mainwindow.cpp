@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::popupBox(QString boxTitle, QString msg)
-{ // 
+{ // first input: window title; second input: box message
         QMessageBox msgBox;
         msgBox.setWindowTitle(boxTitle);
         msgBox.setText(msg);
@@ -45,7 +45,7 @@ void MainWindow::login()
     ui->confList->clearSelection();
     
     theUser = new User;
-    (*theUser) = theDB->fetchUser(uname.toStdString()/*, confname.toStdString()*/); // need to change to send confname as well
+    (*theUser) = theDB->fetchUser(uname.toStdString(), confname.toStdString());
     
     if (theUser->userID == -1)
     {
@@ -61,9 +61,11 @@ void MainWindow::login()
     }
     else // get userType and load tab
     {
+        // fetch conferences
         setUser(theUser->userType)
     }
 }
+
 
 void MainWindow::logout()
 {
