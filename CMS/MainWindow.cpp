@@ -808,8 +808,7 @@ void MainWindow::clearAllTabs()
         widget->clear();
     foreach(QTextEdit *widget, this->findChildren<QTextEdit*>())
         widget->clear();
-    foreach(QComboBox *widget, this->findChildren<QComboBox*>())
-        widget->clear();
+    ui->selectPaperReviewer->clear();
     foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
         widget->clear();
     foreach(QSpinBox *widget, this->findChildren<QSpinBox*>())
