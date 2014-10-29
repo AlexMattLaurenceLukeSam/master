@@ -8,7 +8,8 @@
 class AlgoTest : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE (AlgoTest);
-    CPPUNIT_TEST (testMinScore);
+    CPPUNIT_TEST (testFindMinScore);
+    CPPUNIT_TEST (testSetNewReviewer);
     CPPUNIT_TEST_SUITE_END ();
 private:
 PaperForReview a;
@@ -17,6 +18,7 @@ public:
 	void tearDown();
 protected:
 void testMinScore();
+void testSetNewReviewer();
 
 };
 /*
