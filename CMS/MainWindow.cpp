@@ -668,13 +668,17 @@ void MainWindow::on_downloadChair_clicked()
 
 void MainWindow::on_submitPosts_clicked()
 {
-    QString post = ui->postBody->toPlainText();
-
+    QString comment = ui->postBody->toPlainText();
+    int reviewerId = theUser.userID;
+    int confId = theConf.confID;
+    int paperId = aPaper.paperID;
+    
+    DiscussionPost = newPost(comment, reviewerId);
     //send discussion post data to server
-    //no response from server
+    theDB->createDiscussionPost(newPost, paperId, confId);
+    
+    updateDiscussionPosts();
 }
-
-
 
 void MainWindow::on_acceptPaper_clicked()
 {
@@ -689,6 +693,12 @@ void MainWindow::on_rejectPaper_clicked()
 {
     //this probably does dick all
 }
+
+void MainWindow::updateDiscussionPosts()
+{
+    // updates discussion posts on reviewer tab`
+}
+
 void MainWindow::on_submitReview_clicked()
 {
 //    Review rev;
