@@ -535,12 +535,16 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
-    //paper is the getCurrentPaper()
 
-    //send paper (as in the paper details) as well as the actual paper pdf to server
-    //no response from server
-
-
+    //the pdf
+    QFile file(filename);
+    if(!file.open(QIODEVICE::ReadOnly)){
+        popupBox("Error!", "Error opening file!");
+        return;
+    }
+    QTextStream stream(file);
+    QString string;
+    stream >> string;
 }
 
 void MainWindow::on_submitBid_clicked()
@@ -556,6 +560,24 @@ void MainWindow::on_submitBid_clicked()
 
 void MainWindow::downloadPaper()
 {
+    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
+    QFileDialog dialog(this);
+    QString fname, pdfString;
+
+    dialog.setWindowTitle("Save File...");
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("Files (.pdf)");
+    if(dialog.exec())
+        fname = dialog.selectedFiles().at(0);
+    else
+        return;
+
+    //fetch pdf string from db into pdfString
+    QFile file(fname);
+    if(file.open(QIODevice::ReadWrite)){
+        QTextStream stream(&file);
+        stream << pdfString;
+    }
 
 }
 
