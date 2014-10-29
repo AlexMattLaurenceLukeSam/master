@@ -123,7 +123,6 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 	
 	pstmt = dbcon->prepareStatement(getExpertise);
 	pstmt->setInt(1, userID);
-
 	rs = pstmt->executeQuery();
         
         while (rs->next()) {
@@ -136,10 +135,12 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
         UserType_t userType = AUTHOR;
         
 	pstmt = dbcon->prepareStatement(getUserType);
-        pstmt->setString(1, key);
-	pstmt->setString(1, confName);
-        
+
+        pstmt->setInt(1, userID);
+	pstmt->setString(2, confName);
+
 	rs = pstmt->executeQuery();
+
 	haveRecord = rs->next();
 	if (haveRecord)
 	{
@@ -151,7 +152,6 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
             else if (e = 3)
                 userType = PCCHAIR;
 	}
-
         delete rs;
         delete pstmt;
         
@@ -166,9 +166,6 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 		vec,
                 userType);
 
-        delete rs;
-        delete pstmt;
-        
 	return user;
 }
 
@@ -425,31 +422,39 @@ void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
-
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID='?' and confID='?')";
+    
     const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'author')";
-
-    // =====================================
-    // remove current type(s) for matching userID, confID
-    sql::PreparedStatement *pstmt = NULL;
-    
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setInt(1, userID);
-    pstmt->setInt(2, confID);
-
-    pstmt->executeUpdate();
-    
-    delete pstmt;
     
     // ======================================
     // insert new userType
-    
+    sql::PreparedStatement *pstmt = NULL;
+
     pstmt = dbcon->prepareStatement(insertChairType);
     pstmt->setInt(1, userID);
     pstmt->setInt(2, confID);
 
     pstmt->executeUpdate();
 
+    delete pstmt;
+}
+
+void Database::updateUserAsAuthor(int userID, int confID) throw (const char*)
+{
+    if (invalid)
+        throw (noDB);
+
+    const char* updateCurrentType = "UPDATE UserType SET userType='author' WHERE (userID=? and confID=?)";
+
+    // =====================================
+    // remove current type(s) for matching userID, confID
+    sql::PreparedStatement *pstmt = NULL;
+
+    pstmt = dbcon->prepareStatement(updateCurrentType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
+
+    pstmt->executeUpdate();
+    
     delete pstmt;
 }
 

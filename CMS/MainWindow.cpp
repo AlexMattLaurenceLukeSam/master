@@ -3,6 +3,9 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include "Paper.hpp"
+#include <QIODevice>
+#include <QBuffer>
+#include <QByteArray>
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
@@ -209,17 +212,17 @@ void MainWindow::on_createAccount_clicked() // done (i think)
         theUser.userName = uname.toStdString();
         theUser.password = pword.toStdString();
         theUser.userType = AUTHOR;
-        
+
         // update DB with new user
         theDB->putUser(theUser.userName, theUser);
         theUser = theDB->fetchUser(theUser.userName, confname.toStdString());
-        
+
         // get conference details from DB
         theConf = theDB->fetchConference(confname.toStdString());
         
         // update DB with userType
         theDB->setUserAsAuthor(theUser.userID, theConf.confID);
-        
+
         setUser(theUser.userType);
     }
     
@@ -541,6 +544,7 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
+<<<<<<< Updated upstream
     // get all fields from gui
     // set Paper
     
@@ -582,6 +586,22 @@ void MainWindow::on_submit_clicked()
 //    }
 //    QTextStream stream(file);
 //    QString string;
+//    QString filename = "";
+////    filename = get filename from guis
+//
+//    //the pdf
+//    QFile file(filename);
+//    if(!file.open(QIODevice::ReadOnly)){
+//        popupBox("Error!", "Error opening file!");
+//        return;
+//    }
+//    QByteArray ba;
+////    QBuffer buf (&ba);
+//    file.read(&ba);
+//    QByteArray hexed = ba.toBase64();
+//    std::string pdfAsString = hexed.data();
+////    QTextStream stream(file);
+////    QString string;
 //    stream >> string;
 }
 

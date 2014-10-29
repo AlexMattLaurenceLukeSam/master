@@ -45,6 +45,8 @@ public:
     std::vector<int> allUserIDs();
     std::vector<std::string> allUserNames();
     void setUserAsAuthor(int userID, int confID) throw (const char*);
+    void updateUserAsAuthor(int userID, int confID) throw (const char*);
+
     void setUserAsAuthorByNames(std::string username, std::string confTitle) throw (const char*);
     void setUserAsPC(int userID, int confID) throw (const char*);
     void setUserAsPCByNames(std::string username, std::string confTitle) throw (const char*);
