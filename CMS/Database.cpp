@@ -71,6 +71,7 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 	const char* getPersonalInfo = "SELECT * FROM PersonalInfo WHERE userID=?";
 	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
         const char* getUserType = "SELECT userType FROM UserType WHERE (userID=? and confID=(SELECT confID FROM Conference WHERE name=?))";
+        const char* getConID = "SELECT confID FROM Conference WHERE name=?";
 
         // =======================================
         // user account
@@ -145,13 +146,34 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 	if (haveRecord)
 	{
             int e = rs->getInt(1);            
-            if (e = 1)
+            if (e == 1)
                 userType = AUTHOR;
-            else if (e = 2)
+            else if (e == 2)
                 userType = REVIEWER;
-            else if (e = 3)
+            else if (e == 3)
                 userType = PCCHAIR;
 	}
+        else
+        {
+        std::vector<std::string> vec;
+	
+	pstmt = dbcon->prepareStatement(getExpertise);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+        
+        while (rs->next()) {
+                std::string expertise = rs->getString(1);
+                vec.push_back(expertise);
+        }
+	    pstmt = dbcon->prepareStatement(getConID);
+
+	    pstmt->setString(1, confName);
+
+	    rs = pstmt->executeQuery();
+	    haveRecord = rs->next();
+            int ID = rs->getInt(1);
+            this->setUserAsAuthor(userID, ID);
+        }
         delete rs;
         delete pstmt;
         
@@ -423,7 +445,7 @@ void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
     
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 1)";
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, '1')";
     
     // ======================================
     // insert new userType
@@ -2232,11 +2254,11 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     if (haveRecord)
     {
         int e = rs->getInt(1);            
-        if (e = 1)
+        if (e == 1)
             userType = AUTHOR;
-        else if (e = 2)
+        else if (e == 2)
             userType = REVIEWER;
-        else if (e = 3)
+        else if (e == 3)
             userType = PCCHAIR;
     }
 
