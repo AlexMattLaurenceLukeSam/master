@@ -616,7 +616,7 @@ void MainWindow::on_submitBid_clicked()
     
     int userId = theUser.userID;
     int paperId = aPaper.paperID;
-    int confID = theConf.confID;
+    int confId = theConf.confID;
     int bidVal;
     std::string bid = ui->selectBid->currentText().toStdString();
     
@@ -630,7 +630,10 @@ void MainWindow::on_submitBid_clicked()
         bidVal = 4;
 
     //send users bid on a paper to the db
+    theDB->setReviewerPreference(userId, confId, paperId, bidVal);
     // reviewerID, paperID, confID, bid(int)
+    
+    popupBox("Reviewer Preference", "Preference updated");
 }
 
 void MainWindow::downloadPaper()
