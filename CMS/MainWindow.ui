@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>636</height>
+    <width>868</width>
+    <height>676</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
-      <height>601</height>
+      <width>861</width>
+      <height>671</height>
      </rect>
     </property>
     <widget class="QWidget" name="centralwidget_2" native="true">
@@ -28,21 +28,21 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>801</width>
-       <height>601</height>
+       <width>861</width>
+       <height>671</height>
       </rect>
      </property>
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
+        <x>10</x>
+        <y>10</y>
         <width>871</width>
         <height>651</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="loginTab">
        <attribute name="title">
@@ -923,14 +923,7 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="submitPosts">
-           <property name="text">
-            <string>Submit Post</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
+         <item row="2" column="0">
           <widget class="QTextEdit" name="postBody">
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -941,7 +934,7 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="1">
           <widget class="QTextBrowser" name="discussionBodyReviewer">
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -949,6 +942,13 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;DISCUSSION POSTS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="submitPosts">
+           <property name="text">
+            <string>Submit Post</string>
            </property>
           </widget>
          </item>
@@ -970,11 +970,11 @@ p, li { white-space: pre-wrap; }
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Ignored</enum>
+            <enum>QSizePolicy::Fixed</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>124</width>
              <height>20</height>
             </size>
            </property>
@@ -983,7 +983,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="bidlabel">
            <property name="text">
-            <string>Bid:</string>
+            <string>Would you like to bid on this paper?</string>
            </property>
           </widget>
          </item>
@@ -1066,7 +1066,7 @@ p, li { white-space: pre-wrap; }
           <x>20</x>
           <y>20</y>
           <width>211</width>
-          <height>531</height>
+          <height>561</height>
          </rect>
         </property>
         <column>
@@ -1088,8 +1088,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>250</x>
           <y>20</y>
-          <width>511</width>
-          <height>187</height>
+          <width>551</width>
+          <height>201</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
@@ -1150,8 +1150,8 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>250</x>
-          <y>190</y>
-          <width>511</width>
+          <y>230</y>
+          <width>551</width>
           <height>361</height>
          </rect>
         </property>
@@ -1592,8 +1592,8 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>150</y>
-          <width>761</width>
+          <y>160</y>
+          <width>821</width>
           <height>444</height>
          </rect>
         </property>
@@ -1608,7 +1608,26 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="overall"/>
+            <widget class="QSpinBox" name="overall">
+             <property name="specialValueText">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>-3</number>
+             </property>
+             <property name="maximum">
+              <number>3</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_12">
@@ -1618,7 +1637,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="confidence"/>
+            <widget class="QSpinBox" name="confidence">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1632,7 +1658,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="relevance"/>
+            <widget class="QSpinBox" name="relevance">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
@@ -1642,7 +1675,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="originality"/>
+            <widget class="QSpinBox" name="originality">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1656,7 +1696,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="significance"/>
+            <widget class="QSpinBox" name="significance">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_16">
@@ -1666,7 +1713,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="presentation"/>
+            <widget class="QSpinBox" name="presentation">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1680,7 +1734,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="techQuality"/>
+            <widget class="QSpinBox" name="techQuality">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_18">
@@ -1690,7 +1751,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="evaluation"/>
+            <widget class="QSpinBox" name="evaluation">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1755,7 +1823,8 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>Detailed comments and suggestions</string>
+              <string>Detailed comments
+and suggestions</string>
              </property>
             </widget>
            </item>
@@ -1770,6 +1839,13 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="submitReview">
+             <property name="text">
+              <string>Submit</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -1779,8 +1855,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>10</x>
           <y>20</y>
-          <width>761</width>
-          <height>130</height>
+          <width>821</width>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -1801,19 +1877,6 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
         </layout>
-       </widget>
-       <widget class="QPushButton" name="submitReview">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>550</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Submit</string>
-        </property>
        </widget>
       </widget>
      </widget>
