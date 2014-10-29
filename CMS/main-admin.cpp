@@ -17,6 +17,7 @@ void createConf();
 void changeUsername();
 void changePassword();
 void changeConf();
+void changeUserType();
 
 Database db;
 
@@ -65,8 +66,10 @@ void adminMainMenu()
     std::cout << "3. Change a Users username" << std::endl;
     std::cout << "4. Change a Users password" << std::endl;
     std::cout << "5. Change a Conference details" << std::endl;
-    std::cout << "6. Quit" << std::endl;
+    std::cout << "6. Change a Users access level for a Conference" << std::endl;
+    std::cout << "7. Quit" << std::endl;
     std::cin >> selection;
+    std::cin.ignore();
 
     if (selection == 1)
     {
@@ -95,6 +98,11 @@ void adminMainMenu()
     }
     else if (selection == 6)
     {
+        std::cout << "Change a Users access level for a Conference selected" << std::endl;
+        changeUserType();
+    }
+    else if (selection == 7)
+    {
         std::cout << "Quit selected, Quitting..." << std::endl;
         return;
     }
@@ -116,18 +124,19 @@ void createUser()
     std::vector<std::string> keywords;
     UserType_t userType = AUTHOR;
 
+    std::cin.ignore();
     std::cout << "Enter username: ";
-    std::cin >> username;
+    std::getline(std::cin, username);
     std::cout << "Enter password: ";
-    std::cin >> password;
+    std::getline(std::cin, password);
     std::cout << "Enter name: ";
-    std::cin >> name;
+    std::getline(std::cin, name);
     std::cout << "Enter email: ";
-    std::cin >> email;
+    std::getline(std::cin, email);
     std::cout << "Enter organisation: ";
-    std::cin >> organisation;
+    std::getline(std::cin, organisation);
     std::cout << "Enter phone: ";
-    std::cin >> phone;
+    std::getline(std::cin, phone);
 
     int keywordsInput = 1;
     while (keywordsInput == 1)
@@ -136,12 +145,13 @@ void createUser()
         std::cout << "1. Add keyword" << std::endl;
         std::cout << "2. No more keywords" << std::endl;
         std::cin >> keywordsInput;
+        std::cin.ignore();
 
         if (keywordsInput == 1)
         {
             std::string keyword = "";
             std::cout << "Keyword: ";
-            std::cin >> keyword;
+            std::getline(std::cin, keyword);
             keywords.push_back(keyword);
         }
     }
@@ -320,15 +330,15 @@ void changeUsername()
     std::string currentUN;
     std::string newUN;
     std::cout << "Enter username to change: ";
-    std::cin >> currentUN;
+    std::getline(std::cin, currentUN);
 
     bool userExists = db.existsUserName(currentUN);
     
     if (userExists)
     {
         std::cout << "Enter new username: ";
-        std::cin >> newUN;
-        bool newUserExists = db.existsUserName(currentUN);
+        std::getline(std::cin, newUN);
+        bool newUserExists = db.existsUserName(newUN);
 
         if (!newUserExists)
         {
@@ -349,14 +359,14 @@ void changePassword()
     std::string username;
     std::string password;
     std::cout << "Enter username to change password for: ";
-    std::cin >> username;
+    std::getline(std::cin, username);
 
     bool userExists = db.existsUserName(username);
     
     if (userExists)
     {
         std::cout << "Enter new password: ";
-        std::cin >> password;
+        std::getline(std::cin, password);
 
         db.adminChangePassword(username, password);
 
@@ -396,7 +406,7 @@ void changeConf()
     bool beforeDate = true;
 
     std::cout << "Enter Conference name: " << std::endl;
-    std::cin >> title;
+    std::getline(std::cin, title);
 
     bool confExists = db.existsConfName(title);
     if (confExists)
@@ -462,16 +472,28 @@ void changeConf()
         std::cout << "Must re enter all details that aren't changing also!!" << std::endl << std::endl;
 
 
+        std::string tempIn = "";
+
         std::cout << "Is it active? true/false: ";
-        std::cin >> active;
+        std::cin >> tempIn;
+        if (tempIn == "true")
+            active = true;
+        else if (tempIn == "false")
+            active = false;
+        else {
+            std::cout << "Error creating conference!" << std::endl << "Please start again." << std::endl;
+            return;
+        }
+        std::cin.ignore();
+
         std::cout << "Enter title: ";
-        std::cin >> title;
-        std::cout << "Enter topic: "; 
-        std::cin >> topic;
+        std::getline(std::cin, title);
+        std::cout << "Enter topic: ";
+        std::getline(std::cin, topic);
         std::cout << "Enter description: "; 
-        std::cin >> description;
+        std::getline(std::cin, description);
         std::cout << "Enter location: ";
-        std::cin >> location;
+        std::getline(std::cin, location);
 
         int keywordsInput = 1;
         while (keywordsInput == 1)
@@ -480,12 +502,13 @@ void changeConf()
             std::cout << "1. Add keyword" << std::endl;
             std::cout << "2. No more keywords" << std::endl;
             std::cin >> keywordsInput;
+            std::cin.ignore();
 
             if (keywordsInput == 1)
             {
                 std::string keyword = "";
                 std::cout << "Keyword: ";
-                std::cin >> keyword;
+                std::getline(std::cin, keyword);
                 keywords.push_back(keyword);
             }
         }
@@ -567,3 +590,53 @@ void changeConf()
     adminMainMenu();
 }
 
+void changeUserType()
+{
+    std::string username;
+    std::string confTitle;
+    std::string newUT;
+    UserType_t userType;
+    std::cout << "Enter username to access for: ";
+    std::getline(std::cin, username);
+
+    bool userExists = db.existsUserName(username);
+    
+    if (userExists)
+    {
+        std::cout << "Enter Conference name: ";
+        std::getline(std::cin, confTitle);
+
+        bool confExists = db.existsConfName(confTitle);
+        if (confExists)
+        {
+            userType = db.adminFetchUserType(username, confTitle);
+            
+            std::cout << username << " is currently a(n) ";
+            if (userType == AUTHOR)
+                    std::cout << "Author";
+            else if (userType == REVIEWER)
+                    std::cout << "PCMember";
+            else if (userType == PCCHAIR)
+                    std::cout << "PCChair";
+            std::cout << " for conference " << confTitle << endl;
+            
+            std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
+            std::cin >> newUT;
+            
+            if (newUT == "author")
+                db.adminChangeUserType(username, confTitle, AUTHOR);
+            else if (newUT == "pcmember")
+                db.adminChangeUserType(username, confTitle, REVIEWER);
+            else if (newUT == "chair")
+                db.adminChangeUserType(username, confTitle, PCCHAIR);
+            else
+                std::cout << "Error updating user! User not updated!" << std::endl;
+        }
+        else
+            std::cout << "Conference doesn't exist" << std::endl;
+    }
+    else
+        std::cout << "User doesn't exist" << std::endl;
+    
+    adminMainMenu();
+}
