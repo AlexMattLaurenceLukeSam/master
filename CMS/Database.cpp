@@ -2179,8 +2179,7 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     bool haveRecord = rs->next();
     if (!haveRecord)
     {
-        userType = AUTHOR;
-        setUserAsAuthorByNames(username, confTitle);
+        userType = NOUSER;
     }
     else
     {
