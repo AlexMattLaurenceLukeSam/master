@@ -69,17 +69,17 @@ private slots:
 
     void on_submitBid_clicked();// done (i think)
 
-    void on_downloadReviewer_clicked();//see downloadPaper()
+    void on_downloadReviewer_clicked();// done
 
-    void on_submitPosts_clicked();//server stuff here
+    void on_submitPosts_clicked();// laurence is here
 
-    void on_downloadChair_clicked(); //see downloadPaper()
+    void on_downloadChair_clicked(); //done
 
     void on_acceptPaper_clicked();//server stuff here
 
     void on_rejectPaper_clicked();//probably are faking this part
 
-    void downloadPaper();//laurence here
+    void downloadPaper();// done
 
     void on_submitReview_clicked();//server shit here
 
