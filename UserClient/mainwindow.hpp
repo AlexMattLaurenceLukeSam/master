@@ -3,13 +3,13 @@
 
 #include <QMainWindow>
 #include <QModelIndex>
-#include "../Server/User.hpp"
-#include "../Database/Database.hpp"
-#include "../DataAll/Conference.hpp"
+#include "User.hpp"
+#include "Database.hpp"
+#include "Conference.hpp"
 #include <string>
 #include <vector>
-#include "../DataAll/PaperSummary.hpp"
-#include "ui_mainwindow.h"
+#include "PaperSummary.hpp"
+#include "ui_MainWindow.h"
 
 namespace Ui {
     class MainWindow;
@@ -106,7 +106,7 @@ private:
     void setUser(UserType_t userType);
 //    void noUser(); call logout() instead
     void login(); // done (i think)
-    void logout();
+    void logout(); //done (i think)
     void populate_infoTabAuthor();
     void populate_infoTabChair();
     void populate_authorTab();
@@ -114,9 +114,9 @@ private:
     void populate_papersTab();
     void populate_usersTab();
     void populate_reviewTab();
-    void popupBox(QString type, QString msg);
+    void popupBox(QString boxTitle, QString msg); // done
     
-    void clearAllTabs();
+    void clearAllTabs(); //done
     
     Ui::MainWindow *ui;
     User theUser;

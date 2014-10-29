@@ -1,5 +1,5 @@
-#include "mainwindow.hpp"
-#include "../DataAll/Review.hpp"
+#include "MainWindow.hpp"
+#include "Review.hpp"
 #include <QMessageBox>
 #include <QFileDialog>
 
@@ -61,7 +61,7 @@ void MainWindow::login()
     }
     
     QString confname = ui->confList->currentItem()->text(); // get name of conference selected
-   
+    
     theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
     
     if (theUser.userID == -1)
@@ -78,6 +78,7 @@ void MainWindow::login()
     }
     else // get userType and load tab
     {
+        
         theConf = theDB->fetchConference(confname.toStdString());
         // get conferences from db
         
@@ -111,6 +112,8 @@ void MainWindow::logout()
 
 void MainWindow::setUser(UserType_t userType)
 {
+    clearAllTabs();
+    
     switch(userType)
     {
     case AUTHOR://author
@@ -722,6 +725,17 @@ void MainWindow::on_updateConfSettings_clicked()
 
 }
 
+void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
+{
+    //populate review values with the given reviewers review
+    //the word review was used too many times in that sentence but you know what i mean
+}
+
+void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
+{
+    //populate paper info based upon the id of the paper selected
+}
+
 void MainWindow::clearAllTabs()
 {
     foreach(QLineEdit *widget, this->findChildren<QLineEdit*>())
@@ -743,16 +757,3 @@ void MainWindow::clearAllTabs()
     
     ui->tabWidget->clear();
 }
-
-void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
-{
-    //populate review values with the given reviewers review
-    //the word review was used too many times in that sentence but you know what i mean
-}
-
-void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
-{
-    //populate paper info based upon the id of the paper selected
-}
-
-

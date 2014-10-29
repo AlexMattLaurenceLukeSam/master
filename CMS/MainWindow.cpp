@@ -538,12 +538,16 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
-    //paper is the getCurrentPaper()
 
-    //send paper (as in the paper details) as well as the actual paper pdf to server
-    //no response from server
-
-
+    //the pdf
+    QFile file(filename);
+    if(!file.open(QIODEVICE::ReadOnly)){
+        popupBox("Error!", "Error opening file!");
+        return;
+    }
+    QTextStream stream(file);
+    QString string;
+    stream >> string;
 }
 
 void MainWindow::on_submitBid_clicked()
@@ -559,6 +563,24 @@ void MainWindow::on_submitBid_clicked()
 
 void MainWindow::downloadPaper()
 {
+    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
+    QFileDialog dialog(this);
+    QString fname, pdfString;
+
+    dialog.setWindowTitle("Save File...");
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("Files (.pdf)");
+    if(dialog.exec())
+        fname = dialog.selectedFiles().at(0);
+    else
+        return;
+
+    //fetch pdf string from db into pdfString
+    QFile file(fname);
+    if(file.open(QIODevice::ReadWrite)){
+        QTextStream stream(&file);
+        stream << pdfString;
+    }
 
 }
 
@@ -693,10 +715,25 @@ void MainWindow::on_selectPaperReviewer_currentIndexChanged(const QString &arg1)
 //    ui->mainKeyReviewer->setText(QString::fromStdString(thePaper.confKeyword));
 }
 
+void MainWindow::on_selectPaperReview_currentIndexChanged(const QString &arg1)
+{
+ //similar to above except also fetch the appropriate review of the paper
+}
 
 void MainWindow::on_updateConfSettings_clicked()
 {
 
+}
+
+void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
+{
+    //populate review values with the given reviewers review
+    //the word review was used too many times in that sentence but you know what i mean
+}
+
+void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
+{
+    //populate paper info based upon the id of the paper selected
 }
 
 void MainWindow::clearAllTabs()
