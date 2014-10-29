@@ -73,6 +73,7 @@ public:
     void updatePaper(Paper paper) throw (const char*);
 	void addPaperAccepted(int paperID, int confID) throw (const char*);
 	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
+    std::string fetchPDF(int paperID, int confID) throw (const char*);
 
 	// REVIEW
 	Review fetchReview(int paperID, int reviewerID, int confID) throw (const char*);
