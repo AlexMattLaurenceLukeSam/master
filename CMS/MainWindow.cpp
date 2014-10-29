@@ -682,18 +682,22 @@ void MainWindow::on_submitPosts_clicked()
 
 void MainWindow::on_acceptPaper_clicked()
 {
-//    int paperId = theUser.getCurrentPaper().paperID;
-//    int confId  = theConf.confID;
-
-    //send paper id, conf id to server
-    //no response from server
+    int paperId = aPaper.paperID;
+    int confId  = theConf.confID;
+    
+    theDB->addPaperAccepted(paperId, confId);
+    
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append("\nhas been accepted");
+    popupBox(msgTitle, msg);
 }
 
 void MainWindow::on_rejectPaper_clicked()
 {
     QString msgTitle = "Paper Management";
     QString msg = QString::fromStdString(aPaper.title);
-    msg.append(" has been rejected");
+    msg.append("\nhas been rejected");
     popupBox(msgTitle, msg);
 }
 
