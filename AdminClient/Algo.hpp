@@ -52,6 +52,7 @@ public:
 	void pushReviewers();
     int calculateScore(int, int);
     void setReviewerBids(const std::vector<ReviewerBid>& ireviewerBids) {reviewerBids = ireviewerBids;}
+    void setMinScore(int iminScore) {minScore = iminScore;}
     int getMinScore() {return minScore;}
 
 private:
