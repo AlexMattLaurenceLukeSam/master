@@ -94,7 +94,6 @@ public:
 	std::vector<int> getReviewersForConf(int confID) throw (const char*);
 	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
 	void setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*);
-	void updateReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*);
 	void assignPaper(int paperID, int reviewerID, int confID) throw (const char*);
 
 	std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*);

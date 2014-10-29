@@ -2213,7 +2213,9 @@ void Database::adminChangePassword(std::string username, std::string password) t
 UserType_t Database::adminFetchUserType(std::string username, std::string confTitle) throw (const char*)
 {
 //    const char* 
-    std::string fetchUserType = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?))";
+    std::string fetchUserTypeAuthor = "SELECT * FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='author')";
+    std::string fetchUserTypePC = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='pc')";
+    std::string fetchUserTypeChair = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='chair')";
     
     // ============================================
     // User Type Update
@@ -2221,26 +2223,44 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     sql::PreparedStatement *pstmt = NULL;
     sql::ResultSet *rs = NULL;
     
-    pstmt = dbcon->prepareStatement(fetchUserType.c_str());
+    pstmt = dbcon->prepareStatement(fetchUserTypeAuthor.c_str());
     pstmt->setString(1, username);
     pstmt->setString(2, confTitle);
     
     rs = pstmt->executeQuery();
     bool haveRecord = rs->next();
-    if (!haveRecord)
+    if (haveRecord)
     {
-        userType = NOUSER;
+        userType = AUTHOR;
     }
     else
     {
-        int e = rs->getInt(1);           
-        if (e = 1)
-            userType = AUTHOR;
-        else if (e = 2)
+        pstmt = dbcon->prepareStatement(fetchUserTypePC.c_str());
+        pstmt->setString(1, username);
+        pstmt->setString(2, confTitle);
+        
+        rs = pstmt->executeQuery();
+        bool haveRecord = rs->next();
+        if (haveRecord)
+        {
             userType = REVIEWER;
-        else if (e = 3)
-            userType = PCCHAIR;
+        }
+        else
+        {
+            pstmt = dbcon->prepareStatement(fetchUserTypeChair.c_str());
+            pstmt->setString(1, username);
+            pstmt->setString(2, confTitle);
+            
+            rs = pstmt->executeQuery();
+            bool haveRecord = rs->next();
+            if (haveRecord)
+            {
+                userType = PCCHAIR;
+            }
+        }
     }
+    else
+        userType = NOUSER;
 
     delete pstmt;
     delete rs;
