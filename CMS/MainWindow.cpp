@@ -691,7 +691,10 @@ void MainWindow::on_acceptPaper_clicked()
 
 void MainWindow::on_rejectPaper_clicked()
 {
-    //this probably does dick all
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append(" has been rejected");
+    popupBox(msgTitle, msg);
 }
 
 void MainWindow::updateDiscussionPosts()
