@@ -65,9 +65,9 @@ private slots:
 
     void on_tabWidget_currentChanged(int index); // laurence doesn't know what this does
 
-    void on_submit_clicked();// laurence is here
+    void on_submit_clicked();// done (i think)
 
-    void on_submitBid_clicked();//server stuff here
+    void on_submitBid_clicked();// laurence is here
 
     void on_downloadReviewer_clicked();//see downloadPaper()
 
