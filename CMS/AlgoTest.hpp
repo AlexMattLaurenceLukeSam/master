@@ -1,6 +1,10 @@
 #ifndef ALGOTEST_HPP
 #define	ALGOTEST_HPP
 
+#include <cppunit/TestCase.h>
+#include <cppunit/extensions/HelperMacros.h>
+#include "Algo.hpp"
+
 class AlgoTest : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE (AlgoTest);
