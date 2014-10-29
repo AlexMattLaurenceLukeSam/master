@@ -733,23 +733,31 @@ void MainWindow::on_submitReview_clicked()
     theDB->modifyReview(rev, confID);
 }
 
-//void MainWindow::on_addAsReviewer_clicked()
-//{
-//    int paperId = ui->toReview()->text().toInt();
-//    int userId = ui->usersTable->item(ui->usersTable->currentRow(), 2)->text().toInt();
-//
-//    //send paper id and user id to server to add a paper assigned table entry
-//    //no response from server
-//}
-
-void MainWindow::on_addAsReviewer_2_clicked()
+void MainWindow::on_addAsReviewer_clicked()
 {
-    int paperId = ui->toReview_2->text().toInt();
-    //int userId = ui->reviewersTable->item(ui->usersTable->currentRow(), 2)->text().toInt();
-    //above doesnt quite work may add uid field to table
-
-    //send paper id and user id to server to add a paper assigned table entry
-    //no response from server
+    // should have aPaper
+    // takes username in toReview
+    QString reviewerName = ui->toReview->text();
+    // checks if extsts and userType is PCMember for current conference
+    User reviewer = theDB->fetchUser(reviewerName.toStdString(), theConf.title);
+    if (reviewer.userID == -1)
+    {
+        popupBox("Error!", "User does not exist!");
+        return;
+    }
+    else if (reviewer.userType != REVIEWER)
+    {
+        popupBox("Error!", "Incorrect password!");
+        return;
+    }
+    
+    // updates db with reviewer
+    theDB->assignPaper(aPaper.paperID, reviewer.userID, theConf.confID);
+    
+    // inserts reviewer information into reviewersTable
+    
+    
+    popupBox("", "Reviewer successfully assigned to paper");
 }
 
 void MainWindow::on_papersTable_itemSelectionChanged()
