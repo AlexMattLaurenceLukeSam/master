@@ -5,7 +5,7 @@ SET foreign_key_checks = 0;
 CREATE TABLE `UserType` (
 	`userID` int NOT NULL,
 	`confID` int NOT NULL,
-	`userType` ENUM('author', 'pc', 'chair') NOT NULL DEFAULT 'author',
+	`userType` int NOT NULL,
 	FOREIGN KEY(`userID`) REFERENCES UserAccount(`UserID`),
 	FOREIGN KEY(`confID`) REFERENCES Conference(`confID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;

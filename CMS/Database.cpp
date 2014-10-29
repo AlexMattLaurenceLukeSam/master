@@ -423,7 +423,7 @@ void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
     
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'author')";
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 1)";
     
     // ======================================
     // insert new userType
@@ -443,7 +443,7 @@ void Database::updateUserAsAuthor(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
 
-    const char* updateCurrentType = "UPDATE UserType SET userType='author' WHERE (userID=? and confID=?)";
+    const char* updateCurrentType = "UPDATE UserType SET userType=1 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
@@ -463,7 +463,7 @@ void Database::setUserAsPC(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
     
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'pc')";
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 2)";
     
     // ======================================
     // insert new userType
@@ -483,7 +483,7 @@ void Database::updateUserAsPC(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
 
-    const char* updateCurrentType = "UPDATE UserType SET userType='pc' WHERE (userID=? and confID=?)";
+    const char* updateCurrentType = "UPDATE UserType SET userType=2 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
@@ -503,7 +503,7 @@ void Database::setUserAsChair(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
     
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'chair')";
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 3)";
     
     // ======================================
     // insert new userType
@@ -523,7 +523,7 @@ void Database::updateUserAsChair(int userID, int confID) throw (const char*)
     if (invalid)
         throw (noDB);
 
-    const char* updateCurrentType = "UPDATE UserType SET userType='chair' WHERE (userID=? and confID=?)";
+    const char* updateCurrentType = "UPDATE UserType SET userType=3 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
@@ -1784,7 +1784,7 @@ std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (c
         if (invalid)
                 throw (noDB);
 
-	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType = 'pc' and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?)))";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType = 2 and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?)))";
 
         // =======================================
         // Reviewers
@@ -1898,7 +1898,7 @@ std::vector<int> Database::getReviewersForConf(int confID) throw (const char*)
         if (invalid)
                 throw (noDB);
 
-	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType='pc' and confID=?)";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType=2 and confID=?)";
 
         // =======================================
         // Reviewers
@@ -2213,13 +2213,10 @@ void Database::adminChangePassword(std::string username, std::string password) t
 UserType_t Database::adminFetchUserType(std::string username, std::string confTitle) throw (const char*)
 {
 //    const char* 
-    std::string fetchUserTypeAuthor = "SELECT * FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='author')";
-    std::string fetchUserTypePC = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='pc')";
-    std::string fetchUserTypeChair = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?) and userType='chair')";
+    std::string fetchUserTypeAuthor = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?))";
     
     // ============================================
     // User Type Update
-    UserType_t userType;
     sql::PreparedStatement *pstmt = NULL;
     sql::ResultSet *rs = NULL;
     
@@ -2227,39 +2224,20 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     pstmt->setString(1, username);
     pstmt->setString(2, confTitle);
     
+    UserType_t userType = AUTHOR;
+    
     rs = pstmt->executeQuery();
+    
     bool haveRecord = rs->next();
     if (haveRecord)
     {
-        userType = AUTHOR;
-    }
-    else
-    {
-        pstmt = dbcon->prepareStatement(fetchUserTypePC.c_str());
-        pstmt->setString(1, username);
-        pstmt->setString(2, confTitle);
-        
-        rs = pstmt->executeQuery();
-        bool haveRecord = rs->next();
-        if (haveRecord)
-        {
+        int e = rs->getInt(1);            
+        if (e = 1)
+            userType = AUTHOR;
+        else if (e = 2)
             userType = REVIEWER;
-        }
-        else
-        {
-            pstmt = dbcon->prepareStatement(fetchUserTypeChair.c_str());
-            pstmt->setString(1, username);
-            pstmt->setString(2, confTitle);
-            
-            rs = pstmt->executeQuery();
-            bool haveRecord = rs->next();
-            if (haveRecord)
-            {
-                userType = PCCHAIR;
-            }
-    		else
-    		    userType = NOUSER;
-        }
+        else if (e = 3)
+            userType = PCCHAIR;
     }
 
     delete pstmt;
@@ -2267,22 +2245,6 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     
     return userType;
 }
-
-//void Database::adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*)
-//{
-//    switch(userType)
-//    {
-//        case AUTHOR:
-//            setUserAsAuthorByNames(username, confTitle);
-//            break;
-//        case REVIEWER:
-//            setUserAsChairByNames(username, confTitle);
-//            break;
-//        case PCCHAIR:
-//            setUserAsPCByNames(username, confTitle);
-//            break;
-//    }
-//}
 
 std::string Database::fetchPDF(int paperID, int confID) throw (const char*)
 {

@@ -124,7 +124,6 @@ void createUser()
     std::vector<std::string> keywords;
     UserType_t userType = AUTHOR;
 
-    std::cin.ignore();
     std::cout << "Enter username: ";
     std::getline(std::cin, username);
     std::cout << "Enter password: ";
@@ -632,9 +631,17 @@ void changeUserType()
     User u = db.fetchUser(userNames[userid-1], confNames[confid-1]);
     userType = u.userType;
     userID = u.userID;
+
+    std::cout << userNames[userid-1] << " is currently a(n) ";
     if (userType == AUTHOR)
+    {
+    }
     else if (userType == REVIEWER)
+    {
+    }
     else if (userType == PCCHAIR)
+    {
+    }
     else
     {
         std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
