@@ -5,6 +5,11 @@
 #include <iostream>
 #include <vector>
 
+PaperForReview::PaperForReview()
+{
+	db = NULL;  	
+}
+
 PaperForReview::PaperForReview(int newPaperID, int confID, int numReviewers, Database* database)
 {
 	paperID = newPaperID;
