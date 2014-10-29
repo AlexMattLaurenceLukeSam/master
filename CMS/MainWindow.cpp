@@ -311,10 +311,10 @@ void MainWindow::on_applyChair_clicked()
 {
     //send user details to db
     //update user from gui
-    theUser.name = ui->name_2->text().toStdString();
-    theUser.email = ui->email_2->text().toStdString();
-    theUser.phone = ui->phone_2->text().toStdString();
-    theUser.organisation = ui->organisation_2->text().toStdString();
+    theUser.name = ui->name_3->text().toStdString();
+    theUser.email = ui->email_3->text().toStdString();
+    theUser.phone = ui->phone_3->text().toStdString();
+    theUser.organisation = ui->organisation_3->text().toStdString();
         
     // send updated user to db
     theDB->putUser(theUser.userName, theUser);
