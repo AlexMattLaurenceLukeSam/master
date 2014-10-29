@@ -426,7 +426,7 @@ void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
-{//change to current text or something
+{
     if (index < 1)
         return;
     
@@ -435,16 +435,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         populate_infoTabAuthor();
     else if(text == "Information")
         populate_infoTabChair();
-//    else if(text == "Author")
-//        populate_authorTab();
-//    else if(text == "Reviewer")
-//        populate_reviewerTab();
-//    else if(text == "Paper Management")
-//        populate_papersTab();
-//    else if(text == "User Management")
-//        populate_usersTab();
-//    else if(text == "Review")
-//        populate_reviewTab();
+    else if(text == "Author")
+        populate_authorTab();
+    else if(text == "Reviewer")
+        populate_reviewerTab();
+    else if(text == "Paper Management")
+        populate_papersTab();
+    else if(text == "User Management")
+        populate_usersTab();
+    else if(text == "Review")
+        populate_reviewTab();
 }
 
 void MainWindow::populate_infoTabAuthor()
