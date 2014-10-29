@@ -2239,23 +2239,23 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     return userType;
 }
 
-void Database::adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*)
-{
-    switch(userType)
-    {
-        case AUTHOR:
-            setUserAsAuthorByNames(username, confTitle);
-            break;
-        case REVIEWER:
-            setUserAsChairByNames(username, confTitle);
-            break;
-        case PCCHAIR:
-            setUserAsPCByNames(username, confTitle);
-            break;
-    }
-}
+//void Database::adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*)
+//{
+//    switch(userType)
+//    {
+//        case AUTHOR:
+//            setUserAsAuthorByNames(username, confTitle);
+//            break;
+//        case REVIEWER:
+//            setUserAsChairByNames(username, confTitle);
+//            break;
+//        case PCCHAIR:
+//            setUserAsPCByNames(username, confTitle);
+//            break;
+//    }
+//}
 
-std::String fetchPDF(int paperID, int confID) throw (const char*)
+std::string Database::fetchPDF(int paperID, int confID) throw (const char*)
 {
         if (invalid)
                 throw (noDB);

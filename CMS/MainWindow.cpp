@@ -560,7 +560,7 @@ void MainWindow::on_submit_clicked()
     aPaper.confID = theConf.confID;
     aPaper.leadAuthorID = theUser.userID;
     
-    existsPaper = db->existsPaperTitleConf(aPaper);
+    existsPaper = theDB->existsPaperTitleConf(aPaper);
             
     aPaper.title = ui->selectPaperAuthor->currentText().toStdString();
     
@@ -595,7 +595,7 @@ void MainWindow::on_submit_clicked()
     {
         pdf = ui->selectFile->text().toStdString();
         
-        db->createPaper(aPaper, pdf);
+        theDB->createPaper(aPaper, pdf);
     }
     else
     {
@@ -604,7 +604,7 @@ void MainWindow::on_submit_clicked()
         
         aPaper.discussion.discussion.push_back(DiscussionPost(comment, reviewerID));
         
-        db->updatePaper(aPaper);
+        theDB->updatePaper(aPaper);
     }
     
     popupBox("Paper Information", "Update Successful!");
