@@ -95,6 +95,12 @@ private slots:
     void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
 
     void on_updateConfSettings_clicked();
+    
+    void on_reviewersTable_itemActivated(QTableWidgetItem *item);
+
+    void on_papersTable_itemClicked(QTableWidgetItem *item);
+    
+    void on_selectPaperReview_currentIndexChanged(const QString &arg1);
 
 private:
     void setUser(UserType_t userType);
