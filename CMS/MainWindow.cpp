@@ -2,6 +2,7 @@
 #include "Review.hpp"
 #include <QMessageBox>
 #include <QFileDialog>
+#include "Paper.hpp"
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
@@ -135,7 +136,6 @@ void MainWindow::setUser(UserType_t userType)
         ui->tabWidget->removeTab(0);
         break;
     }
-
 }
 
 void MainWindow::on_login_clicked()
@@ -206,11 +206,13 @@ void MainWindow::on_createAccount_clicked() // done (i think)
     }
     else
     {
+        theUser.userName = uname.toStdString();
+        theUser.password = pword.toStdString();
         theUser.userType = AUTHOR;
         
         // update DB with new user
-        theDB->putUser(uname.toStdString(), theUser);
-        theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
+        theDB->putUser(theUser.userName, theUser);
+        theUser = theDB->fetchUser(theUser.userName, confname.toStdString());
         
         // get conference details from DB
         theConf = theDB->fetchConference(confname.toStdString());
@@ -270,6 +272,7 @@ void MainWindow::on_joinConf_clicked()
     }
     else
     {
+        
         // get conferences from db
         theConf = theDB->fetchConference(confname.toStdString());
         
@@ -381,15 +384,15 @@ void MainWindow::on_rmvAuthKey_clicked()
 
 void MainWindow::on_selectPaperAuthor_activated(int index)
 {
-
+    
 }
 
-//void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
-//{
-//    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
-//    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
-//        ui->selectPaperAuthor->addItem("*NEW*");
-//}
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
+{
+    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
+    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
+        ui->selectPaperAuthor->addItem("*NEW*");
+}
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {//change to current text or something
@@ -538,16 +541,48 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
-
-    //the pdf
-    QFile file(filename);
-    if(!file.open(QIODEVICE::ReadOnly)){
-        popupBox("Error!", "Error opening file!");
-        return;
+    // get all fields from gui
+    // set Paper
+    
+    PersonalInfo anAuth;
+    bool newPaper;
+    
+    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
+        newPaper = true;
+            
+    aPaper.title = ui->selectPaperAuthor->currentText().toStdString();
+    
+    // clear current auth details and populate list from gui
+    aPaper.authors.clear();
+    int numRows = ui->authorsTable->rowCount();
+    for (int row = 0; row < numRows; ++row) {
+        anAuth = PersonalInfo();
+        anAuth.name = ui->authorsTable->item(row, 0);
+        anAuth.email = ui->authorsTable->item(row, 1);
+        anAuth.organisation = ui->authorsTable->item(row, 2);
+        anAuth.phone = ui->authorsTable->item(row, 3);
+        aPaper.authors.push_back(anAuth);
     }
-    QTextStream stream(file);
-    QString string;
-    stream >> string;
+    
+    //clear current paper keywords and populate with list from gui
+    aPaper.authors.clear();
+    int numKwords = ui->paperKeyListAuth->count();
+    for (int i = 0; i < numKwords; ++i)
+        aPaper.authors.push_back(ui->paperKeyListAuth->item(i)->text().toStdString());
+    
+    aPaper.abstract = ui->paperAbstract->toPlainText().toStdString();
+    
+    aPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
+    
+//    //the pdf
+//    QFile file(filename);
+//    if(!file.open(QIODEVICE::ReadOnly)){
+//        popupBox("Error!", "Error opening file!");
+//        return;
+//    }
+//    QTextStream stream(file);
+//    QString string;
+//    stream >> string;
 }
 
 void MainWindow::on_submitBid_clicked()
@@ -563,24 +598,24 @@ void MainWindow::on_submitBid_clicked()
 
 void MainWindow::downloadPaper()
 {
-    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
-    QFileDialog dialog(this);
-    QString fname, pdfString;
-
-    dialog.setWindowTitle("Save File...");
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter("Files (.pdf)");
-    if(dialog.exec())
-        fname = dialog.selectedFiles().at(0);
-    else
-        return;
-
-    //fetch pdf string from db into pdfString
-    QFile file(fname);
-    if(file.open(QIODevice::ReadWrite)){
-        QTextStream stream(&file);
-        stream << pdfString;
-    }
+//    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
+//    QFileDialog dialog(this);
+//    QString fname, pdfString;
+//
+//    dialog.setWindowTitle("Save File...");
+//    dialog.setFileMode(QFileDialog::AnyFile);
+//    dialog.setNameFilter("Files (.pdf)");
+//    if(dialog.exec())
+//        fname = dialog.selectedFiles().at(0);
+//    else
+//        return;
+//
+//    //fetch pdf string from db into pdfString
+//    QFile file(fname);
+//    if(file.open(QIODevice::ReadWrite)){
+//        QTextStream stream(&file);
+//        stream << pdfString;
+//    }
 
 }
 
