@@ -1,25 +1,18 @@
-/*
- * File:        MyException.h
- * Author:      nabg
- *
- * Created on 27 November 2012, 11:20 AM
- */
-
-#ifndef MYEXCEPTION_H
-#define MYEXCEPTION_H
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
 #include <string>
 #include <exception>
 using namespace std;
 
-class MyException : public exception {
+class Exception : public exception {
 public:
-    MyException(string& whatsup) : message(whatsup) {  }
-    ~MyException() throw() {}
+    Exception(string& whatsup) : message(whatsup) {  }
+    ~Exception() throw() {}
     const char* what(){return message.c_str();}
 private:
     string message;
 };
 
-#endif  /* MYEXCEPTION_H */
+#endif  
 

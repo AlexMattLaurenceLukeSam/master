@@ -2257,10 +2257,10 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
             {
                 userType = PCCHAIR;
             }
+    		else
+    		    userType = NOUSER;
         }
     }
-    else
-        userType = NOUSER;
 
     delete pstmt;
     delete rs;

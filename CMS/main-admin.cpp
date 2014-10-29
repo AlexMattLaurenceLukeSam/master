@@ -629,19 +629,12 @@ void changeUserType()
     std::cout << "Selection: ";
     std::cin >> userid;
 
-    userID = userIDs[userid-1]; 
-    std::cout << userNames[userid-1] << " is now PC Chair of " << confNames[confid-1] << std::endl;
-    db.setUserAsChair(userID, confID);
-
-    userType = db.adminFetchUserType(userNames[userid-1], confNames[confid-1]);
-            
-    std::cout << userNames[userid-1] << " is currently a(n) ";
+    User u = db.fetchUser(userNames[userid-1], confNames[confid-1]);
+    userType = u.userType;
+    userID = u.userID;
     if (userType == AUTHOR)
-            std::cout << "Author";
     else if (userType == REVIEWER)
-            std::cout << "PCMember";
     else if (userType == PCCHAIR)
-            std::cout << "PCChair";
     else
     {
         std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
@@ -658,7 +651,7 @@ void changeUserType()
         
         adminMainMenu();
     }
-    std::cout << " for conference " << confNames[confid-1] << endl;
+    confID = confid;
     
     std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
     std::cin >> newUT;
@@ -668,7 +661,7 @@ void changeUserType()
     else if (newUT == "pcmember")
         db.updateUserAsPC(userID, confID);
     else if (newUT == "chair")
-        db.updateUserAsChair(userID, confID);
+        db.updateUserAsChair(u.userID, confID);
     else
         std::cout << "Error updating user! User not updated!" << std::endl;
     
