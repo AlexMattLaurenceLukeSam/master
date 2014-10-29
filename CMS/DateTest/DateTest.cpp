@@ -1,5 +1,5 @@
 #include "DateTest.hpp"
-#include "Date.hpp"
+#include "../CMS/Date.hpp"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (DateTest);
 
@@ -26,7 +26,7 @@ void DateTest::testEqualDates()
 	CPPUNIT_ASSERT(b.compare(a));
 }
 
-void DateTest::testMonthAheadDayBehind() 
+void DateTest::testMonthAheadDayBehind()
 {
   a.setDay(1);
   b.setMonth(1);

@@ -3,7 +3,7 @@
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include "Date.hpp"
+#include "../CMS/Date.hpp"
 
 class DateTest : public CppUnit::TestFixture
 {
