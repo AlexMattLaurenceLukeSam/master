@@ -23,7 +23,7 @@ void DateTest::tearDown()
 void DateTest::testEqualDates()
 {
 	CPPUNIT_ASSERT(a.compare(b)); //compare returns true if b is before or at the same date as a
-	CPPUNIT_ASSERT(!b.compare(a));
+	CPPUNIT_ASSERT(b.compare(a));
 }
 
 void DateTest::testMonthAheadDayBehind() 
