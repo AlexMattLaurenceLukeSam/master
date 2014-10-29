@@ -673,7 +673,7 @@ void MainWindow::on_submitPosts_clicked()
     int confId = theConf.confID;
     int paperId = aPaper.paperID;
     
-    DiscussionPost = newPost(comment, reviewerId);
+    DiscussionPost newPost = DiscussionPost(comment.toStdString(), reviewerId);
     //send discussion post data to server
     theDB->createDiscussionPost(newPost, paperId, confId);
     
