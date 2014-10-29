@@ -46,12 +46,10 @@ public:
     std::vector<std::string> allUserNames();
     void setUserAsAuthor(int userID, int confID) throw (const char*);
     void updateUserAsAuthor(int userID, int confID) throw (const char*);
-
-    void setUserAsAuthorByNames(std::string username, std::string confTitle) throw (const char*);
     void setUserAsPC(int userID, int confID) throw (const char*);
-    void setUserAsPCByNames(std::string username, std::string confTitle) throw (const char*);
+    void setUserAsPC(int userID, int confID) throw (const char*);
     void setUserAsChair(int userID, int confID) throw (const char*);
-    void setUserAsChairByNames(std::string username, std::string confTitle) throw (const char*);
+    void updateUserAsChair(int userID, int confID) throw (const char*);
 
 	// KEYWORD
     bool existsKeyword(std::string key) throw (const char*);

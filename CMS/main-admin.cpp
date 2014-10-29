@@ -642,17 +642,33 @@ void changeUserType()
             std::cout << "PCMember";
     else if (userType == PCCHAIR)
             std::cout << "PCChair";
+    else
+    {
+        std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
+        std::cin >> newUT;
+        
+        if (newUT == "author")
+            db.setUserAsAuthor(userID, confID);
+        else if (newUT == "pcmember")
+            db.setUserAsPC(userID, confID);
+        else if (newUT == "chair")
+            db.setUserAsChair(userID, confID);
+        else
+            std::cout << "Error updating user! User not updated!" << std::endl;
+        
+        adminMainMenu();
+    }
     std::cout << " for conference " << confNames[confid-1] << endl;
     
     std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
     std::cin >> newUT;
     
     if (newUT == "author")
-        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], AUTHOR);
+        db.updateUserAsAuthor(userID, confID);
     else if (newUT == "pcmember")
-        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], REVIEWER);
+        db.updateUserAsPC(userID, confID);
     else if (newUT == "chair")
-        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], PCCHAIR);
+        db.updateUserAsChair(userID, confID);
     else
         std::cout << "Error updating user! User not updated!" << std::endl;
     
