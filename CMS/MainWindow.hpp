@@ -102,6 +102,7 @@ private slots:
     void on_papersTable_itemClicked(QTableWidgetItem *item);
     
     void on_selectPaperReview_currentIndexChanged(const QString &arg1);
+    
 
 private:
     void setUser(UserType_t userType);

@@ -1036,20 +1036,18 @@ std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int leadA
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperSummary = "SELECT paperName, paperID FROM Paper WHERE (confID=? and leadAuthorID=?)";
+	const char* getPaperSummary = "SELECT paperTitle, paperID FROM Paper WHERE (confID=? and leadAuthorID=?)";
 
         // =======================================
         // Paper Summary 
 	std::vector<PaperSummary> vec;
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
-	
 	pstmt = dbcon->prepareStatement(getPaperSummary);
 	pstmt->setInt(1, confID);
 	pstmt->setInt(2, leadAuthorID);
 
 	rs = pstmt->executeQuery();
-
         while (rs->next()) {
         	std::string paperName = rs->getString(1);
         	int paperID = rs->getInt(2);
@@ -1270,6 +1268,7 @@ bool Database::existsPaperTitleConf(Paper paper) throw (const char*)
 
         return count == 1;
 }
+
 void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 {
         if (invalid)
@@ -1277,7 +1276,9 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 
 	const char* insertPaper = "INSERT IGNORE INTO Paper(leadAuthorID, confID, keywordID, paperTitle, paperAbstract, paper) VALUES(?, ?, (SELECT keywordID FROM Keywords WHERE keyword=?), ?, ?, ?)";
 	const char* getPaperID = "SELECT LAST_INSERT_ID()";
-	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?, ?)";
+        const char* insertPersonalInfo = "INSERT INTO PersonalInfo(userID, name, email, organisation, phone) VALUES(NULL, ?, ?, ?, ?)";
+
+	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?,  LAST_INSERT_ID())";
 
 	const char* insertKeywords = "INSERT IGNORE INTO PaperKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
 
@@ -1287,7 +1288,7 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
         pstmt = dbcon->prepareStatement(insertPaper);
         pstmt->setInt(1, paper.leadAuthorID);
         pstmt->setInt(2, paper.confID);
-        pstmt->setString(3, paper.confKeyword);
+        pstmt->setString(3, "maths");
         pstmt->setString(4, paper.title);
         pstmt->setString(5, paper.abstract);
         pstmt->setString(6, pdf);
@@ -1303,6 +1304,7 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 	pstmt = dbcon->prepareStatement(getPaperID);
 
 	rs = pstmt->executeQuery();
+
 	bool haveRecord = rs->next();
 
         int paperID = rs->getInt(1);
@@ -1315,17 +1317,26 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 
         // =======================================
         // Paper Authors
-        pstmt = dbcon->prepareStatement(insertAuthors);
 
 	std::vector<PersonalInfo>::const_iterator it;
 	for (it = paper.authors.begin(); it != paper.authors.end(); it ++)
 	{
 		PersonalInfo pInfo = *it;	
 
+                pstmt = dbcon->prepareStatement(insertPersonalInfo);
+                pstmt->setString(1, pInfo.name);
+                pstmt->setString(2, pInfo.email);
+                pstmt->setString(3, pInfo.organisation);
+                pstmt->setString(4, pInfo.phone);
+
+                pstmt->executeUpdate();
+                pstmt = dbcon->prepareStatement(insertAuthors);
+
 		pstmt->setInt(1, paperID);
-		pstmt->setInt(2, pInfo.infoID);
+
 
 	        pstmt->executeUpdate();
+
 	}
 	delete pstmt;
 
@@ -1958,9 +1969,8 @@ void Database::setReviewerPreference(int userID, int confID, int paperID, int pr
 	    pstmt->setInt(3, paperID);
 	    pstmt->setInt(4, preference);
 
-	    rs = pstmt->executeQuery();
+	    pstmt->executeQuery();
 
-            delete rs;
             delete pstmt;
         }	
         else
@@ -1975,9 +1985,8 @@ void Database::setReviewerPreference(int userID, int confID, int paperID, int pr
 	    pstmt->setInt(3, paperID);
 	    pstmt->setInt(4, preference);
 
-	    rs = pstmt->executeQuery();
+	    pstmt->executeQuery();
 
-            delete rs;
             delete pstmt;
         }	
 }
