@@ -47,7 +47,7 @@ public:
     void setUserAsAuthor(int userID, int confID) throw (const char*);
     void updateUserAsAuthor(int userID, int confID) throw (const char*);
     void setUserAsPC(int userID, int confID) throw (const char*);
-    void setUserAsPC(int userID, int confID) throw (const char*);
+    void updateUserAsPC(int userID, int confID) throw (const char*);
     void setUserAsChair(int userID, int confID) throw (const char*);
     void updateUserAsChair(int userID, int confID) throw (const char*);
 
