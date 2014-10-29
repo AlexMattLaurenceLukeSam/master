@@ -8,9 +8,10 @@
 class DateTest : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE (DateTest);
-    CPPUNIT_TEST (testEquals);
-    CPPUNIT_TEST (testSetBit);
-    CPPUNIT_TEST (testSetBitAndCount);
+    CPPUNIT_TEST (testEqualDates);
+    CPPUNIT_TEST (testMonthAheadDayBehind);
+    CPPUNIT_TEST (testYearAheadMonthBehind);
+    CPPUNIT_TEST (testYearBehindDayAhead);
     CPPUNIT_TEST_SUITE_END ();
 private:
 	Date a;
