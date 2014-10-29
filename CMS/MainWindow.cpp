@@ -612,13 +612,25 @@ void MainWindow::on_submit_clicked()
 
 void MainWindow::on_submitBid_clicked()
 {
-    int bid = ui->selectBid->currentText().toInt();
+    //should have aPaper;
+    
     int userId = theUser.userID;
-    int paperId;
-    //paperId = theUser.getCurrentPaper();
+    int paperId = aPaper.paperID;
+    int confID = theConf.confID;
+    int bidVal;
+    std::string bid = ui->selectBid->currentText().toStdString();
+    
+    if (bid == "Yes")
+        bidVal = 1;
+    else if (bid == "Maybe")
+        bidVal = 2;
+    else if (bid == "No")
+        bidVal = 3;
+    else if (bid == "Conflict of Interest")
+        bidVal = 4;
 
-    //send users bid on a paper to the server
-    //no response from server
+    //send users bid on a paper to the db
+    // reviewerID, paperID, confID, bid(int)
 }
 
 void MainWindow::downloadPaper()
