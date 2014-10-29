@@ -708,25 +708,29 @@ void MainWindow::updateDiscussionPosts()
 
 void MainWindow::on_submitReview_clicked()
 {
-//    Review rev;
-//    rev.confidence = ui->confidence->text().toInt();
-//    rev.evaluation = ui->evaluation->text().toInt();
-//    rev.originality = ui->originality->text().toInt();
-//    rev.overall = ui->overall->text().toInt();
-//    rev.presentation = ui->presentation->text().toInt();
-//    rev.relevance = ui->relevance->text().toInt();
-//    rev.significance = ui->significance->text().toInt();
-//    rev.techQuality = ui->techQuality->text().toInt();
-//    rev.commentsBestAward = ui->commentsBestAward->toPlainText();
-//    rev.commentsShortPaper = ui->commentsShortPaper->toPlainText();
-//    rev.commentsStrength = ui->commentsStrengths->toPlainText();
-//    rev.commentsSuggestions = ui->commentsSuggestions->toPlainText();
-//    rev.commentsWeakness = ui->commentsWeaknesses->toPlainText();
-//    rev.paperID = theUser.getCurrentPaper.paperID;
-//    rev.reviewerID = theUser.getUserID();
+    // aPaper should be available after selecting from list
+    
+    int confID = theConf.confID;
+    Review rev;
+    
+    rev.confidence = ui->confidence->value();
+    rev.evaluation = ui->evaluation->value();
+    rev.originality = ui->originality->value();
+    rev.overall = ui->overall->value();
+    rev.presentation = ui->presentation->value();
+    rev.relevance = ui->relevance->value();
+    rev.significance = ui->significance->value();
+    rev.techQuality = ui->techQuality->value();
+    rev.commentsBestAward = ui->commentsBestAward->toPlainText().toStdString();
+    rev.commentsShortPaper = ui->commentsShortPaper->toPlainText().toStdString();
+    rev.commentsStrength = ui->commentsStrengths->toPlainText().toStdString();
+    rev.commentsSuggestions = ui->commentsSuggestions->toPlainText().toStdString();
+    rev.commentsWeakness = ui->commentsWeaknesses->toPlainText().toStdString();
+    rev.paperID = aPaper.paperID;
+    rev.reviewerID = theUser.userID;
 
-    //submit review to the server
-    //no response from server
+    //submit review to the db
+    theDB->modifyReview(rev, confID);
 }
 
 //void MainWindow::on_addAsReviewer_clicked()
