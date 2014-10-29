@@ -71,11 +71,11 @@ private slots:
 
     void on_downloadReviewer_clicked();// done
 
-    void on_submitPosts_clicked();// laurence is here
+    void on_submitPosts_clicked();// done
 
     void on_downloadChair_clicked(); //done
 
-    void on_acceptPaper_clicked();//server stuff here
+    void on_acceptPaper_clicked();// laurence is here
 
     void on_rejectPaper_clicked();//probably are faking this part
 
@@ -102,7 +102,6 @@ private slots:
     void on_papersTable_itemClicked(QTableWidgetItem *item);
     
     void on_selectPaperReview_currentIndexChanged(const QString &arg1);
-    
 
 private:
     void setUser(UserType_t userType);
@@ -117,6 +116,7 @@ private:
     void populate_usersTab();
     void populate_reviewTab();
     void popupBox(QString boxTitle, QString msg); // done
+    void updateDiscussionPosts();
     
     void clearAllTabs(); //done
     
