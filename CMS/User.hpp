@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-enum UserType_t {NOUSER, AUTHOR, REVIEWER, PCCHAIR, ADMIN};
+enum UserType_t {NOUSER = 0, AUTHOR = 1, REVIEWER = 2, PCCHAIR = 3, ADMIN = 4};
 
 struct User 
 {
@@ -59,7 +59,6 @@ struct User
         password = ipassword;
         keywords = ikeywords;
         userType = iUserType;
-        userID = -1;
     }
 
     std::string userName;

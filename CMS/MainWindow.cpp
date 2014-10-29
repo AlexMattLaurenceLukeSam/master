@@ -10,8 +10,9 @@
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
-        theUser = User();//    theUser = NULL;
-        theConf = Conference();//    theConf = NULL;
+    theUser = User();//    theUser = NULL;
+    theConf = Conference();//    theConf = NULL;
+    aPaper = Paper();
     theDB = db;
     ui = new Ui::MainWindow;
     ui->setupUi(this);
@@ -37,6 +38,9 @@ void MainWindow::popupBox(QString boxTitle, QString msg)
 void MainWindow::login()
 {
     // get username password from gui and grabs user from db, checks pw updates gui
+    theUser = User();
+    theConf = Conference();
+    aPaper = Paper();
     
     QString msg;
     QString errorBox = "Error!";
@@ -59,7 +63,6 @@ void MainWindow::login()
     }
     ui->usernameLogin->clear();
     ui->passwordLogin->clear();
-    ui->confList->clearSelection();
     if (error) {
         popupBox(errorBox, msg);
         return;
@@ -68,6 +71,7 @@ void MainWindow::login()
     QString confname = ui->confList->currentItem()->text(); // get name of conference selected
     
     theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
+    std::cout << theUser.userType << std::endl;
     if (theUser.userID == -1)
     {
         msg = "User does not exist!";
@@ -77,6 +81,12 @@ void MainWindow::login()
     else if (theUser.password != pword.toStdString())
     {
         msg = "Incorrect password!";
+        popupBox(errorBox, msg);
+        logout();
+    }
+    else if (theUser.userType == NOUSER)
+    {
+        msg = "Not currently signed up for selected conference!";
         popupBox(errorBox, msg);
         logout();
     }
@@ -101,6 +111,7 @@ void MainWindow::logout()
     theUser = User();
     theConf = Conference();
     papers.clear();
+    aPaper = Paper();
     
     //return to login screen
     
@@ -122,24 +133,27 @@ void MainWindow::setUser(UserType_t userType)
     {
     case AUTHOR://author
         populate_infoTabAuthor();
-        populate_infoTabChair();
         populate_authorTab();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
-        //ui->tabWidget->removeTab(0);
         break;
     case REVIEWER://reviewer
+        populate_infoTabAuthor();
+        populate_authorTab();
+        populate_reviewTab();
+        populate_reviewerTab();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         ui->tabWidget->addTab(ui->reviewerTab, "Reviewer");
         ui->tabWidget->addTab(ui->reviewTab, "Review");
-        ui->tabWidget->removeTab(0);
         break;
     case PCCHAIR://pcchair
+        populate_infoTabChair();
+        populate_usersTab();
+        populate_papersTab();
         ui->tabWidget->addTab(ui->infoTabChair, "Information");
         ui->tabWidget->addTab(ui->usersTab, "User Management");
         ui->tabWidget->addTab(ui->papersTab, "Paper Management");
-        ui->tabWidget->removeTab(0);
         break;
     }
 }
@@ -276,7 +290,7 @@ void MainWindow::on_joinConf_clicked()
         popupBox(errorBox, msg);
         logout();
     }
-    else
+    else if (theUser.userType == NOUSER)
     {
         
         // get conferences from db
@@ -287,6 +301,12 @@ void MainWindow::on_joinConf_clicked()
         theDB->setUserAsAuthor(theUser.userID, theConf.confID);
         
         setUser(theUser.userType);
+    }
+    else
+    {
+        msg = "Already joined conference! Please use login instead.";
+        popupBox(errorBox, msg);
+        logout();
     }
 }
 
@@ -835,11 +855,6 @@ void MainWindow::on_selectPaperReview_currentIndexChanged(const QString &arg1)
  //similar to above except also fetch the appropriate review of the paper
 }
 
-void MainWindow::on_updateConfSettings_clicked()
-{
-
-}
-
 void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
 {
     //populate review values with the given reviewers review
@@ -870,4 +885,9 @@ void MainWindow::clearAllTabs()
         widget->clear();
     
     ui->tabWidget->clear();
+}
+
+void MainWindow::on_changeReviewer_clicked()
+{
+    
 }

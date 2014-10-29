@@ -92,8 +92,6 @@ private slots:
     void on_selectPaperAuthor_currentIndexChanged(const QString &arg1); // yes?
 
     void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
-
-    void on_updateConfSettings_clicked();
     
     void on_reviewersTable_itemActivated(QTableWidgetItem *item);
 

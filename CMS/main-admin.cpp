@@ -627,12 +627,12 @@ void changeUserType()
     }
     std::cout << "Selection: ";
     std::cin >> userid;
-    std::cout << confNames[confid-1];
+    std::cout << "Conference: " << confNames[confid-1] << std::endl;
     User u = db.fetchUser(userNames[userid-1], confNames[confid-1]);
     userType = u.userType;
     userID = u.userID;
 
-    std::cout << userNames[userid-1] << " is currently a(n) ";
+    std::cout << "User: " << userNames[userid-1] << " is currently a(n) ";
     if (userType == AUTHOR)
     {
         std::cout << "AUTHOR" << std::endl;
@@ -644,6 +644,10 @@ void changeUserType()
     else if (userType == PCCHAIR)
     {
         std::cout << "CHAIR" << std::endl;
+    }
+    else if (userType == NOUSER)
+    {
+        std::cout << "NOUSER" << std::endl;
     }
     else
     {
