@@ -1,5 +1,5 @@
-#ifndef _BITMAPTEST_HPP
-#define	_BITMAPTEST_HPP
+#ifndef DATETEST_HPP
+#define	DATETEST_HPP
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -35,4 +35,4 @@ protected:
 
 
 
-#endif	/* _BITMAPTEST_H */
+#endif	/* DATETEST_HPP */
