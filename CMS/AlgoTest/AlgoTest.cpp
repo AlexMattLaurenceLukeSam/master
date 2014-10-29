@@ -1,5 +1,5 @@
 #include "AlgoTest.hpp"
-#include "Algo.hpp"
+#include "../CMS/Algo.hpp"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (AlgoTest);
 
@@ -18,7 +18,7 @@ void AlgoTest::tearDown()
 
 void AlgoTest::testFindMinScore()
 {
-//CPPUNIT_ASSERT(false);	
+//CPPUNIT_ASSERT(false);
     a.setMinScore(2);
 	CPPUNIT_ASSERT(a.getMinScore() == 2);
 	std::vector<ReviewerBid> temp;
@@ -64,7 +64,7 @@ void AlgoTest::testSetNewReviewer()
         temp2.reviewerID = 6;
         temp.push_back(temp2);
         a.setReviewerBids(temp);
-        
+
 	a.findMinScore();
 	CPPUNIT_ASSERT(a.getMinScore() == 1);
 	a.setNewReviewer(6, 6);

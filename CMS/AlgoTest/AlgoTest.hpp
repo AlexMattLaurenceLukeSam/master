@@ -3,7 +3,7 @@
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include "Algo.hpp"
+#include "../CMS/Algo.hpp"
 
 class AlgoTest : public CppUnit::TestFixture
 {
