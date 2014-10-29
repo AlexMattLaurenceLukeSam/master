@@ -592,51 +592,69 @@ void changeConf()
 
 void changeUserType()
 {
-    std::string username;
-    std::string confTitle;
-    std::string newUT;
+    std::vector<std::string> confNames = db.activeConfNames();
+    std::vector<int> confIDs = db.activeConfIDs();
+    std::vector<std::string> userNames = db.allUserNames();
+    std::vector<int> userIDs = db.allUserIDs();
+    int confid;
+    int confID;
+    int userid;
+    int userID;
     UserType_t userType;
-    std::cout << "Enter username to access for: ";
-    std::getline(std::cin, username);
+    std::string newUT;
 
-    bool userExists = db.existsUserName(username);
-    
-    if (userExists)
+    std::cout << "Active Conferences are: " << std::endl << std::endl;
+
+    int i = 1;
+    std::vector<std::string>::const_iterator it;
+    for(it=confNames.begin(); it!=confNames.end(); it++)
     {
-        std::cout << "Enter Conference name: ";
-        std::getline(std::cin, confTitle);
-
-        bool confExists = db.existsConfName(confTitle);
-        if (confExists)
-        {
-            userType = db.adminFetchUserType(username, confTitle);
-            
-            std::cout << username << " is currently a(n) ";
-            if (userType == AUTHOR)
-                    std::cout << "Author";
-            else if (userType == REVIEWER)
-                    std::cout << "PCMember";
-            else if (userType == PCCHAIR)
-                    std::cout << "PCChair";
-            std::cout << " for conference " << confTitle << endl;
-            
-            std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
-            std::cin >> newUT;
-            
-            if (newUT == "author")
-                db.adminChangeUserType(username, confTitle, AUTHOR);
-            else if (newUT == "pcmember")
-                db.adminChangeUserType(username, confTitle, REVIEWER);
-            else if (newUT == "chair")
-                db.adminChangeUserType(username, confTitle, PCCHAIR);
-            else
-                std::cout << "Error updating user! User not updated!" << std::endl;
-        }
-        else
-            std::cout << "Conference doesn't exist" << std::endl;
+        std::cout << i << ". " << *it << std::endl;
+        i++;
     }
+    std::cout << "Selection: ";
+    std::cin >> confid;
+
+    confID = confIDs[confid-1]; 
+
+
+    std::cout << "Users are: " << std::endl << std::endl;
+
+    i = 1;
+    for(it=userNames.begin(); it!=userNames.end(); it++)
+    {
+        std::cout << i << ". " << *it << std::endl;
+        i++;
+    }
+    std::cout << "Selection: ";
+    std::cin >> userid;
+
+    userID = userIDs[userid-1]; 
+    std::cout << userNames[userid-1] << " is now PC Chair of " << confNames[confid-1] << std::endl;
+    db.setUserAsChair(userID, confID);
+
+    userType = db.adminFetchUserType(userNames[userid-1], confNames[confid-1]);
+            
+    std::cout << userNames[userid-1] << " is currently a(n) ";
+    if (userType == AUTHOR)
+            std::cout << "Author";
+    else if (userType == REVIEWER)
+            std::cout << "PCMember";
+    else if (userType == PCCHAIR)
+            std::cout << "PCChair";
+    std::cout << " for conference " << confNames[confid-1] << endl;
+    
+    std::cout << "Enter new user's access level for this conference (author, pcmember, chair): ";
+    std::cin >> newUT;
+    
+    if (newUT == "author")
+        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], AUTHOR);
+    else if (newUT == "pcmember")
+        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], REVIEWER);
+    else if (newUT == "chair")
+        db.adminChangeUserType(userNames[confid-1], confNames[confid-1], PCCHAIR);
     else
-        std::cout << "User doesn't exist" << std::endl;
+        std::cout << "Error updating user! User not updated!" << std::endl;
     
     adminMainMenu();
 }
