@@ -300,8 +300,11 @@ void MainWindow::on_apply_clicked() // done (i think)
     theUser.keywords.clear();
     for (int i = 0; i < ui->authKeyList->count(); ++i)
         theUser.keywords.push_back(ui->authKeyList->item(i)->text().toStdString());
+    
     // send update user to db
     theDB->putUser(theUser.userName, theUser);
+    
+    popupBox("User Details", "Update Successful!");
 }
 
 void MainWindow::on_applyChair_clicked()
@@ -314,7 +317,7 @@ void MainWindow::on_applyChair_clicked()
     theUser.organisation = ui->organisation_2->text().toStdString();
         
     // send updated user to db
-    theDB->putUser(theUser.name, theUser);
+    theDB->putUser(theUser.userName, theUser);
     
     //send conference details to db
     //update conf from gui
@@ -392,9 +395,9 @@ void MainWindow::on_selectPaperAuthor_activated(int index)
 
 void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
 {
-    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
-    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
-        ui->selectPaperAuthor->addItem("*NEW*");
+//    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
+//    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
+//        ui->selectPaperAuthor->addItem("*NEW*");
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -544,14 +547,20 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
-    // get all fields from gui
-    // set Paper
+    bool existsPaper;
     
     PersonalInfo anAuth;
-    bool newPaper;
+    std::string authName;
+    std::string authEmail;
+    std::string authOrg;
+    std::string authPh;
     
-    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
-        newPaper = true;
+    std::string pdf;
+        
+    aPaper.confID = theConf.confID;
+    aPaper.leadAuthorID = theUser.userID;
+    
+    existsPaper = db->existsPaperTitleConf(aPaper);
             
     aPaper.title = ui->selectPaperAuthor->currentText().toStdString();
     
@@ -559,11 +568,14 @@ void MainWindow::on_submit_clicked()
     aPaper.authors.clear();
     int numRows = ui->authorsTable->rowCount();
     for (int row = 0; row < numRows; ++row) {
-        anAuth = PersonalInfo();
-        anAuth.name = ui->authorsTable->item(row, 0)->text().toStdString();
-        anAuth.email = ui->authorsTable->item(row, 1)->text().toStdString();
-        anAuth.organisation = ui->authorsTable->item(row, 2)->text().toStdString();
-        anAuth.phone = ui->authorsTable->item(row, 3)->text().toStdString();
+        authName = ui->authorsTable->item(row, 0)->text().toStdString();
+        authEmail = ui->authorsTable->item(row, 1)->text().toStdString();
+        authOrg = ui->authorsTable->item(row, 2)->text().toStdString();
+        authPh = ui->authorsTable->item(row, 3)->text().toStdString();
+        anAuth = PersonalInfo(authName,
+                                authEmail,
+                                authOrg,
+                                authPh);
         aPaper.authors.push_back(anAuth);
     }
     
@@ -577,37 +589,25 @@ void MainWindow::on_submit_clicked()
     
     aPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
     
+    
     // if new paper upload pdf
-    if (newPaper)
+    if (!existsPaper)
     {
+        pdf = ui->selectFile->text().toStdString();
         
+        db->createPaper(aPaper, pdf);
+    }
+    else
+    {
+        std::string comment = ui->rebuttalEntry->toPlainText().toStdString();
+        int reviewerID = theUser.userID;
+        
+        aPaper.discussion.discussion.push_back(DiscussionPost(comment, reviewerID));
+        
+        db->updatePaper(aPaper);
     }
     
-//    //the pdf
-//    QFile file(filename);
-//    if(!file.open(QIODEVICE::ReadOnly)){
-//        popupBox("Error!", "Error opening file!");
-//        return;
-//    }
-//    QTextStream stream(file);
-//    QString string;
-//    QString filename = "";
-////    filename = get filename from guis
-//
-//    //the pdf
-//    QFile file(filename);
-//    if(!file.open(QIODevice::ReadOnly)){
-//        popupBox("Error!", "Error opening file!");
-//        return;
-//    }
-//    QByteArray ba;
-////    QBuffer buf (&ba);
-//    file.read(&ba);
-//    QByteArray hexed = ba.toBase64();
-//    std::string pdfAsString = hexed.data();
-////    QTextStream stream(file);
-////    QString string;
-//    stream >> string;
+    popupBox("Paper Information", "Update Successful!");
 }
 
 void MainWindow::on_submitBid_clicked()
