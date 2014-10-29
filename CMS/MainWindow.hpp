@@ -10,6 +10,7 @@
 #include <vector>
 #include "PaperSummary.hpp"
 #include "ui_MainWindow.h"
+#include "Paper.hpp"
 
 namespace Ui {
     class MainWindow;
