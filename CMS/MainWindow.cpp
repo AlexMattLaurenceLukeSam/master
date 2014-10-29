@@ -2,6 +2,11 @@
 #include "Review.hpp"
 #include <QMessageBox>
 #include <QFileDialog>
+#include "Paper.hpp"
+//#include <QIODevice>
+//#include <QBuffer>
+//#include <QByteArray>
+#include "PersonalInfo.hpp"
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
@@ -63,7 +68,6 @@ void MainWindow::login()
     QString confname = ui->confList->currentItem()->text(); // get name of conference selected
     
     theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
-    
     if (theUser.userID == -1)
     {
         msg = "User does not exist!";
@@ -117,6 +121,9 @@ void MainWindow::setUser(UserType_t userType)
     switch(userType)
     {
     case AUTHOR://author
+        populate_infoTabAuthor();
+        populate_infoTabChair();
+        populate_authorTab();
         ui->tabWidget->addTab(ui->infoTabAuthor, "Info");
         ui->tabWidget->addTab(ui->authorTab, "Author");
         //ui->tabWidget->removeTab(0);
@@ -135,7 +142,6 @@ void MainWindow::setUser(UserType_t userType)
         ui->tabWidget->removeTab(0);
         break;
     }
-
 }
 
 void MainWindow::on_login_clicked()
@@ -206,18 +212,20 @@ void MainWindow::on_createAccount_clicked() // done (i think)
     }
     else
     {
+        theUser.userName = uname.toStdString();
+        theUser.password = pword.toStdString();
         theUser.userType = AUTHOR;
-        
+
         // update DB with new user
-        theDB->putUser(uname.toStdString(), theUser);
-        theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
-        
+        theDB->putUser(theUser.userName, theUser);
+        theUser = theDB->fetchUser(theUser.userName, confname.toStdString());
+
         // get conference details from DB
         theConf = theDB->fetchConference(confname.toStdString());
         
         // update DB with userType
         theDB->setUserAsAuthor(theUser.userID, theConf.confID);
-        
+
         setUser(theUser.userType);
     }
     
@@ -270,6 +278,7 @@ void MainWindow::on_joinConf_clicked()
     }
     else
     {
+        
         // get conferences from db
         theConf = theDB->fetchConference(confname.toStdString());
         
@@ -295,20 +304,22 @@ void MainWindow::on_apply_clicked() // done (i think)
         theUser.keywords.push_back(ui->authKeyList->item(i)->text().toStdString());
     
     // send update user to db
-    theDB->putUser(theUser.name, theUser);
+    theDB->putUser(theUser.userName, theUser);
+    
+    popupBox("User Details", "Update Successful!");
 }
 
 void MainWindow::on_applyChair_clicked()
 {
     //send user details to db
     //update user from gui
-    theUser.name = ui->name_2->text().toStdString();
-    theUser.email = ui->email_2->text().toStdString();
-    theUser.phone = ui->phone_2->text().toStdString();
-    theUser.organisation = ui->organisation_2->text().toStdString();
+    theUser.name = ui->name_3->text().toStdString();
+    theUser.email = ui->email_3->text().toStdString();
+    theUser.phone = ui->phone_3->text().toStdString();
+    theUser.organisation = ui->organisation_3->text().toStdString();
         
     // send updated user to db
-    theDB->putUser(theUser.name, theUser);
+    theDB->putUser(theUser.userName, theUser);
     
     //send conference details to db
     //update conf from gui
@@ -332,6 +343,9 @@ void MainWindow::on_applyChair_clicked()
     theConf.keywords.clear();
     for (int i = 0; i < ui->confKeyList->count(); ++i)
         theConf.keywords.push_back(ui->confKeyList->item(i)->text().toStdString());
+    
+    theConf.postWordLimit = ui->wordsPerPost->value();
+    theConf.reviewersPerPaper = ui->reviewersPerPaper->value();
     
     // send updated conf to db
     theDB->putConf(confTitleOld, theConf);
@@ -381,15 +395,15 @@ void MainWindow::on_rmvAuthKey_clicked()
 
 void MainWindow::on_selectPaperAuthor_activated(int index)
 {
-
+    
 }
 
-//void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
-//{
+void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
+{
 //    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
 //    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
 //        ui->selectPaperAuthor->addItem("*NEW*");
-//}
+}
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {//change to current text or something
@@ -440,10 +454,10 @@ void MainWindow::populate_infoTabAuthor()
 
 void MainWindow::populate_infoTabChair()
 {
-    ui->name_2->setText(QString::fromStdString(theUser.name));
-    ui->email_2->setText(QString::fromStdString(theUser.email));
-    ui->organisation_2->setText(QString::fromStdString(theUser.organisation));
-    ui->phone_2->setText(QString::fromStdString(theUser.phone));
+    ui->name_3->setText(QString::fromStdString(theUser.name));
+    ui->email_3->setText(QString::fromStdString(theUser.email));
+    ui->organisation_3->setText(QString::fromStdString(theUser.organisation));
+    ui->phone_3->setText(QString::fromStdString(theUser.phone));
     ui->confNameMng->setText(QString::fromStdString(theConf.title));
     ui->confTopicMng->setText(QString::fromStdString(theConf.topic));
     ui->confLocMng->setText(QString::fromStdString(theConf.location));
@@ -462,10 +476,15 @@ void MainWindow::populate_infoTabChair()
 void MainWindow::populate_authorTab()
 {
     papers.clear();
-    //paper = fetch papersummaries
+    papers = theDB->allAuthorsPaperSummary(theConf.confID, theUser.userID);
 
     for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+    {
         ui->selectPaperAuthor->addItem(QString::fromStdString(it->paperName));
+    }
+        
+    for(std::vector<std::string>::iterator it = theConf.keywords.begin(); it != theConf.keywords.end(); ++it)
+        ui->selectMainKey->addItem(QString::fromStdString(*it));
 }
 
 void MainWindow::populate_papersTab()
@@ -538,50 +557,106 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
+    bool existsPaper;
+    Paper newPaper;
+    PersonalInfo anAuth;
+    std::string authName;
+    std::string authEmail;
+    std::string authOrg;
+    std::string authPh;
+    
+    std::string pdf;
+    
+    newPaper.confID = theConf.confID;
+    newPaper.leadAuthorID = theUser.userID;
 
-    //the pdf
-    QFile file(filename);
-    if(!file.open(QIODEVICE::ReadOnly)){
-        popupBox("Error!", "Error opening file!");
-        return;
+    newPaper.title = ui->selectPaperAuthor->currentText().toStdString();
+    existsPaper = theDB->existsPaperTitleConf(newPaper);
+
+    // clear current auth details and populate list from gui
+    newPaper.authors.clear();
+    int numRows = ui->authorsTable->rowCount();
+    for (int row = 0; row < numRows; ++row) {
+        authName = ui->authorsTable->item(row, 0)->text().toStdString();
+        authEmail = ui->authorsTable->item(row, 1)->text().toStdString();
+        authOrg = ui->authorsTable->item(row, 2)->text().toStdString();
+        authPh = ui->authorsTable->item(row, 3)->text().toStdString();
+        anAuth = PersonalInfo(authName,
+                                authEmail,
+                                authOrg,
+                                authPh);
+        newPaper.authors.push_back(anAuth);
     }
-    QTextStream stream(file);
-    QString string;
-    stream >> string;
+
+    //clear current paper keywords and populate with list from gui
+    newPaper.keywords.clear();
+    int numKwords = ui->paperKeyListAuth->count();
+    for (int i = 0; i < numKwords; ++i)
+        newPaper.keywords.push_back(ui->paperKeyListAuth->item(i)->text().toStdString());
+ 
+    newPaper.abstract = ui->paperAbstract->toPlainText().toStdString();
+    
+    newPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
+    
+
+    // if new paper upload pdf
+    if (!existsPaper)
+    {
+
+        pdf = ui->selectFile->text().toStdString();
+        theDB->createPaper(newPaper, pdf);
+    }
+    else
+    {
+
+        std::string comment = ui->rebuttalEntry->toPlainText().toStdString();
+        int reviewerID = theUser.userID;
+        
+        newPaper.discussion.discussion.push_back(DiscussionPost(comment, reviewerID));
+        
+        theDB->updatePaper(newPaper);
+    }
+    aPaper = theDB->fetchPaper(newPaper.paperID);
+    popupBox("Paper Information", "Update Successful!");
 }
 
 void MainWindow::on_submitBid_clicked()
 {
-    int bid = ui->selectBid->currentText().toInt();
+    //should have aPaper;
+    
     int userId = theUser.userID;
-    int paperId;
-    //paperId = theUser.getCurrentPaper();
+    int paperId = aPaper.paperID;
+    int confId = theConf.confID;
+    int bidVal;
+    std::string bid = ui->selectBid->currentText().toStdString();
+    
+    if (bid == "Yes")
+        bidVal = 1;
+    else if (bid == "Maybe")
+        bidVal = 2;
+    else if (bid == "No")
+        bidVal = 3;
+    else if (bid == "Conflict of Interest")
+        bidVal = 4;
 
-    //send users bid on a paper to the server
-    //no response from server
+    //send users bid on a paper to the db
+    theDB->setReviewerPreference(userId, confId, paperId, bidVal);
+    // reviewerID, paperID, confID, bid(int)
+    
+    popupBox("Reviewer Preference", "Preference updated");
 }
 
 void MainWindow::downloadPaper()
 {
-    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
-    QFileDialog dialog(this);
-    QString fname, pdfString;
-
-    dialog.setWindowTitle("Save File...");
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter("Files (.pdf)");
-    if(dialog.exec())
-        fname = dialog.selectedFiles().at(0);
-    else
-        return;
-
-    //fetch pdf string from db into pdfString
-    QFile file(fname);
-    if(file.open(QIODevice::ReadWrite)){
-        QTextStream stream(&file);
-        stream << pdfString;
-    }
-
+    int paperId = aPaper.paperID;
+    int confId = theConf.confID;
+    std::string submittedPaperPDF = theDB->fetchPDF(paperId, confId);
+    
+    std::string downloadMsg;
+    downloadMsg = "The paper\n" + aPaper.title + "\nhas been downloaded to the following location:\n" + submittedPaperPDF;
+    
+    QString boxTitle = "Paper Available to Review";
+    popupBox(boxTitle, QString::fromStdString(downloadMsg));
 }
 
 void MainWindow::on_downloadReviewer_clicked()
@@ -596,67 +671,96 @@ void MainWindow::on_downloadChair_clicked()
 
 void MainWindow::on_submitPosts_clicked()
 {
-    QString post = ui->postBody->toPlainText();
-
+    QString comment = ui->postBody->toPlainText();
+    int reviewerId = theUser.userID;
+    int confId = theConf.confID;
+    int paperId = aPaper.paperID;
+    
+    DiscussionPost newPost = DiscussionPost(comment.toStdString(), reviewerId);
     //send discussion post data to server
-    //no response from server
+    theDB->createDiscussionPost(newPost, paperId, confId);
+    
+    updateDiscussionPosts();
 }
-
-
 
 void MainWindow::on_acceptPaper_clicked()
 {
-//    int paperId = theUser.getCurrentPaper().paperID;
-//    int confId  = theConf.confID;
-
-    //send paper id, conf id to server
-    //no response from server
+    int paperId = aPaper.paperID;
+    int confId  = theConf.confID;
+    
+    theDB->addPaperAccepted(paperId, confId);
+    
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append("\nhas been accepted");
+    popupBox(msgTitle, msg);
 }
 
 void MainWindow::on_rejectPaper_clicked()
 {
-    //this probably does dick all
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append("\nhas been rejected");
+    popupBox(msgTitle, msg);
 }
+
+void MainWindow::updateDiscussionPosts()
+{
+    // updates discussion posts on reviewer tab`
+}
+
 void MainWindow::on_submitReview_clicked()
 {
-//    Review rev;
-//    rev.confidence = ui->confidence->text().toInt();
-//    rev.evaluation = ui->evaluation->text().toInt();
-//    rev.originality = ui->originality->text().toInt();
-//    rev.overall = ui->overall->text().toInt();
-//    rev.presentation = ui->presentation->text().toInt();
-//    rev.relevance = ui->relevance->text().toInt();
-//    rev.significance = ui->significance->text().toInt();
-//    rev.techQuality = ui->techQuality->text().toInt();
-//    rev.commentsBestAward = ui->commentsBestAward->toPlainText();
-//    rev.commentsShortPaper = ui->commentsShortPaper->toPlainText();
-//    rev.commentsStrength = ui->commentsStrengths->toPlainText();
-//    rev.commentsSuggestions = ui->commentsSuggestions->toPlainText();
-//    rev.commentsWeakness = ui->commentsWeaknesses->toPlainText();
-//    rev.paperID = theUser.getCurrentPaper.paperID;
-//    rev.reviewerID = theUser.getUserID();
+    // aPaper should be available after selecting from list
+    
+    int confID = theConf.confID;
+    Review rev;
+    
+    rev.confidence = ui->confidence->value();
+    rev.evaluation = ui->evaluation->value();
+    rev.originality = ui->originality->value();
+    rev.overall = ui->overall->value();
+    rev.presentation = ui->presentation->value();
+    rev.relevance = ui->relevance->value();
+    rev.significance = ui->significance->value();
+    rev.techQuality = ui->techQuality->value();
+    rev.commentsBestAward = ui->commentsBestAward->toPlainText().toStdString();
+    rev.commentsShortPaper = ui->commentsShortPaper->toPlainText().toStdString();
+    rev.commentsStrength = ui->commentsStrengths->toPlainText().toStdString();
+    rev.commentsSuggestions = ui->commentsSuggestions->toPlainText().toStdString();
+    rev.commentsWeakness = ui->commentsWeaknesses->toPlainText().toStdString();
+    rev.paperID = aPaper.paperID;
+    rev.reviewerID = theUser.userID;
 
-    //submit review to the server
-    //no response from server
+    //submit review to the db
+    theDB->modifyReview(rev, confID);
 }
 
-//void MainWindow::on_addAsReviewer_clicked()
-//{
-//    int paperId = ui->toReview()->text().toInt();
-//    int userId = ui->usersTable->item(ui->usersTable->currentRow(), 2)->text().toInt();
-//
-//    //send paper id and user id to server to add a paper assigned table entry
-//    //no response from server
-//}
-
-void MainWindow::on_addAsReviewer_2_clicked()
+void MainWindow::on_addAsReviewer_clicked()
 {
-    int paperId = ui->toReview_2->text().toInt();
-    //int userId = ui->reviewersTable->item(ui->usersTable->currentRow(), 2)->text().toInt();
-    //above doesnt quite work may add uid field to table
-
-    //send paper id and user id to server to add a paper assigned table entry
-    //no response from server
+    // should have aPaper
+    // takes username in toReview
+    QString reviewerName = ui->toReview->text();
+    // checks if extsts and userType is PCMember for current conference
+    User reviewer = theDB->fetchUser(reviewerName.toStdString(), theConf.title);
+    if (reviewer.userID == -1)
+    {
+        popupBox("Error!", "User does not exist!");
+        return;
+    }
+    else if (reviewer.userType != REVIEWER)
+    {
+        popupBox("Error!", "Incorrect password!");
+        return;
+    }
+    
+    // updates db with reviewer
+    theDB->assignPaper(aPaper.paperID, reviewer.userID, theConf.confID);
+    
+    // inserts reviewer information into reviewersTable
+    
+    
+    popupBox("", "Reviewer successfully assigned to paper");
 }
 
 void MainWindow::on_papersTable_itemSelectionChanged()
@@ -681,14 +785,25 @@ void MainWindow::on_papersTable_itemSelectionChanged()
 
 void MainWindow::on_selectPaperAuthor_currentIndexChanged(const QString &arg1)
 {
-    Paper thePaper;
-    //thePaper = fetchPaper(   );
-    ui->paperAbstract->append(QString::fromStdString(thePaper.abstract));
-    for(std::vector<std::string>::iterator it = thePaper.keywords.begin(); it != thePaper.keywords.end(); ++it)
+    ui->paperKeyListAuth->clear();
+    ui->authorsTable->clear();
+
+    ui->paperAbstract->clear();
+    while (ui->authorsTable->rowCount() > 0)
+        ui->authorsTable->removeRow(0);
+
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+    {
+        if(it->paperName == arg1.toStdString())
+                aPaper = theDB->fetchPaper(it->paperID);
+    }
+    ui->paperAbstract->append(QString::fromStdString(aPaper.abstract));
+    for(std::vector<std::string>::iterator it = aPaper.keywords.begin(); it != aPaper.keywords.end(); ++it)
         ui->paperKeyListAuth->addItem(QString::fromStdString(*it));
 
-    for(std::vector<PersonalInfo>::iterator it = thePaper.authors.begin(); it != thePaper.authors.end(); ++it){
+    for(std::vector<PersonalInfo>::iterator it = aPaper.authors.begin(); it != aPaper.authors.end(); ++it){
         int rows = ui->authorsTable->rowCount();
+        std::cout << rows << std::endl;
         ui->authorsTable->insertRow(rows);
         QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(it->name));
         ui->authorsTable->setItem(rows, 0, newItem);
@@ -748,10 +863,9 @@ void MainWindow::clearAllTabs()
         widget->clear();
     foreach(QTextEdit *widget, this->findChildren<QTextEdit*>())
         widget->clear();
-    foreach(QComboBox *widget, this->findChildren<QComboBox*>())
-        widget->clear();
+    ui->selectPaperReviewer->clear();
     foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
-        widget->clear();
+        widget->clearContents();
     foreach(QSpinBox *widget, this->findChildren<QSpinBox*>())
         widget->clear();
     

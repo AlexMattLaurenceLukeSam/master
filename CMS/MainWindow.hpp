@@ -10,6 +10,7 @@
 #include <vector>
 #include "PaperSummary.hpp"
 #include "ui_MainWindow.h"
+#include "Paper.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -34,7 +35,7 @@ private slots:
 
     void on_passwordLogin_returnPressed(); //done
 
-    void on_createAccount_clicked(); // done (i think)
+    void on_createAccount_clicked(); // now done (i think)
 
     void on_joinConf_clicked(); // done (i think)
 
@@ -46,51 +47,49 @@ private slots:
 
     void on_rmvConfKey_clicked(); // already done (i think)
 
-    void on_addAuthor_clicked(); // laurence is up to here, haven't done yet
+    void on_addAuthor_clicked(); // nothing to do
 
-    void on_rmvAuthor_clicked();
+    void on_rmvAuthor_clicked(); // nothing to do
 
-    void on_addPaperKey_clicked();
+    void on_addPaperKey_clicked(); // nothing to do
 
-    void on_rmvPaperKey_clicked();
+    void on_rmvPaperKey_clicked(); // nothing to do
 
-    void on_addAuthKey_clicked();
+    void on_addAuthKey_clicked(); // nothing to do
 
-    void on_rmvAuthKey_clicked();
+    void on_rmvAuthKey_clicked(); // nothing to do
 
-    void on_selectPaperAuthor_activated(int index);
+    void on_selectPaperAuthor_activated(int index); //this needs to do something
 
-//    void on_selectPaperAuthor_currentTextChanged(const int &arg1);
+    void on_selectPaperAuthor_currentTextChanged(const int &arg1); // this needs to do something
 
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged(int index); // laurence doesn't know what this does
 
-    void on_submit_clicked();//server stuff here
+    void on_submit_clicked();// done (i think)
 
-    void on_submitBid_clicked();//server stuff here
+    void on_submitBid_clicked();// done (i think)
 
-    void on_downloadReviewer_clicked();//see downloadPaper()
+    void on_downloadReviewer_clicked();// done
 
-    void on_submitPosts_clicked();//server stuff here
+    void on_submitPosts_clicked();// done
 
-    void on_downloadChair_clicked(); //see downloadPaper()
+    void on_downloadChair_clicked(); //done
 
-    void on_acceptPaper_clicked();//server stuff here
+    void on_acceptPaper_clicked();// done
 
-    void on_rejectPaper_clicked();//probably are faking this part
+    void on_rejectPaper_clicked();// faked
 
-    void downloadPaper();//server stuff here
+    void downloadPaper();// done
 
-    void on_submitReview_clicked();//server shit here
+    void on_submitReview_clicked();// done (i think)
 
-//    void on_addAsReviewer_clicked();//server shit here
+    void on_addAsReviewer_clicked();// done (i think)
 
-    void on_addAsReviewer_2_clicked();//server shit here
+//    void on_reviewersTable_activated(const QModelIndex &index); // population paper management
 
-//    void on_reviewersTable_activated(const QModelIndex &index);
+    void on_papersTable_itemSelectionChanged(); // population paper management
 
-    void on_papersTable_itemSelectionChanged();
-
-    void on_selectPaperAuthor_currentIndexChanged(const QString &arg1);
+    void on_selectPaperAuthor_currentIndexChanged(const QString &arg1); // yes?
 
     void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
 
@@ -101,6 +100,8 @@ private slots:
     void on_papersTable_itemClicked(QTableWidgetItem *item);
     
     void on_selectPaperReview_currentIndexChanged(const QString &arg1);
+    
+    void on_changeReviewer_clicked();
 
 private:
     void setUser(UserType_t userType);
@@ -115,6 +116,7 @@ private:
     void populate_usersTab();
     void populate_reviewTab();
     void popupBox(QString boxTitle, QString msg); // done
+    void updateDiscussionPosts();
     
     void clearAllTabs(); //done
     
@@ -123,6 +125,7 @@ private:
     Database* theDB;
     Conference theConf;
     std::vector<PaperSummary> papers;
+    Paper aPaper;
 };
 
 #endif // MAINWINDOW_H
