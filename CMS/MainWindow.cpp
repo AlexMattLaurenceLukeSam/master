@@ -61,7 +61,7 @@ void MainWindow::login()
     }
     
     QString confname = ui->confList->currentItem()->text(); // get name of conference selected
-   
+    
     theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
     
     if (theUser.userID == -1)
@@ -78,6 +78,7 @@ void MainWindow::login()
     }
     else // get userType and load tab
     {
+        
         theConf = theDB->fetchConference(confname.toStdString());
         // get conferences from db
         
@@ -111,6 +112,8 @@ void MainWindow::logout()
 
 void MainWindow::setUser(UserType_t userType)
 {
+    clearAllTabs();
+    
     switch(userType)
     {
     case AUTHOR://author
