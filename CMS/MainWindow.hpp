@@ -34,7 +34,7 @@ private slots:
 
     void on_passwordLogin_returnPressed(); //done
 
-    void on_createAccount_clicked(); // done (i think)
+    void on_createAccount_clicked(); // now done (i think)
 
     void on_joinConf_clicked(); // done (i think)
 
@@ -46,25 +46,25 @@ private slots:
 
     void on_rmvConfKey_clicked(); // already done (i think)
 
-    void on_addAuthor_clicked(); // laurence is up to here, haven't done yet
+    void on_addAuthor_clicked(); // nothing to do
 
-    void on_rmvAuthor_clicked();
+    void on_rmvAuthor_clicked(); // nothing to do
 
-    void on_addPaperKey_clicked();
+    void on_addPaperKey_clicked(); // nothing to do
 
-    void on_rmvPaperKey_clicked();
+    void on_rmvPaperKey_clicked(); // nothing to do
 
-    void on_addAuthKey_clicked();
+    void on_addAuthKey_clicked(); // nothing to do
 
-    void on_rmvAuthKey_clicked();
+    void on_rmvAuthKey_clicked(); // nothing to do
 
-    void on_selectPaperAuthor_activated(int index);
+    void on_selectPaperAuthor_activated(int index); //this needs to do something
 
-//    void on_selectPaperAuthor_currentTextChanged(const int &arg1);
+    void on_selectPaperAuthor_currentTextChanged(const int &arg1); // this needs to do something
 
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged(int index); // laurence doesn't know what this does
 
-    void on_submit_clicked();//server stuff here
+    void on_submit_clicked();// laurence is here
 
     void on_submitBid_clicked();//server stuff here
 
@@ -123,6 +123,7 @@ private:
     Database* theDB;
     Conference theConf;
     std::vector<PaperSummary> papers;
+    Paper aPaper;
 };
 
 #endif // MAINWINDOW_H
