@@ -712,6 +712,10 @@ void MainWindow::on_selectPaperReviewer_currentIndexChanged(const QString &arg1)
 //    ui->mainKeyReviewer->setText(QString::fromStdString(thePaper.confKeyword));
 }
 
+void MainWindow::on_selectPaperReview_currentIndexChanged(const QString &arg1)
+{
+ //similar to above except also fetch the appropriate review of the paper
+}
 
 void MainWindow::on_updateConfSettings_clicked()
 {
