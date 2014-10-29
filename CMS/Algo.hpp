@@ -37,6 +37,7 @@ struct ReviewerBid
 class PaperForReview
 {
 public:
+        PaperForReview();
 	PaperForReview(int, int, int, Database*);
 	~PaperForReview();
 
