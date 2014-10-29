@@ -673,7 +673,7 @@ void MainWindow::on_submitPosts_clicked()
     int confId = theConf.confID;
     int paperId = aPaper.paperID;
     
-    DiscussionPost = newPost(comment, reviewerId);
+    DiscussionPost newPost = DiscussionPost(comment.toStdString(), reviewerId);
     //send discussion post data to server
     theDB->createDiscussionPost(newPost, paperId, confId);
     
@@ -682,16 +682,23 @@ void MainWindow::on_submitPosts_clicked()
 
 void MainWindow::on_acceptPaper_clicked()
 {
-//    int paperId = theUser.getCurrentPaper().paperID;
-//    int confId  = theConf.confID;
-
-    //send paper id, conf id to server
-    //no response from server
+    int paperId = aPaper.paperID;
+    int confId  = theConf.confID;
+    
+    theDB->addPaperAccepted(paperId, confId);
+    
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append("\nhas been accepted");
+    popupBox(msgTitle, msg);
 }
 
 void MainWindow::on_rejectPaper_clicked()
 {
-    //this probably does dick all
+    QString msgTitle = "Paper Management";
+    QString msg = QString::fromStdString(aPaper.title);
+    msg.append("\nhas been rejected");
+    popupBox(msgTitle, msg);
 }
 
 void MainWindow::updateDiscussionPosts()

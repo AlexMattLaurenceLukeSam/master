@@ -1,5 +1,5 @@
-#ifndef ALGO_HPP
-#define	ALGO_HPP
+#ifndef ALGOTEST_HPP
+#define	ALGOTEST_HPP
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
