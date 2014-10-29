@@ -35,20 +35,25 @@ public:
     // ADMIN
     void adminChangeUserName(std::string currentUN, std::string newUN) throw (const char*);
     void adminChangePassword(std::string username, std::string password) throw (const char*);
+    UserType_t adminFetchUserType(std::string username, std::string confTitle) throw (const char*);
+    void adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*);
 
 	// USER
-	User fetchUser(std::string key, std::string confName) throw (const char*);
-    bool existsUserName(std::string key) throw (const char*);
+    User fetchUser(std::string key, std::string confName) throw (const char*);
+    bool existsUserName(std::string key) throw (const char*); //works
     void putUser(std::string key, User user) throw (const char*);
     std::vector<int> allUserIDs();
     std::vector<std::string> allUserNames();
     void setUserAsAuthor(int userID, int confID) throw (const char*);
+    void setUserAsAuthorByNames(std::string username, std::string confTitle) throw (const char*);
     void setUserAsPC(int userID, int confID) throw (const char*);
+    void setUserAsPCByNames(std::string username, std::string confTitle) throw (const char*);
     void setUserAsChair(int userID, int confID) throw (const char*);
+    void setUserAsChairByNames(std::string username, std::string confTitle) throw (const char*);
 
 	// KEYWORD
     bool existsKeyword(std::string key) throw (const char*);
-	void addKeyword(std::string key) throw (const char*);
+    void addKeyword(std::string key) throw (const char*);
 
 	// CONFERENCE
 	Conference fetchConference(std::string key) throw (const char*);
