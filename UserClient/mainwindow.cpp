@@ -739,3 +739,16 @@ void MainWindow::clearAllTabs()
     
     ui->tabWidget->clear();
 }
+
+void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
+{
+    //populate review values with the given reviewers review
+    //the word review was used too many times in that sentence but you know what i mean
+}
+
+void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
+{
+    //populate paper info based upon the id of the paper selected
+}
+
+
