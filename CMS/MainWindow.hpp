@@ -67,7 +67,7 @@ private slots:
 
     void on_submit_clicked();// done (i think)
 
-    void on_submitBid_clicked();// laurence is here
+    void on_submitBid_clicked();// done (i think)
 
     void on_downloadReviewer_clicked();//see downloadPaper()
 
@@ -79,7 +79,7 @@ private slots:
 
     void on_rejectPaper_clicked();//probably are faking this part
 
-    void downloadPaper();//server stuff here
+    void downloadPaper();//laurence here
 
     void on_submitReview_clicked();//server shit here
 
