@@ -638,25 +638,15 @@ void MainWindow::on_submitBid_clicked()
 
 void MainWindow::downloadPaper()
 {
-//    //we should maybe use QDataStreams instead of QTextStreams but theres no ez way to convert them to QStrings
-//    QFileDialog dialog(this);
-//    QString fname, pdfString;
-//
-//    dialog.setWindowTitle("Save File...");
-//    dialog.setFileMode(QFileDialog::AnyFile);
-//    dialog.setNameFilter("Files (.pdf)");
-//    if(dialog.exec())
-//        fname = dialog.selectedFiles().at(0);
-//    else
-//        return;
-//
-//    //fetch pdf string from db into pdfString
-//    QFile file(fname);
-//    if(file.open(QIODevice::ReadWrite)){
-//        QTextStream stream(&file);
-//        stream << pdfString;
-//    }
-
+    int paperId = aPaper.paperID;
+    int confId = theConf.confID;
+    std::string submittedPaperPDF = theDB->fetchPDF(paperId, confId);
+    
+    std::string downloadMsg;
+    downloadMsg = "The paper\n" + aPaper.title + "\nhas been downloaded to the following location:\n" + submittedPaperPDF;
+    
+    QString boxTitle = "Paper Available to Review";
+    popupBox(boxTitle, QString::fromStdString(downloadMsg));
 }
 
 void MainWindow::on_downloadReviewer_clicked()
