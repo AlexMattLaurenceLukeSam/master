@@ -45,11 +45,11 @@ public:
     std::vector<int> allUserIDs();
     std::vector<std::string> allUserNames();
     void setUserAsAuthor(int userID, int confID) throw (const char*);
-    void setUserAsAuthorByNames(std::string username, std::string confTitle) throw (const char*);
+    void updateUserAsAuthor(int userID, int confID) throw (const char*);
     void setUserAsPC(int userID, int confID) throw (const char*);
-    void setUserAsPCByNames(std::string username, std::string confTitle) throw (const char*);
+    void updateUserAsPC(int userID, int confID) throw (const char*);
     void setUserAsChair(int userID, int confID) throw (const char*);
-    void setUserAsChairByNames(std::string username, std::string confTitle) throw (const char*);
+    void updateUserAsChair(int userID, int confID) throw (const char*);
 
 	// KEYWORD
     bool existsKeyword(std::string key) throw (const char*);
@@ -73,6 +73,7 @@ public:
     void updatePaper(Paper paper) throw (const char*);
 	void addPaperAccepted(int paperID, int confID) throw (const char*);
 	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
+    std::string fetchPDF(int paperID, int confID) throw (const char*);
 
 	// REVIEW
 	Review fetchReview(int paperID, int reviewerID, int confID) throw (const char*);
@@ -92,6 +93,7 @@ public:
 	std::vector<std::string> getKeywordsForUser(int userID) throw (const char*);
 	std::vector<int> getReviewersForConf(int confID) throw (const char*);
 	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
+	void setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*);
 	void assignPaper(int paperID, int reviewerID, int confID) throw (const char*);
 
 	std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*);
@@ -101,18 +103,6 @@ public:
 	std::vector<int> getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*);
 	std::vector<int> getUserIDsForConf(int confID) throw (const char*);
 	
-//        // Delete - returns false if there wasn't a record with that key
-//        bool deleteRecord(const char* key) throw (const char*);
-//        // Put - insert/replace a record; returns false if failed
-//        // (In this example, key is actually the same as name field in data record)
-//        void put(const char* key, const MyRecord *data) throw (const char*);
-//        // Get - get record with keyerror: Failed connect to github.com:443; Connection refused while accessing
-//        MyRecord *get(const char*key) throw (const char*);
-//
-//        std::vector<MyRecord*> *getInRole(const char* role) throw (const char*);
-//
-//
-
     bool isOK()
     {
         return !(this->invalid);
@@ -125,9 +115,5 @@ private:
     sql::Driver *driver;
     Database(const Database& orig);
     Database& operator=(const Database);
-
-//        void recordToTables(const MyRecord *data);
-
-
 };
 #endif

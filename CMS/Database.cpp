@@ -71,6 +71,7 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 	const char* getPersonalInfo = "SELECT * FROM PersonalInfo WHERE userID=?";
 	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
         const char* getUserType = "SELECT userType FROM UserType WHERE (userID=? and confID=(SELECT confID FROM Conference WHERE name=?))";
+        const char* getConID = "SELECT confID FROM Conference WHERE name=?";
 
         // =======================================
         // user account
@@ -123,7 +124,6 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 	
 	pstmt = dbcon->prepareStatement(getExpertise);
 	pstmt->setInt(1, userID);
-
 	rs = pstmt->executeQuery();
         
         while (rs->next()) {
@@ -136,22 +136,44 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
         UserType_t userType = AUTHOR;
         
 	pstmt = dbcon->prepareStatement(getUserType);
-        pstmt->setString(1, key);
-	pstmt->setString(1, confName);
-        
+
+        pstmt->setInt(1, userID);
+	pstmt->setString(2, confName);
+
 	rs = pstmt->executeQuery();
+
 	haveRecord = rs->next();
 	if (haveRecord)
 	{
             int e = rs->getInt(1);            
-            if (e = 1)
+            if (e == 1)
                 userType = AUTHOR;
-            else if (e = 2)
+            else if (e == 2)
                 userType = REVIEWER;
-            else if (e = 3)
+            else if (e == 3)
                 userType = PCCHAIR;
 	}
+        else
+        {
+        std::vector<std::string> vec;
+	
+	pstmt = dbcon->prepareStatement(getExpertise);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+        
+        while (rs->next()) {
+                std::string expertise = rs->getString(1);
+                vec.push_back(expertise);
+        }
+	    pstmt = dbcon->prepareStatement(getConID);
 
+	    pstmt->setString(1, confName);
+
+	    rs = pstmt->executeQuery();
+	    haveRecord = rs->next();
+            int ID = rs->getInt(1);
+            this->setUserAsAuthor(userID, ID);
+        }
         delete rs;
         delete pstmt;
         
@@ -166,9 +188,6 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
 		vec,
                 userType);
 
-        delete rs;
-        delete pstmt;
-        
 	return user;
 }
 
@@ -425,25 +444,13 @@ void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
-
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID='?' and confID='?')";
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'author')";
-
-    // =====================================
-    // remove current type(s) for matching userID, confID
-    sql::PreparedStatement *pstmt = NULL;
     
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setInt(1, userID);
-    pstmt->setInt(2, confID);
-
-    pstmt->executeUpdate();
-    
-    delete pstmt;
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, '1')";
     
     // ======================================
     // insert new userType
-    
+    sql::PreparedStatement *pstmt = NULL;
+
     pstmt = dbcon->prepareStatement(insertChairType);
     pstmt->setInt(1, userID);
     pstmt->setInt(2, confID);
@@ -453,35 +460,23 @@ void Database::setUserAsAuthor(int userID, int confID) throw (const char*)
     delete pstmt;
 }
 
-void Database::setUserAsAuthorByNames(std::string username, std::string confTitle) throw (const char*)
+void Database::updateUserAsAuthor(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
 
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username='?') and confID=(SELECT confID FROM Conference WHERE name='?'))";
-    const char* insertAuthorType = "INSERT INTO UserType VALUES((SELECT userID FROM UserAccount WHERE username='?'), (select confID from Conference where name='?'), 'author')";
+    const char* updateCurrentType = "UPDATE UserType SET userType=1 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
     sql::PreparedStatement *pstmt = NULL;
-    
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
+
+    pstmt = dbcon->prepareStatement(updateCurrentType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
 
     pstmt->executeUpdate();
     
-    delete pstmt;
-    
-    // ======================================
-    // insert new userType
-    
-    pstmt = dbcon->prepareStatement(insertAuthorType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
-
-    pstmt->executeUpdate();
-
     delete pstmt;
 }
 
@@ -489,24 +484,12 @@ void Database::setUserAsPC(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
-
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID='?' and confID='?')";
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'pc')";
-
-    // =====================================
-    // remove current type(s) for matching userID, confID
-    sql::PreparedStatement *pstmt = NULL;
     
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setInt(1, userID);
-    pstmt->setInt(2, confID);
-
-    pstmt->executeUpdate();
-    
-    delete pstmt;
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 2)";
     
     // ======================================
     // insert new userType
+    sql::PreparedStatement *pstmt = NULL;
 
     pstmt = dbcon->prepareStatement(insertChairType);
     pstmt->setInt(1, userID);
@@ -517,35 +500,23 @@ void Database::setUserAsPC(int userID, int confID) throw (const char*)
     delete pstmt;
 }
 
-void Database::setUserAsPCByNames(std::string username, std::string confTitle) throw (const char*)
+void Database::updateUserAsPC(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
 
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username='?') and confID=(SELECT confID FROM Conference WHERE name='?'))";
-    const char* insertAuthorType = "INSERT INTO UserType VALUES((SELECT userID FROM UserAccount WHERE username='?'), (select confID from Conference where name='?'), 'pc')";
+    const char* updateCurrentType = "UPDATE UserType SET userType=2 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
     sql::PreparedStatement *pstmt = NULL;
-    
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
+
+    pstmt = dbcon->prepareStatement(updateCurrentType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
 
     pstmt->executeUpdate();
     
-    delete pstmt;
-    
-    // ======================================
-    // insert new userType
-    
-    pstmt = dbcon->prepareStatement(insertAuthorType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
-
-    pstmt->executeUpdate();
-
     delete pstmt;
 }
 
@@ -553,24 +524,12 @@ void Database::setUserAsChair(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
-
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID='?' and confID='?')";
-    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 'chair')";
-
-    // =====================================
-    // remove current type(s) for matching userID, confID
-    sql::PreparedStatement *pstmt = NULL;
     
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setInt(1, userID);
-    pstmt->setInt(2, confID);
-
-    pstmt->executeUpdate();
-    
-    delete pstmt;
+    const char* insertChairType = "INSERT INTO UserType VALUES(?, ?, 3)";
     
     // ======================================
     // insert new userType
+    sql::PreparedStatement *pstmt = NULL;
 
     pstmt = dbcon->prepareStatement(insertChairType);
     pstmt->setInt(1, userID);
@@ -581,35 +540,23 @@ void Database::setUserAsChair(int userID, int confID) throw (const char*)
     delete pstmt;
 }
 
-void Database::setUserAsChairByNames(std::string username, std::string confTitle) throw (const char*)
+void Database::updateUserAsChair(int userID, int confID) throw (const char*)
 {
     if (invalid)
         throw (noDB);
 
-    const char* removeCurrentType = "DELETE FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username='?') and confID=(SELECT confID FROM Conference WHERE name='?'))";
-    const char* insertAuthorType = "INSERT INTO UserType VALUES((SELECT userID FROM UserAccount WHERE username='?'), (select confID from Conference where name='?'), 'chair')";
+    const char* updateCurrentType = "UPDATE UserType SET userType=3 WHERE (userID=? and confID=?)";
 
     // =====================================
     // remove current type(s) for matching userID, confID
     sql::PreparedStatement *pstmt = NULL;
-    
-    pstmt = dbcon->prepareStatement(removeCurrentType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
+
+    pstmt = dbcon->prepareStatement(updateCurrentType);
+    pstmt->setInt(1, userID);
+    pstmt->setInt(2, confID);
 
     pstmt->executeUpdate();
     
-    delete pstmt;
-    
-    // ======================================
-    // insert new userType
-    
-    pstmt = dbcon->prepareStatement(insertAuthorType);
-    pstmt->setString(1, username);
-    pstmt->setString(2, confTitle);
-
-    pstmt->executeUpdate();
-
     delete pstmt;
 }
 
@@ -1111,20 +1058,18 @@ std::vector<PaperSummary> Database::allAuthorsPaperSummary(int confID, int leadA
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperSummary = "SELECT paperName, paperID FROM Paper WHERE (confID=? and leadAuthorID=?)";
+	const char* getPaperSummary = "SELECT paperTitle, paperID FROM Paper WHERE (confID=? and leadAuthorID=?)";
 
         // =======================================
         // Paper Summary 
 	std::vector<PaperSummary> vec;
 	sql::PreparedStatement *pstmt = NULL;
 	sql::ResultSet *rs = NULL;
-	
 	pstmt = dbcon->prepareStatement(getPaperSummary);
 	pstmt->setInt(1, confID);
 	pstmt->setInt(2, leadAuthorID);
 
 	rs = pstmt->executeQuery();
-
         while (rs->next()) {
         	std::string paperName = rs->getString(1);
         	int paperID = rs->getInt(2);
@@ -1345,6 +1290,7 @@ bool Database::existsPaperTitleConf(Paper paper) throw (const char*)
 
         return count == 1;
 }
+
 void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 {
         if (invalid)
@@ -1352,7 +1298,9 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 
 	const char* insertPaper = "INSERT IGNORE INTO Paper(leadAuthorID, confID, keywordID, paperTitle, paperAbstract, paper) VALUES(?, ?, (SELECT keywordID FROM Keywords WHERE keyword=?), ?, ?, ?)";
 	const char* getPaperID = "SELECT LAST_INSERT_ID()";
-	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?, ?)";
+        const char* insertPersonalInfo = "INSERT INTO PersonalInfo(userID, name, email, organisation, phone) VALUES(NULL, ?, ?, ?, ?)";
+
+	const char* insertAuthors = "INSERT IGNORE INTO paperAuthors(paperID, authorID) VALUES(?,  LAST_INSERT_ID())";
 
 	const char* insertKeywords = "INSERT IGNORE INTO PaperKeywords VALUES(?, (SELECT keywordID FROM Keywords WHERE keyword=?))";
 
@@ -1362,7 +1310,7 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
         pstmt = dbcon->prepareStatement(insertPaper);
         pstmt->setInt(1, paper.leadAuthorID);
         pstmt->setInt(2, paper.confID);
-        pstmt->setString(3, paper.confKeyword);
+        pstmt->setString(3, "maths");
         pstmt->setString(4, paper.title);
         pstmt->setString(5, paper.abstract);
         pstmt->setString(6, pdf);
@@ -1378,6 +1326,7 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 	pstmt = dbcon->prepareStatement(getPaperID);
 
 	rs = pstmt->executeQuery();
+
 	bool haveRecord = rs->next();
 
         int paperID = rs->getInt(1);
@@ -1390,17 +1339,26 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
 
         // =======================================
         // Paper Authors
-        pstmt = dbcon->prepareStatement(insertAuthors);
 
 	std::vector<PersonalInfo>::const_iterator it;
 	for (it = paper.authors.begin(); it != paper.authors.end(); it ++)
 	{
 		PersonalInfo pInfo = *it;	
 
+                pstmt = dbcon->prepareStatement(insertPersonalInfo);
+                pstmt->setString(1, pInfo.name);
+                pstmt->setString(2, pInfo.email);
+                pstmt->setString(3, pInfo.organisation);
+                pstmt->setString(4, pInfo.phone);
+
+                pstmt->executeUpdate();
+                pstmt = dbcon->prepareStatement(insertAuthors);
+
 		pstmt->setInt(1, paperID);
-		pstmt->setInt(2, pInfo.infoID);
+
 
 	        pstmt->executeUpdate();
+
 	}
 	delete pstmt;
 
@@ -1559,6 +1517,7 @@ std::vector<int> Database::fetchPaperAccepted(int confID) throw (const char*)
 
 	delete pstmt;
 	delete rs;
+        return vec;
 }
 
 Review Database::fetchReview(int paperID, int reviewerID, int confID) throw (const char*)
@@ -1847,7 +1806,7 @@ std::vector<int> Database::getReviewersForOrganisation(std::string org) throw (c
         if (invalid)
                 throw (noDB);
 
-	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType = 'pc' and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?)))";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType = 2 and userID IN (SELECT userID FROM PersonalInfo WHERE (userID IS NOT NULL and organisation=?)))";
 
         // =======================================
         // Reviewers
@@ -1961,7 +1920,7 @@ std::vector<int> Database::getReviewersForConf(int confID) throw (const char*)
         if (invalid)
                 throw (noDB);
 
-	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType='pc' and confID=?)";
+	const char* getReviewers = "SELECT userID FROM UserType WHERE (userType=2 and confID=?)";
 
         // =======================================
         // Reviewers
@@ -2014,6 +1973,44 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
         delete pstmt;
 	
 	return preference;
+}
+
+void Database::setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*)
+{
+	const char* setReviewerPreference = "INSERT INTO ReviewerPreference VALUES(?, ?, ?, ?)";
+	const char* updateReviewerPreference = "UPDATE ReviewerPreference SET preference=? WHERE userID=?, confID=?, paperID=?)";
+        if (this->getReviewerPreference(userID, confID, paperID) == -1)
+        {
+            // =======================================
+            // Set Reviewer Preference
+	    sql::PreparedStatement *pstmt = NULL;
+	    
+	    pstmt = dbcon->prepareStatement(setReviewerPreference);
+	    pstmt->setInt(1, userID);
+	    pstmt->setInt(2, confID);
+	    pstmt->setInt(3, paperID);
+	    pstmt->setInt(4, preference);
+
+	    pstmt->executeQuery();
+
+            delete pstmt;
+        }	
+        else
+        {
+            // =======================================
+            // Set Reviewer Preference
+	    sql::PreparedStatement *pstmt = NULL;
+	    
+	    pstmt = dbcon->prepareStatement(updateReviewerPreference);
+	    pstmt->setInt(1, userID);
+	    pstmt->setInt(2, confID);
+	    pstmt->setInt(3, paperID);
+	    pstmt->setInt(4, preference);
+
+	    pstmt->executeQuery();
+
+            delete pstmt;
+        }	
 }
 
 void Database::assignPaper(int paperID, int reviewerID, int confID) throw (const char*)
@@ -2238,34 +2235,30 @@ void Database::adminChangePassword(std::string username, std::string password) t
 UserType_t Database::adminFetchUserType(std::string username, std::string confTitle) throw (const char*)
 {
 //    const char* 
-    std::string fetchUserType = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username='"
-            + username + "') and confID=(SELECT confID FROM Conference WHERE name='" + confTitle + "'))";
+    std::string fetchUserTypeAuthor = "SELECT userType FROM UserType WHERE (userID=(SELECT userID FROM UserAccount WHERE username=?) and confID=(SELECT confID FROM Conference WHERE name=?))";
     
     // ============================================
     // User Type Update
-    UserType_t userType;
     sql::PreparedStatement *pstmt = NULL;
     sql::ResultSet *rs = NULL;
     
-    pstmt = dbcon->prepareStatement(fetchUserType.c_str());
-//    pstmt->setString(1, username);
-//    pstmt->setString(2, confTitle);
+    pstmt = dbcon->prepareStatement(fetchUserTypeAuthor.c_str());
+    pstmt->setString(1, username);
+    pstmt->setString(2, confTitle);
+    
+    UserType_t userType = AUTHOR;
     
     rs = pstmt->executeQuery();
-    int rowCount = static_cast<int>(rs->rowsCount());
-    if (rowCount == 0)
-    {// Empty set in database
-        userType = AUTHOR;
-        setUserAsAuthorByNames(username, confTitle);
-    }
-    else
+    
+    bool haveRecord = rs->next();
+    if (haveRecord)
     {
-        int e = rs->getInt(1);           
-        if (e = 1)
+        int e = rs->getInt(1);            
+        if (e == 1)
             userType = AUTHOR;
-        else if (e = 2)
+        else if (e == 2)
             userType = REVIEWER;
-        else if (e = 3)
+        else if (e == 3)
             userType = PCCHAIR;
     }
 
@@ -2275,18 +2268,30 @@ UserType_t Database::adminFetchUserType(std::string username, std::string confTi
     return userType;
 }
 
-void Database::adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*)
+std::string Database::fetchPDF(int paperID, int confID) throw (const char*)
 {
-    switch(userType)
-    {
-        case AUTHOR:
-            setUserAsAuthorByNames(username, confTitle);
-            break;
-        case REVIEWER:
-            setUserAsChairByNames(username, confTitle);
-            break;
-        case PCCHAIR:
-            setUserAsPCByNames(username, confTitle);
-            break;
-    }
+        if (invalid)
+                throw (noDB);
+
+	const char* getAccepted = "SELECT paper FROM Paper WHERE (paperID=? and confID=?)";
+
+        // =======================================
+        // Paper 
+
+        sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+
+	pstmt = dbcon->prepareStatement(getAccepted);
+        pstmt->setInt(1, confID);
+
+	rs = pstmt->executeQuery();
+
+        bool haveRecord = rs->next();
+
+        std::string pdf = rs->getString(1);
+
+	delete pstmt;
+	delete rs;
+
+        return pdf;
 }

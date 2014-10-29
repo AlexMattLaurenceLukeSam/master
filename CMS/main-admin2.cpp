@@ -17,6 +17,7 @@ void createConf();
 void changeUsername();
 void changePassword();
 void changeConf();
+void setPCChair();
 
 Database db;
 
@@ -36,10 +37,10 @@ int main(int arc, char *argv[])
     std::cout << "Admin client" << std::endl << std::endl;
 
     std::cout << "Enter Admin username: ";
-    std::cin >> AdminUsername;
+    std::getline(std::cin, AdminUsername);
     
     std::cout << std::endl << "Enter Admin password: ";
-    std::cin >> AdminPassword;
+    std::getline(std::cin, AdminPassword);
 
     bool loginSuccess = false;
     if (AdminUsername == AdminUsernameCheck)
@@ -65,8 +66,10 @@ void adminMainMenu()
     std::cout << "3. Change a Users username" << std::endl;
     std::cout << "4. Change a Users password" << std::endl;
     std::cout << "5. Change a Conference details" << std::endl;
-    std::cout << "6. Quit" << std::endl;
+    std::cout << "6. Set PC Chair for conference" << std::endl;
+    std::cout << "7. Quit" << std::endl;
     std::cin >> selection;
+    std::cin.ignore();
 
     if (selection == 1)
     {
@@ -95,6 +98,11 @@ void adminMainMenu()
     }
     else if (selection == 6)
     {
+        std::cout << "Set a PC Chair for a conference selected" << std::endl;
+        setPCChair();
+    }
+    else if (selection == 7)
+    {
         std::cout << "Quit selected, Quitting..." << std::endl;
         return;
     }
@@ -117,17 +125,17 @@ void createUser()
     UserType_t userType = AUTHOR;
 
     std::cout << "Enter username: ";
-    std::cin >> username;
+    std::getline(std::cin, username);
     std::cout << "Enter password: ";
-    std::cin >> password;
+    std::getline(std::cin, password);
     std::cout << "Enter name: ";
-    std::cin >> name;
+    std::getline(std::cin, name);
     std::cout << "Enter email: ";
-    std::cin >> email;
+    std::getline(std::cin, email);
     std::cout << "Enter organisation: ";
-    std::cin >> organisation;
+    std::getline(std::cin, organisation);
     std::cout << "Enter phone: ";
-    std::cin >> phone;
+    std::getline(std::cin, phone);
 
     int keywordsInput = 1;
     while (keywordsInput == 1)
@@ -136,12 +144,13 @@ void createUser()
         std::cout << "1. Add keyword" << std::endl;
         std::cout << "2. No more keywords" << std::endl;
         std::cin >> keywordsInput;
+        std::cin.ignore();
 
         if (keywordsInput == 1)
         {
             std::string keyword = "";
             std::cout << "Keyword: ";
-            std::cin >> keyword;
+            std::getline(std::cin, keyword);
             keywords.push_back(keyword);
         }
     }
@@ -173,6 +182,7 @@ void createUser()
 void createConf()
 {
     bool active;
+    std::string activeInput;
     std::string title;
     std::string topic;
     std::string description;
@@ -198,15 +208,19 @@ void createConf()
     bool beforeDate = true;
 
     std::cout << "Is it active? true/false: ";
-    std::cin >> active;
+    std::getline(std::cin, activeInput);
+    if(activeInput == "true")
+        active = true;
+    else
+        active = false;
     std::cout << "Enter title: ";
-    std::cin >> title;
+    std::getline(std::cin, title);
     std::cout << "Enter topic: "; 
-    std::cin >> topic;
+    std::getline(std::cin, topic);
     std::cout << "Enter description: "; 
-    std::cin >> description;
+    std::getline(std::cin, description);
     std::cout << "Enter location: ";
-    std::cin >> location;
+    std::getline(std::cin, location);
 
     int keywordsInput = 1;
     while (keywordsInput == 1)
@@ -215,12 +229,13 @@ void createConf()
         std::cout << "1. Add keyword" << std::endl;
         std::cout << "2. No more keywords" << std::endl;
         std::cin >> keywordsInput;
+        std::cin.ignore();
 
         if (keywordsInput == 1)
         {
             std::string keyword = "";
             std::cout << "Keyword: ";
-            std::cin >> keyword;
+            std::getline(std::cin, keyword);
             keywords.push_back(keyword);
         }
     }
@@ -259,6 +274,7 @@ void createConf()
     std::cin >> reviewersPerPaper;
     std::cout << "Enter post word limit: ";
     std::cin >> postWordLimit;
+    std::cin.ignore();
 
     Date paperDeadline(paperDeadlineD, paperDeadlineM, paperDeadlineY);
     Date allocationDate(allocationDateD, allocationDateM, allocationDateY);
@@ -307,14 +323,14 @@ void changeUsername()
     std::string currentUN;
     std::string newUN;
     std::cout << "Enter username to change: ";
-    std::cin >> currentUN;
+    std::getline(std::cin, currentUN);
 
     bool userExists = db.existsUserName(currentUN);
     
     if (userExists)
     {
         std::cout << "Enter new username: ";
-        std::cin >> newUN;
+        std::getline(std::cin, newUN);
         bool newUserExists = db.existsUserName(currentUN);
 
         if (!newUserExists)
@@ -336,14 +352,14 @@ void changePassword()
     std::string username;
     std::string password;
     std::cout << "Enter username to change password for: ";
-    std::cin >> username;
+    std::getline(std::cin, username);
 
     bool userExists = db.existsUserName(username);
     
     if (userExists)
     {
         std::cout << "Enter new password: ";
-        std::cin >> password;
+        std::getline(std::cin, password);
 
         db.adminChangePassword(username, password);
 
@@ -358,6 +374,7 @@ void changePassword()
 void changeConf()
 {
     bool active;
+    std::string activeInput;
     std::string title;
     std::string topic;
     std::string description;
@@ -383,7 +400,7 @@ void changeConf()
     bool beforeDate = true;
 
     std::cout << "Enter Conference name: " << std::endl;
-    std::cin >> title;
+    std::getline(std::cin, title);
 
     bool confExists = db.existsConfName(title);
     if (confExists)
@@ -412,53 +429,57 @@ void changeConf()
             std::cout << "yes" << std::endl;
         else
             std::cout << "no" << std::endl;
-        std::cout << "Date: " << conf.paperDeadline.convertToString(); 
+        std::cout << "Date: " << conf.paperDeadline.convertToString() << std::endl; 
         
         std::cout << "Before allocation date? ";
         if (conf.isBeforeAllocationDate)
             std::cout << "yes" << std::endl;
         else
             std::cout << "no" << std::endl;
-        std::cout << "Date: " << conf.allocationDate.convertToString(); 
+        std::cout << "Date: " << conf.allocationDate.convertToString() << std::endl; 
 
         std::cout << "Before soft review deadline? ";
         if (conf.isBeforeSoftReviewDeadline)
             std::cout << "yes" << std::endl;
         else
             std::cout << "no" << std::endl;
-        std::cout << "Date: " << conf.reviewDeadlineSoft.convertToString(); 
+        std::cout << "Date: " << conf.reviewDeadlineSoft.convertToString() << std::endl; 
 
         std::cout << "Before hard review deadline? ";
         if (conf.isBeforeHardReviewDeadline)
             std::cout << "yes" << std::endl;
         else
             std::cout << "no" << std::endl;
-        std::cout << "Date: " << conf.reviewDeadlineHard.convertToString(); 
+        std::cout << "Date: " << conf.reviewDeadlineHard.convertToString() << std::endl; 
 
         std::cout << "Before discussion deadline? ";
         if (conf.isBeforeDiscussDeadline)
             std::cout << "yes" << std::endl;
         else
             std::cout << "no" << std::endl;
-        std::cout << "Date: " << conf.discussDeadline.convertToString(); 
+        std::cout << "Date: " << conf.discussDeadline.convertToString() << std::endl; 
 
-        std::cout << "Reviewers per paper: " << conf.reviewersPerPaper;
-        std::cout << "Word limit per post: " << conf.postWordLimit;
+        std::cout << "Reviewers per paper: " << conf.reviewersPerPaper << std::endl;
+        std::cout << "Word limit per post: " << conf.postWordLimit << std::endl << std::endl;
 
         std::cout << "Please enter new Conference details" << std::endl;
         std::cout << "Must re enter all details that aren't changing also!!" << std::endl << std::endl;
 
 
         std::cout << "Is it active? true/false: ";
-        std::cin >> active;
+        std::getline(std::cin, activeInput);
+        if(activeInput == "true")
+            active = true;
+        else
+            active = false;
         std::cout << "Enter title: ";
-        std::cin >> title;
+        std::getline(std::cin, title);
         std::cout << "Enter topic: "; 
-        std::cin >> topic;
+        std::getline(std::cin, topic);
         std::cout << "Enter description: "; 
-        std::cin >> description;
+        std::getline(std::cin, description);
         std::cout << "Enter location: ";
-        std::cin >> location;
+        std::getline(std::cin, location);
 
         int keywordsInput = 1;
         while (keywordsInput == 1)
@@ -467,12 +488,13 @@ void changeConf()
             std::cout << "1. Add keyword" << std::endl;
             std::cout << "2. No more keywords" << std::endl;
             std::cin >> keywordsInput;
+            std::cin.ignore();
 
             if (keywordsInput == 1)
             {
                 std::string keyword = "";
                 std::cout << "Keyword: ";
-                std::cin >> keyword;
+                std::getline(std::cin, keyword);
                 keywords.push_back(keyword);
             }
         }
@@ -511,17 +533,13 @@ void changeConf()
         std::cin >> reviewersPerPaper;
         std::cout << "Enter post word limit: ";
         std::cin >> postWordLimit;
+        std::cin.ignore();
 
         Date paperDeadline(paperDeadlineD, paperDeadlineM, paperDeadlineY);
         Date allocationDate(allocationDateD, allocationDateM, allocationDateY);
         Date reviewDeadlineSoft(reviewDeadlineSoftD, reviewDeadlineSoftM, reviewDeadlineSoftY); 
         Date reviewDeadlineHard(reviewDeadlineHardD, reviewDeadlineHardM, reviewDeadlineHardY);
         Date discussionDeadline(discussionDeadlineD, discussionDeadlineM, discussionDeadlineY);
-
-        std::cout << "Enter reviewers per paper: ";
-        std::cin >> reviewersPerPaper;
-        std::cout << "Enter post word limit: ";
-        std::cin >> postWordLimit;
 
         Conference confInput(
             active,
@@ -552,5 +570,47 @@ void changeConf()
         std::cout << "Conference doesn't exist" << std::endl;
     
     adminMainMenu();
+}
+
+void setPCChair()
+{
+    std::vector<std::string> confNames = db.activeConfNames();
+    std::vector<int> confIDs = db.activeConfIDs();
+    std::vector<std::string> userNames = db.allUserNames();
+    std::vector<int> userIDs = db.allUserIDs();
+    int confid;
+    int confID;
+    int userid;
+    int userID;
+
+    std::cout << "Active Conferences are: " << std::endl << std::endl;
+
+    int i = 1;
+    std::vector<std::string>::const_iterator it;
+    for(it=confNames.begin(); it!=confNames.end(); it++)
+    {
+        std::cout << i << ". " << *it << std::endl;
+        i++;
+    }
+    std::cout << "Selection: ";
+    std::cin >> confid;
+
+    confID = confIDs[confid-1]; 
+
+
+    std::cout << "Users are: " << std::endl << std::endl;
+
+    i = 1;
+    for(it=userNames.begin(); it!=userNames.end(); it++)
+    {
+        std::cout << i << ". " << *it << std::endl;
+        i++;
+    }
+    std::cout << "Selection: ";
+    std::cin >> userid;
+
+    userID = userIDs[userid-1]; 
+    std::cout << userNames[userid-1] << " is now PC Chair of " << confNames[confid-1] << std::endl;
+    db.setUserAsChair(userID, confID);
 }
 

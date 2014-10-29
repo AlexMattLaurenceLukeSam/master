@@ -3,9 +3,9 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include "Paper.hpp"
-//#include <QIODevice>
-//#include <QBuffer>
-//#include <QByteArray>
+#include <QIODevice>
+#include <QBuffer>
+#include <QByteArray>
 #include "PersonalInfo.hpp"
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)

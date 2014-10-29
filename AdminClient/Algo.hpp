@@ -55,7 +55,6 @@ public:
     void setMinScore(int iminScore) {minScore = iminScore;}
     int getMinScore() {return minScore;}
     void setNumOfReqReviewrs(int inumOfReqReviewrs) {numOfReqReviewrs = inumOfReqReviewrs;}
-    int getNumOfReqReviewrs() {return numOfReqReviewrs;}
 
 private:
 	Database* db;
@@ -68,4 +67,3 @@ private:
 	std::vector<std::string> involvedOrganisation;
 	std::vector<int> conflictingReviewersVec;
 };
-

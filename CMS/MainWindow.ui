@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
-    <height>603</height>
+    <width>868</width>
+    <height>676</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
-      <height>601</height>
+      <width>861</width>
+      <height>671</height>
      </rect>
     </property>
     <widget class="QWidget" name="centralwidget_2" native="true">
@@ -28,21 +28,21 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>801</width>
-       <height>601</height>
+       <width>861</width>
+       <height>671</height>
       </rect>
      </property>
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
+        <x>10</x>
+        <y>10</y>
         <width>871</width>
         <height>651</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="loginTab">
        <attribute name="title">
@@ -53,7 +53,7 @@
          <rect>
           <x>260</x>
           <y>150</y>
-          <width>353</width>
+          <width>455</width>
           <height>211</height>
          </rect>
         </property>
@@ -228,32 +228,60 @@
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="name">
-           <property name="text">
-            <string>NAME</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_35">
+           <item>
+            <widget class="QLabel" name="label_34">
+             <property name="text">
+              <string> Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="name"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="email">
-           <property name="text">
-            <string>EMAIL</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_36">
+           <item>
+            <widget class="QLabel" name="label_36">
+             <property name="text">
+              <string>  Email:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="email"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="organisation">
-           <property name="text">
-            <string>ORGANISATION</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_37">
+           <item>
+            <widget class="QLabel" name="label_38">
+             <property name="text">
+              <string>     Org:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="organisation"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="phone">
-           <property name="text">
-            <string>PHONE</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_38">
+           <item>
+            <widget class="QLabel" name="label_40">
+             <property name="text">
+              <string>Phone:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="phone"/>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QLabel" name="label">
@@ -459,8 +487,8 @@
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;CONFERENCE DESCRIPTION&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -476,7 +504,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>233</width>
+          <width>272</width>
           <height>551</height>
          </rect>
         </property>
@@ -500,32 +528,60 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="name_2">
-           <property name="text">
-            <string>NAME</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_44">
+           <item>
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string> Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="name_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="email_2">
-           <property name="text">
-            <string>EMAIL</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_45">
+           <item>
+            <widget class="QLabel" name="label_58">
+             <property name="text">
+              <string>     Org:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="organisation_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="organisation_2">
-           <property name="text">
-            <string>ORGANISATION</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_43">
+           <item>
+            <widget class="QLabel" name="label_56">
+             <property name="text">
+              <string>  Email:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="email_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="phone_2">
-           <property name="text">
-            <string>PHONE</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_46">
+           <item>
+            <widget class="QLabel" name="label_59">
+             <property name="text">
+              <string>Phone:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="phone_3"/>
+           </item>
+          </layout>
          </item>
          <item>
           <spacer name="verticalSpacer_9">
@@ -539,6 +595,76 @@ p, li { white-space: pre-wrap; }
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_20">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_33">
+             <item>
+              <widget class="QLabel" name="label_54">
+               <property name="text">
+                <string>Words per Post</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_55">
+               <property name="text">
+                <string>Reviewers per Paper</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_39">
+             <item>
+              <widget class="QSpinBox" name="wordsPerPost">
+               <property name="specialValueText">
+                <string/>
+               </property>
+               <property name="suffix">
+                <string/>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="minimum">
+                <number>20</number>
+               </property>
+               <property name="maximum">
+                <number>2000</number>
+               </property>
+               <property name="value">
+                <number>1000</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="reviewersPerPaper">
+               <property name="specialValueText">
+                <string/>
+               </property>
+               <property name="suffix">
+                <string/>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>99</number>
+               </property>
+               <property name="value">
+                <number>5</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="applyChair">
@@ -559,10 +685,10 @@ p, li { white-space: pre-wrap; }
        <widget class="QWidget" name="verticalLayoutWidget_4">
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>299</x>
           <y>10</y>
-          <width>481</width>
-          <height>551</height>
+          <width>521</width>
+          <height>561</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -593,8 +719,8 @@ p, li { white-space: pre-wrap; }
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;CONFERENCE DESCRIPTION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;CONFERENCE DESCRIPTION&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -761,8 +887,8 @@ p, li { white-space: pre-wrap; }
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;ABSTRACT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ABSTRACT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -821,11 +947,18 @@ p, li { white-space: pre-wrap; }
             <widget class="QTextEdit" name="rebuttalEntry"/>
            </item>
            <item>
-            <widget class="QPushButton" name="selectFile">
-             <property name="text">
-              <string>Select File</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_34">
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Paper Filename:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="selectFile"/>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QPushButton" name="submit">
@@ -860,32 +993,32 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="submitPosts">
-           <property name="text">
-            <string>Submit Post</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
+         <item row="2" column="0">
           <widget class="QTextEdit" name="postBody">
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;POST INPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;POST INPUT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="1">
           <widget class="QTextBrowser" name="discussionBodyReviewer">
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;DISCUSSION POSTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;DISCUSSION POSTS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="submitPosts">
+           <property name="text">
+            <string>Submit Post</string>
            </property>
           </widget>
          </item>
@@ -907,11 +1040,11 @@ p, li { white-space: pre-wrap; }
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Ignored</enum>
+            <enum>QSizePolicy::Fixed</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>124</width>
              <height>20</height>
             </size>
            </property>
@@ -920,12 +1053,33 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QLabel" name="bidlabel">
            <property name="text">
-            <string>Bid:</string>
+            <string>Would you like to bid on this paper?</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="selectBid"/>
+          <widget class="QComboBox" name="selectBid">
+           <item>
+            <property name="text">
+             <string>Yes</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>No</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Maybe</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Conflict of Interest</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="submitBid">
@@ -982,7 +1136,7 @@ p, li { white-space: pre-wrap; }
           <x>20</x>
           <y>20</y>
           <width>211</width>
-          <height>531</height>
+          <height>571</height>
          </rect>
         </property>
         <column>
@@ -1002,10 +1156,10 @@ p, li { white-space: pre-wrap; }
        <widget class="QWidget" name="gridLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>20</y>
-          <width>511</width>
-          <height>171</height>
+          <x>260</x>
+          <y>10</y>
+          <width>551</width>
+          <height>220</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
@@ -1013,13 +1167,6 @@ p, li { white-space: pre-wrap; }
           <widget class="QLabel" name="paperNameMng">
            <property name="text">
             <string>PAPERNAME</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="downloadChair">
-           <property name="text">
-            <string>Download</string>
            </property>
           </widget>
          </item>
@@ -1060,14 +1207,21 @@ p, li { white-space: pre-wrap; }
          <item row="2" column="0">
           <widget class="QTextBrowser" name="paperAbstractMng"/>
          </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="downloadChair">
+           <property name="text">
+            <string>Download</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="verticalLayoutWidget_11">
         <property name="geometry">
          <rect>
           <x>250</x>
-          <y>190</y>
-          <width>511</width>
+          <y>240</y>
+          <width>559</width>
           <height>361</height>
          </rect>
         </property>
@@ -1087,8 +1241,8 @@ p, li { white-space: pre-wrap; }
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;DISCUSSION POSTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;DISCUSSION POSTS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -1128,12 +1282,12 @@ p, li { white-space: pre-wrap; }
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="toReview_2"/>
+                <widget class="QLineEdit" name="toReview"/>
                </item>
                <item>
-                <widget class="QPushButton" name="addAsReviewer_2">
+                <widget class="QPushButton" name="addAsReviewer">
                  <property name="text">
-                  <string>Add as Reviewer</string>
+                  <string>Assign Reviewer</string>
                  </property>
                 </widget>
                </item>
@@ -1334,8 +1488,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>370</x>
           <y>10</y>
-          <width>291</width>
-          <height>321</height>
+          <width>361</width>
+          <height>351</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1408,9 +1562,9 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>370</x>
-          <y>340</y>
-          <width>291</width>
-          <height>141</height>
+          <y>380</y>
+          <width>361</width>
+          <height>181</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1444,61 +1598,6 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="verticalLayoutWidget_5">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>490</y>
-          <width>291</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_18">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_29">
-           <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Words per Post</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Reviewers per Paper</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_30">
-           <item>
-            <widget class="QLineEdit" name="wordsPerPost">
-             <property name="text">
-              <string>100</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="reviewersPerPaper">
-             <property name="text">
-              <string>5</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="updateConfSettings">
-           <property name="text">
-            <string>Update Conference Settings</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
       </widget>
       <widget class="QWidget" name="reviewTab">
        <attribute name="title">
@@ -1508,9 +1607,9 @@ p, li { white-space: pre-wrap; }
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>150</y>
-          <width>761</width>
-          <height>416</height>
+          <y>160</y>
+          <width>821</width>
+          <height>444</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1524,7 +1623,26 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="overall"/>
+            <widget class="QSpinBox" name="overall">
+             <property name="specialValueText">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>-3</number>
+             </property>
+             <property name="maximum">
+              <number>3</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_12">
@@ -1534,7 +1652,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="confidence"/>
+            <widget class="QSpinBox" name="confidence">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1548,7 +1673,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="relevance"/>
+            <widget class="QSpinBox" name="relevance">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
@@ -1558,7 +1690,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="originality"/>
+            <widget class="QSpinBox" name="originality">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1572,7 +1711,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="significance"/>
+            <widget class="QSpinBox" name="significance">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_16">
@@ -1582,7 +1728,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="presentation"/>
+            <widget class="QSpinBox" name="presentation">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1596,7 +1749,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="techQuality"/>
+            <widget class="QSpinBox" name="techQuality">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_18">
@@ -1606,7 +1766,14 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="evaluation"/>
+            <widget class="QSpinBox" name="evaluation">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>5</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1671,7 +1838,8 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>Detailed comments and suggestions</string>
+              <string>Detailed comments
+and suggestions</string>
              </property>
             </widget>
            </item>
@@ -1681,8 +1849,15 @@ p, li { white-space: pre-wrap; }
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="submitReview">
+             <property name="text">
+              <string>Submit</string>
              </property>
             </widget>
            </item>
@@ -1695,8 +1870,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>10</x>
           <y>20</y>
-          <width>761</width>
-          <height>130</height>
+          <width>821</width>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -1717,19 +1892,6 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
         </layout>
-       </widget>
-       <widget class="QPushButton" name="submitReview">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>550</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Submit</string>
-        </property>
        </widget>
       </widget>
      </widget>

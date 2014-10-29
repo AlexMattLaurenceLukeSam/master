@@ -1,4 +1,3 @@
-
 #include "Algo.hpp"
 
 #include <algorithm>
@@ -237,31 +236,3 @@ void PaperForReview::fillVectors(int paperID)
 	//CONFLICTING HERE
 	conflictingReviewers();
 }
-
-
-//MAY NEED TO FILTER FOR CONFERENCE ASWELL
-//(1)select author
-		//Where Paper ID = ?
-		
-//(2)select organisation
-		//where author = ?
-		
-
-//(3) select author
-		//where organisation = ?
-		
-//(4) select paperIDs
-		//where Author =?
-		
-//(5) select keywords
-		//where paperID = ?
-		
-//(6) select keywords
-		//where userID = ?
-		
-//(7) select pcs(reviewrs)
-		//where conferfence = ?
-		
-//(8) select reviewerPreferance
-		//where reviewerID = ? and paperID = ? 
-
