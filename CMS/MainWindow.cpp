@@ -6,6 +6,7 @@
 #include <QIODevice>
 #include <QBuffer>
 #include <QByteArray>
+#include "PersonalInfo.hpp"
 
 MainWindow::MainWindow(Database* db, QWidget *parent) : QMainWindow(parent)
 {
@@ -544,7 +545,6 @@ void MainWindow::populate_usersTab()
 
 void MainWindow::on_submit_clicked()
 {
-<<<<<<< Updated upstream
     // get all fields from gui
     // set Paper
     
@@ -561,22 +561,28 @@ void MainWindow::on_submit_clicked()
     int numRows = ui->authorsTable->rowCount();
     for (int row = 0; row < numRows; ++row) {
         anAuth = PersonalInfo();
-        anAuth.name = ui->authorsTable->item(row, 0);
-        anAuth.email = ui->authorsTable->item(row, 1);
-        anAuth.organisation = ui->authorsTable->item(row, 2);
-        anAuth.phone = ui->authorsTable->item(row, 3);
+        anAuth.name = ui->authorsTable->item(row, 0)->text().toStdString();
+        anAuth.email = ui->authorsTable->item(row, 1)->text().toStdString();
+        anAuth.organisation = ui->authorsTable->item(row, 2)->text().toStdString();
+        anAuth.phone = ui->authorsTable->item(row, 3)->text().toStdString();
         aPaper.authors.push_back(anAuth);
     }
     
     //clear current paper keywords and populate with list from gui
-    aPaper.authors.clear();
+    aPaper.keywords.clear();
     int numKwords = ui->paperKeyListAuth->count();
     for (int i = 0; i < numKwords; ++i)
-        aPaper.authors.push_back(ui->paperKeyListAuth->item(i)->text().toStdString());
+        aPaper.keywords.push_back(ui->paperKeyListAuth->item(i)->text().toStdString());
     
     aPaper.abstract = ui->paperAbstract->toPlainText().toStdString();
     
     aPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
+    
+    // if new paper upload pdf
+    if (newPaper)
+    {
+        
+    }
     
 //    //the pdf
 //    QFile file(filename);
