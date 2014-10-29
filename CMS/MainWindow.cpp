@@ -300,9 +300,8 @@ void MainWindow::on_apply_clicked() // done (i think)
     theUser.keywords.clear();
     for (int i = 0; i < ui->authKeyList->count(); ++i)
         theUser.keywords.push_back(ui->authKeyList->item(i)->text().toStdString());
-    
     // send update user to db
-    theDB->putUser(theUser.name, theUser);
+    theDB->putUser(theUser.userName, theUser);
 }
 
 void MainWindow::on_applyChair_clicked()
