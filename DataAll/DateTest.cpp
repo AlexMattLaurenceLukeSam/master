@@ -1,38 +1,68 @@
-/*
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE CompareTest
-#include <boost/test/unit_test.hpp>
+#include "DateTest.hpp"
 #include "Date.hpp"
 
-BOOST_AUTO_TEST_SUITE(CompareTest)
-BOOST_AUTO_TEST_CASE(EqualDates) {
-  Date a;
-  Date b;
-  BOOST_CHECK(a.compare(b));
-  BOOST_CHECK(!b.compare(a));
+CPPUNIT_TEST_SUITE_REGISTRATION (DateTest);
+
+void DateTest::setUp()
+{
+	// Put the dates back to standard state
+
+	a.setDay(0);
+	a.setMonth(0);
+	a.setYear(0);
+	b.setDay(0);
+	b.setMonth(0);
+	b.setYear(0);
 }
 
-BOOST_AUTO_TEST_CASE(MonthAheadDayBehind) {
-  Date a;
-  a.day = 1;
-  Date b(0,1,0);
-  BOOST_CHECK(!a.compare(b));
-  BOOST_CHECK(b.compare(a));
+void DateTest::tearDown()
+{
+	// Nothing to do
 }
 
-BOOST_AUTO_TEST_CASE(YearAheadMonthBehind) {
-  Date a;
-  a.month = 1;
-  Date b(0,0,1);
-  BOOST_CHECK(!a.compare(b));
-  BOOST_CHECK(b.compare(a));
+void DateTest::testEqualDates()
+{
+	CPPUNIT_ASSERT(a.compare(b)); //compare returns true if b is before or at the same date as a
+	CPPUNIT_ASSERT(!b.compare(a));
 }
 
-BOOST_AUTO_TEST_CASE(YearBehindDayAhead) {
-  Date a;
-  a.year = 1;
-  Date b(1,0,0);
-  BOOST_CHECK(a.compare(b));
-  BOOST_CHECK(!b.compare(a));
+void DateTest::testMonthAheadDayBehind() 
+{
+  a.setDay(1);
+  b.setMonth(1);
+  CPPUNIT_ASSERT(!a.compare(b)); //b is after a - should be false
+  CPPUNIT_ASSERT(b.compare(a)); //a is after b - should be true
 }
-*/
+
+void DateTest::testYearAheadMonthBehind() {
+  a.setMonth(1);
+  b.setYear(1);
+  CPPUNIT_ASSERT(!a.compare(b));
+  CPPUNIT_ASSERT(b.compare(a));
+}
+
+void DateTest::testYearBehindDayAhead() {
+  a.setYear(1);
+  b.setDay(1);
+  CPPUNIT_ASSERT(a.compare(b));
+  CPPUNIT_ASSERT(!b.compare(a));
+}
+
+
+void DateTest::testYearEqualMonthAhead() {
+  a.setYear(1);
+  b.setMonth(1);
+  b.setYear(1);
+  CPPUNIT_ASSERT(!a.compare(b)); //b is after a
+  CPPUNIT_ASSERT(b.compare(a));
+}
+
+void DateTest::testYearEqualMonthEqualDayAhead() {
+  a.setMonth(1);
+  a.setYear(1);
+  b.setDay(1);
+  b.setMonth(1);
+  b.setYear(1);
+  CPPUNIT_ASSERT(!a.compare(b)); //b is after a
+  CPPUNIT_ASSERT(b.compare(a));
+}
