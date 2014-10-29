@@ -54,6 +54,7 @@ public:
     void setReviewerBids(const std::vector<ReviewerBid>& ireviewerBids) {reviewerBids = ireviewerBids;}
     void setMinScore(int iminScore) {minScore = iminScore;}
     int getMinScore() {return minScore;}
+    void setNumOfReqReviewrs(int inumOfReqReviewrs) {numOfReqReviewrs = inumOfReqReviewrs;}
 
 private:
 	Database* db;
