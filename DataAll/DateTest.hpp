@@ -12,6 +12,8 @@ class DateTest : public CppUnit::TestFixture
     CPPUNIT_TEST (testMonthAheadDayBehind);
     CPPUNIT_TEST (testYearAheadMonthBehind);
     CPPUNIT_TEST (testYearBehindDayAhead);
+    CPPUNIT_TEST (testYearEqualMonthAhead);
+    CPPUNIT_TEST (testYearEqualMonthEqualDayAhead);
     CPPUNIT_TEST_SUITE_END ();
 private:
 	Date a;
@@ -24,6 +26,8 @@ protected:
 	void testMonthAheadDayBehind();
 	void testYearAheadMonthBehind();
 	void testYearBehindDayAhead();
+	void testYearEqualMonthAhead();
+	void testYearEqualMonthEqualDayAhead();
 
 };
 /*
