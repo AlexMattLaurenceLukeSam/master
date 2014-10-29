@@ -1942,6 +1942,46 @@ int Database::getReviewerPreference(int userID, int confID, int paperID) throw (
 	return preference;
 }
 
+void Database::setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*)
+{
+	const char* setReviewerPreference = "INSERT INTO ReviewerPreference VALUES(?, ?, ?, ?)";
+	const char* updateReviewerPreference = "UPDATE ReviewerPreference SET preference=? WHERE userID=?, confID=?, paperID=?)";
+        if (this->getReviewerPreference(userID, confID, paperID) == -1)
+        {
+            // =======================================
+            // Set Reviewer Preference
+	    sql::PreparedStatement *pstmt = NULL;
+	    
+	    pstmt = dbcon->prepareStatement(setReviewerPreference);
+	    pstmt->setInt(1, userID);
+	    pstmt->setInt(2, confID);
+	    pstmt->setInt(3, paperID);
+	    pstmt->setInt(4, preference);
+
+	    rs = pstmt->executeQuery();
+
+            delete rs;
+            delete pstmt;
+        }	
+        else
+        {
+            // =======================================
+            // Set Reviewer Preference
+	    sql::PreparedStatement *pstmt = NULL;
+	    
+	    pstmt = dbcon->prepareStatement(updateReviewerPreference);
+	    pstmt->setInt(1, userID);
+	    pstmt->setInt(2, confID);
+	    pstmt->setInt(3, paperID);
+	    pstmt->setInt(4, preference);
+
+	    rs = pstmt->executeQuery();
+
+            delete rs;
+            delete pstmt;
+        }	
+}
+
 void Database::assignPaper(int paperID, int reviewerID, int confID) throw (const char*)
 {
     if (invalid)
