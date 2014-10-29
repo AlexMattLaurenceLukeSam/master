@@ -798,21 +798,21 @@ void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
 
 void MainWindow::clearAllTabs()
 {
-    foreach(QLineEdit *widget, this->findChildren<QLineEdit*>())
-        widget->clear();
-    foreach(QListWidget *widget, this->findChildren<QListWidget*>())
-        widget->clear();
-    foreach(QTextBrowser *widget, this->findChildren<QTextBrowser*>())
-        widget->clear();
-    foreach(QDateEdit *widget, this->findChildren<QDateEdit*>())
-        widget->clear();
-    foreach(QTextEdit *widget, this->findChildren<QTextEdit*>())
-        widget->clear();
-    ui->selectPaperReviewer->clear();
-    foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
-        widget->clear();
-    foreach(QSpinBox *widget, this->findChildren<QSpinBox*>())
-        widget->clear();
+//    foreach(QLineEdit *widget, this->findChildren<QLineEdit*>())
+//        widget->;
+//    foreach(QListWidget *widget, this->findChildren<QListWidget*>())
+//        widget->clear();
+//    foreach(QTextBrowser *widget, this->findChildren<QTextBrowser*>())
+//        widget->clear();
+//    foreach(QDateEdit *widget, this->findChildren<QDateEdit*>())
+//        widget->clear();
+//    foreach(QTextEdit *widget, this->findChildren<QTextEdit*>())
+//        widget->clear();
+//    ui->selectPaperReviewer->clear();
+//    foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
+//        widget->clearContents();
+//    foreach(QSpinBox *widget, this->findChildren<QSpinBox*>())
+//        widget->clear();
     
     ui->tabWidget->clear();
 }
