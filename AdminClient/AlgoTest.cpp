@@ -12,15 +12,16 @@ void AlgoTest::setUp()
 
 void AlgoTest::tearDown()
 {
-	a.setReviewerBids(std::vector<ReviewerBid>);
+	std::vector<ReviewerBid> temp;
+	a.setReviewerBids(temp);
 }
 
 void AlgoTest::testFindMinScore()
 {
 	a.setMinScore(2);
 	CPPUNIT_ASSERT(a.getMinScore() == 2);
-	temp = std::vector<ReviewerBid>;
-	for (unsigned int i = 0; i < numOfReqReviewrs; ++i)
+	std::vector<ReviewerBid> temp;
+	for (unsigned int i = 0; i < a.getNumOfReqReviewrs(); ++i)
 	{
 		temp[i].reviewerID = i;
 	}
@@ -36,8 +37,8 @@ void AlgoTest::testFindMinScore()
 
 void AlgoTest::testSetNewReviewer()
 {
-	temp = std::vector<ReviewerBid>;
-	for (unsigned int i = 0; i < numOfReqReviewrs; ++i)
+	std::vector<ReviewerBid> temp;
+	for (unsigned int i = 0; i < a.getNumOfReqReviewrs(); ++i)
 	{
 		temp[i].reviewerID = i;
 	}
