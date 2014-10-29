@@ -42,7 +42,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="loginTab">
        <attribute name="title">
@@ -265,7 +265,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="organisation_3"/>
+            <widget class="QLineEdit" name="organisation"/>
            </item>
           </layout>
          </item>
@@ -279,7 +279,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="phone_3"/>
+            <widget class="QLineEdit" name="phone"/>
            </item>
           </layout>
          </item>
@@ -528,32 +528,60 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="name_2">
-           <property name="text">
-            <string>NAME</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_44">
+           <item>
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string> Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="name_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="email_2">
-           <property name="text">
-            <string>EMAIL</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_45">
+           <item>
+            <widget class="QLabel" name="label_58">
+             <property name="text">
+              <string>     Org:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="organisation_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="organisation_2">
-           <property name="text">
-            <string>ORGANISATION</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_43">
+           <item>
+            <widget class="QLabel" name="label_56">
+             <property name="text">
+              <string>  Email:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="email_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="phone_2">
-           <property name="text">
-            <string>PHONE</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_46">
+           <item>
+            <widget class="QLabel" name="label_59">
+             <property name="text">
+              <string>Phone:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="phone_3"/>
+           </item>
+          </layout>
          </item>
          <item>
           <spacer name="verticalSpacer_9">
@@ -858,7 +886,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="paperKeyEntry_3"/>
+              <widget class="QLineEdit" name="selectFile"/>
              </item>
             </layout>
            </item>
