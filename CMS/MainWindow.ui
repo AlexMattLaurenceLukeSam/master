@@ -42,7 +42,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="loginTab">
        <attribute name="title">
@@ -1673,7 +1673,7 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="runAlgo">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1911,7 +1911,7 @@ Reviewers</string>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="orgMgr">
+            <widget class="QLineEdit" name="organisationMgr">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -1944,7 +1944,7 @@ Reviewers</string>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="phMgr">
+            <widget class="QLineEdit" name="phoneMgr">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -1969,43 +1969,35 @@ Reviewers</string>
            </property>
           </widget>
          </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="verticalLayoutWidget_15">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>380</y>
-          <width>361</width>
-          <height>181</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_17">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_23">
+          <layout class="QVBoxLayout" name="verticalLayout_17">
            <item>
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Authored Papers</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_23">
+             <item>
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string>Authored Papers</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_28">
+               <property name="text">
+                <string>Assigned to Review</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="QLabel" name="label_28">
-             <property name="text">
-              <string>Assigned to Review</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_24">
-           <item>
-            <widget class="QListWidget" name="authoredPapers"/>
-           </item>
-           <item>
-            <widget class="QListWidget" name="assignedPapers"/>
+            <layout class="QHBoxLayout" name="horizontalLayout_24">
+             <item>
+              <widget class="QListWidget" name="authoredPapers"/>
+             </item>
+             <item>
+              <widget class="QListWidget" name="assignedPapers"/>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>

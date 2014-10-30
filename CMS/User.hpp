@@ -11,10 +11,10 @@ struct User
     User()
     {
         password = "";
-        name = "";
-        email = "";
-        organisation = "";
-        phone = "";
+        name = "no info";
+        email = "no info";
+        organisation = "no info";
+        phone = "no info";
         userID = -1;
         userType = NOUSER;
 //        currentPaper = Paper();

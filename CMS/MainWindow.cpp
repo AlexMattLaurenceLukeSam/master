@@ -71,7 +71,7 @@ void MainWindow::login()
     QString confname = ui->confList->currentItem()->text(); // get name of conference selected
     
     theUser = theDB->fetchUser(uname.toStdString(), confname.toStdString());
-    std::cout << theUser.userType << std::endl;
+    
     if (theUser.userID == -1)
     {
         msg = "User does not exist!";
@@ -557,9 +557,9 @@ void MainWindow::populate_usersTab()
     QString userT = "";
     
     for (std::vector<int>::iterator itor = uID.begin(); itor != uID.end(); ++itor) {
-        std::cout << *itor;
+
         allUsers.push_back(theDB->fetchUserFromID(*itor, theConf.confID));
-        std::cout << allUsers.back().name << endl;
+
     }
     
     for(std::vector<User>::iterator itor = allUsers.begin(); itor != allUsers.end(); ++itor)
@@ -599,10 +599,10 @@ void MainWindow::on_submit_clicked()
     
     newPaper.confID = theConf.confID;
     newPaper.leadAuthorID = theUser.userID;
-    std::cout << "1" << std::endl;
+
     newPaper.title = ui->selectPaperAuthor->currentText().toStdString();
     existsPaper = theDB->existsPaperTitleConf(newPaper);
-std::cout << "2" << std::endl;
+
     // clear current auth details and populate list from gui
     newPaper.authors.clear();
     int numRows = ui->authorsTable->rowCount();
@@ -628,27 +628,27 @@ std::cout << "2" << std::endl;
     
     newPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
     
-std::cout << "3" << std::endl;
+
     // if new paper upload pdf
     if (!existsPaper)
     {
         pdf = ui->selectFile->text().toStdString();
         theDB->createPaper(newPaper, pdf);
-        std::cout << "4" << std::endl;
+        
     }
     else
     {
         std::string comment = ui->rebuttalEntry->toPlainText().toStdString();
         int reviewerID = theUser.userID;
-        std::cout << "5" << std::endl;
+        
         theDB->createDiscussionPost(DiscussionPost(comment, reviewerID), newPaper.paperID, newPaper.confID);
-        std::cout << "6" << std::endl;
+        
         theDB->updatePaper(newPaper);
-        std::cout << "7" << std::endl;
+        
     }
-    std::cout << "8" << std::endl;
+    
     aPaper = theDB->fetchPaper(newPaper.paperID);
-    std::cout << "9" << std::endl;
+
     popupBox("Paper Information", "Update Successful!");
 }
 
@@ -842,7 +842,7 @@ void MainWindow::on_selectPaperAuthor_currentIndexChanged(const QString &arg1)
 
     for(std::vector<PersonalInfo>::iterator it = aPaper.authors.begin(); it != aPaper.authors.end(); ++it){
         int rows = ui->authorsTable->rowCount();
-        std::cout << rows << std::endl;
+        
         ui->authorsTable->insertRow(rows);
         QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(it->name));
         ui->authorsTable->setItem(rows, 0, newItem);
@@ -922,33 +922,70 @@ void MainWindow::clearAllTabs()
 
 void MainWindow::on_changeReviewer_clicked()
 {
+    int row = ui->usersTable->currentRow();
+    QString uName = ui->usersTable->item(row, 1)->text();
+    User auser = theDB->fetchUser(uName.toStdString(), theConf.title);
+    QString type;
+    QTableWidgetItem* newItem;
     
+    if (auser.userType == AUTHOR)
+    {
+        type = "Reviewer";
+        theDB->updateUserAsPC(auser.userID, theConf.confID);
+        newItem = new QTableWidgetItem(type);
+        ui->usersTable->setItem(row, 2, newItem);
+        QString msg = auser.name.c_str();
+        msg.append(" is now a reviewer");
+        popupBox("User Updated", msg);
+    }
+    else if (auser.userType == REVIEWER)
+    {
+        type = "Author";
+        theDB->updateUserAsAuthor(auser.userID, theConf.confID);
+        newItem = new QTableWidgetItem(type);
+        ui->usersTable->setItem(row, 2, newItem);
+        QString msg = auser.name.c_str();
+        msg.append(" is no long a reviewer");
+        popupBox("User Updated", msg);
+    }
+    else
+        popupBox("Error!", "Contact admin to update PC Chairs!");
 }
 
 void MainWindow::on_usersTable_itemClicked(QTableWidgetItem *item)
 {
+    aPaper = Paper();
+    papers.clear();
+    ui->userKeyList->clear();
+    ui->authoredPapers->clear();
+    ui->assignedPapers->clear();
+    
     QString uName = ui->usersTable->item(item->row(), 1)->text();
     User auser = theDB->fetchUser(uName.toStdString(), theConf.title);
+    std::vector<int> vInts;
     
     ui->usernameMgr->setText(QString::fromStdString(auser.userName));
-    ui->userIDMgr->setText(QString::fromStdSTring(auser.userID));
-    ui->name->setText(QString::fromStdString(theUser.name));
-    ui->email->setText(QString::fromStdString(theUser.email));
-    ui->organisation->setText(QString::fromStdString(theUser.organisation));
-    ui->phone->setText(QString::fromStdString(theUser.phone));
+    ui->userIDMgr->setText(QString::number(auser.userID));
+    ui->nameMgr->setText(QString::fromStdString(auser.name));
+    ui->emailMgr->setText(QString::fromStdString(auser.email));
+    ui->organisationMgr->setText(QString::fromStdString(auser.organisation));
+    ui->phoneMgr->setText(QString::fromStdString(auser.phone));
 
-    for(std::vector<std::string>::iterator it = theUser.keywords.begin(); it != theUser.keywords.end(); ++it)
-        ui->authKeyList->addItem(QString::fromStdString(*it));
+    for(std::vector<std::string>::iterator it = auser.keywords.begin(); it != auser.keywords.end(); ++it)
+        ui->userKeyList->addItem(QString::fromStdString(*it));
+    
+    
+    
+    //get users authored papaers
+    vInts = theDB->getPapersForAuthor(auser.userID);
+    for (std::vector<int>::iterator it = vInts.begin(); it != vInts.end(); ++it)
+        ui->authoredPapers->addItem(QString::fromStdString(theDB->fetchPaper(*it).title));
+    vInts.clear();
+    
+    // get useres papers assigned to review
+}
 
-    ui->conferenceName->setText(QString::fromStdString(theConf.title));
-    ui->confTopic->setText(QString::fromStdString(theConf.topic));
-    ui->confLocation->setText(QString::fromStdString(theConf.location));
-    ui->confDesc->append(QString::fromStdString(theConf.description));
-    for(std::vector<std::string>::iterator it = theConf.keywords.begin(); it != theConf.keywords.end(); ++it)
-        ui->confKeyListNoEdit->addItem(QString::fromStdString(*it));
-    ui->subDate->setText(QString::fromStdString(theConf.paperDeadline.convertToString()));
-    ui->discDate->setText(QString::fromStdString(theConf.discussDeadline.convertToString()));
-    ui->hReviewDate->setText(QString::fromStdString(theConf.reviewDeadlineHard.convertToString()));
-    ui->sReviewDate->setText(QString::fromStdString(theConf.reviewDeadlineSoft.convertToString()));
-    ui->allocDate->setText(QString::fromStdString((theConf.allocationDate.convertToString())));
+void MainWindow::on_runAlgo_clicked()
+{
+    
 }

@@ -25,65 +25,38 @@ public:
     ~MainWindow();
     
 private slots:
-    void on_login_clicked(); //done
-
-    void on_quit_clicked(); //done
-
-    void on_logout_clicked(); //done
-
-    void on_logout_2_clicked(); //done
-
-    void on_passwordLogin_returnPressed(); //done
-
-    void on_createAccount_clicked(); // now done (i think)
-
-    void on_joinConf_clicked(); // done (i think)
-
-    void on_apply_clicked();// done (i think)
+    void on_login_clicked();
+    void on_quit_clicked();
+    void on_logout_clicked();
+    void on_logout_2_clicked();
+    void on_passwordLogin_returnPressed();
+    void on_createAccount_clicked();
+    void on_joinConf_clicked();
+    void on_apply_clicked();
+    void on_applyChair_clicked();
+    void on_addConfKey_clicked();
+    void on_rmvConfKey_clicked();
+    void on_addAuthor_clicked();
+    void on_rmvAuthor_clicked();
+    void on_addPaperKey_clicked();
+    void on_rmvPaperKey_clicked();
+    void on_addAuthKey_clicked();
+    void on_rmvAuthKey_clicked();
+    void on_tabWidget_currentChanged(int index);
+    void on_submit_clicked();
+    void on_submitBid_clicked();
+    void on_downloadReviewer_clicked();
+    void on_submitPosts_clicked();
+    void on_downloadChair_clicked();
+    void on_acceptPaper_clicked();
+    void on_rejectPaper_clicked();
+    void on_submitReview_clicked();
     
-    void on_applyChair_clicked();// done (i think)
+    void on_addAsReviewer_clicked();
 
-    void on_addConfKey_clicked(); // already done (i think)
+    void on_papersTable_itemSelectionChanged();
 
-    void on_rmvConfKey_clicked(); // already done (i think)
-
-    void on_addAuthor_clicked(); // nothing to do
-
-    void on_rmvAuthor_clicked(); // nothing to do
-
-    void on_addPaperKey_clicked(); // nothing to do
-
-    void on_rmvPaperKey_clicked(); // nothing to do
-
-    void on_addAuthKey_clicked(); // nothing to do
-
-    void on_rmvAuthKey_clicked(); // nothing to do
-
-    void on_tabWidget_currentChanged(int index); // done
-
-    void on_submit_clicked();// crash here
-
-    void on_submitBid_clicked();// done (i think)
-
-    void on_downloadReviewer_clicked();// done
-
-    void on_submitPosts_clicked();// done
-
-    void on_downloadChair_clicked(); //done
-
-    void on_acceptPaper_clicked();// done
-
-    void on_rejectPaper_clicked();// faked
-
-    void downloadPaper();// done
-
-    void on_submitReview_clicked();// done (i think)
-
-    void on_addAsReviewer_clicked();// done (i think)
-
-    void on_papersTable_itemSelectionChanged(); // population paper management
-
-    void on_selectPaperAuthor_currentIndexChanged(const QString &arg1); // yes?
+    void on_selectPaperAuthor_currentIndexChanged(const QString &arg1);
 
     void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
     
@@ -94,12 +67,16 @@ private slots:
     void on_changeReviewer_clicked();
     
     void on_usersTable_itemClicked(QTableWidgetItem *item);
+    
+    void on_runAlgo_clicked();
 
 private:
+    void popupBox(QString boxTitle, QString msg);
     void setUser(UserType_t userType);
-//    void noUser(); call logout() instead
-    void login(); // done (i think)
-    void logout(); //done (i think)
+    void login();
+    void logout();
+    void updateDiscussionPosts();
+    void downloadPaper();
     void populate_infoTabAuthor();
     void populate_infoTabChair();
     void populate_authorTab();
@@ -107,8 +84,6 @@ private:
     void populate_papersTab();
     void populate_usersTab();
     void populate_reviewTab();
-    void popupBox(QString boxTitle, QString msg); // done
-    void updateDiscussionPosts();
     
     void clearAllTabs(); //done
     
