@@ -59,13 +59,9 @@ private slots:
 
     void on_rmvAuthKey_clicked(); // nothing to do
 
-    void on_selectPaperAuthor_activated(int index); //this needs to do something
+    void on_tabWidget_currentChanged(int index); // done
 
-    void on_selectPaperAuthor_currentTextChanged(const int &arg1); // this needs to do something
-
-    void on_tabWidget_currentChanged(int index); // laurence doesn't know what this does
-
-    void on_submit_clicked();// done (i think)
+    void on_submit_clicked();// crash here
 
     void on_submitBid_clicked();// done (i think)
 
@@ -85,8 +81,6 @@ private slots:
 
     void on_addAsReviewer_clicked();// done (i think)
 
-//    void on_reviewersTable_activated(const QModelIndex &index); // population paper management
-
     void on_papersTable_itemSelectionChanged(); // population paper management
 
     void on_selectPaperAuthor_currentIndexChanged(const QString &arg1); // yes?
@@ -94,12 +88,12 @@ private slots:
     void on_selectPaperReviewer_currentIndexChanged(const QString &arg1);
     
     void on_reviewersTable_itemActivated(QTableWidgetItem *item);
-
-    void on_papersTable_itemClicked(QTableWidgetItem *item);
     
-    void on_selectPaperReview_currentIndexChanged(const QString &arg1);
+    void on_selectPaperToReview_currentIndexChanged(const QString &arg1);
     
     void on_changeReviewer_clicked();
+    
+    void on_usersTable_itemClicked(QTableWidgetItem *item);
 
 private:
     void setUser(UserType_t userType);

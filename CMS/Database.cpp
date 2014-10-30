@@ -151,44 +151,114 @@ User Database::fetchUser(std::string key, std::string confName) throw (const cha
             userType = static_cast<UserType_t>(uType);
 	}
         
-//	haveRecord = rs->next();
-//	if (haveRecord)
-//	{
-//            int e = rs->getInt(1);            
-//            if (e == 1)
-//                userType = AUTHOR;
-//            else if (e == 2)
-//                userType = REVIEWER;
-//            else if (e == 3)
-//                userType = PCCHAIR;
-//	}
-        
         delete rs;
         delete pstmt;
         
+        User user(
+		username,
+		name,
+		email,
+		organisation,
+		phone,
+		password,
+		userID,
+		vec,
+                userType);
+
+	return user;
+}
+
+User Database::fetchUserFromID(int key, int confId) throw (const char*)
+{
+        if (invalid)
+                throw (noDB);
+
+	// Add information on user from database to User object
+	const char* getUser = "SELECT * FROM UserAccount WHERE userID=?";
+	const char* getPersonalInfo = "SELECT * FROM PersonalInfo WHERE userID=?";
+	const char* getExpertise = "SELECT keyword FROM Keywords WHERE keywordID in (SELECT expertiseID FROM ExpertiseArea WHERE userID=?)";
+        const char* getUserType = "SELECT userType FROM UserType WHERE (userID=? and confID=?)";
+
+        // =======================================
+        // user account
+	sql::PreparedStatement *pstmt = NULL;
+	sql::ResultSet *rs = NULL;
+	
+	pstmt = dbcon->prepareStatement(getUser);
+	pstmt->setInt(1, key);
         
-//        std::vector<std::string> vec;
-//	
-//	pstmt = dbcon->prepareStatement(getExpertise);
-//	pstmt->setInt(1, userID);
-//	rs = pstmt->executeQuery();
-//        
-//        while (rs->next()) {
-//                std::string expertise = rs->getString(1);
-//                vec.push_back(expertise);
-//        }
+	rs = pstmt->executeQuery();
+	bool haveRecord = rs->next();
+	if (!haveRecord)
+	{
+		delete rs;
+		delete pstmt;
+		return User();
+	}
         
-//	    pstmt = dbcon->prepareStatement(getConID);
-//
-//	    pstmt->setString(1, confName);
-//
-//	    rs = pstmt->executeQuery();
-//	    haveRecord = rs->next();
-//            int ID = rs->getInt(1);
-//            this->setUserAsAuthor(userID, ID);
-//        
-//        delete rs;
-//        delete pstmt;
+        int userID = rs->getInt(1);
+        std::string username = rs->getString(2);
+        std::string password = rs->getString(3);
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Personal Info
+        
+        std::string name = "";
+        std::string email = "";
+        std::string organisation = "";
+        std::string phone = "";
+            
+	pstmt = dbcon->prepareStatement(getPersonalInfo);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+	haveRecord = rs->next();
+	if (haveRecord)
+	{
+            name = rs->getString(3);
+            email = rs->getString(4);
+            organisation = rs->getString(5);
+            phone = rs->getString(6);
+        }
+
+        delete rs;
+        delete pstmt;
+
+        // =======================================
+        // Expertise Area
+        std::vector<std::string> vec;
+	
+	pstmt = dbcon->prepareStatement(getExpertise);
+	pstmt->setInt(1, userID);
+	rs = pstmt->executeQuery();
+        
+        while (rs->next()) {
+                std::string expertise = rs->getString(1);
+                vec.push_back(expertise);
+        }
+        
+        // =======================================
+        // user type 
+        
+        UserType_t userType = NOUSER;
+        
+	pstmt = dbcon->prepareStatement(getUserType);
+
+        pstmt->setInt(1, userID);
+	pstmt->setInt(2, confId);
+
+	rs = pstmt->executeQuery();
+	haveRecord = rs->next();
+	if (haveRecord)
+	{
+            int uType = rs->getInt(1);
+            userType = static_cast<UserType_t>(uType);
+	}
+        
+        delete rs;
+        delete pstmt;
         
         User user(
 		username,
@@ -1036,7 +1106,7 @@ PaperSummary Database::fetchPaperSummary(int key) throw (const char*)
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperSummary = "SELECT paperName FROM Paper WHERE paperID=?";
+	const char* getPaperSummary = "SELECT paperTitle FROM Paper WHERE paperID=?";
 
         // =======================================
         // Paper Summary 
@@ -1323,7 +1393,7 @@ void Database::createPaper(Paper paper, std::string pdf) throw (const char*)
         pstmt = dbcon->prepareStatement(insertPaper);
         pstmt->setInt(1, paper.leadAuthorID);
         pstmt->setInt(2, paper.confID);
-        pstmt->setString(3, "maths");
+        pstmt->setString(3, paper.confKeyword);
         pstmt->setString(4, paper.title);
         pstmt->setString(5, paper.abstract);
         pstmt->setString(6, pdf);
@@ -2110,7 +2180,7 @@ std::vector<int> Database::getPaperIDsForAllocatedReviewer(int reviewerID, int c
         if (invalid)
                 throw (noDB);
 
-	const char* getPaperIDs = "SELECT paperID FROM PaperAssigned WHERE (reviewerID=? and confID)";
+	const char* getPaperIDs = "SELECT paperID FROM PaperAssigned WHERE (reviewerID=? and confID=?)";
 
         // =======================================
         // Paper ID

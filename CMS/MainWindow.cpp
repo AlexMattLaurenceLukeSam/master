@@ -104,6 +104,7 @@ void MainWindow::login()
 void MainWindow::logout()
 {
     clearAllTabs();
+    ui->tabWidget->clear();
 //    delete theUser;
 //    theUser = NULL;
 //    delete theConf;
@@ -128,6 +129,7 @@ void MainWindow::logout()
 void MainWindow::setUser(UserType_t userType)
 {
     clearAllTabs();
+    ui->tabWidget->clear();
     
     switch(userType)
     {
@@ -194,10 +196,6 @@ void MainWindow::on_createAccount_clicked() // done (i think)
     QString uname = ui->usernameLogin->text().trimmed();
     QString pword = ui->passwordLogin->text().trimmed();
     
-    if (ui->confList->currentRow() == -1) {
-        msg.append("Please select a conference!\n");
-        error = true;
-    }
     if (uname.isEmpty()) {
         msg.append("Please input a username!\n");
         error = true;
@@ -208,13 +206,10 @@ void MainWindow::on_createAccount_clicked() // done (i think)
     }
     ui->usernameLogin->clear();
     ui->passwordLogin->clear();
-    ui->confList->clearSelection();
     if (error) {
         popupBox(errorBox, msg);
         return;
     }
-    
-    QString confname = ui->confList->currentItem()->text(); // get name of conference selected
     
     // check if user exists
     userExists = theDB->existsUserName(uname.toStdString());
@@ -228,19 +223,11 @@ void MainWindow::on_createAccount_clicked() // done (i think)
     {
         theUser.userName = uname.toStdString();
         theUser.password = pword.toStdString();
-        theUser.userType = AUTHOR;
 
         // update DB with new user
         theDB->putUser(theUser.userName, theUser);
-        theUser = theDB->fetchUser(theUser.userName, confname.toStdString());
-
-        // get conference details from DB
-        theConf = theDB->fetchConference(confname.toStdString());
         
-        // update DB with userType
-        theDB->setUserAsAuthor(theUser.userID, theConf.confID);
-
-        setUser(theUser.userType);
+        popupBox("SUCCESS!", "Username successfully created!\nPlease join a conference to continue.");
     }
     
 }
@@ -369,11 +356,14 @@ void MainWindow::on_applyChair_clicked()
     
     // send updated conf to db
     theDB->putConf(confTitleOld, theConf);
+    
+    popupBox("Details", "Update Successful!");
 }
 
 void MainWindow::on_addConfKey_clicked()
 {
     ui->confKeyList->addItem(ui->confKeyEntry->text());
+    ui->confKeyEntry->clear();
 }
 
 void MainWindow::on_rmvConfKey_clicked()
@@ -396,6 +386,7 @@ void MainWindow::on_rmvAuthor_clicked()
 void MainWindow::on_addPaperKey_clicked()
 {
     ui->paperKeyListAuth->addItem(ui->paperKeyEntry->text());
+    ui->paperKeyEntry->clear();
 }
 
 void MainWindow::on_rmvPaperKey_clicked()
@@ -406,6 +397,7 @@ void MainWindow::on_rmvPaperKey_clicked()
 void MainWindow::on_addAuthKey_clicked()
 {
     ui->authKeyList->addItem(ui->authKeyEntry->text());
+    ui->authKeyEntry->clear();
 }
 
 void MainWindow::on_rmvAuthKey_clicked()
@@ -413,21 +405,9 @@ void MainWindow::on_rmvAuthKey_clicked()
     delete ui->authKeyList->currentItem();
 }
 
-void MainWindow::on_selectPaperAuthor_activated(int index)
-{
-    
-}
-
-void MainWindow::on_selectPaperAuthor_currentTextChanged(const int &arg1)
-{
-//    ui->selectPaperAuthor->setItemText(ui->selectPaperAuthor->currentIndex(), ui->selectPaperAuthor->currentText());
-//    if(ui->selectPaperAuthor->findText("*NEW*") == -1)
-//        ui->selectPaperAuthor->addItem("*NEW*");
-}
-
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    if (index < 1)
+    if (index < 0)
         return;
     
     QString text = ui->tabWidget->tabText(index);
@@ -449,8 +429,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::populate_infoTabAuthor()
 {
+    clearAllTabs();
+    
     ui->username->setText(QString::fromStdString(theUser.userName));
-    ui->userid->setText(QString::number(theUser.userID));
     ui->name->setText(QString::fromStdString(theUser.name));
     ui->email->setText(QString::fromStdString(theUser.email));
     ui->organisation->setText(QString::fromStdString(theUser.organisation));
@@ -474,6 +455,9 @@ void MainWindow::populate_infoTabAuthor()
 
 void MainWindow::populate_infoTabChair()
 {
+    clearAllTabs();
+    
+    ui->username_3->setText(QString::fromStdString(theUser.userName));
     ui->name_3->setText(QString::fromStdString(theUser.name));
     ui->email_3->setText(QString::fromStdString(theUser.email));
     ui->organisation_3->setText(QString::fromStdString(theUser.organisation));
@@ -491,10 +475,28 @@ void MainWindow::populate_infoTabChair()
     ui->sReviewDateEdit->date().setDate(theConf.reviewDeadlineSoft.getDay(), theConf.reviewDeadlineSoft.getMonth(), theConf.reviewDeadlineSoft.getYear());
     ui->hReviewDateEdit->date().setDate(theConf.reviewDeadlineHard.getDay(), theConf.reviewDeadlineHard.getMonth(), theConf.reviewDeadlineHard.getYear());
     ui->discDateEdit->date().setDate(theConf.discussDeadline.getDay(), theConf.discussDeadline.getMonth(), theConf.discussDeadline.getYear());
+    
+    ui->wordsPerPost->setValue(theConf.postWordLimit);
+    ui->reviewersPerPaper->setValue(theConf.reviewersPerPaper);
 }
 
 void MainWindow::populate_authorTab()
 {
+    clearAllTabs();
+    
+    ui->selectMainKey->clear();
+    ui->selectPaperAuthor->clear();
+    ui->paperKeyListAuth->clear();
+    ui->authorsTable->clear();
+    ui->paperAbstract->clear();
+    ui->authorsTable->clearContents();
+    ui->rebuttalEntry->clear();
+    ui->selectFile->clear();
+    
+    while (ui->authorsTable->rowCount() > 0)
+        ui->authorsTable->removeRow(0);
+    
+    aPaper = Paper();
     papers.clear();
     papers = theDB->allAuthorsPaperSummary(theConf.confID, theUser.userID);
 
@@ -505,74 +507,82 @@ void MainWindow::populate_authorTab()
         
     for(std::vector<std::string>::iterator it = theConf.keywords.begin(); it != theConf.keywords.end(); ++it)
         ui->selectMainKey->addItem(QString::fromStdString(*it));
+    
+    ui->selectPaperAuthor->addItem("*NEW PAPER*");
 }
 
 void MainWindow::populate_papersTab()
 {
-//    Paper* paper = &theUser.getCurrentPaper();
-//    std::vector<Review>* reviews = &paper->reviews;
-//    std::vector<PersonalInfo>* authors = theUser.getCurrentPaper().authors;
-//    std::vector<PersonalInfo> reviewers;
-
-//    std::vector<std::string> keys = theUser.getCurrentPaper().keywords;
-
-//    ui->paperNameMng->setText(QString::fromStdString(paper->title));
-//    ui->mainKeyMng->setText(QString::fromStdString(paper->confKeyword));
-
-//    ui->paperAbstractMng->append(QString::fromStdString(theUser.getCurrentPaper().abstract));
-//    for(std::vector<std::string> it = keys.begin(); it != keys.end(); ++it)
-//        ui->paperKeyListMng->addItem(QString::fromStdString(*it));
-
-//    for(std::vector<PersonalInfo>::iterator it = authors.begin(); it != authors.end(); ++it){
-//        int rows = ui->authorsTableMng->rowCount();
-//        ui->authorsTableMng->insertRow(rows);
-//        QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(it->name));
-//        ui->authorsTableMng->setItem(rows, 0, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->email));
-//        ui->authorsTableMng->setItem(rows, 1, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->organisation));
-//        ui->authorsTableMng->setItem(rows, 2, newItem);
-//        newItem = new QTableWidgetItem(QString::fromStdString(it->phone));
-//        ui->authorsTableMng->setItem(rows, 3, newItem);
-//    }
+    clearAllTabs();
+    
+    std::vector<int> allPapersConf = theDB->getPaperIDsForConf(theConf.confID);
+    for(std::vector<int>::iterator itor = allPapersConf.begin(); itor != allPapersConf.end(); ++itor)
+    {
+        PaperSummary ps = theDB->fetchPaperSummary(*itor);
+        ui->papersTable->addItem(QString::fromStdString(ps.paperName));
+        papers.push_back(ps);
+    }
 }
 
 void MainWindow::populate_reviewerTab()
 {
-    papers.clear();
-    //paper = fetch papersummaries
-
+    clearAllTabs();
+    
+    std::vector<int> allPapersConf = theDB->getPaperIDsForConf(theConf.confID);
+    for(std::vector<int>::iterator itor = allPapersConf.begin(); itor != allPapersConf.end(); ++itor)
+        papers.push_back(theDB->fetchPaperSummary(*itor));
+    
     for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
         ui->selectPaperReviewer->addItem(QString::fromStdString(it->paperName));
 }
 
 void MainWindow::populate_reviewTab()
 {
+    clearAllTabs();
 
-//    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
-//        ui->selectPaperReview->addItem(QString::fromStdString(it->paperName));
-
-//    ui->paperAbstractReviewer->setText(QString::fromStdString(theUser.getCurrentPaper().abstract));
-//    ui->mainKey->setText(QString::fromStdString(theUser.getCurrentPaper().confKeyword));
-//    for(std::vector<std::string>::iterator it = keys.begin(); it != keys.end(); ++it)
-//        ui->paperKeyListReview->addItem(QString::fromStdString(*it));
-
-//    for(std::vector<Review>::iterator it = reviews.begin(); it != reviews.end(); ++it){
-//        if(it->paperID == theUser.getCurrentPaper().paperID){
-//            ui->commentsBestAward->setText(QString::fromStdString(it->commentsBestAward));
-//            ui->commentsShortPaper->setText(QString::fromStdString(it->commentsShortPaper));
-//            ui->commentsStrengths->setText(QString::fromStdString(it->commentsStrength));
-//            ui->commentsWeaknesses->setText(QString::fromStdString(it->commentsWeakness));
-//            ui->commentsSuggestions->setText(QString::fromStdString(it->commentsSuggestions));
-//        }
-
-//    }
+    std::vector<int> papersIdsToReview = theDB->getPaperIDsForAllocatedReviewer(theUser.userID, theConf.confID);
+    for(std::vector<int>::iterator itor = papersIdsToReview.begin(); itor != papersIdsToReview.end(); ++itor)
+        papers.push_back(theDB->fetchPaperSummary(*itor));
+    
+    for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
+        ui->selectPaperToReview->addItem(QString::fromStdString(it->paperName));
 }
 
 void MainWindow::populate_usersTab()
 {
-
-
+    clearAllTabs();
+    
+    std::vector<int> uID = theDB->getUserIDsForConf(theConf.confID);
+    std::vector<User> allUsers;
+    QString userT = "";
+    
+    for (std::vector<int>::iterator itor = uID.begin(); itor != uID.end(); ++itor) {
+        std::cout << *itor;
+        allUsers.push_back(theDB->fetchUserFromID(*itor, theConf.confID));
+        std::cout << allUsers.back().name << endl;
+    }
+    
+    for(std::vector<User>::iterator itor = allUsers.begin(); itor != allUsers.end(); ++itor)
+    {
+        int rows = ui->usersTable->rowCount();
+        ui->usersTable->insertRow(rows);
+        QTableWidgetItem* newItem = new QTableWidgetItem(QString::fromStdString(itor->name));
+        ui->usersTable->setItem(rows, 0, newItem);
+        newItem = new QTableWidgetItem(QString::fromStdString(itor->userName));
+        ui->usersTable->setItem(rows, 1, newItem);
+        
+        switch(itor->userType)
+        {
+            case AUTHOR:
+                userT = "Author"; break;
+            case REVIEWER:
+                userT = "Reviewer"; break;
+            case PCCHAIR:
+                userT = "PC Chair"; break;
+        }
+        newItem = new QTableWidgetItem(userT);
+        ui->usersTable->setItem(rows, 2, newItem);
+    }
 }
 
 void MainWindow::on_submit_clicked()
@@ -589,10 +599,10 @@ void MainWindow::on_submit_clicked()
     
     newPaper.confID = theConf.confID;
     newPaper.leadAuthorID = theUser.userID;
-
+    std::cout << "1" << std::endl;
     newPaper.title = ui->selectPaperAuthor->currentText().toStdString();
     existsPaper = theDB->existsPaperTitleConf(newPaper);
-
+std::cout << "2" << std::endl;
     // clear current auth details and populate list from gui
     newPaper.authors.clear();
     int numRows = ui->authorsTable->rowCount();
@@ -618,25 +628,27 @@ void MainWindow::on_submit_clicked()
     
     newPaper.confKeyword = ui->selectMainKey->currentText().toStdString();
     
-
+std::cout << "3" << std::endl;
     // if new paper upload pdf
     if (!existsPaper)
     {
-
         pdf = ui->selectFile->text().toStdString();
         theDB->createPaper(newPaper, pdf);
+        std::cout << "4" << std::endl;
     }
     else
     {
-
         std::string comment = ui->rebuttalEntry->toPlainText().toStdString();
         int reviewerID = theUser.userID;
-        
-        newPaper.discussion.discussion.push_back(DiscussionPost(comment, reviewerID));
-        
+        std::cout << "5" << std::endl;
+        theDB->createDiscussionPost(DiscussionPost(comment, reviewerID), newPaper.paperID, newPaper.confID);
+        std::cout << "6" << std::endl;
         theDB->updatePaper(newPaper);
+        std::cout << "7" << std::endl;
     }
+    std::cout << "8" << std::endl;
     aPaper = theDB->fetchPaper(newPaper.paperID);
+    std::cout << "9" << std::endl;
     popupBox("Paper Information", "Update Successful!");
 }
 
@@ -807,11 +819,18 @@ void MainWindow::on_selectPaperAuthor_currentIndexChanged(const QString &arg1)
 {
     ui->paperKeyListAuth->clear();
     ui->authorsTable->clear();
-
+    ui->selectMainKey->clear();
     ui->paperAbstract->clear();
+    ui->authorsTable->clearContents();
+    ui->rebuttalEntry->clear();
+    ui->selectFile->clear();
+    
     while (ui->authorsTable->rowCount() > 0)
         ui->authorsTable->removeRow(0);
 
+    if (arg1 == "*NEW PAPER*")
+        return;
+    
     for(std::vector<PaperSummary>::iterator it = papers.begin(); it != papers.end(); ++it)
     {
         if(it->paperName == arg1.toStdString())
@@ -837,6 +856,8 @@ void MainWindow::on_selectPaperAuthor_currentIndexChanged(const QString &arg1)
     for(std::vector<std::string>::iterator it = theConf.keywords.begin(); it != theConf.keywords.end(); ++it){
         ui->selectMainKey->addItem(QString::fromStdString(*it));
     }
+    
+    ui->selectMainKey->setCurrentIndex(ui->selectMainKey->findText(QString::fromStdString(aPaper.confKeyword)));
 }
 
 void MainWindow::on_selectPaperReviewer_currentIndexChanged(const QString &arg1)
@@ -848,9 +869,17 @@ void MainWindow::on_selectPaperReviewer_currentIndexChanged(const QString &arg1)
 //    for(std::vector<std::string> it = thePaper.keywords.begin(); it != thePaper.keywords.end(); ++it)
 //        ui->paperKeyListReviewer->addItem(QString::fromStdString(*it));
 //    ui->mainKeyReviewer->setText(QString::fromStdString(thePaper.confKeyword));
+    
+    
+    
+    
+    
+//    QString paperkeyword = "PAPER KEYWORD: ";
+//    paperkeyword.append(QString::fromStdString(aPaper.confKeyword));
+//    ui->mainKeyReviewer->setText(paperkeyword);
 }
 
-void MainWindow::on_selectPaperReview_currentIndexChanged(const QString &arg1)
+void MainWindow::on_selectPaperToReview_currentIndexChanged(const QString &arg1)
 {
  //similar to above except also fetch the appropriate review of the paper
 }
@@ -859,11 +888,6 @@ void MainWindow::on_reviewersTable_itemActivated(QTableWidgetItem *item)
 {
     //populate review values with the given reviewers review
     //the word review was used too many times in that sentence but you know what i mean
-}
-
-void MainWindow::on_papersTable_itemClicked(QTableWidgetItem *item)
-{
-    //populate paper info based upon the id of the paper selected
 }
 
 void MainWindow::clearAllTabs()
@@ -878,16 +902,53 @@ void MainWindow::clearAllTabs()
         widget->clear();
     foreach(QTextEdit *widget, this->findChildren<QTextEdit*>())
         widget->clear();
-    ui->selectPaperReviewer->clear();
-    foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
-        widget->clearContents();
     foreach(QSpinBox *widget, this->findChildren<QSpinBox*>())
         widget->clear();
+    foreach(QTableWidget *widget, this->findChildren<QTableWidget*>())
+    {
+        widget->clearContents();
+        while (widget->rowCount() > 0)
+            widget->removeRow(0);
+    }
+    foreach(QComboBox *widget, this->findChildren<QComboBox*>())
+    {
+        if (widget->toolTip() != "-1")
+            widget->clear();
+    }
     
-    ui->tabWidget->clear();
+    aPaper = Paper();
+    papers.clear();
 }
 
 void MainWindow::on_changeReviewer_clicked()
 {
     
+}
+
+void MainWindow::on_usersTable_itemClicked(QTableWidgetItem *item)
+{
+    QString uName = ui->usersTable->item(item->row(), 1)->text();
+    User auser = theDB->fetchUser(uName.toStdString(), theConf.title);
+    
+    ui->usernameMgr->setText(QString::fromStdString(auser.userName));
+    ui->userIDMgr->setText(QString::fromStdSTring(auser.userID));
+    ui->name->setText(QString::fromStdString(theUser.name));
+    ui->email->setText(QString::fromStdString(theUser.email));
+    ui->organisation->setText(QString::fromStdString(theUser.organisation));
+    ui->phone->setText(QString::fromStdString(theUser.phone));
+
+    for(std::vector<std::string>::iterator it = theUser.keywords.begin(); it != theUser.keywords.end(); ++it)
+        ui->authKeyList->addItem(QString::fromStdString(*it));
+
+    ui->conferenceName->setText(QString::fromStdString(theConf.title));
+    ui->confTopic->setText(QString::fromStdString(theConf.topic));
+    ui->confLocation->setText(QString::fromStdString(theConf.location));
+    ui->confDesc->append(QString::fromStdString(theConf.description));
+    for(std::vector<std::string>::iterator it = theConf.keywords.begin(); it != theConf.keywords.end(); ++it)
+        ui->confKeyListNoEdit->addItem(QString::fromStdString(*it));
+    ui->subDate->setText(QString::fromStdString(theConf.paperDeadline.convertToString()));
+    ui->discDate->setText(QString::fromStdString(theConf.discussDeadline.convertToString()));
+    ui->hReviewDate->setText(QString::fromStdString(theConf.reviewDeadlineHard.convertToString()));
+    ui->sReviewDate->setText(QString::fromStdString(theConf.reviewDeadlineSoft.convertToString()));
+    ui->allocDate->setText(QString::fromStdString((theConf.allocationDate.convertToString())));
 }

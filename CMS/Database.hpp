@@ -25,7 +25,7 @@ public:
     ~Database();
     
     void close();
-    
+
     // CREATE/UPDATE
     void createUser(User user);
     void updateUser(User user);
@@ -38,8 +38,9 @@ public:
     UserType_t adminFetchUserType(std::string username, std::string confTitle) throw (const char*);
     void adminChangeUserType(std::string username, std::string confTitle, UserType_t userType) throw (const char*);
 
-	// USER
+    // USER
     User fetchUser(std::string key, std::string confName) throw (const char*);
+    User fetchUserFromID(int key, int confID) throw (const char*);
     bool existsUserName(std::string key) throw (const char*); //works
     void putUser(std::string key, User user) throw (const char*);
     std::vector<int> allUserIDs();
@@ -51,12 +52,12 @@ public:
     void setUserAsChair(int userID, int confID) throw (const char*);
     void updateUserAsChair(int userID, int confID) throw (const char*);
 
-	// KEYWORD
+    // KEYWORD
     bool existsKeyword(std::string key) throw (const char*);
     void addKeyword(std::string key) throw (const char*);
 
-	// CONFERENCE
-	Conference fetchConference(std::string key) throw (const char*);
+    // CONFERENCE
+    Conference fetchConference(std::string key) throw (const char*);
     bool existsConfName(std::string key) throw (const char*);
     void putConf(std::string key, Conference conf) throw (const char*);
     std::vector<int> allConfIDs();
@@ -64,44 +65,44 @@ public:
     std::vector<int> activeConfIDs();
     std::vector<std::string> activeConfNames();
 
-	// PAPER
-	PaperSummary fetchPaperSummary(int key) throw (const char*);
+    // PAPER
+    PaperSummary fetchPaperSummary(int key) throw (const char*);
     std::vector<PaperSummary> allAuthorsPaperSummary(int confID, int leadAuthorID) throw (const char*);
     Paper fetchPaper(int key) throw (const char*);
-	bool existsPaperTitleConf(Paper paper) throw (const char*);
+    bool existsPaperTitleConf(Paper paper) throw (const char*);
     void createPaper(Paper paper, std::string pdf) throw (const char*);
     void updatePaper(Paper paper) throw (const char*);
-	void addPaperAccepted(int paperID, int confID) throw (const char*);
-	std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
+    void addPaperAccepted(int paperID, int confID) throw (const char*);
+    std::vector<int> fetchPaperAccepted(int confID) throw (const char*);
     std::string fetchPDF(int paperID, int confID) throw (const char*);
 
-	// REVIEW
-	Review fetchReview(int paperID, int reviewerID, int confID) throw (const char*);
-	void modifyReview(Review review, int confID) throw (const char*);
+    // REVIEW
+    Review fetchReview(int paperID, int reviewerID, int confID) throw (const char*);
+    void modifyReview(Review review, int confID) throw (const char*);
 
-	// DISCUSSION
-	Discussion fetchDiscussion(int paperID, int confID) throw (const char*);
-	DiscussionPost fetchRebuttal(int paperID, int userID, int confID) throw (const char*);
-	void createDiscussionPost(DiscussionPost discussionPost, int paperID, int confID) throw (const char*);
+    // DISCUSSION
+    Discussion fetchDiscussion(int paperID, int confID) throw (const char*);
+    DiscussionPost fetchRebuttal(int paperID, int userID, int confID) throw (const char*);
+    void createDiscussionPost(DiscussionPost discussionPost, int paperID, int confID) throw (const char*);
 
-	// ALGO
-	std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
-	std::string getOrganisationForAuthor(int infoID) throw (const char*);
-	std::vector<int> getReviewersForOrganisation(std::string org) throw (const char*);
-	std::vector<int> getPapersForAuthor(int authorID) throw (const char*);
-	std::vector<std::string> getKeywordsForPaper(int paperID) throw (const char*);
-	std::vector<std::string> getKeywordsForUser(int userID) throw (const char*);
-	std::vector<int> getReviewersForConf(int confID) throw (const char*);
-	int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
-	void setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*);
-	void assignPaper(int paperID, int reviewerID, int confID) throw (const char*);
+    // ALGO
+    std::vector<int> getAuthorsForPaper(int paperID) throw (const char*);
+    std::string getOrganisationForAuthor(int infoID) throw (const char*);
+    std::vector<int> getReviewersForOrganisation(std::string org) throw (const char*);
+    std::vector<int> getPapersForAuthor(int authorID) throw (const char*);
+    std::vector<std::string> getKeywordsForPaper(int paperID) throw (const char*);
+    std::vector<std::string> getKeywordsForUser(int userID) throw (const char*);
+    std::vector<int> getReviewersForConf(int confID) throw (const char*);
+    int getReviewerPreference(int userID, int confID, int paperID) throw (const char*);
+    void setReviewerPreference(int userID, int confID, int paperID, int preference) throw (const char*);
+    void assignPaper(int paperID, int reviewerID, int confID) throw (const char*);
 
-	std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*);
-	
-	std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
-	std::vector<int> getPaperIDsForAllocatedReviewer(int reviewerID, int confID) throw (const char*);
-	std::vector<int> getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*);
-	std::vector<int> getUserIDsForConf(int confID) throw (const char*);
+    std::vector<int> fetchReviewersAssigned(int paperID, int confID) throw (const char*);
+
+    std::vector<int> getPaperIDsForConf(int confID) throw (const char*);	
+    std::vector<int> getPaperIDsForAllocatedReviewer(int reviewerID, int confID) throw (const char*);
+    std::vector<int> getPaperIDsForLeadAuthor(int leadAuthorID, int confID) throw (const char*);
+    std::vector<int> getUserIDsForConf(int confID) throw (const char*);
 	
     bool isOK()
     {
