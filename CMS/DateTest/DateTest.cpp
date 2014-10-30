@@ -1,5 +1,5 @@
 #include "DateTest.hpp"
-#include "../CMS/Date.hpp"
+#include "../Date.hpp"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (DateTest);
 

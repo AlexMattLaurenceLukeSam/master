@@ -1,5 +1,5 @@
 #include "AlgoTest.hpp"
-#include "../CMS/Algo.hpp"
+#include "../Algo.hpp"
 
 CPPUNIT_TEST_SUITE_REGISTRATION (AlgoTest);
 
